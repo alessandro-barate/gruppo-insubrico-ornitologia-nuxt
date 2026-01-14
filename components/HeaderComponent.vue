@@ -670,6 +670,16 @@ onUnmounted(() => {
       li {
         margin-bottom: 0.3rem;
 
+        &:nth-child(even) {
+          justify-content: unset;
+          padding-left: 0;
+        }
+
+        &:nth-child(odd) {
+          justify-content: unset;
+          padding-right: 0%;
+        }
+
         a {
           font-size: clamp(1.4rem, 7vw, 2.5rem);
         }
