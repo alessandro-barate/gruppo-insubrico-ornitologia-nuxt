@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <mask id="cutout">
+      <!-- White = visible, Black = transparent -->
+      <rect width="512" height="512" rx="41" ry="41" fill="white"/>
+      <text x="90" y="410" font-family="Arial, sans-serif" font-size="460" font-weight="bold" fill="black">c</text>
+      <circle cx="435" cy="360" r="38" fill="black"/>
+    </mask>
+  </defs>
+  
+  <!-- Black rounded rectangle with cutout -->
+  <rect width="512" height="512" rx="41" ry="41" fill="#000000" mask="url(#cutout)"/>
+</svg>

@@ -1,0 +1,48 @@
+/********
+DISPLAY
+********/
+.d-flex {
+  display: flex;
+}
+
+.d-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 20px;
+}
+
+/************
+BACKGROUND
+************/
+.gradient-color,
+.gradient-color-subscribe,
+.gradient-color-subscribe-cookie {
+  background-image: linear-gradient(90deg, #0077ff, #e1e7dd);
+}
+
+.transparent {
+  color: transparent;
+}
+
+/*******
+BUTTON
+*******/
+button {
+  transition: color 0.5s ease-in-out;
+}
+
+/********
+OVERLAY
+********/
+.overlay {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+/*********
+UPPERCASE
+**********/
+.uppercase {
+  text-transform: uppercase;
+}

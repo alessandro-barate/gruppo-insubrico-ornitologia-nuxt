@@ -1,0 +1,10 @@
+<script setup>
+useSeoMeta({ title: 'Convegni | GIO', description: 'Convegni organizzati dal GIO.' })
+useHead({ link: [{ rel: 'canonical', href: 'https://gruppoinsubrico.com/divulgazione/convegni' }] })
+</script>
+<template>
+  <div class="container"><h1>Convegni</h1><p>Contenuto in sviluppo...</p>
+    <NuxtLink to="/divulgazione">← Torna alla divulgazione</NuxtLink>
+  </div>
+</template>
+<style scoped>.container { min-height: 80vh; padding: 6rem 2rem; text-align: center; }</style>
