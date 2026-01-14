@@ -855,6 +855,7 @@ onMounted(() => {
       .instagram,
       .newsletter,
       .change {
+        width: 100%;
         display: flex;
         padding-left: clamp(1rem, 3vw, 3rem);
         align-items: center;
@@ -862,7 +863,9 @@ onMounted(() => {
         margin-left: 0;
 
         a {
-          width: clamp(90px, 20%, 90px);
+          margin-left: 0;
+          margin-right: 0;
+          width: clamp(80px, 20%, 80px);
           min-width: 50px;
           z-index: 1;
           border-radius: 26px;
@@ -895,20 +898,8 @@ onMounted(() => {
         }
       }
 
-      .facebook a {
-        width: clamp(78px, 20%, 78px);
-      }
-
-      .instagram a {
-        width: clamp(86px, 20%, 86px);
-      }
-
-      .newsletter a {
-        width: clamp(84px, 20%, 84px);
-      }
-
       .change a {
-        width: clamp(105px, 20%, 105px);
+        width: clamp(107.7px, 20%, 107.7px);
       }
     }
   }
