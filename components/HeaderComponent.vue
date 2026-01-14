@@ -136,7 +136,7 @@ onUnmounted(() => {
                 </button>
               </div>
 
-              <ul class="nav-menu d-flex">
+              <ul class="nav-menu">
                 <li>
                   <a
                     href="/"
@@ -304,7 +304,7 @@ onUnmounted(() => {
 
       .list-page {
         width: 100vw;
-        height: 92vh;
+        height: calc(100vh - 60px);
         display: flex;
         flex-direction: column;
         position: fixed;
@@ -370,23 +370,25 @@ onUnmounted(() => {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          align-items: center;
+          align-items: stretch;
           padding: 4.5rem 3rem 1rem;
           list-style: none;
           margin: 0;
 
           li {
-            width: 60%;
+            width: 100%;
             position: relative;
             display: flex;
-            margin-bottom: 0.15rem;
+            margin-bottom: -8px;
             opacity: 0;
 
-            &:nth-child(odd) {
-              justify-content: flex-start;
-            }
             &:nth-child(even) {
               justify-content: flex-end;
+              padding-left: 45%;
+            }
+            &:nth-child(odd) {
+              justify-content: flex-start;
+              padding-right: 45%;
             }
 
             a {
@@ -428,10 +430,12 @@ onUnmounted(() => {
         }
 
         .menu-footer {
+          width: 100%;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 1.5rem 3rem;
+          padding-top: 1.5rem;
+          padding-bottom: 1.5rem;
           border-top: 1px solid rgba(255, 255, 255, 0.1);
 
           .newsletter-section form {
@@ -705,9 +709,11 @@ onUnmounted(() => {
         padding: 0;
         justify-content: center;
         li {
-          width: 85%;
+          width: 100%;
           margin-bottom: 0.25rem;
           justify-content: center !important;
+          padding-left: 0 !important;
+          padding-right: 0 !important;
           a {
             font-size: clamp(1.8rem, 10vw, 2.5rem);
           }
