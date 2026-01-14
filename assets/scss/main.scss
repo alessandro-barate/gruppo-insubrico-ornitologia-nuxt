@@ -6,11 +6,11 @@
 
 // Transizioni pagina Nuxt
 .page-enter-active {
-  transition: opacity 100ms ease-in;
+  transition: opacity 400ms ease-in;
 }
 
 .page-leave-active {
-  transition: opacity 100ms ease-out;
+  transition: opacity 400ms ease-out;
 }
 
 .page-enter-from {

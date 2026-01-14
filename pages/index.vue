@@ -237,7 +237,7 @@ onMounted(() => {
                   target="_blank"
                 >
                   <img
-                    src="~/assets/images/facebook.svg"
+                    src="~/assets/images/facebook.png"
                     alt="Facebook logo e link"
                   />
                 </a>
@@ -546,6 +546,7 @@ onMounted(() => {
 
     .card-logo {
       width: 100%;
+      padding-top: 1rem;
       margin-bottom: clamp(1rem, 2vw, 2rem);
 
       img {
@@ -616,6 +617,7 @@ onMounted(() => {
       gap: clamp(0.5rem, 2vw, 1rem);
 
       .activity-card {
+        width: 100%;
         border-radius: 0.5rem;
         position: relative;
         aspect-ratio: 1 / 1;
@@ -775,6 +777,7 @@ onMounted(() => {
     .contacts-text {
       width: 60%;
       color: white;
+      padding-top: 3rem;
 
       h2 {
         font-size: clamp(2.5rem, 8vw, 6rem);
@@ -856,14 +859,15 @@ onMounted(() => {
         padding-left: clamp(1rem, 3vw, 3rem);
         align-items: center;
         height: calc(100% / 3);
+        margin-left: 0;
 
         a {
-          width: clamp(50px, 20%, 80px);
+          width: clamp(90px, 20%, 90px);
           min-width: 50px;
           z-index: 1;
           border-radius: 26px;
           position: relative;
-          padding: 8px 6px 4px 6px;
+          padding: 8px 6px 8px 6px;
           border: 3px solid black;
 
           &::before {
@@ -891,9 +895,23 @@ onMounted(() => {
         }
       }
 
+      .facebook a {
+        padding: 6px 2px 6px 2px;
+        width: clamp(80px, 20%, 80px);
+      }
+
+      .instagram a {
+        padding: 6px 6px 6px 6px;
+        width: clamp(86px, 20%, 86px);
+      }
+
+      .newsletter a {
+        width: clamp(84px, 20%, 84px);
+      }
+
       .change a {
-        width: clamp(50px, 20%, 100px);
-        padding: 8px 6px 4px 6px;
+        width: clamp(105px, 20%, 105px);
+        padding: 8px 6px 8px 6px;
       }
     }
   }

@@ -283,7 +283,7 @@ onUnmounted(() => {
 
         .hamburger-menu {
           cursor: pointer;
-          margin-left: 3rem;
+          margin-left: 3.3rem;
 
           .bar {
             display: block;
