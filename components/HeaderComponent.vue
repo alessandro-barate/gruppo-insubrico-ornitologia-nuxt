@@ -283,6 +283,7 @@ onUnmounted(() => {
 
         .hamburger-menu {
           cursor: pointer;
+          margin-left: 3rem;
 
           .bar {
             display: block;
@@ -371,7 +372,7 @@ onUnmounted(() => {
           flex-direction: column;
           justify-content: center;
           align-items: stretch;
-          padding: 4.5rem 3rem 1rem;
+          padding: 4rem 0 1rem;
           list-style: none;
           margin: 0;
 
@@ -384,11 +385,11 @@ onUnmounted(() => {
 
             &:nth-child(even) {
               justify-content: flex-end;
-              padding-left: 45%;
+              padding-left: 35%;
             }
             &:nth-child(odd) {
               justify-content: flex-start;
-              padding-right: 45%;
+              padding-right: 35%;
             }
 
             a {
@@ -566,6 +567,7 @@ onUnmounted(() => {
           button {
             border: none;
             cursor: pointer;
+            margin-right: 0;
             background-color: transparent;
 
             img {
@@ -650,32 +652,40 @@ onUnmounted(() => {
       top: 1.5rem;
       left: 2rem;
     }
+
     .close-button-container {
       top: 1.5rem;
       right: 2rem;
+
       button img {
         width: 35px;
         height: 35px;
       }
     }
+
     .nav-menu {
       margin-top: 2rem;
-      padding: 4rem 2rem 0.5rem;
+      padding: 2rem 2rem 0.5rem;
+
       li {
-        margin-bottom: 1.5rem;
+        margin-bottom: 0.3rem;
+
         a {
-          font-size: clamp(1.4rem, 6vw, 2.5rem);
+          font-size: clamp(1.4rem, 7vw, 2.5rem);
         }
       }
     }
+
     .menu-footer {
       flex-direction: column;
       gap: 0.75rem;
       padding: 0.75rem 2rem;
       text-align: center;
+
       .company-name {
         display: none;
       }
+
       .social-links {
         gap: 1.5rem;
       }
@@ -689,42 +699,52 @@ onUnmounted(() => {
       width: 30px;
       height: 2px;
     }
+
     .list-page {
       .menu-logo {
         top: 1rem;
         left: 1.5rem;
+
         span {
           font-size: 1.2rem;
         }
       }
+
       .close-button-container {
         top: 1rem;
         right: 1.5rem;
+
         button img {
           width: 30px;
           height: 30px;
         }
       }
+
       .nav-menu {
         padding: 0;
         justify-content: center;
+
         li {
           width: 100%;
           margin-bottom: 0.25rem;
           justify-content: center !important;
           padding-left: 0 !important;
           padding-right: 0 !important;
+
           a {
             font-size: clamp(1.8rem, 10vw, 2.5rem);
           }
         }
       }
+
       .menu-footer {
         padding: 1rem 1.5rem;
+
         .newsletter-section form input {
           width: 150px;
           font-size: 0.75rem;
         }
+
         .social-links {
           gap: 1rem;
         }
