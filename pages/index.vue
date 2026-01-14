@@ -867,7 +867,7 @@ onMounted(() => {
           z-index: 1;
           border-radius: 26px;
           position: relative;
-          padding: 8px 6px 8px 6px;
+          padding: 6px 6px 6px 6px;
           border: 3px solid black;
 
           &::before {
@@ -896,12 +896,10 @@ onMounted(() => {
       }
 
       .facebook a {
-        padding: 6px 2px 6px 2px;
-        width: clamp(80px, 20%, 80px);
+        width: clamp(78px, 20%, 78px);
       }
 
       .instagram a {
-        padding: 6px 6px 6px 6px;
         width: clamp(86px, 20%, 86px);
       }
 
@@ -911,7 +909,6 @@ onMounted(() => {
 
       .change a {
         width: clamp(105px, 20%, 105px);
-        padding: 8px 6px 8px 6px;
       }
     }
   }
