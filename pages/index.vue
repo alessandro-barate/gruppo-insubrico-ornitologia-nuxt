@@ -1051,16 +1051,15 @@ onMounted(() => {
           margin-right: auto;
         }
 
-        .facebook a {
-          width: 33%;
-        }
+        .facebook a,
+        .instagram a,
+        .newsletter a,
+        .change a {
+          width: 13%;
 
-        .instagram a {
-          width: 38%;
-        }
-
-        .newsletter a {
-          width: 27%;
+          img {
+            width: 100%;
+          }
         }
 
         .space {
@@ -1081,10 +1080,6 @@ onMounted(() => {
             padding-top: 1rem;
             padding-left: 1.5rem;
           }
-        }
-
-        .change a {
-          width: clamp(50px, 25%, 100px);
         }
       }
     }
@@ -1165,6 +1160,13 @@ onMounted(() => {
 
       .contacts-box {
         .socials-container {
+          .facebook a,
+          .instagram a,
+          .newsletter a,
+          .change a {
+            width: 16%;
+          }
+
           .facebook,
           .instagram,
           .newsletter,
