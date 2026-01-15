@@ -232,14 +232,15 @@ const display = (section: string) => {
               <h3>ISCRIZIONE ANNUALE</h3>
               <p>
                 Chiunque condivida gli scopi della nostra associazione e abbia
-                un po' di tempo libero da dedicare a questa particolare forma di
-                "volontariato di ricerca", o voglia comunque sostenere il GIO,
+                un po’ di tempo libero da dedicare a questa particolare forma di
+                “volontariato di ricerca”, o voglia comunque sostenere il GIO,
                 può iscriversi pagando una quota annuale di 20 euro (10 euro per
                 minorenni e studenti).
                 <br />
-                La quota di iscrizione comprende l'assicurazione "responsabilità
-                civile" obbligatoria per le onlus. All'iscrizione il GIO
-                rilascia una tessera, con il "bollino" di validità dell'anno in
+                <br />
+                La quota di iscrizione comprende l’assicurazione “responsabilità
+                civile” obbligatoria per le onlus. All’iscrizione il GIO
+                rilascia una tessera, con il “bollino” di validità dell’anno in
                 corso, a cui si aggiungeranno i successivi bollini annuali
                 adesivi.
               </p>
@@ -259,9 +260,16 @@ const display = (section: string) => {
                 Presidente tempestivamente per mail a tutti i soci, che possono
                 proporre ulteriori argomenti o apportare modifiche.
                 <br />
+                <br />
                 Gli incontri ufficiali (come l'assemblea annuale) vengono invece
                 tenuti presso la nostra sede al Civico Museo Insubrico di Storia
                 Naturale a Clivio (VA).
+                <br />
+                <br />
+                Le riunioni mensili sono incontri informali in cui ci si
+                confronta anche su osservazioni ornitologiche, viaggi
+                naturalistici, commenti e visione di pubblicazioni e fotografie
+                ecc.
               </p>
             </div>
 
@@ -272,9 +280,17 @@ const display = (section: string) => {
             >
               <h3>COMUNICAZIONI TRA SOCI</h3>
               <p>
-                I soci comunicano principalmente tramite una mailing list
-                riservata, dove vengono condivise osservazioni, notizie e
-                aggiornamenti sulle attività dell'associazione.
+                Tutti i soci sono compresi nella mailing-list del GIO,
+                attraverso cui si viene informati dell’intera attività del
+                gruppo. Alcuni argomenti, di solito quelli più formali e
+                amministrativi, vengono trattati dal Consiglio Direttivo, che ne
+                informa quindi il resto dei soci in occasione delle riunioni
+                mensili.
+                <br />
+                <br />
+                Abbiamo anche un Tesoriere e un Vice-tesoriere che si occupano
+                delle questioni finanziarie come le entrate e le uscite, il
+                rendiconto economico, i rimborsi spese e acquisti vari.
               </p>
             </div>
           </div>
@@ -316,7 +332,7 @@ button {
   }
 
   .jumbo-bg {
-    background: url(/src/assets/images/jumbo.webp) center/cover no-repeat;
+    background: url(/assets/images/jumbo.webp) center/cover no-repeat;
 
     .title {
       text-align: center;
@@ -615,7 +631,7 @@ button {
       left: 50%;
       transform: translateX(-50%);
       width: 70%;
-      margin-top: 2rem;
+      margin-top: 4rem;
       padding-left: 2rem;
       padding-right: 2rem;
       border-left: 2px solid black;

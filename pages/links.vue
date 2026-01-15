@@ -106,7 +106,8 @@ const getCategoryName = (categoryKey: string) => {
         grid-template-columns: 1fr 1fr 1fr;
 
         .column {
-          height: 45rem;
+          width: 100%;
+          height: 50rem;
           position: relative;
           border-radius: 1rem;
           perspective: 3000px;
