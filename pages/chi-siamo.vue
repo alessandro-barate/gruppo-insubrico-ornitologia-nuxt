@@ -680,7 +680,7 @@ button {
         margin-left: 0.5rem;
         border: none;
         border-radius: 0.3rem;
-        transition: all 1s;
+        transition: all 1.5s;
         background: linear-gradient(90deg, #d2420d, #ffbf00);
 
         &.highlight {
@@ -798,7 +798,8 @@ button {
     }
 
     .subscribe-section {
-      height: 140vh;
+      height: 145vh;
+
       .subscribe-container {
         .subscribe-box {
           .third-line {
@@ -807,15 +808,20 @@ button {
           }
 
           .details-container {
-            width: 100%;
+            width: 65%;
 
             .selection-bar {
               flex-direction: column;
+              align-items: center;
 
               .selector {
-                width: 80%;
+                width: 100%;
                 margin-left: 0;
-                margin-bottom: 1rem;
+                margin-bottom: 1.5rem;
+
+                span {
+                  font-size: 1.3rem;
+                }
               }
             }
           }
