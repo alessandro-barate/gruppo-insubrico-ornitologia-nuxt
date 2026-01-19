@@ -13,14 +13,54 @@ useHead({
 // Import links dal composable
 const links = useLinks();
 
-// Funzione per ottenere il nome categoria
-const getCategoryName = (categoryKey: string) => {
-  const names: Record<string, string> = {
-    ornithology: "Ornitologia",
-    birdwatching: "Birdwatching",
-    nature: "Natura",
-  };
-  return names[categoryKey] || categoryKey;
+// Categoria attiva
+const activeCategory = ref<string>("ornithology");
+
+// Dati categorie con nomi e configurazione colonne
+const categories = {
+  ornithology: {
+    name: "Ornitologia",
+    columns: 2,
+    centered: false,
+  },
+  birdwatching: {
+    name: "Birdwatching",
+    columns: 1,
+    centered: true,
+  },
+  nature: {
+    name: "Natura",
+    columns: 2,
+    centered: true,
+  },
+};
+
+// Cambio categoria
+const setCategory = (categoryKey: string) => {
+  activeCategory.value = categoryKey;
+};
+
+// Divide array in chunks per le colonne
+const chunkArray = <T,>(array: T[], chunkSize: number): T[][] => {
+  const chunks: T[][] = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    chunks.push(array.slice(i, i + chunkSize));
+  }
+  return chunks;
+};
+
+// Links della categoria divisi in colonne
+const getLinksColumns = (categoryKey: string) => {
+  const categoryLinks = links[categoryKey] || [];
+  const config = categories[categoryKey as keyof typeof categories];
+  const columns = config?.columns || 2;
+
+  if (columns === 1) {
+    return [categoryLinks];
+  }
+
+  const itemsPerColumn = Math.ceil(categoryLinks.length / columns);
+  return chunkArray(categoryLinks, itemsPerColumn);
 };
 </script>
 
@@ -35,36 +75,53 @@ const getCategoryName = (categoryKey: string) => {
           </div>
         </section>
 
-        <!-- Grid -->
-        <section class="grid-container">
-          <div class="grid-table">
+        <!-- Horizontal Accordion -->
+        <section class="accordion-section">
+          <div class="accordion-container">
             <div
-              class="column"
-              v-for="(category, categoryKey) in links"
-              :key="categoryKey"
+              v-for="(category, key) in categories"
+              :key="key"
+              class="accordion-panel"
+              :class="[`bg-${key}`, { active: activeCategory === key }]"
+              @click="setCategory(key as string)"
             >
-              <div class="column-inner">
-                <!-- Front card -->
-                <div
-                  class="column-front gradient-color"
-                  :class="`bg-${categoryKey}`"
-                >
-                  <p class="front-text">
-                    {{ getCategoryName(categoryKey as string) }}
-                  </p>
-                </div>
+              <!-- Overlay scuro -->
+              <div class="panel-overlay"></div>
 
-                <!-- Back card -->
-                <div class="column-back gradient-color d-flex">
-                  <p
-                    class="back-link"
-                    v-for="(link, index) in category"
-                    :key="index"
+              <!-- Tab label (sempre visibile) -->
+              <div class="panel-tab">
+                <span class="tab-text">{{ category.name }}</span>
+              </div>
+
+              <!-- Separator -->
+              <div class="panel-separator"></div>
+
+              <!-- Content (visibile solo quando attivo) -->
+              <div class="panel-content">
+                <div
+                  class="links-columns"
+                  :class="{ centered: category.centered }"
+                >
+                  <ul
+                    v-for="(column, colIndex) in getLinksColumns(key as string)"
+                    :key="colIndex"
+                    class="links-list"
                   >
-                    <a :href="link.href" target="_blank" class="link-inside">
-                      {{ link.title }}
-                    </a>
-                  </p>
+                    <li
+                      v-for="(link, index) in column"
+                      :key="index"
+                      class="link-item"
+                    >
+                      <a
+                        :href="link.href"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        @click.stop
+                      >
+                        {{ link.title }}
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -92,151 +149,170 @@ const getCategoryName = (categoryKey: string) => {
       padding-top: 10rem;
       text-align: center;
     }
+  }
+}
 
-    .grid-container {
-      padding-top: 7rem;
+.accordion-section {
+  padding: 0 5%;
+  padding-top: 7rem;
+}
 
-      .grid-table {
-        gap: 5rem;
-        width: 85%;
-        margin: 0 auto;
-        display: grid;
-        text-align: center;
-        perspective: 2000px;
-        grid-template-columns: 1fr 1fr 1fr;
+.accordion-container {
+  display: flex;
+  width: 85%;
+  margin: 0 auto;
+  height: 70vh;
+  min-height: 500px;
+  max-height: 800px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
 
-        .column {
-          width: 100%;
-          height: 50rem;
-          position: relative;
-          border-radius: 1rem;
-          perspective: 3000px;
+.accordion-panel {
+  position: relative;
+  flex: 0 0 60px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: flex 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 
-          &:hover .column-inner {
-            transform: rotateY(180deg);
-          }
+  &.bg-ornithology {
+    background-image: url(../assets/images/poiana.webp);
+  }
 
-          .column-inner {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-          }
+  &.bg-birdwatching {
+    background-image: url(../assets/images/birdwatching.webp);
+  }
 
-          .column-front {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            backface-visibility: hidden;
-            border-radius: 1rem;
-            border: 0.13rem solid rgba(0, 0, 0, 0.8);
-            transform-style: preserve-3d;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-size: cover;
-            background-position: center;
-            position: relative;
+  &.bg-nature {
+    background-image: url(../assets/images/nature.webp);
+  }
 
-            &::before {
-              content: "";
-              z-index: 1;
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              background: rgba(0, 0, 0, 0.3);
-              border-radius: 1rem;
-            }
+  &.active {
+    flex: 1 1 auto;
+    cursor: default;
 
-            &.bg-ornithology,
-            &.bg-birdwatching,
-            &.bg-nature {
-              background-size: cover;
-              background-position: center;
-            }
+    .panel-overlay {
+      background: linear-gradient(
+        90deg,
+        rgb(0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.4) 30%,
+        rgba(0, 0, 0, 0.7) 100%
+      );
+    }
 
-            &.bg-ornithology {
-              background-image: url(../assets/images/poiana.webp);
-            }
+    .panel-content {
+      opacity: 1;
+      visibility: visible;
+      transition-delay: 0.3s;
+    }
 
-            &.bg-birdwatching {
-              background-image: url(../assets/images/birdwatching.webp);
-            }
+    .panel-tab {
+      background: transparent;
+    }
+  }
 
-            &.bg-nature {
-              background-image: url(../assets/images/nature.webp);
-            }
+  &:not(.active):hover {
+    flex: 0 0 80px;
 
-            p {
-              color: white;
-              font-size: 2rem;
-              position: relative;
-              z-index: 2;
-              letter-spacing: 2px;
-              transform: translateZ(30px);
-            }
-          }
+    .panel-overlay {
+      background: rgba(0, 0, 0, 0.4);
+    }
+  }
+}
 
-          .column-back {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            backface-visibility: hidden;
-            border-radius: 1rem;
-            border: 0.13rem solid rgba(0, 0, 0, 0.8);
-            transform-style: preserve-3d;
-            transform: rotateY(180deg);
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0.4rem;
+.panel-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  transition: background 0.4s ease;
+  z-index: 1;
+}
 
-            &::before {
-              content: "";
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              background: rgba(0, 0, 0, 0.2);
-              border-radius: 1rem;
-              z-index: 1;
-              pointer-events: none;
-            }
+.panel-tab {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.4s ease;
+}
 
-            .back-link {
-              color: white;
-              font-size: 1rem;
-              position: relative;
-              z-index: 2;
-              letter-spacing: 2px;
-              transform: translateZ(30px);
-              padding: 0.4rem 1rem;
-              border-radius: 0.5rem;
-              cursor: pointer;
-              text-underline-offset: 0.2rem;
+.tab-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: white;
+  white-space: nowrap;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
 
-              .link-inside {
-                color: white;
-                text-decoration: underline;
-                display: block;
-                transition: all 0.5s ease-in-out;
+.panel-separator {
+  position: absolute;
+  right: 0;
+  top: 5%;
+  bottom: 5%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 5;
+}
 
-                &:hover {
-                  color: rgb(0, 0, 0);
-                }
-              }
-            }
-          }
-        }
-      }
+.panel-content {
+  position: absolute;
+  left: 80px;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
+}
+
+.links-columns {
+  display: flex;
+  gap: 3rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  &.centered {
+    justify-content: center;
+  }
+}
+
+.links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.link-item {
+  a {
+    color: white;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+
+    &:hover {
+      color: rgba(255, 140, 0, 0.9);
     }
   }
 }
@@ -245,13 +321,39 @@ const getCategoryName = (categoryKey: string) => {
 // MEDIA QUERIES - TABLET
 // ==========================================
 @media (max-width: 992px) {
-  .row {
-    .col {
-      .grid-container {
-        .grid-table {
-          display: block;
-        }
-      }
+  .accordion-container {
+    height: 60vh;
+    min-height: 450px;
+  }
+
+  .accordion-panel {
+    flex: 0 0 50px;
+
+    &:not(.active):hover {
+      flex: 0 0 65px;
+    }
+  }
+
+  .panel-tab {
+    width: 50px;
+  }
+
+  .tab-text {
+    font-size: 0.9rem;
+  }
+
+  .panel-content {
+    left: 60px;
+    right: 20px;
+  }
+
+  .links-columns {
+    gap: 2rem;
+  }
+
+  .link-item {
+    a {
+      font-size: 0.9rem;
     }
   }
 }
@@ -260,5 +362,83 @@ const getCategoryName = (categoryKey: string) => {
 // MEDIA QUERIES - MOBILE
 // ==========================================
 @media (max-width: 576px) {
+  .row {
+    .col {
+      .title-container {
+        padding-top: 8rem;
+      }
+    }
+  }
+
+  .accordion-section {
+    padding: 0 3%;
+    padding-top: 5rem;
+  }
+
+  .accordion-container {
+    width: 100%;
+    flex-direction: column;
+    height: auto;
+    min-height: unset;
+    max-height: unset;
+  }
+
+  .accordion-panel {
+    flex: 0 0 60px;
+    min-height: 60px;
+
+    &.active {
+      flex: 0 0 auto;
+      min-height: 350px;
+    }
+
+    &:not(.active):hover {
+      flex: 0 0 70px;
+    }
+  }
+
+  .panel-tab {
+    width: 100%;
+    height: 60px;
+    top: 0;
+    bottom: unset;
+  }
+
+  .tab-text {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 0.85rem;
+  }
+
+  .panel-separator {
+    left: 5%;
+    right: 5%;
+    top: unset;
+    bottom: 0;
+    width: unset;
+    height: 1px;
+  }
+
+  .panel-content {
+    left: 15px;
+    right: 15px;
+    top: 70px;
+    transform: none;
+  }
+
+  .links-columns {
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &.centered {
+      align-items: center;
+    }
+  }
+
+  .link-item {
+    a {
+      font-size: 0.85rem;
+    }
+  }
 }
 </style>
