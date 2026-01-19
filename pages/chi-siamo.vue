@@ -16,6 +16,7 @@ useHead({
 // Stato
 const activeSection = ref("");
 const isPanelOpen = ref(false);
+const isModalOpen = ref(false);
 
 // Toggle panel direttivo
 const togglePanel = () => {
@@ -25,6 +26,12 @@ const togglePanel = () => {
 // Mostra/nascondi sezioni iscrizione
 const display = (section: string) => {
   activeSection.value = section;
+  isModalOpen.value = true;
+};
+
+// Chiudi modal
+const closeModal = () => {
+  isModalOpen.value = false;
 };
 </script>
 
@@ -32,7 +39,7 @@ const display = (section: string) => {
   <div class="container">
     <div class="row">
       <div class="col">
-        <!-- Title -->
+        <!-- Jumbo -->
         <section class="title-section jumbo-bg">
           <div class="overlay">
             <div class="title uppercase">
@@ -295,6 +302,72 @@ const display = (section: string) => {
             </div>
           </div>
         </section>
+
+        <!-- Modal per tablet -->
+        <div class="modal-overlay" :class="{ active: isModalOpen }">
+          <div class="modal-content">
+            <button class="modal-close" @click="closeModal">
+              <span>&times;</span>
+            </button>
+
+            <!-- Yearly subscription -->
+            <div v-if="activeSection === 'year'" class="modal-body">
+              <h3>ISCRIZIONE ANNUALE</h3>
+              <p>
+                Chiunque condivida gli scopi della nostra associazione e abbia
+                un po' di tempo libero da dedicare a questa particolare forma di
+                "volontariato di ricerca", o voglia comunque sostenere il GIO,
+                può iscriversi pagando una quota annuale di 20 euro (10 euro per
+                minorenni e studenti).
+                <br /><br />
+                La quota di iscrizione comprende l'assicurazione "responsabilità
+                civile" obbligatoria per le onlus. All'iscrizione il GIO
+                rilascia una tessera, con il "bollino" di validità dell'anno in
+                corso, a cui si aggiungeranno i successivi bollini annuali
+                adesivi.
+              </p>
+            </div>
+
+            <!-- Monthly meetings -->
+            <div v-if="activeSection === 'month'" class="modal-body">
+              <h3>RIUNIONI MENSILI</h3>
+              <p>
+                Ci riuniamo il secondo lunedì di ogni mese (escluso agosto, di
+                solito) in un locale presso il Comune di Casciago (VA), dove ci
+                aggiorniamo sui progetti in corso, proponiamo e organizziamo
+                iniziative con un "ordine del giorno" che viene mandato dal
+                Presidente tempestivamente per mail a tutti i soci, che possono
+                proporre ulteriori argomenti o apportare modifiche.
+                <br /><br />
+                Gli incontri ufficiali (come l'assemblea annuale) vengono invece
+                tenuti presso la nostra sede al Civico Museo Insubrico di Storia
+                Naturale a Clivio (VA).
+                <br /><br />
+                Le riunioni mensili sono incontri informali in cui ci si
+                confronta anche su osservazioni ornitologiche, viaggi
+                naturalistici, commenti e visione di pubblicazioni e fotografie
+                ecc.
+              </p>
+            </div>
+
+            <!-- Members communications -->
+            <div v-if="activeSection === 'members'" class="modal-body">
+              <h3>COMUNICAZIONI TRA SOCI</h3>
+              <p>
+                Tutti i soci sono compresi nella mailing-list del GIO,
+                attraverso cui si viene informati dell'intera attività del
+                gruppo. Alcuni argomenti, di solito quelli più formali e
+                amministrativi, vengono trattati dal Consiglio Direttivo, che ne
+                informa quindi il resto dei soci in occasione delle riunioni
+                mensili.
+                <br /><br />
+                Abbiamo anche un Tesoriere e un Vice-tesoriere che si occupano
+                delle questioni finanziarie come le entrate e le uscite, il
+                rendiconto economico, i rimborsi spese e acquisti vari.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -317,6 +390,7 @@ button {
   position: relative;
   border: none;
 }
+
 // Jumbo section
 .col {
   .title-section {
@@ -543,7 +617,7 @@ button {
 
 // Subscribe section
 .subscribe-section {
-  height: 140vh;
+  height: 105vh;
   margin-top: 3rem;
   position: relative;
   padding-top: 12rem;
@@ -552,7 +626,8 @@ button {
   background-repeat: no-repeat;
   background-attachment: fixed;
 
-  background-image: linear-gradient(90deg, #0077ffd9, #e9e9e9d9),
+  background-image:
+    linear-gradient(90deg, #0077ffd9, #e9e9e9d9),
     url(../assets/images/gruppo-angera.webp);
 
   &::after {
@@ -691,10 +766,163 @@ button {
   opacity: 0;
 }
 
+// Modal nascosto su desktop
+.modal-overlay {
+  display: none;
+}
+
 // ==========================================
 // MEDIA QUERIES - TABLET
 // ==========================================
 @media (max-width: 992px) {
+  .col {
+    .article-container {
+      .paragraphs-container {
+        width: 100%;
+
+        .first-paragraph {
+          width: 90%;
+        }
+
+        .first-line {
+          left: 0;
+          width: 75%;
+        }
+      }
+    }
+
+    .team-container {
+      .team-image img {
+        width: 80%;
+      }
+    }
+
+    .subscribe-section {
+      height: 140vh;
+      .subscribe-container {
+        .subscribe-box {
+          .third-line {
+            left: 0;
+            width: 100%;
+          }
+
+          .details-container {
+            width: 100%;
+
+            .selection-bar {
+              flex-direction: column;
+
+              .selector {
+                width: 80%;
+                margin-left: 0;
+                margin-bottom: 1rem;
+              }
+            }
+          }
+        }
+      }
+
+      .details-container {
+        .selection-bar {
+          .selector {
+            &.highlight {
+              background: linear-gradient(90deg, #d2420d, #ffbf00) !important;
+            }
+
+            &:hover {
+              background: linear-gradient(90deg, #d2420d, #ffbf00);
+            }
+          }
+        }
+      }
+
+      // Nascondo i paragrafi normali su tablet
+      .subscribe-text-bottom {
+        display: none;
+      }
+    }
+  }
+
+  // Modal styles per tablet
+  .modal-overlay {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .modal-content {
+    position: relative;
+    background: white;
+    width: 85%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 1rem;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+
+    .active & {
+      transform: translateY(0);
+    }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+
+    span {
+      font-size: 2.5rem;
+      line-height: 1;
+      color: #333;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+
+      span {
+        color: #d2420d;
+      }
+    }
+  }
+
+  .modal-body {
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #444;
+    }
+  }
 }
 
 // ==========================================
