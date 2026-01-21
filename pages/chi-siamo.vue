@@ -225,6 +225,7 @@ const closeModal = () => {
                     <p class="number">1</p>
                     <p>iscrizione</p>
                     <p>annuale</p>
+                    <hr />
                     <div class="find-out-more-container">
                       <p class="find-out-more">Scopri di più</p>
                       <button @click="toggleSection('year')">
@@ -240,6 +241,7 @@ const closeModal = () => {
                     <p class="number">2</p>
                     <p>riunioni</p>
                     <p>mensili</p>
+                    <hr />
                     <div class="find-out-more-container">
                       <p class="find-out-more">Scopri di più</p>
                       <button @click="toggleSection('month')">
@@ -255,6 +257,7 @@ const closeModal = () => {
                     <p class="number">3</p>
                     <p>comunicazioni</p>
                     <p>tra soci</p>
+                    <hr />
                     <div class="find-out-more-container">
                       <p class="find-out-more">Scopri di più</p>
                       <button @click="toggleSection('members')">
@@ -727,12 +730,21 @@ button {
       justify-content: center;
 
       .selector {
+        font-size: 1.2rem;
         padding: 1rem 2rem;
         margin-left: 2rem;
         border: none;
         border-radius: 0.7rem;
-        transition: all 0.3s;
-        background: linear-gradient(90deg, #d2420d, #ffbf00);
+        transition: all 0.8s;
+        // background: linear-gradient(90deg, #d2420d, #ffbf00);
+        background: linear-gradient(90deg, #ffffff, #0d59d2);
+
+        hr {
+          border: none;
+          margin-top: 5rem;
+          margin-bottom: 1.5rem;
+          border-top: 1px solid black;
+        }
 
         .number {
           margin-bottom: 1rem;
@@ -744,15 +756,20 @@ button {
 
         .find-out-more-container {
           display: flex;
-          margin-top: 5rem;
           align-items: center;
           padding-bottom: 1rem;
 
           img {
             width: 100%;
+            transition: transform 0.6s;
+
+            &:hover {
+              transform: scale(1.2);
+            }
           }
 
           .find-out-more {
+            font-size: 1rem;
             margin-left: 0;
             text-transform: none;
           }
@@ -768,11 +785,15 @@ button {
         }
 
         &.highlight {
+          transform: translate(10px, -10px);
           background: rgb(241, 241, 135) !important;
+          box-shadow: -10px 10px rgba(80, 80, 80, 0.7);
         }
 
         &:hover {
           background: beige;
+          transform: translate(10px, -10px);
+          box-shadow: -10px 10px rgba(80, 80, 80, 0.7);
         }
       }
     }
