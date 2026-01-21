@@ -17,6 +17,48 @@ useHead({
 const activeSection = ref("");
 const isPanelOpen = ref(false);
 const isModalOpen = ref(false);
+const textContentRef = ref<HTMLElement | null>(null);
+
+// Funzione di easing smooth (ease-out-quart - rallenta dolcemente)
+const easeOutQuart = (t: number): number => {
+  return 1 - Math.pow(1 - t, 4);
+};
+
+// Scroll smooth custom con callback alla fine
+const smoothScrollTo = (
+  element: HTMLElement,
+  duration: number = 800,
+  offset: number = 0,
+  onComplete?: () => void,
+) => {
+  const elementRect = element.getBoundingClientRect();
+  const targetPosition =
+    elementRect.top +
+    window.pageYOffset -
+    window.innerHeight / 2 +
+    element.offsetHeight / 2 +
+    offset;
+  const startPosition = window.pageYOffset;
+  const distance = targetPosition - startPosition;
+  let startTime: number | null = null;
+
+  const animation = (currentTime: number) => {
+    if (startTime === null) startTime = currentTime;
+    const timeElapsed = currentTime - startTime;
+    const progress = Math.min(timeElapsed / duration, 1);
+    const easedProgress = easeOutQuart(progress);
+
+    window.scrollTo(0, startPosition + distance * easedProgress);
+
+    if (timeElapsed < duration) {
+      requestAnimationFrame(animation);
+    } else if (onComplete) {
+      onComplete();
+    }
+  };
+
+  requestAnimationFrame(animation);
+};
 
 // Toggle panel direttivo
 const togglePanel = () => {
@@ -25,10 +67,23 @@ const togglePanel = () => {
 
 // Toggle sezioni iscrizione (per desktop - toggle on/off)
 const toggleSection = (section: string) => {
+  // Caso 1: clicco lo stesso bottone → chiudo
   if (activeSection.value === section) {
     activeSection.value = "";
-  } else {
+  }
+  // Caso 2: c'è già una sezione aperta → cambio solo il contenuto (no scroll)
+  else if (activeSection.value !== "") {
     activeSection.value = section;
+  }
+  // Caso 3: apertura da zero → scroll + poi mostra contenuto
+  else {
+    if (textContentRef.value) {
+      smoothScrollTo(textContentRef.value, 800, 150, () => {
+        activeSection.value = section;
+      });
+    } else {
+      activeSection.value = section;
+    }
   }
 };
 
@@ -218,6 +273,7 @@ const closeModal = () => {
               <!-- Buttons container - Desktop -->
               <div class="details-container desktop-only">
                 <div class="selection-bar">
+                  <!-- First card -->
                   <div
                     class="selector uppercase"
                     :class="{ highlight: activeSection === 'year' }"
@@ -234,6 +290,7 @@ const closeModal = () => {
                     </div>
                   </div>
 
+                  <!-- Second card -->
                   <div
                     class="selector uppercase"
                     :class="{ highlight: activeSection === 'month' }"
@@ -250,6 +307,7 @@ const closeModal = () => {
                     </div>
                   </div>
 
+                  <!-- Third card -->
                   <div
                     class="selector uppercase"
                     :class="{ highlight: activeSection === 'members' }"
@@ -269,6 +327,7 @@ const closeModal = () => {
 
                 <!-- Contenitore testi con sfondo azzurro -->
                 <div
+                  ref="textContentRef"
                   class="text-content-wrapper"
                   :class="{ active: activeSection !== '' }"
                 >
@@ -672,7 +731,6 @@ button {
   margin-top: 3rem;
   position: relative;
   padding-top: 12rem;
-  padding-bottom: 5rem;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -733,7 +791,7 @@ button {
         font-size: 1.2rem;
         padding: 1rem 2rem;
         margin-left: 2rem;
-        border: none;
+        border: 1px solid black;
         border-radius: 0.7rem;
         transition: all 0.8s;
         // background: linear-gradient(90deg, #d2420d, #ffbf00);
@@ -801,13 +859,20 @@ button {
     // Wrapper per i testi con sfondo azzurro
     .text-content-wrapper {
       margin-top: 3rem;
-      background: rgba(0, 100, 200, 0.9);
-      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 0;
       padding: 0;
       max-height: 0;
       overflow: hidden;
       opacity: 0;
       transition: all 0.5s ease;
+      border-bottom: 1px solid black;
+
+      // Full width breakout
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
 
       &.active {
         padding: 2rem 2.5rem;
@@ -818,7 +883,6 @@ button {
       .choice-bottom-paragraph {
         display: none;
         text-align: center;
-        color: white;
 
         &.show {
           display: block;
@@ -828,13 +892,13 @@ button {
         h3 {
           font-size: 1.5rem;
           margin-bottom: 1.5rem;
-          color: white;
+          color: rgb(0, 0, 0);
         }
 
         p {
           font-size: 1.15rem;
           line-height: 1.7;
-          color: rgba(255, 255, 255, 0.95);
+          color: rgba(0, 0, 0, 0.95);
         }
       }
     }
