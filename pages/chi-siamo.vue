@@ -23,8 +23,17 @@ const togglePanel = () => {
   isPanelOpen.value = !isPanelOpen.value;
 };
 
-// Mostra/nascondi sezioni iscrizione
-const display = (section: string) => {
+// Toggle sezioni iscrizione (per desktop - toggle on/off)
+const toggleSection = (section: string) => {
+  if (activeSection.value === section) {
+    activeSection.value = "";
+  } else {
+    activeSection.value = section;
+  }
+};
+
+// Mostra sezione in modal (per tablet/mobile)
+const displayModal = (section: string) => {
   activeSection.value = section;
   isModalOpen.value = true;
 };
@@ -170,7 +179,15 @@ const closeModal = () => {
         </section>
 
         <!-- Subscribe section -->
-        <section class="subscribe-section">
+        <section
+          class="subscribe-section"
+          :class="{
+            'has-content': activeSection !== '',
+            'content-year': activeSection === 'year',
+            'content-month': activeSection === 'month',
+            'content-members': activeSection === 'members',
+          }"
+        >
           <div class="subscribe-container">
             <div class="subscribe-box">
               <div class="subscribe-text">
@@ -198,13 +215,138 @@ const closeModal = () => {
 
               <hr class="third-line" />
 
-              <!-- Buttons container -->
-              <div class="details-container">
+              <!-- Buttons container - Desktop -->
+              <div class="details-container desktop-only">
+                <div class="selection-bar">
+                  <div
+                    class="selector uppercase"
+                    :class="{ highlight: activeSection === 'year' }"
+                  >
+                    <p class="number">1</p>
+                    <p>iscrizione</p>
+                    <p>annuale</p>
+                    <div class="find-out-more-container">
+                      <p class="find-out-more">Scopri di più</p>
+                      <button @click="toggleSection('year')">
+                        <img src="~/assets/images/chevron-right.svg" alt="" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="selector uppercase"
+                    :class="{ highlight: activeSection === 'month' }"
+                  >
+                    <p class="number">2</p>
+                    <p>riunioni</p>
+                    <p>mensili</p>
+                    <div class="find-out-more-container">
+                      <p class="find-out-more">Scopri di più</p>
+                      <button @click="toggleSection('month')">
+                        <img src="~/assets/images/chevron-right.svg" alt="" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="selector uppercase"
+                    :class="{ highlight: activeSection === 'members' }"
+                  >
+                    <p class="number">3</p>
+                    <p>comunicazioni</p>
+                    <p>tra soci</p>
+                    <div class="find-out-more-container">
+                      <p class="find-out-more">Scopri di più</p>
+                      <button @click="toggleSection('members')">
+                        <img src="~/assets/images/chevron-right.svg" alt="" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Contenitore testi con sfondo azzurro -->
+                <div
+                  class="text-content-wrapper"
+                  :class="{ active: activeSection !== '' }"
+                >
+                  <!-- Yearly subscription -->
+                  <div
+                    class="choice-bottom-paragraph"
+                    :class="{ show: activeSection === 'year' }"
+                  >
+                    <h3>ISCRIZIONE ANNUALE</h3>
+                    <p>
+                      Chiunque condivida gli scopi della nostra associazione e
+                      abbia un po' di tempo libero da dedicare a questa
+                      particolare forma di "volontariato di ricerca", o voglia
+                      comunque sostenere il GIO, può iscriversi pagando una
+                      quota annuale di 20 euro (10 euro per minorenni e
+                      studenti).
+                      <br /><br />
+                      La quota di iscrizione comprende l'assicurazione
+                      "responsabilità civile" obbligatoria per le onlus.
+                      All'iscrizione il GIO rilascia una tessera, con il
+                      "bollino" di validità dell'anno in corso, a cui si
+                      aggiungeranno i successivi bollini annuali adesivi.
+                    </p>
+                  </div>
+
+                  <!-- Monthly meetings -->
+                  <div
+                    class="choice-bottom-paragraph"
+                    :class="{ show: activeSection === 'month' }"
+                  >
+                    <h3>RIUNIONI MENSILI</h3>
+                    <p>
+                      Ci riuniamo il secondo lunedì di ogni mese (escluso
+                      agosto, di solito) in un locale presso il Comune di
+                      Casciago (VA), dove ci aggiorniamo sui progetti in corso,
+                      proponiamo e organizziamo iniziative con un "ordine del
+                      giorno" che viene mandato dal Presidente tempestivamente
+                      per mail a tutti i soci, che possono proporre ulteriori
+                      argomenti o apportare modifiche.
+                      <br /><br />
+                      Gli incontri ufficiali (come l'assemblea annuale) vengono
+                      invece tenuti presso la nostra sede al Civico Museo
+                      Insubrico di Storia Naturale a Clivio (VA).
+                      <br /><br />
+                      Le riunioni mensili sono incontri informali in cui ci si
+                      confronta anche su osservazioni ornitologiche, viaggi
+                      naturalistici, commenti e visione di pubblicazioni e
+                      fotografie ecc.
+                    </p>
+                  </div>
+
+                  <!-- Members communications -->
+                  <div
+                    class="choice-bottom-paragraph"
+                    :class="{ show: activeSection === 'members' }"
+                  >
+                    <h3>COMUNICAZIONI TRA SOCI</h3>
+                    <p>
+                      Tutti i soci sono compresi nella mailing-list del GIO,
+                      attraverso cui si viene informati dell'intera attività del
+                      gruppo. Alcuni argomenti, di solito quelli più formali e
+                      amministrativi, vengono trattati dal Consiglio Direttivo,
+                      che ne informa quindi il resto dei soci in occasione delle
+                      riunioni mensili.
+                      <br /><br />
+                      Abbiamo anche un Tesoriere e un Vice-tesoriere che si
+                      occupano delle questioni finanziarie come le entrate e le
+                      uscite, il rendiconto economico, i rimborsi spese e
+                      acquisti vari.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Buttons container - Tablet/Mobile -->
+              <div class="details-container tablet-mobile-only">
                 <div class="selection-bar">
                   <button
                     class="selector uppercase"
                     :class="{ highlight: activeSection === 'year' }"
-                    @click="display('year')"
+                    @click="displayModal('year')"
                   >
                     <span>iscrizione annuale</span>
                   </button>
@@ -212,7 +354,7 @@ const closeModal = () => {
                   <button
                     class="selector uppercase"
                     :class="{ highlight: activeSection === 'month' }"
-                    @click="display('month')"
+                    @click="displayModal('month')"
                   >
                     <span>riunioni mensili</span>
                   </button>
@@ -220,85 +362,12 @@ const closeModal = () => {
                   <button
                     class="selector uppercase"
                     :class="{ highlight: activeSection === 'members' }"
-                    @click="display('members')"
+                    @click="displayModal('members')"
                   >
                     <span>comunicazioni tra soci</span>
                   </button>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <!-- Bottom paragraph -->
-          <div class="subscribe-text-bottom">
-            <!-- Yearly subscription -->
-            <div
-              class="choice-bottom-paragraph"
-              :class="{ show: activeSection === 'year' }"
-            >
-              <h3>ISCRIZIONE ANNUALE</h3>
-              <p>
-                Chiunque condivida gli scopi della nostra associazione e abbia
-                un po’ di tempo libero da dedicare a questa particolare forma di
-                “volontariato di ricerca”, o voglia comunque sostenere il GIO,
-                può iscriversi pagando una quota annuale di 20 euro (10 euro per
-                minorenni e studenti).
-                <br />
-                <br />
-                La quota di iscrizione comprende l’assicurazione “responsabilità
-                civile” obbligatoria per le onlus. All’iscrizione il GIO
-                rilascia una tessera, con il “bollino” di validità dell’anno in
-                corso, a cui si aggiungeranno i successivi bollini annuali
-                adesivi.
-              </p>
-            </div>
-
-            <!-- Monthly meetings -->
-            <div
-              class="choice-bottom-paragraph"
-              :class="{ show: activeSection === 'month' }"
-            >
-              <h3>RIUNIONI MENSILI</h3>
-              <p>
-                Ci riuniamo il secondo lunedì di ogni mese (escluso agosto, di
-                solito) in un locale presso il Comune di Casciago (VA), dove ci
-                aggiorniamo sui progetti in corso, proponiamo e organizziamo
-                iniziative con un "ordine del giorno" che viene mandato dal
-                Presidente tempestivamente per mail a tutti i soci, che possono
-                proporre ulteriori argomenti o apportare modifiche.
-                <br />
-                <br />
-                Gli incontri ufficiali (come l'assemblea annuale) vengono invece
-                tenuti presso la nostra sede al Civico Museo Insubrico di Storia
-                Naturale a Clivio (VA).
-                <br />
-                <br />
-                Le riunioni mensili sono incontri informali in cui ci si
-                confronta anche su osservazioni ornitologiche, viaggi
-                naturalistici, commenti e visione di pubblicazioni e fotografie
-                ecc.
-              </p>
-            </div>
-
-            <!-- Members communications -->
-            <div
-              class="choice-bottom-paragraph"
-              :class="{ show: activeSection === 'members' }"
-            >
-              <h3>COMUNICAZIONI TRA SOCI</h3>
-              <p>
-                Tutti i soci sono compresi nella mailing-list del GIO,
-                attraverso cui si viene informati dell’intera attività del
-                gruppo. Alcuni argomenti, di solito quelli più formali e
-                amministrativi, vengono trattati dal Consiglio Direttivo, che ne
-                informa quindi il resto dei soci in occasione delle riunioni
-                mensili.
-                <br />
-                <br />
-                Abbiamo anche un Tesoriere e un Vice-tesoriere che si occupano
-                delle questioni finanziarie come le entrate e le uscite, il
-                rendiconto economico, i rimborsi spese e acquisti vari.
-              </p>
             </div>
           </div>
         </section>
@@ -449,114 +518,90 @@ button {
     }
 
     .first-line {
-      width: 30%;
-      left: 15rem;
+      left: 35%;
+      width: 50%;
     }
 
     .second-line {
-      width: 10%;
-      left: 60rem;
-    }
-
-    .team-image {
-      width: 100%;
-      text-align: center;
-
-      img {
-        width: 70%;
-      }
+      left: 0%;
+      width: 50%;
     }
   }
 
+  // Button per aprire panel direttivo
   .button-container {
     position: absolute;
     right: 0;
-    top: 50%;
+    top: 35%;
     transform: translateY(-50%);
-    width: auto;
-    align-items: center;
-    background-color: transparent;
-    transition: right 1s ease;
     z-index: 100;
+    transition: right 0.4s ease;
 
     &.panel-open {
-      right: 400px;
+      right: 380px;
     }
 
     .half-circle {
-      width: 80px;
-      height: 6rem;
-      border-radius: 50% 0 0 50%;
-    }
-
-    .toggle-btn {
-      font-size: 2rem;
-      height: 6rem;
-      width: 100%;
-      border: none;
-      border-radius: 50% 0 0 50%;
-      cursor: pointer;
+      width: 30px;
+      height: 60px;
+      background: linear-gradient(180deg, #d2420d, #ffbf00);
+      border-radius: 60px 0 0 60px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      position: relative;
-      background-color: #0077ff;
+      justify-content: flex-start;
+      padding-left: 3px;
+      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
 
-      .toggle-icon {
-        position: relative;
-        width: 30px;
-        height: 30px;
+      .toggle-btn {
+        width: 24px;
+        height: 50px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: transform 0.5s ease-in-out;
 
-        &:hover {
-          transform: scale(1.1);
-        }
-      }
+        .toggle-icon {
+          width: 18px;
+          height: 14px;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 4px;
 
-      .bar {
-        position: absolute;
-        width: 3px;
-        height: 45px;
-        background-color: rgb(0, 0, 0);
-        transition: all 1s ease;
-      }
+          .bar {
+            width: 100%;
+            height: 2px;
+            background: white;
+            border-radius: 1px;
+            transition: all 0.3s ease;
+          }
 
-      .bar1 {
-        left: 8px;
+          .bar1.active {
+            transform: rotate(45deg) translateY(4px);
+          }
 
-        &.active {
-          left: 50%;
-          transform: translateX(-50%) rotate(45deg);
-        }
-      }
-
-      .bar2 {
-        right: 8px;
-
-        &.active {
-          right: 50%;
-          transform: translateX(50%) rotate(-45deg);
+          .bar2.active {
+            transform: rotate(-45deg) translateY(-4px);
+          }
         }
       }
     }
   }
 
+  // Panel direttivo
   .right-container {
     position: absolute;
-    right: -380px;
+    right: -400px;
     top: 0;
-    width: 400px;
+    width: 380px;
     height: 100%;
-    border-top-left-radius: 1.3rem;
-    border-bottom-left-radius: 1.3rem;
-    padding: 2rem 2rem;
+    padding: 2rem;
+    transition: right 0.4s ease;
     overflow-y: auto;
-    transition: right 1s ease;
     z-index: 99;
-    color: rgb(0, 0, 0);
 
     &.active {
       right: 0;
@@ -564,34 +609,37 @@ button {
 
     .list-container {
       h2 {
-        font-size: 1.8rem;
-        margin-bottom: 2rem;
-        font-weight: 300;
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+        color: white;
+        text-align: center;
       }
 
       .list {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
         h4 {
-          font-size: 1.2rem;
+          font-size: 1rem;
+          color: rgba(255, 255, 255, 0.9);
           margin-bottom: 0.5rem;
-          font-weight: 600;
         }
 
         ul {
           list-style: none;
-          padding-left: 0;
+          padding: 0;
+          margin: 0;
 
           li {
-            padding: 0.3rem 0;
-            font-size: 1rem;
-            color: rgba(0, 0, 0, 0.9);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.6);
-
-            &:last-child {
-              border-bottom: none;
-            }
+            color: white;
+            font-size: 1.1rem;
+            padding: 0.2rem 0;
           }
+        }
+
+        &:last-child {
+          border-bottom: none;
         }
       }
     }
@@ -617,14 +665,16 @@ button {
 
 // Subscribe section
 .subscribe-section {
-  height: 105vh;
+  min-height: 105vh;
   margin-top: 3rem;
   position: relative;
   padding-top: 12rem;
+  padding-bottom: 5rem;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  transition: min-height 0.5s ease;
 
   background-image:
     linear-gradient(90deg, #0077ffd9, #e9e9e9d9),
@@ -666,8 +716,9 @@ button {
     border-top: 2px solid rgb(0, 0, 0);
   }
 
-  .details-container {
-    width: 80%;
+  // Desktop version
+  .details-container.desktop-only {
+    width: 100%;
     margin: 0 auto;
     padding-top: 5rem;
 
@@ -677,11 +728,44 @@ button {
 
       .selector {
         padding: 1rem 2rem;
-        margin-left: 0.5rem;
+        margin-left: 2rem;
         border: none;
-        border-radius: 0.3rem;
-        transition: all 1.5s;
+        border-radius: 0.7rem;
+        transition: all 0.3s;
         background: linear-gradient(90deg, #d2420d, #ffbf00);
+
+        .number {
+          margin-bottom: 1rem;
+          font-size: 4rem;
+          text-align: start;
+          font-style: italic;
+          color: rgba(82, 82, 82, 0.9);
+        }
+
+        .find-out-more-container {
+          display: flex;
+          margin-top: 5rem;
+          align-items: center;
+          padding-bottom: 1rem;
+
+          img {
+            width: 100%;
+          }
+
+          .find-out-more {
+            margin-left: 0;
+            text-transform: none;
+          }
+        }
+
+        button {
+          width: 12%;
+          padding: 0;
+          border: none;
+          margin-right: 0;
+          border-radius: 50%;
+          background-color: unset;
+        }
 
         &.highlight {
           background: rgb(241, 241, 135) !important;
@@ -692,48 +776,66 @@ button {
         }
       }
     }
-  }
 
-  .subscribe-text-bottom {
-    width: 100%;
-    text-align: center;
-    position: relative;
-    margin: 0 auto;
-
-    .choice-bottom-paragraph {
-      position: absolute;
-      line-height: 1.65rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 70%;
-      margin-top: 4rem;
-      padding-left: 2rem;
-      padding-right: 2rem;
-      border-left: 2px solid black;
-
-      opacity: 0;
+    // Wrapper per i testi con sfondo azzurro
+    .text-content-wrapper {
+      margin-top: 3rem;
+      background: rgba(0, 100, 200, 0.9);
+      border-radius: 1rem;
+      padding: 0;
       max-height: 0;
       overflow: hidden;
-      transition: all 0.6s ease-in-out;
+      opacity: 0;
+      transition: all 0.5s ease;
 
-      &.show {
+      &.active {
+        padding: 2rem 2.5rem;
+        max-height: 800px;
         opacity: 1;
-        max-height: 1000px;
       }
 
-      h3 {
-        font-size: 1.5rem;
-        margin-top: 0.5rem;
-        margin-bottom: 1rem;
-      }
+      .choice-bottom-paragraph {
+        display: none;
+        text-align: center;
+        color: white;
 
-      p {
-        font-size: 1.15rem;
+        &.show {
+          display: block;
+          animation: fadeIn 0.4s ease;
+        }
+
+        h3 {
+          font-size: 1.5rem;
+          margin-bottom: 1.5rem;
+          color: white;
+        }
+
+        p {
+          font-size: 1.15rem;
+          line-height: 1.7;
+          color: rgba(255, 255, 255, 0.95);
+        }
       }
     }
   }
+
+  // Tablet/Mobile version - nascosta su desktop
+  .details-container.tablet-mobile-only {
+    display: none;
+  }
 }
 // END subscribe section
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 // Scrollbar del panel
 .article-container {
@@ -798,7 +900,8 @@ button {
     }
 
     .subscribe-section {
-      height: 145vh;
+      min-height: auto;
+      padding-bottom: 8rem;
 
       .subscribe-container {
         .subscribe-box {
@@ -807,10 +910,20 @@ button {
             width: 100%;
           }
 
-          .details-container {
+          // Nascondo la versione desktop
+          .details-container.desktop-only {
+            display: none;
+          }
+
+          // Mostro la versione tablet/mobile
+          .details-container.tablet-mobile-only {
+            display: block;
             width: 65%;
+            margin: 0 auto;
+            padding-top: 5rem;
 
             .selection-bar {
+              display: flex;
               flex-direction: column;
               align-items: center;
 
@@ -818,33 +931,31 @@ button {
                 width: 100%;
                 margin-left: 0;
                 margin-bottom: 1.5rem;
+                padding: 1rem 2rem;
+                border: none;
+                border-radius: 0.3rem;
+                transition: all 0.3s;
+                background: linear-gradient(90deg, #d2420d, #ffbf00);
 
-                span {
+                p {
                   font-size: 1.3rem;
+                }
+
+                &.highlight {
+                  background: linear-gradient(
+                    90deg,
+                    #d2420d,
+                    #ffbf00
+                  ) !important;
+                }
+
+                &:hover {
+                  background: linear-gradient(90deg, #d2420d, #ffbf00);
                 }
               }
             }
           }
         }
-      }
-
-      .details-container {
-        .selection-bar {
-          .selector {
-            &.highlight {
-              background: linear-gradient(90deg, #d2420d, #ffbf00) !important;
-            }
-
-            &:hover {
-              background: linear-gradient(90deg, #d2420d, #ffbf00);
-            }
-          }
-        }
-      }
-
-      // Nascondo i paragrafi normali su tablet
-      .subscribe-text-bottom {
-        display: none;
       }
     }
   }
@@ -935,5 +1046,18 @@ button {
 // MEDIA QUERIES - MOBILE
 // ==========================================
 @media (max-width: 576px) {
+  .col {
+    .subscribe-section {
+      .subscribe-container {
+        width: 90%;
+
+        .subscribe-box {
+          .details-container.tablet-mobile-only {
+            width: 90%;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
