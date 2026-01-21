@@ -18,6 +18,7 @@ const activeSection = ref("");
 const isPanelOpen = ref(false);
 const isModalOpen = ref(false);
 const textContentRef = ref<HTMLElement | null>(null);
+const selectionBarRef = ref<HTMLElement | null>(null);
 
 // Funzione di easing smooth (ease-out-quart - rallenta dolcemente)
 const easeOutQuart = (t: number): number => {
@@ -67,9 +68,15 @@ const togglePanel = () => {
 
 // Toggle sezioni iscrizione (per desktop - toggle on/off)
 const toggleSection = (section: string) => {
-  // Caso 1: clicco lo stesso bottone → chiudo
+  // Caso 1: clicco lo stesso bottone → chiudo e scrolla verso i bottoni
   if (activeSection.value === section) {
     activeSection.value = "";
+    // Scrolla verso i bottoni dopo la chiusura
+    setTimeout(() => {
+      if (selectionBarRef.value) {
+        smoothScrollTo(selectionBarRef.value, 800, 0);
+      }
+    }, 100);
   }
   // Caso 2: c'è già una sezione aperta → cambio solo il contenuto (no scroll)
   else if (activeSection.value !== "") {
@@ -272,7 +279,7 @@ const closeModal = () => {
 
               <!-- Buttons container - Desktop -->
               <div class="details-container desktop-only">
-                <div class="selection-bar">
+                <div ref="selectionBarRef" class="selection-bar">
                   <!-- First card -->
                   <div
                     class="selector uppercase"
@@ -1020,23 +1027,20 @@ button {
                 border: none;
                 border-radius: 0.3rem;
                 transition: all 0.3s;
-                background: linear-gradient(90deg, #d2420d, #ffbf00);
+                // background: linear-gradient(90deg, #d2420d, #ffbf00);
+                background: linear-gradient(90deg, #ffffff, #0d59d2);
 
                 p {
                   font-size: 1.3rem;
                 }
 
                 &.highlight {
-                  background: linear-gradient(
-                    90deg,
-                    #d2420d,
-                    #ffbf00
-                  ) !important;
+                  background: rgb(241, 241, 135) !important;
                 }
 
-                &:hover {
-                  background: linear-gradient(90deg, #d2420d, #ffbf00);
-                }
+                // &:hover {
+                //   background: linear-gradient(90deg, #d2420d, #ffbf00);
+                // }
               }
             }
           }
