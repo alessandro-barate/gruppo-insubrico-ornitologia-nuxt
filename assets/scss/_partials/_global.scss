@@ -160,7 +160,7 @@ BEFORE AND AFTER EFFECTS
 }
 
 // ==========================================
-// MEDIA QUERIES - MOBILE
+// MEDIA QUERIES - TABLET
 // ==========================================
 @media (max-width: 576px) {
   .title-section::after,
@@ -168,5 +168,17 @@ BEFORE AND AFTER EFFECTS
   .subscription-container::after,
   .contacts-container::before {
     height: 90px;
+  }
+}
+
+// ==========================================
+// MEDIA QUERIES - MOBILE
+// ==========================================
+@media (max-width: 576px) {
+  .title-section::after,
+  .subscription-container::before,
+  .subscription-container::after,
+  .contacts-container::before {
+    height: 80px;
   }
 }

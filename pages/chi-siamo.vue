@@ -76,7 +76,7 @@ const toggleSection = (section: string) => {
       if (selectionBarRef.value) {
         smoothScrollTo(selectionBarRef.value, 800, 0);
       }
-    }, 100);
+    }, 200);
   }
   // Caso 2: c'è già una sezione aperta → cambio solo il contenuto (no scroll)
   else if (activeSection.value !== "") {
@@ -588,8 +588,8 @@ button {
     }
 
     .first-line {
-      left: 35%;
-      width: 50%;
+      left: -20%;
+      width: 40%;
     }
 
     .second-line {
@@ -621,7 +621,7 @@ button {
       padding-left: 3px;
 
       .toggle-btn {
-        width: 24px;
+        width: 30px;
         height: 50px;
         background: transparent;
         border: none;
