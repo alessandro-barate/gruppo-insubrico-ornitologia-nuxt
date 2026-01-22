@@ -103,6 +103,7 @@ const displayModal = (section: string) => {
 // Chiudi modal
 const closeModal = () => {
   isModalOpen.value = false;
+  activeSection.value = "";
 };
 </script>
 
@@ -163,7 +164,7 @@ const closeModal = () => {
             class="button-container d-flex"
             :class="{ 'panel-open': isPanelOpen }"
           >
-            <div class="half-circle">
+            <div class="half-circle gradient-color">
               <button @click="togglePanel" class="toggle-btn">
                 <div class="toggle-icon">
                   <span
@@ -181,7 +182,7 @@ const closeModal = () => {
 
           <!-- List container (direttivo) -->
           <div
-            class="right-container gradient-color"
+            class="right-container gradient-color-reverse"
             :class="{ active: isPanelOpen }"
           >
             <div class="list-container">
@@ -611,15 +612,13 @@ button {
     }
 
     .half-circle {
-      width: 30px;
-      height: 60px;
-      background: linear-gradient(180deg, #d2420d, #ffbf00);
+      width: 50px;
+      height: 80px;
       border-radius: 60px 0 0 60px;
       display: flex;
       align-items: center;
       justify-content: flex-start;
       padding-left: 3px;
-      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
 
       .toggle-btn {
         width: 24px;
@@ -671,6 +670,7 @@ button {
     transition: right 0.4s ease;
     overflow-y: auto;
     z-index: 99;
+    border-radius: 5%;
 
     &.active {
       right: 0;
