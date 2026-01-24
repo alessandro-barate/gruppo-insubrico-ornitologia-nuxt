@@ -1,5 +1,5 @@
-/// <reference types="@nuxt/telemetry" />
 /// <reference types="@nuxt/devtools" />
+/// <reference types="@nuxt/telemetry" />
 /// <reference path="types/builder-env.d.ts" />
 /// <reference types="nuxt" />
 /// <reference path="types/app-defaults.d.ts" />
@@ -7,7 +7,7 @@
 /// <reference path="types/build.d.ts" />
 /// <reference path="types/schema.d.ts" />
 /// <reference path="types/app.config.d.ts" />
-/// <reference types="/Users/alessandrobarate/Desktop/Miei Progetti/GIO - Gruppo Insubrico di Ornitologia/gruppo-insubrico-ornitologia-nuxt/node_modules/@nuxt/nitro-server/dist/index.mjs" />
+/// <reference types="C:/Users/utente/Desktop/Miei Progetti/Gruppo Insubrico Ornitologico/gruppo-insubrico-ornitologia-nuxt/node_modules/@nuxt/nitro-server/dist/index.mjs" />
 /// <reference types="vue-router" />
 /// <reference path="types/middleware.d.ts" />
 /// <reference path="types/nitro-middleware.d.ts" />
