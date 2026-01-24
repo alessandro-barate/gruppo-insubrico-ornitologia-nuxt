@@ -1,7 +1,7 @@
 
 /// <reference path="app.config.d.ts" />
 /// <reference path="runtime-config.d.ts" />
-/// <reference types="/Users/alessandrobarate/Desktop/Miei Progetti/GIO - Gruppo Insubrico di Ornitologia/gruppo-insubrico-ornitologia-nuxt/node_modules/@nuxt/nitro-server/dist/index.mjs" />
+/// <reference types="C:/Users/utente/Desktop/Miei Progetti/Gruppo Insubrico Ornitologico/gruppo-insubrico-ornitologia-nuxt/node_modules/@nuxt/nitro-server/dist/index.mjs" />
 /// <reference path="nitro-middleware.d.ts" />
 /// <reference path="./schema.d.ts" />
 
