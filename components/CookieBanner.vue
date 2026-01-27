@@ -19,7 +19,7 @@ const storageAvailable = ref(true);
 
 // Computed
 const shouldShowBanner = computed(
-  () => props.forceShow || showCookieBanner.value
+  () => props.forceShow || showCookieBanner.value,
 );
 
 // Controlla se localStorage è disponibile (importante per Safari iOS)
@@ -53,7 +53,7 @@ const checkCookieConsent = () => {
   if (!storageAvailable.value) {
     setTimeout(() => {
       showCookieBanner.value = true;
-    }, 6000);
+    }, 3000);
     return;
   }
 
@@ -64,7 +64,7 @@ const checkCookieConsent = () => {
     if (cookieAccepted !== "true") {
       setTimeout(() => {
         showCookieBanner.value = true;
-      }, 6000);
+      }, 3000);
     }
 
     if (!expiryDateStr) {
@@ -85,7 +85,7 @@ const checkCookieConsent = () => {
     console.warn("Errore accesso localStorage:", error);
     setTimeout(() => {
       showCookieBanner.value = true;
-    }, 6000);
+    }, 3000);
   }
 };
 
@@ -118,7 +118,7 @@ onMounted(() => {
 
       <!-- Centered banner -->
       <div class="cookie-zoomed-container">
-        <div class="cookie-banner overlay gradient-color-subscribe-cookie">
+        <div class="cookie-banner overlay gradient-color">
           <div class="cookie-banner-title">
             <h3>Cookies</h3>
           </div>
@@ -198,7 +198,6 @@ onMounted(() => {
 
 .cookie-banner {
   padding: 20px;
-  background: linear-gradient(90deg, #d2420d, #ffbf00);
   border-radius: 1rem;
 
   &.overlay {

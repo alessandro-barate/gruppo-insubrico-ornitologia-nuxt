@@ -10,11 +10,16 @@ button {
 /***************
 VARIOUS STYLES
 ***************/
+#about-us,
+#projects,
+#publications,
 #links {
   animation: slideInTop 1s ease-in-out forwards;
 }
 
-#about-us {
+#news,
+#scientific-dissemination,
+#social {
   animation: slideInBottom 1s ease-in-out forwards;
 }
 

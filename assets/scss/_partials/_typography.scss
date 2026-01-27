@@ -18,8 +18,11 @@ h3 { font-size: 1.5rem; }
 h4 { font-size: 1.25rem; }
 
 #about-us,
-#social,
 #news,
+#projects,
+#scientific-dissemination,
+#publications,
+#social,
 #links {
   font-size: 5rem;
 }
@@ -35,8 +38,12 @@ UPPERCASE
 FONTS COLOR
 ************/
 .title-color,
-#news,
 #about-us,
+#news,
+#projects,
+#scientific-dissemination,
+#publications,
+#social,
 #links {
   background: linear-gradient(90deg, #002fff, #00e1ff);
   -webkit-background-clip: text !important;

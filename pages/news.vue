@@ -8,12 +8,17 @@ useHead({
   link: [{ rel: "canonical", href: "https://gruppoinsubrico.com/news" }],
 });
 </script>
+
 <template>
   <div class="container">
     <div class="row">
       <div class="col">
-        <section class="title-section uppercase">
-          <h1 id="news">news</h1>
+        <section class="title-section jumbo-bg">
+          <div class="overlay">
+            <div class="title uppercase">
+              <h1 id="news">news</h1>
+            </div>
+          </div>
         </section>
         <section class="news-list">
           <p>Le ultime notizie dal GIO...</p>
@@ -23,18 +28,32 @@ useHead({
     </div>
   </div>
 </template>
-<style scoped lang="scss">
-.container {
-  min-height: 80vh;
-  padding: 6rem 2rem;
 
+<style scoped lang="scss">
+.col {
   .title-section {
-    text-align: center;
-    margin-bottom: 4rem;
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+
+    .overlay {
+      height: 100%;
+    }
+  }
+
+  .jumbo-bg {
+    background: url(/assets/images/news/beccaccini.webp) center/ cover no-repeat;
+
+    .title {
+      text-align: center;
+      padding-top: 10rem;
+    }
   }
 
   .news-list {
-    max-width: 800px;
+    width: 80%;
     margin: 0 auto;
   }
 }
