@@ -1,4 +1,6 @@
 <script setup>
+import carousel from "~/data/carousel";
+
 // SEO per la homepage
 useSeoMeta({
   title: "Home | Gruppo Insubrico di Ornitologia",
@@ -24,7 +26,7 @@ onMounted(() => {
         }
       });
     },
-    { threshold: 0.3 }
+    { threshold: 0.3 },
   );
 
   const observerLow = new IntersectionObserver(
@@ -36,7 +38,7 @@ onMounted(() => {
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.1 },
   );
 
   // Elementi da osservare
@@ -104,18 +106,22 @@ onMounted(() => {
 
           <!-- News list -->
           <div class="news-list-container">
-            <p>In mobile fare carosello</p>
             <div class="news-list-box d-flex">
               <div class="single-news">
-                <img src="~/assets/images/bird-1.webp" alt="" />
+                <img src="/images/carousel/bird-1.webp" alt="" />
               </div>
               <div class="single-news">
-                <img src="~/assets/images/bird-2.jpg" alt="" />
+                <img src="/images/carousel/bird-2.jpg" alt="" />
               </div>
               <div class="single-news">
-                <img src="~/assets/images/bird-3.jpg" alt="" />
+                <img src="/images/carousel/bird-3.jpg" alt="" />
               </div>
             </div>
+          </div>
+
+          <!-- Carosello -->
+          <div class="news-carousel-wrapper">
+            <NewsCarousel />
           </div>
 
           <!-- News button -->
@@ -755,11 +761,8 @@ onMounted(() => {
   width: 100%;
   position: relative;
   padding-bottom: 3rem;
-  background-image: linear-gradient(
-      90deg,
-      rgba(0, 119, 255, 0.85),
-      rgba(233, 233, 233, 0.85)
-    ),
+  background-image:
+    linear-gradient(90deg, rgba(0, 119, 255, 0.85), rgba(233, 233, 233, 0.85)),
     url(../assets/images/social.jpg);
   padding-top: clamp(4rem, 10vw, 10rem);
   min-height: clamp(500px, 80vh, 875px);
