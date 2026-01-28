@@ -59,7 +59,8 @@ useHead({
   }
 
   .jumbo-bg {
-    background: url() center/ cover no-repeat;
+    background: url(/assets/images/scientific-dissemination/cincia-bigia.webp)
+      center/ cover no-repeat;
 
     .title {
       text-align: center;

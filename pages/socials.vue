@@ -56,7 +56,7 @@ useHead({
   }
 
   .jumbo-bg {
-    background: url() center/ cover no-repeat;
+    background: url(/assets/images/socials/tortore.webp) center/ cover no-repeat;
 
     .title {
       text-align: center;
