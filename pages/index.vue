@@ -104,21 +104,6 @@ onMounted(() => {
             </div>
           </div>
 
-          <!-- News list -->
-          <div class="news-list-container">
-            <div class="news-list-box d-flex">
-              <div class="single-news">
-                <img src="/images/carousel/bird-1.webp" alt="" />
-              </div>
-              <div class="single-news">
-                <img src="/images/carousel/bird-2.jpg" alt="" />
-              </div>
-              <div class="single-news">
-                <img src="/images/carousel/bird-3.jpg" alt="" />
-              </div>
-            </div>
-          </div>
-
           <!-- Carosello -->
           <div class="news-carousel-wrapper">
             <NewsCarousel />
@@ -454,38 +439,8 @@ onMounted(() => {
     }
   }
 
-  .news-list-container {
-    // Variable for card dimension
-    --news-card-size: clamp(200px, 25vw, 300px);
-    width: 95%;
-    margin: 0 auto;
-    margin-top: 2rem;
-
-    .news-list-box {
-      display: grid;
-      grid-template-columns: repeat(3, var(--news-card-size));
-      justify-content: center;
-      gap: clamp(12px, 2vw, 24px);
-      padding: clamp(10px, 2vw, 20px);
-
-      .single-news {
-        aspect-ratio: 1 / 1;
-        width: 100%;
-        overflow: hidden;
-        border-radius: 1rem;
-
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.8s ease;
-
-          &:hover {
-            transform: scale(1.1);
-          }
-        }
-      }
-    }
+  .news-carousel-wrapper {
+    margin-top: 3rem;
   }
 
   button {
@@ -1117,19 +1072,6 @@ onMounted(() => {
         .news-description {
           hr {
             width: 50%;
-          }
-        }
-      }
-
-      .news-list-container {
-        --news-card-size: min(300px, 80vw);
-
-        .news-list-box {
-          grid-template-columns: var(--news-card-size);
-          gap: 3rem;
-
-          .single-news {
-            aspect-ratio: 1 / 1;
           }
         }
       }

@@ -1,21 +1,29 @@
 <template>
-  <div class="news-carousel">
+  <div
+    class="news-carousel"
+    @mouseenter="pauseScroll"
+    @mouseleave="resumeScroll"
+  >
     <!-- Track con le slide -->
     <div class="news-carousel__viewport" ref="viewport">
       <div
         class="news-carousel__track"
+        ref="track"
+        :class="{
+          'news-carousel__track--paused': isPaused,
+          'news-carousel__track--dragging': isDragging,
+        }"
         :style="trackStyle"
         @mousedown="startDrag"
         @touchstart="startDrag"
       >
+        <!-- Prima serie di slide -->
         <article
           v-for="(slide, index) in slides"
-          :key="slide.id"
+          :key="'a-' + slide.id"
           class="news-carousel__slide"
-          :class="{ 'news-carousel__slide--active': index === currentIndex }"
         >
           <div class="news-carousel__card">
-            <!-- Immagine di sfondo -->
             <div class="news-carousel__image-wrapper">
               <img
                 :src="slide.image"
@@ -26,15 +34,57 @@
               <div class="news-carousel__overlay"></div>
             </div>
 
-            <!-- Categoria in alto -->
             <span class="news-carousel__category">{{ slide.category }}</span>
 
-            <!-- Contenuto in basso -->
             <div class="news-carousel__content">
               <h3 class="news-carousel__title">{{ slide.title }}</h3>
             </div>
 
-            <!-- Pulsante + -->
+            <NuxtLink
+              v-if="slide.link"
+              :to="slide.link"
+              class="news-carousel__action-btn"
+              aria-label="Leggi di più"
+            >
+              <span>+</span>
+            </NuxtLink>
+
+            <a
+              v-else-if="slide.pdf"
+              :href="slide.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="news-carousel__action-btn"
+              aria-label="Scarica PDF"
+            >
+              <span>+</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Seconda serie di slide (duplicata per loop infinito) -->
+        <article
+          v-for="(slide, index) in slides"
+          :key="'b-' + slide.id"
+          class="news-carousel__slide"
+        >
+          <div class="news-carousel__card">
+            <div class="news-carousel__image-wrapper">
+              <img
+                :src="slide.image"
+                :alt="slide.title"
+                class="news-carousel__image"
+                loading="lazy"
+              />
+              <div class="news-carousel__overlay"></div>
+            </div>
+
+            <span class="news-carousel__category">{{ slide.category }}</span>
+
+            <div class="news-carousel__content">
+              <h3 class="news-carousel__title">{{ slide.title }}</h3>
+            </div>
+
             <NuxtLink
               v-if="slide.link"
               :to="slide.link"
@@ -59,7 +109,10 @@
       </div>
     </div>
 
-    <!-- Navigazione -->
+    <!-- 
+    =============================================
+    NAVIGAZIONE MANUALE (decommentare se necessario)
+    =============================================
     <div class="news-carousel__nav-container">
       <div class="news-carousel__arrows">
         <button
@@ -67,13 +120,7 @@
           @click="prev"
           aria-label="Slide precedente"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </button>
@@ -83,19 +130,12 @@
           @click="next"
           aria-label="Slide successiva"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="9 18 15 12 9 6" />
           </svg>
         </button>
       </div>
 
-      <!-- Dots -->
       <div class="news-carousel__dots">
         <button
           v-for="(slide, index) in slides"
@@ -107,6 +147,7 @@
         />
       </div>
     </div>
+    -->
   </div>
 </template>
 
@@ -116,92 +157,85 @@ import carouselData from "~/data/carousel.js";
 
 // Props
 const props = defineProps({
-  autoplay: {
-    type: Boolean,
-    default: false,
-  },
-  interval: {
+  scrollDuration: {
     type: Number,
-    default: 5000,
+    default: 25, // secondi per un ciclo completo
   },
 });
 
 // State
 const slides = ref(carouselData);
-const currentIndex = ref(0);
-const viewport = ref(null);
+const isPaused = ref(false);
 const isDragging = ref(false);
+const track = ref(null);
+const viewport = ref(null);
+
+// Drag state
 const startX = ref(0);
-const currentTranslate = ref(0);
+const scrollLeft = ref(0);
+const dragOffset = ref(0);
 
-let autoplayInterval = null;
-
-// Computed - calcola la larghezza della slide in base al viewport
+// Computed
 const trackStyle = computed(() => {
-  // Ogni slide occupa circa il 55% del viewport su desktop
-  const slideWidth = 58; // percentuale
-  const gap = 1.5; // percentuale gap
-  const offset = currentIndex.value * (slideWidth + gap);
-
+  if (isDragging.value) {
+    return {
+      animationDuration: props.scrollDuration + "s",
+      transform: `translateX(${dragOffset.value}px)`,
+    };
+  }
   return {
-    transform: `translateX(-${offset}%)`,
+    animationDuration: props.scrollDuration + "s",
   };
 });
 
-// Methods
-const next = () => {
-  if (currentIndex.value < slides.value.length - 1) {
-    currentIndex.value++;
-  } else {
-    currentIndex.value = 0; // Torna alla prima slide
+// Methods - Scorrimento continuo
+const pauseScroll = () => {
+  isPaused.value = true;
+};
+
+const resumeScroll = () => {
+  if (!isDragging.value) {
+    isPaused.value = false;
   }
-  resetAutoplay();
 };
 
-const prev = () => {
-  if (currentIndex.value > 0) {
-    currentIndex.value--;
-  } else {
-    currentIndex.value = slides.value.length - 1; // Va all'ultima slide
-  }
-  resetAutoplay();
-};
-
-const goTo = (index) => {
-  currentIndex.value = index;
-  resetAutoplay();
-};
-
-// Drag/Swipe functionality
+// Methods - Drag manuale
 const startDrag = (e) => {
   isDragging.value = true;
+  isPaused.value = true;
+
   startX.value = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+
+  // Ottieni la posizione attuale del transform dall'animazione
+  if (track.value) {
+    const style = window.getComputedStyle(track.value);
+    const matrix = new DOMMatrix(style.transform);
+    scrollLeft.value = matrix.m41; // translateX value
+    dragOffset.value = scrollLeft.value;
+  }
 
   document.addEventListener("mousemove", onDrag);
   document.addEventListener("mouseup", endDrag);
-  document.addEventListener("touchmove", onDrag);
+  document.addEventListener("touchmove", onDrag, { passive: false });
   document.addEventListener("touchend", endDrag);
 };
 
 const onDrag = (e) => {
   if (!isDragging.value) return;
 
+  e.preventDefault();
+
   const currentX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
   const diff = currentX - startX.value;
-  currentTranslate.value = diff;
+  dragOffset.value = scrollLeft.value + diff;
 };
 
 const endDrag = () => {
   isDragging.value = false;
 
-  // Se il drag è abbastanza lungo, cambia slide (con loop)
-  if (currentTranslate.value < -50) {
-    next();
-  } else if (currentTranslate.value > 50) {
-    prev();
-  }
-
-  currentTranslate.value = 0;
+  // Resetta e riprendi l'animazione
+  dragOffset.value = 0;
+  isPaused.value = false;
 
   document.removeEventListener("mousemove", onDrag);
   document.removeEventListener("mouseup", endDrag);
@@ -209,48 +243,49 @@ const endDrag = () => {
   document.removeEventListener("touchend", endDrag);
 };
 
-const startAutoplay = () => {
-  if (props.autoplay) {
-    autoplayInterval = setInterval(() => {
-      if (currentIndex.value < slides.value.length - 1) {
-        next();
-      } else {
-        currentIndex.value = 0;
-      }
-    }, props.interval);
-  }
-};
-
-const stopAutoplay = () => {
-  if (autoplayInterval) {
-    clearInterval(autoplayInterval);
-    autoplayInterval = null;
-  }
-};
-
-const resetAutoplay = () => {
-  stopAutoplay();
-  startAutoplay();
-};
-
-// Lifecycle
-onMounted(() => {
-  startAutoplay();
-});
-
+// Cleanup
 onUnmounted(() => {
-  stopAutoplay();
+  document.removeEventListener("mousemove", onDrag);
+  document.removeEventListener("mouseup", endDrag);
+  document.removeEventListener("touchmove", onDrag);
+  document.removeEventListener("touchend", endDrag);
 });
+
+/*
+=============================================
+NAVIGAZIONE MANUALE (decommentare se necessario)
+=============================================
+const currentIndex = ref(0)
+
+const next = () => {
+  if (currentIndex.value < slides.value.length - 1) {
+    currentIndex.value++
+  } else {
+    currentIndex.value = 0
+  }
+}
+
+const prev = () => {
+  if (currentIndex.value > 0) {
+    currentIndex.value--
+  } else {
+    currentIndex.value = slides.value.length - 1
+  }
+}
+
+const goTo = (index) => {
+  currentIndex.value = index
+}
+*/
 </script>
 
 <style lang="scss" scoped>
 .news-carousel {
-  --slide-width: 58%;
-  --slide-gap: 1.5%;
+  --slide-width: 500px;
+  --slide-gap: 24px;
   --slide-height: 420px;
   --border-radius: 16px;
   --accent-color: #e85a2c;
-  --transition-speed: 0.5s;
 
   width: 100%;
   padding: 2rem 0;
@@ -258,26 +293,31 @@ onUnmounted(() => {
 
   &__viewport {
     width: 100%;
-    overflow: visible;
-    padding-left: 5%;
+    overflow: hidden;
   }
 
   &__track {
     display: flex;
     gap: var(--slide-gap);
-    transition: transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    width: max-content;
+    animation: scroll linear infinite;
     cursor: grab;
 
-    &:active {
+    &--paused {
+      animation-play-state: paused;
+    }
+
+    &--dragging {
+      animation: none;
       cursor: grabbing;
     }
   }
 
   &__slide {
     flex: 0 0 var(--slide-width);
-    min-width: var(--slide-width);
+    width: var(--slide-width);
     height: var(--slide-height);
-    transition: opacity var(--transition-speed) ease;
+    user-select: none;
   }
 
   &__card {
@@ -373,7 +413,69 @@ onUnmounted(() => {
     }
   }
 
-  // Navigation container
+  // ==========================================
+  // RESPONSIVE - TABLET
+  // ==========================================
+  @media (max-width: 992px) {
+    --slide-width: 400px;
+    --slide-height: 380px;
+    --slide-gap: 20px;
+  }
+
+  // ==========================================
+  // RESPONSIVE - MOBILE
+  // ==========================================
+  @media (max-width: 576px) {
+    --slide-width: 300px;
+    --slide-height: 320px;
+    --slide-gap: 16px;
+    --border-radius: 12px;
+
+    &__category {
+      top: 1rem;
+      left: 1rem;
+      font-size: 0.8rem;
+    }
+
+    &__content {
+      bottom: 1rem;
+      left: 1rem;
+      right: 4rem;
+    }
+
+    &__title {
+      font-size: 1.1rem;
+    }
+
+    &__action-btn {
+      width: 40px;
+      height: 40px;
+      bottom: 1rem;
+      right: 1rem;
+
+      span {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+// Animazione scorrimento continuo
+// Trasla di metà perché le slide sono duplicate
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/*
+=============================================
+STILI NAVIGAZIONE MANUALE (decommentare se necessario)
+=============================================
+.news-carousel {
   &__nav-container {
     display: flex;
     align-items: center;
@@ -438,62 +540,10 @@ onUnmounted(() => {
       background: #333;
     }
   }
+}
 
-  // ==========================================
-  // RESPONSIVE - TABLET
-  // ==========================================
-  @media (max-width: 992px) {
-    --slide-width: 75%;
-    --slide-height: 380px;
-
-    &__viewport {
-      padding-left: 4%;
-    }
-
-    &__nav-container {
-      padding-left: 4%;
-    }
-  }
-
-  // ==========================================
-  // RESPONSIVE - MOBILE
-  // ==========================================
-  @media (max-width: 576px) {
-    --slide-width: 85%;
-    --slide-height: 320px;
-    --border-radius: 12px;
-
-    &__viewport {
-      padding-left: 4%;
-    }
-
-    &__category {
-      top: 1rem;
-      left: 1rem;
-      font-size: 0.8rem;
-    }
-
-    &__content {
-      bottom: 1rem;
-      left: 1rem;
-      right: 4rem;
-    }
-
-    &__title {
-      font-size: 1.1rem;
-    }
-
-    &__action-btn {
-      width: 40px;
-      height: 40px;
-      bottom: 1rem;
-      right: 1rem;
-
-      span {
-        font-size: 1.5rem;
-      }
-    }
-
+@media (max-width: 576px) {
+  .news-carousel {
     &__nav-container {
       padding-left: 4%;
       gap: 1rem;
@@ -515,4 +565,5 @@ onUnmounted(() => {
     }
   }
 }
+*/
 </style>
