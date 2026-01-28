@@ -17,6 +17,7 @@ interface _GlobalComponents {
   'CookieBanner': typeof import("../../components/CookieBanner.vue").default
   'FooterComponent': typeof import("../../components/FooterComponent.vue").default
   'HeaderComponent': typeof import("../../components/HeaderComponent.vue").default
+  'NewsCard': typeof import("../../components/NewsCard.vue").default
   'NewsCarousel': typeof import("../../components/NewsCarousel.vue").default
   'NuxtWelcome': typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue").default
   'NuxtLayout': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout").default
@@ -44,6 +45,7 @@ interface _GlobalComponents {
   'LazyCookieBanner': LazyComponent<typeof import("../../components/CookieBanner.vue").default>
   'LazyFooterComponent': LazyComponent<typeof import("../../components/FooterComponent.vue").default>
   'LazyHeaderComponent': LazyComponent<typeof import("../../components/HeaderComponent.vue").default>
+  'LazyNewsCard': LazyComponent<typeof import("../../components/NewsCard.vue").default>
   'LazyNewsCarousel': LazyComponent<typeof import("../../components/NewsCarousel.vue").default>
   'LazyNuxtWelcome': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue").default>
   'LazyNuxtLayout': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout").default>

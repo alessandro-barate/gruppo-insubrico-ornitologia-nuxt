@@ -17,6 +17,7 @@ type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {},
 export const CookieBanner: typeof import("../components/CookieBanner.vue").default
 export const FooterComponent: typeof import("../components/FooterComponent.vue").default
 export const HeaderComponent: typeof import("../components/HeaderComponent.vue").default
+export const NewsCard: typeof import("../components/NewsCard.vue").default
 export const NewsCarousel: typeof import("../components/NewsCarousel.vue").default
 export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue").default
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout").default
@@ -44,6 +45,7 @@ export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components
 export const LazyCookieBanner: LazyComponent<typeof import("../components/CookieBanner.vue").default>
 export const LazyFooterComponent: LazyComponent<typeof import("../components/FooterComponent.vue").default>
 export const LazyHeaderComponent: LazyComponent<typeof import("../components/HeaderComponent.vue").default>
+export const LazyNewsCard: LazyComponent<typeof import("../components/NewsCard.vue").default>
 export const LazyNewsCarousel: LazyComponent<typeof import("../components/NewsCarousel.vue").default>
 export const LazyNuxtWelcome: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue").default>
 export const LazyNuxtLayout: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout").default>

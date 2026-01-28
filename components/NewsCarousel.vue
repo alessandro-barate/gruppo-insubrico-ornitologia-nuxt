@@ -288,7 +288,6 @@ const goTo = (index) => {
   --accent-color: #e85a2c;
 
   width: 100%;
-  padding: 2rem 0;
   overflow: hidden;
 
   &__viewport {
