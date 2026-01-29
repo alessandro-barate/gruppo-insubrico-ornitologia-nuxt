@@ -29,6 +29,7 @@ defineProps({
     </div>
 
     <!-- Pulsante + -->
+    <!-- Se ha un link esterno -->
     <NuxtLink
       v-if="news.link"
       :to="news.link"
@@ -38,6 +39,7 @@ defineProps({
       <span>+</span>
     </NuxtLink>
 
+    <!-- Se è un PDF -->
     <a
       v-else-if="news.pdf"
       :href="news.pdf"
@@ -48,6 +50,16 @@ defineProps({
     >
       <span>+</span>
     </a>
+
+    <!-- Default: apre la pagina dettaglio della news -->
+    <NuxtLink
+      v-else
+      :to="`/news/${news.slug || news.id}`"
+      class="news-card__action-btn"
+      aria-label="Leggi di più"
+    >
+      <span>+</span>
+    </NuxtLink>
   </article>
 </template>
 
