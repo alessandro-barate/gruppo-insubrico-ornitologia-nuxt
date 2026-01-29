@@ -1,3 +1,12 @@
+<script setup>
+defineProps({
+  news: {
+    type: Object,
+    required: true,
+  },
+});
+</script>
+
 <template>
   <article class="news-card">
     <!-- Immagine di sfondo -->
@@ -41,15 +50,6 @@
     </a>
   </article>
 </template>
-
-<script setup>
-defineProps({
-  news: {
-    type: Object,
-    required: true,
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .news-card {
