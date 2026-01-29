@@ -3,8 +3,8 @@
 // MOCK DATA - Rimuovere quando il backend è pronto
 // ============================================
 import newsData from "~/data/carousel.js";
-const MOCK_MODE = true; // Cambia a false quando hai il backend
-const MOCK_YEARS = [2025, 2024, 2023, 2022];
+const MOCK_MODE = true; // Cambia a false quando avrò il backend
+const MOCK_YEARS = [2026, 2025, 2024, 2023, 2022]; // Rimuovere quando avrò il backend
 // ============================================
 
 useSeoMeta({
@@ -69,7 +69,7 @@ const selectYear = async (year) => {
 
   if (MOCK_MODE) {
     // MOCK: Simula delay e usa dati fittizi
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     newsList.value = newsData;
   } else {
     // BACKEND: Chiama l'API Laravel
@@ -125,7 +125,7 @@ onMounted(() => {
           </div>
 
           <!-- Bottoni selezione anno -->
-          <div v-else-if="availableYears.length > 0" class="year-selector">
+          <div v-else class="year-selector">
             <div class="year-selector__buttons">
               <button
                 v-for="year in availableYears"
@@ -141,13 +141,6 @@ onMounted(() => {
             </div>
           </div>
 
-          <!-- Nessun anno disponibile -->
-          <div v-else class="year-selector">
-            <span class="year-selector__label"
-              >Nessuna news disponibile al momento.</span
-            >
-          </div>
-
           <!-- Loading news -->
           <div v-if="isLoadingNews" class="news-loading">
             <span class="news-loading__spinner"></span>
@@ -155,15 +148,12 @@ onMounted(() => {
           </div>
 
           <!-- Messaggio se nessun anno selezionato -->
-          <div
-            v-else-if="!selectedYear && availableYears.length > 0"
-            class="news-empty"
-          >
+          <div v-else-if="!selectedYear" class="news-empty">
             <p>Seleziona un anno per visualizzare le news.</p>
           </div>
 
           <!-- Griglia news -->
-          <div v-else-if="newsList.length > 0" class="news-grid">
+          <div v-else class="news-grid">
             <div
               v-for="news in newsList"
               :key="news.id"
@@ -171,11 +161,6 @@ onMounted(() => {
             >
               <NewsCard :news="news" />
             </div>
-          </div>
-
-          <!-- Nessuna news per l'anno selezionato -->
-          <div v-else-if="selectedYear" class="news-empty">
-            <p>Nessuna news disponibile per il {{ selectedYear }}.</p>
           </div>
         </section>
       </div>
