@@ -259,7 +259,7 @@ onMounted(() => {
       background: linear-gradient(90deg, #0077ff, #e1e7dd);
       z-index: -1;
       transform: scaleX(0);
-      transform-origin: left;
+      transform-origin: center;
       transition: transform 0.5s ease;
     }
 
@@ -274,12 +274,12 @@ onMounted(() => {
       background: linear-gradient(90deg, #002fff, #00e1ff);
       z-index: -1;
       transform: scaleX(0);
-      transform-origin: right; // Entra da destra
+      transform-origin: center; // Entra da destra
       transition: transform 0.5s ease;
     }
 
     &:hover:not(.year-btn--active) {
-      color: #fff;
+      color: #000000;
       transform: translateY(-2px);
 
       &::before {
