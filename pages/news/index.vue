@@ -105,7 +105,7 @@ onMounted(() => {
 
         <section class="news-list">
           <p class="news-list__intro">
-            Vuoi tenerti informato su quello che facciamo al G I O e quello che
+            Vuoi tenerti informato su quello che facciamo al G I O e cosa
             succede intorno a noi?<br />
             Ti basta scegliere l'anno e potrai trovare tutte le news che
             pubblichiamo.
@@ -232,30 +232,70 @@ onMounted(() => {
   }
 
   .year-btn {
-    padding: 0.6rem 1.5rem;
-    font-size: 1rem;
+    position: relative;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
     font-weight: 500;
     color: #333;
     background-color: #f5f5f5;
-    border: 2px solid #ddd;
+    border: 1px solid #000000;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease,
+      transform 0.25s ease;
+    overflow: hidden;
+    z-index: 1;
 
-    &:hover {
-      background-color: #e8e8e8;
-      border-color: #ccc;
+    // Pseudo-elemento per l'effetto hover
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #0077ff, #e1e7dd);
+      z-index: -1;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+
+    // Pseudo-elemento per l'effetto active (da destra a sinistra)
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #002fff, #00e1ff);
+      z-index: -1;
+      transform: scaleX(0);
+      transform-origin: right; // Entra da destra
+      transition: transform 0.5s ease;
+    }
+
+    &:hover:not(.year-btn--active) {
+      color: #fff;
       transform: translateY(-2px);
+
+      &::before {
+        transform: scaleX(1);
+      }
     }
 
     &--active {
-      color: #fff;
-      background-color: #f68b24; // Arancione GIO
-      border-color: #f68b24;
+      color: #ffffff;
+
+      &::after {
+        transform: scaleX(1);
+      }
 
       &:hover {
-        background-color: #e07a1a;
-        border-color: #e07a1a;
+        transform: translateY(-2px);
       }
     }
 
@@ -267,6 +307,10 @@ onMounted(() => {
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite;
       border: none;
+
+      &::before {
+        display: none;
+      }
     }
   }
 
@@ -292,7 +336,8 @@ onMounted(() => {
       width: 40px;
       height: 40px;
       border: 3px solid #f0f0f0;
-      border-top-color: #f68b24;
+      // border-top-color: #f68b24;
+      border-top-color: #002affd5;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
       margin-bottom: 1rem;
