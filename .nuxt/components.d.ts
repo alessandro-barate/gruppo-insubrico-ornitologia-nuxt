@@ -14,6 +14,7 @@ type HydrationStrategies = {
 type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }> & T
 
 
+export const ContentSection: typeof import("../components/ContentSection.vue").default
 export const CookieBanner: typeof import("../components/CookieBanner.vue").default
 export const FooterComponent: typeof import("../components/FooterComponent.vue").default
 export const HeaderComponent: typeof import("../components/HeaderComponent.vue").default
@@ -42,6 +43,7 @@ export const Head: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/components").Html
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components").Body
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island").default
+export const LazyContentSection: LazyComponent<typeof import("../components/ContentSection.vue").default>
 export const LazyCookieBanner: LazyComponent<typeof import("../components/CookieBanner.vue").default>
 export const LazyFooterComponent: LazyComponent<typeof import("../components/FooterComponent.vue").default>
 export const LazyHeaderComponent: LazyComponent<typeof import("../components/HeaderComponent.vue").default>

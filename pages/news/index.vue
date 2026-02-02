@@ -211,8 +211,8 @@ onMounted(() => {
     align-items: center;
     gap: 1rem;
     margin-bottom: 2.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgb(141, 141, 141);
 
     &--loading {
       opacity: 0.7;
