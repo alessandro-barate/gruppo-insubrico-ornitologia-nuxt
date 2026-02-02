@@ -64,16 +64,46 @@ const mockCategories = {
 };
 
 const mockYears = {
-  iwc: [2026, 2025, 2024, 2023, 2022],
-  rondoni: [2025, 2024, 2023],
-  zps: [2024, 2023, 2022, 2021],
-  quaderni: [2025, 2024, 2023, 2022, 2021],
-  "resoconto-ornitologico": [2024, 2023, 2022],
-  bol: [2025, 2024, 2023],
-  convegni: [2025, 2024, 2023],
-  corsi: [2024, 2023],
-  eventi: [2025, 2024, 2023, 2022],
-  "rassegna-stampa": [2025, 2024],
+  iwc: [
+    2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+    2014,
+  ],
+  rondoni: [
+    2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+    2014,
+  ],
+  zps: [
+    2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+    2014,
+  ],
+  quaderni: [
+    2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+    2014,
+  ],
+  "resoconto-ornitologico": [
+    2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+    2014,
+  ],
+  bol: [
+    2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+    2014,
+  ],
+  convegni: [
+    2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+    2014,
+  ],
+  corsi: [
+    2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+    2014,
+  ],
+  eventi: [
+    2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+    2014,
+  ],
+  "rassegna-stampa": [
+    2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+    2014,
+  ],
 };
 
 const mockContent = [
@@ -311,7 +341,7 @@ onMounted(() => {
       </button>
     </Transition>
 
-    <!-- CONTENUTI -->
+    <!-- AREA CONTENUTI -->
     <div class="content-area">
       <!-- Loading contenuti -->
       <div v-if="isLoadingContent" class="content-loading">
@@ -319,18 +349,14 @@ onMounted(() => {
         <p>Caricamento contenuti...</p>
       </div>
 
-      <!-- Messaggio iniziale -->
+      <!-- Messaggio: seleziona categoria -->
       <div v-else-if="!selectedCategory" class="content-empty">
-        <p>Seleziona un tema per visualizzare i contenuti.</p>
+        <p>Seleziona un tema per visualizzare i contenuti disponibili.</p>
       </div>
 
-      <!-- Messaggio dopo selezione categoria -->
-      <div v-else-if="selectedCategory && !selectedYear" class="content-empty">
-        <p>
-          Seleziona un anno per visualizzare i contenuti di "{{
-            selectedCategory.name
-          }}".
-        </p>
+      <!-- Messaggio: seleziona anno -->
+      <div v-else-if="!selectedYear" class="content-empty">
+        <p>Seleziona un anno per visualizzare i contenuti.</p>
       </div>
 
       <!-- Griglia contenuti -->
@@ -342,29 +368,17 @@ onMounted(() => {
           class="content-card"
         >
           <div class="content-card__image">
-            <img
-              :src="item.image || '/assets/images/placeholder.webp'"
-              :alt="item.title"
-              loading="lazy"
-            />
+            <img :src="item.image" :alt="item.title" loading="lazy" />
           </div>
           <div class="content-card__body">
             <h3 class="content-card__title">{{ item.title }}</h3>
             <p class="content-card__excerpt">{{ item.excerpt }}</p>
-            <span class="content-card__date">
-              {{
-                new Date(item.published_at).toLocaleDateString("it-IT", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })
-              }}
-            </span>
+            <span class="content-card__date">{{ item.published_at }}</span>
           </div>
         </NuxtLink>
       </div>
 
-      <!-- Nessun contenuto trovato -->
+      <!-- Nessun contenuto -->
       <div v-else class="content-empty">
         <p>Nessun contenuto trovato per i filtri selezionati.</p>
       </div>
@@ -376,9 +390,9 @@ onMounted(() => {
 // ============================================
 // VARIABILI
 // ============================================
-$primary-color: #f68b24;
-$primary-dark: #e07a1a;
-$secondary-color: #d2420d;
+$primary-color: #0077ff;
+$primary-dark: #0055cc;
+$secondary-color: #f68b24;
 $text-dark: #333;
 $text-medium: #555;
 $text-light: #666;
@@ -387,10 +401,11 @@ $bg-lighter: #fafafa;
 $border-color: rgb(141, 141, 141);
 
 // ============================================
-// MAIN SECTION
+// SECTION BASE
 // ============================================
 .content-section {
-  max-width: 1200px;
+  width: 90%;
+  max-width: 1400px;
   margin: 0 auto;
   padding-bottom: 4rem;
 
@@ -437,62 +452,107 @@ $border-color: rgb(141, 141, 141);
 }
 
 // ============================================
-// FILTER BUTTONS
+// FILTER BUTTONS - Stili da index.vue
 // ============================================
 .filter-btn {
-  padding: 0.6rem 1.5rem;
-  font-size: 1rem;
+  position: relative;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: $text-dark;
   background-color: $bg-light;
-  border: 2px solid #ddd;
+  border: 1px solid #000000;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.25s ease;
+  overflow: hidden;
+  z-index: 1;
 
-  &:hover {
-    background-color: #e8e8e8;
-    border-color: #ccc;
+  // Pseudo-elemento per l'effetto hover
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #0077ff, #e1e7dd);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.5s ease;
+  }
+
+  // Pseudo-elemento per l'effetto active
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #002fff, #00e1ff);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.5s ease;
+  }
+
+  &:hover:not(.filter-btn--active) {
+    color: #000000;
     transform: translateY(-2px);
+
+    &::before {
+      transform: scaleX(1);
+    }
   }
 
   &--active {
-    color: #fff;
-    background-color: $primary-color;
-    border-color: $primary-color;
+    color: #ffffff;
+
+    &::after {
+      transform: scaleX(1);
+    }
 
     &:hover {
-      background-color: $primary-dark;
-      border-color: $primary-dark;
+      transform: translateY(-2px);
     }
   }
 
   // Variante per categorie (più grande)
   &--category {
-    padding: 0.75rem 1.75rem;
-    font-size: 1.05rem;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
   }
 
   // Variante per anni (più compatto)
   &--year {
-    padding: 0.5rem 1.25rem;
-    font-size: 0.95rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
     min-width: 80px;
   }
 
   // Skeleton loading
   &--skeleton {
     width: 100px;
-    height: 42px;
-    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    height: 50px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
     border: none;
     border-radius: 8px;
 
+    &::before,
+    &::after {
+      display: none;
+    }
+
     &.filter-btn--small {
-      width: 70px;
-      height: 38px;
+      width: 80px;
+      height: 42px;
     }
   }
 }
@@ -553,7 +613,7 @@ $border-color: rgb(141, 141, 141);
     width: 40px;
     height: 40px;
     border: 3px solid #f0f0f0;
-    border-top-color: $primary-color;
+    border-top-color: #002affd5;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     margin-bottom: 1rem;
@@ -687,9 +747,9 @@ $border-color: rgb(141, 141, 141);
 }
 
 // ============================================
-// RESPONSIVE
+// RESPONSIVE - TABLET
 // ============================================
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .filter-selector {
     flex-direction: column;
     align-items: flex-start;
@@ -698,37 +758,59 @@ $border-color: rgb(141, 141, 141);
       min-width: auto;
       margin-bottom: 0.5rem;
     }
+
+    &__buttons {
+      width: 100%;
+    }
+  }
+
+  .filter-btn {
+    flex: 1;
+    min-width: calc(50% - 0.375rem);
+    text-align: center;
+  }
+}
+
+// ============================================
+// RESPONSIVE - MOBILE
+// ============================================
+@media (max-width: 576px) {
+  .content-section {
+    width: 95%;
+    padding-bottom: 3rem;
+  }
+
+  .filter-selector {
+    gap: 0.75rem;
+
+    &__label {
+      font-size: 1rem;
+    }
+
+    &__buttons {
+      gap: 0.5rem;
+    }
   }
 
   .filter-btn {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
+    min-width: calc(50% - 0.25rem);
 
     &--category {
       padding: 0.6rem 1.25rem;
       font-size: 0.95rem;
+    }
+
+    &--year {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
     }
   }
 
   .content-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .content-section {
-    padding-bottom: 3rem;
-  }
-
-  .filter-selector__buttons {
-    width: 100%;
-  }
-
-  .filter-btn {
-    flex: 1;
-    text-align: center;
-    min-width: calc(50% - 0.375rem);
   }
 }
 </style>
