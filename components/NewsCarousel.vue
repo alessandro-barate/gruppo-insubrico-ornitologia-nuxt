@@ -1,3 +1,131 @@
+<script setup>
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import carouselData from "~/data/carousel.js";
+
+// Props
+const props = defineProps({
+  scrollDuration: {
+    type: Number,
+    default: 25, // secondi per un ciclo completo
+  },
+});
+
+// State
+const slides = ref(carouselData);
+const isPaused = ref(false);
+const isDragging = ref(false);
+const track = ref(null);
+const viewport = ref(null);
+
+// Drag state
+const startX = ref(0);
+const scrollLeft = ref(0);
+const dragOffset = ref(0);
+
+// Computed
+const trackStyle = computed(() => {
+  if (isDragging.value) {
+    return {
+      animationDuration: props.scrollDuration + "s",
+      transform: `translateX(${dragOffset.value}px)`,
+    };
+  }
+  return {
+    animationDuration: props.scrollDuration + "s",
+  };
+});
+
+// Methods - Scorrimento continuo
+const pauseScroll = () => {
+  isPaused.value = true;
+};
+
+const resumeScroll = () => {
+  if (!isDragging.value) {
+    isPaused.value = false;
+  }
+};
+
+// Methods - Drag manuale
+const startDrag = (e) => {
+  isDragging.value = true;
+  isPaused.value = true;
+
+  startX.value = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+
+  // Ottieni la posizione attuale del transform dall'animazione
+  if (track.value) {
+    const style = window.getComputedStyle(track.value);
+    const matrix = new DOMMatrix(style.transform);
+    scrollLeft.value = matrix.m41; // translateX value
+    dragOffset.value = scrollLeft.value;
+  }
+
+  document.addEventListener("mousemove", onDrag);
+  document.addEventListener("mouseup", endDrag);
+  document.addEventListener("touchmove", onDrag, { passive: false });
+  document.addEventListener("touchend", endDrag);
+};
+
+const onDrag = (e) => {
+  if (!isDragging.value) return;
+
+  e.preventDefault();
+
+  const currentX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
+  const diff = currentX - startX.value;
+  dragOffset.value = scrollLeft.value + diff;
+};
+
+const endDrag = () => {
+  isDragging.value = false;
+
+  // Resetta e riprendi l'animazione
+  dragOffset.value = 0;
+  isPaused.value = false;
+
+  document.removeEventListener("mousemove", onDrag);
+  document.removeEventListener("mouseup", endDrag);
+  document.removeEventListener("touchmove", onDrag);
+  document.removeEventListener("touchend", endDrag);
+};
+
+// Cleanup
+onUnmounted(() => {
+  document.removeEventListener("mousemove", onDrag);
+  document.removeEventListener("mouseup", endDrag);
+  document.removeEventListener("touchmove", onDrag);
+  document.removeEventListener("touchend", endDrag);
+});
+
+/*
+=============================================
+NAVIGAZIONE MANUALE (decommentare se necessario)
+=============================================
+const currentIndex = ref(0)
+
+const next = () => {
+  if (currentIndex.value < slides.value.length - 1) {
+    currentIndex.value++
+  } else {
+    currentIndex.value = 0
+  }
+}
+
+const prev = () => {
+  if (currentIndex.value > 0) {
+    currentIndex.value--
+  } else {
+    currentIndex.value = slides.value.length - 1
+  }
+}
+
+const goTo = (index) => {
+  currentIndex.value = index
+}
+*/
+</script>
+
 <template>
   <div
     class="news-carousel"
@@ -150,134 +278,6 @@
     -->
   </div>
 </template>
-
-<script setup>
-import { ref, computed, onMounted, onUnmounted } from "vue";
-import carouselData from "~/data/carousel.js";
-
-// Props
-const props = defineProps({
-  scrollDuration: {
-    type: Number,
-    default: 25, // secondi per un ciclo completo
-  },
-});
-
-// State
-const slides = ref(carouselData);
-const isPaused = ref(false);
-const isDragging = ref(false);
-const track = ref(null);
-const viewport = ref(null);
-
-// Drag state
-const startX = ref(0);
-const scrollLeft = ref(0);
-const dragOffset = ref(0);
-
-// Computed
-const trackStyle = computed(() => {
-  if (isDragging.value) {
-    return {
-      animationDuration: props.scrollDuration + "s",
-      transform: `translateX(${dragOffset.value}px)`,
-    };
-  }
-  return {
-    animationDuration: props.scrollDuration + "s",
-  };
-});
-
-// Methods - Scorrimento continuo
-const pauseScroll = () => {
-  isPaused.value = true;
-};
-
-const resumeScroll = () => {
-  if (!isDragging.value) {
-    isPaused.value = false;
-  }
-};
-
-// Methods - Drag manuale
-const startDrag = (e) => {
-  isDragging.value = true;
-  isPaused.value = true;
-
-  startX.value = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
-
-  // Ottieni la posizione attuale del transform dall'animazione
-  if (track.value) {
-    const style = window.getComputedStyle(track.value);
-    const matrix = new DOMMatrix(style.transform);
-    scrollLeft.value = matrix.m41; // translateX value
-    dragOffset.value = scrollLeft.value;
-  }
-
-  document.addEventListener("mousemove", onDrag);
-  document.addEventListener("mouseup", endDrag);
-  document.addEventListener("touchmove", onDrag, { passive: false });
-  document.addEventListener("touchend", endDrag);
-};
-
-const onDrag = (e) => {
-  if (!isDragging.value) return;
-
-  e.preventDefault();
-
-  const currentX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
-  const diff = currentX - startX.value;
-  dragOffset.value = scrollLeft.value + diff;
-};
-
-const endDrag = () => {
-  isDragging.value = false;
-
-  // Resetta e riprendi l'animazione
-  dragOffset.value = 0;
-  isPaused.value = false;
-
-  document.removeEventListener("mousemove", onDrag);
-  document.removeEventListener("mouseup", endDrag);
-  document.removeEventListener("touchmove", onDrag);
-  document.removeEventListener("touchend", endDrag);
-};
-
-// Cleanup
-onUnmounted(() => {
-  document.removeEventListener("mousemove", onDrag);
-  document.removeEventListener("mouseup", endDrag);
-  document.removeEventListener("touchmove", onDrag);
-  document.removeEventListener("touchend", endDrag);
-});
-
-/*
-=============================================
-NAVIGAZIONE MANUALE (decommentare se necessario)
-=============================================
-const currentIndex = ref(0)
-
-const next = () => {
-  if (currentIndex.value < slides.value.length - 1) {
-    currentIndex.value++
-  } else {
-    currentIndex.value = 0
-  }
-}
-
-const prev = () => {
-  if (currentIndex.value > 0) {
-    currentIndex.value--
-  } else {
-    currentIndex.value = slides.value.length - 1
-  }
-}
-
-const goTo = (index) => {
-  currentIndex.value = index
-}
-*/
-</script>
 
 <style lang="scss" scoped>
 .news-carousel {

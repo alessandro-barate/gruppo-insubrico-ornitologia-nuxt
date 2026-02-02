@@ -368,6 +368,7 @@ onMounted(() => {
 
     .sections-title {
       width: 50%;
+      padding-left: 5rem;
 
       .part-1,
       .part-2,

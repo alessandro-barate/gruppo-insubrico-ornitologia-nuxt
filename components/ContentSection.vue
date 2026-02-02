@@ -64,7 +64,7 @@ const mockCategories = {
 };
 
 const mockYears = {
-  iwc: [2025, 2024, 2023, 2022],
+  iwc: [2026, 2025, 2024, 2023, 2022],
   rondoni: [2025, 2024, 2023],
   zps: [2024, 2023, 2022, 2021],
   quaderni: [2025, 2024, 2023, 2022, 2021],
@@ -384,7 +384,7 @@ $text-medium: #555;
 $text-light: #666;
 $bg-light: #f5f5f5;
 $bg-lighter: #fafafa;
-$border-color: #e0e0e0;
+$border-color: rgb(141, 141, 141);
 
 // ============================================
 // MAIN SECTION
@@ -396,7 +396,7 @@ $border-color: #e0e0e0;
 
   &__intro {
     font-size: clamp(1rem, 2vw, 1.3rem);
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
     color: $text-medium;
   }
 }
@@ -405,7 +405,7 @@ $border-color: #e0e0e0;
 // FILTER GROUPS
 // ============================================
 .filter-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .filter-selector {
@@ -413,7 +413,7 @@ $border-color: #e0e0e0;
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid $border-color;
 
   &__label {

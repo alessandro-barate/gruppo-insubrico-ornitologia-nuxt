@@ -21,7 +21,7 @@ useHead({
         <section class="title-section jumbo-bg">
           <div class="overlay">
             <div class="title uppercase">
-              <h1 id="divulgazione">divulgazione</h1>
+              <h1 id="scientific-dissemination">divulgazione</h1>
             </div>
           </div>
         </section>
@@ -51,8 +51,8 @@ useHead({
   }
 
   .jumbo-bg {
-    background: url(/assets/images/divulgazione/hero-divulgazione.webp) center/
-      cover no-repeat;
+    background: url(/assets/images/scientific-dissemination/cincia-bigia.webp)
+      center/ cover no-repeat;
 
     .title {
       text-align: center;

@@ -3,7 +3,7 @@
 // MOCK DATA - Rimuovere quando il backend è pronto
 // ============================================
 import newsData from "~/data/carousel.js";
-const MOCK_MODE = true; // Cambia a false quando avrò il backend
+const MOCK_MODE = true; // Cambiare a false quando avrò il backend
 const MOCK_YEARS = [2026, 2025, 2024, 2023, 2022]; // Rimuovere quando avrò il backend
 // ============================================
 
@@ -360,6 +360,7 @@ onMounted(() => {
     padding: 4rem 2rem;
     background-color: #fafafa;
     border-radius: 12px;
+    border: 1px dashed rgb(141, 141, 141);
 
     p {
       font-size: 1.15rem;
