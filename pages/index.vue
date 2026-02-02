@@ -263,19 +263,6 @@ onMounted(() => {
                 </a>
                 <h3>Iscriviti alla nostra newsletter</h3>
               </div>
-
-              <hr class="space" />
-
-              <!-- Change -->
-              <div class="change">
-                <a href="https://www.change.org/" target="_blank">
-                  <img
-                    src="~/assets/images/change.svg"
-                    alt="Change.org logo e link"
-                  />
-                </a>
-                <h3>Sostieni le nostre campagne o lanciane una</h3>
-              </div>
             </div>
           </div>
         </section>

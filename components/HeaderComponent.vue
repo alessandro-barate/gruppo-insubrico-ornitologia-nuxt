@@ -229,7 +229,6 @@ onUnmounted(() => {
                     target="_blank"
                     >Facebook</a
                   >
-                  <a href="https://www.change.org/" target="_blank">Change</a>
                 </div>
               </div>
             </div>
@@ -316,7 +315,9 @@ onUnmounted(() => {
           no-repeat center / cover;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+        transition:
+          opacity 0.4s ease-in-out,
+          visibility 0.4s ease-in-out;
 
         &::before {
           content: "";
