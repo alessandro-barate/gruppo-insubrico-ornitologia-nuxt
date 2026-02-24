@@ -113,7 +113,7 @@ const mockContent = [
     slug: "censimento-iwc-2025",
     excerpt:
       "I risultati del censimento IWC 2025 mostrano un incremento delle popolazioni svernanti...",
-    image: "/assets/images/placeholder.webp",
+    image: "/images/carousel/bird-1.webp",
     published_at: "2025-01-15",
   },
   {
@@ -122,7 +122,7 @@ const mockContent = [
     slug: "monitoraggio-rondoni-2024",
     excerpt:
       "Il progetto di monitoraggio delle colonie urbane prosegue con risultati incoraggianti...",
-    image: "/assets/images/placeholder.webp",
+    image: "/images/carousel/bird-2.jpg",
     published_at: "2024-06-20",
   },
   {
@@ -131,7 +131,7 @@ const mockContent = [
     slug: "pubblicazione-canneti-2024",
     excerpt:
       "È stata pubblicata la nuova ricerca sulla conservazione dei canneti del Lago Maggiore...",
-    image: "/assets/images/placeholder.webp",
+    image: "/images/carousel/bird-3.jpg",
     published_at: "2024-09-10",
   },
 ];
@@ -650,13 +650,18 @@ $border-color: rgb(141, 141, 141);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
+
+  a {
+    background: rgba((0 161 255 / 54%));
+  }
 }
 
 .content-card {
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   background: #fff;
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   text-decoration: none;
@@ -676,6 +681,7 @@ $border-color: rgb(141, 141, 141);
     position: relative;
     height: 200px;
     overflow: hidden;
+    border-radius: 10px;
 
     img {
       width: 100%;
@@ -695,14 +701,14 @@ $border-color: rgb(141, 141, 141);
   &__title {
     font-size: 1.2rem;
     font-weight: 600;
-    color: $text-dark;
+    color: black;
     margin-bottom: 0.75rem;
     line-height: 1.4;
   }
 
   &__excerpt {
     font-size: 0.95rem;
-    color: $text-medium;
+    color: black;
     line-height: 1.6;
     flex: 1;
     margin-bottom: 1rem;
@@ -716,7 +722,7 @@ $border-color: rgb(141, 141, 141);
 
   &__date {
     font-size: 0.85rem;
-    color: $text-light;
+    color: black;
     padding-top: 0.75rem;
     border-top: 1px solid $border-color;
   }
