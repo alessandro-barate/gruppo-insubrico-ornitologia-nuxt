@@ -1,5 +1,12 @@
 <script setup>
+import { computed, ref, onMounted, onUnmounted } from "vue";
 import carousel from "~/data/carousel";
+
+// Importa le immagini per il carousel
+import nibbio from "~/assets/images/jumbo-home/nibbio.webp";
+import nibbio2 from "~/assets/images/jumbo-home/nibbio-2.webp";
+import nibbio3 from "~/assets/images/jumbo-home/nibbio-3.webp";
+import nibbio4 from "~/assets/images/jumbo-home/nibbio-4.webp";
 
 // SEO per la homepage
 useSeoMeta({
@@ -13,6 +20,39 @@ useSeoMeta({
 
 useHead({
   link: [{ rel: "canonical", href: "https://gruppoinsubrico.com/" }],
+});
+
+// Slider logic (solo se hasSlider = true)
+const currentIndex = ref(0);
+let slideInterval = null;
+let slides = [
+  {
+    image: nibbio,
+  },
+  {
+    image: nibbio2,
+  },
+  {
+    image: nibbio3,
+  },
+  {
+    image: nibbio4,
+  },
+];
+
+const nextSlide = () => {
+  if (slides && slides.length > 0) {
+    currentIndex.value = (currentIndex.value + 1) % slides.length;
+  }
+};
+
+// Computed property per il background dinamico
+const currentBackgroundImage = computed(() => {
+  if (slides && slides.length > 0) {
+    const imagePath = slides[currentIndex.value].image;
+    return `url(${imagePath})`;
+  }
+  return `url(${nibbio})`;
 });
 
 // IntersectionObserver per animazioni scroll
@@ -53,6 +93,16 @@ onMounted(() => {
   if (activitiesTitle) observer.observe(activitiesTitle);
   if (firstBox) observerLow.observe(firstBox);
   if (secondBox) observerLow.observe(secondBox);
+
+  if (slides && slides.length > 1) {
+    slideInterval = setInterval(nextSlide, 4000);
+  }
+});
+
+onUnmounted(() => {
+  if (slideInterval) {
+    clearInterval(slideInterval);
+  }
 });
 </script>
 
@@ -61,32 +111,39 @@ onMounted(() => {
     <div class="row">
       <div class="col">
         <!-- Jumbo section -->
-        <section class="title-section jumbo-bg d-flex">
-          <div class="overlay">
-            <!-- Logo container -->
-            <div class="logo-section fade-wrapper-3">
-              <div class="logo-container">
-                <div class="overlay-2">
-                  <img
-                    src="~/assets/images/gio-logo.webp"
-                    alt="Logo del Gruppo Insubrico di Ornitologia"
-                  />
-                </div>
+        <section
+          class="title-section jumbo-bg d-flex"
+          :style="{ backgroundImage: currentBackgroundImage }"
+        >
+          <!-- Logo container -->
+          <div class="logo-section fade-wrapper-3">
+            <div class="logo-container">
+              <div class="overlay-2">
+                <img
+                  src="~/assets/images/gio-logo.webp"
+                  alt="Logo del Gruppo Insubrico di Ornitologia"
+                />
               </div>
             </div>
+          </div>
 
-            <!-- Organization's name -->
-            <div class="title-container title-container-2">
-              <div class="fade-wrapper-2">
-                <p class="uppercase">gruppo insubrico</p>
-              </div>
+          <!-- Organization's name -->
+          <div class="title-container title-container-2">
+            <div class="fade-wrapper-2">
+              <p class="uppercase">gruppo insubrico</p>
             </div>
+          </div>
 
-            <div class="title-container title-container-3">
-              <div class="fade-wrapper-2">
-                <p class="uppercase">di ornitologia</p>
-              </div>
+          <div class="title-container title-container-3">
+            <div class="fade-wrapper-2">
+              <p class="uppercase">di ornitologia</p>
             </div>
+          </div>
+        </section>
+
+        <section class="mission-section">
+          <div class="square">
+            <p>MISSION</p>
           </div>
         </section>
 
@@ -150,16 +207,16 @@ onMounted(() => {
         </section>
 
         <!-- Activities section -->
-        <section>
+        <section class="activities-section">
           <div class="activities-container news-container d-flex">
             <!-- Grid section -->
             <div class="activities-box">
               <div class="activities-list d-grid uppercase">
                 <NuxtLink to="/progetti" class="activity-card card-1 d-flex">
                   <div class="card-default d-flex">
-                    <span class="gradient-color">progetti</span>
+                    <span class="bg-blue">progetti</span>
                   </div>
-                  <div class="card-hover gradient-color">
+                  <div class="card-hover bg-blue">
                     <img src="~/assets/images/arrow-right.svg" alt="" />
                     <p>progetti</p>
                   </div>
@@ -170,9 +227,9 @@ onMounted(() => {
                   class="activity-card card-3 d-flex"
                 >
                   <div class="card-default d-flex">
-                    <span class="gradient-color">divulgazione</span>
+                    <span class="bg-blue">divulgazione</span>
                   </div>
-                  <div class="card-hover gradient-color">
+                  <div class="card-hover bg-blue">
                     <img src="~/assets/images/arrow-right.svg" alt="" />
                     <p>divulgazione</p>
                   </div>
@@ -183,9 +240,9 @@ onMounted(() => {
                   class="activity-card card-5 d-flex"
                 >
                   <div class="card-default d-flex">
-                    <span class="gradient-color">pubblicazioni</span>
+                    <span class="bg-blue">pubblicazioni</span>
                   </div>
-                  <div class="card-hover gradient-color">
+                  <div class="card-hover bg-blue">
                     <img src="~/assets/images/arrow-right.svg" alt="" />
                     <p>pubblicazioni</p>
                   </div>
@@ -294,13 +351,17 @@ onMounted(() => {
 // Jumbo section
 .col {
   .jumbo-bg {
-    background: url(../assets/images/jumbo-home.webp) center/cover no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    transition: background-image 0.8s ease-in-out;
   }
 
   .title-section {
     position: relative;
     width: 100%;
-    height: 140vh;
+    height: 110vh;
     overflow: hidden;
 
     .logo-section {
@@ -309,15 +370,17 @@ onMounted(() => {
       padding-bottom: clamp(1.5rem, 3vw, 3rem);
 
       .logo-container {
+        top: 25rem;
         width: 100%;
         text-align: center;
+        position: relative;
 
         .overlay-2 {
-          width: clamp(40%, 25vw, 25%);
+          width: clamp(50%, 25vw, 25%);
           margin: 0 auto;
 
           img {
-            width: 80%;
+            width: 100%;
           }
         }
       }
@@ -359,6 +422,18 @@ onMounted(() => {
   }
 }
 // END jumbo section
+
+// Mission section
+.mission-section {
+  width: 100%;
+  height: 400px;
+
+  .square {
+    width: 80%;
+    height: 300px;
+    background-color: #323c71d0;
+  }
+}
 
 // News section
 .news-section {
@@ -432,7 +507,7 @@ onMounted(() => {
   }
 
   button {
-    background: linear-gradient(90deg, #0077ff, #00e1ff);
+    background: linear-gradient(90deg, #ff8636, #f9a268);
 
     &:hover {
       color: rgb(0, 0, 0);
@@ -586,6 +661,7 @@ onMounted(() => {
           background-size: cover;
           background-position: center;
           opacity: 1;
+          color: rgba(255, 255, 255, 0.8);
           transition: opacity 0.5s ease-in-out;
 
           span {
@@ -618,7 +694,7 @@ onMounted(() => {
           }
 
           p {
-            color: black;
+            color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
             padding: 5%;
             font-size: 10cqw;
@@ -861,13 +937,11 @@ onMounted(() => {
     .title-section {
       height: 110vh;
 
-      .overlay {
-        .logo-section {
-          .logo-container {
-            .overlay-2 {
-              img {
-                width: 100%;
-              }
+      .logo-section {
+        .logo-container {
+          .overlay-2 {
+            img {
+              width: 100%;
             }
           }
         }

@@ -108,7 +108,7 @@ onUnmounted(() => {
 
 <template>
   <header>
-    <div class="container gradient-color">
+    <div class="container gradient-color-header">
       <div class="row">
         <div class="col d-flex">
           <nav class="d-flex">
@@ -290,7 +290,7 @@ onUnmounted(() => {
             height: 3px;
             margin: 8px auto;
             border-radius: 30%;
-            background-color: rgb(0, 0, 0);
+            background-color: rgba(255, 255, 255, 0.6);
             transition: transform 0.6s ease-in-out;
           }
 

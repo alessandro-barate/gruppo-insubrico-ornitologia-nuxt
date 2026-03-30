@@ -13,9 +13,20 @@ DISPLAY
 }
 
 /************
-BACKGROUND
+BACKGROUNDS
 ************/
-.gradient-color,
+.bg-blue {
+  background-color: #323c71;
+}
+
+.gradient-color-header {
+  background: linear-gradient(90deg, #323c71, #36427c);
+}
+
+.gradient-color-header-reverse {
+  background: linear-gradient(90deg, #36427c, #323c71);
+}
+
 .gradient-color-subscribe,
 .gradient-color-subscribe-cookie {
   background-image: linear-gradient(90deg, #0077ff, #e1e7dd);
