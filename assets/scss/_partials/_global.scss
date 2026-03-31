@@ -122,7 +122,7 @@ BACKGROUNDS COLORS
 ********************/
 .mission-section,
 .news-section,
-.activities-section{
+.activities-section {
   background-color: #c2c3e3;
 }
 
@@ -140,7 +140,7 @@ BEFORE AND AFTER EFFECTS
   clip-path: polygon(0 100%, 100% 0, 100% 100%);
 }
 
-.subscription-container::before {
+.activities-container::before {
   content: "";
   position: absolute;
   top: -1px;
@@ -151,7 +151,7 @@ BEFORE AND AFTER EFFECTS
   clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 
-.subscription-container::after {
+.activities-container::after {
   content: "";
   position: absolute;
   bottom: -2px;
@@ -178,8 +178,8 @@ BEFORE AND AFTER EFFECTS
 // ==========================================
 @media (max-width: 576px) {
   .title-section::after,
-  .subscription-container::before,
-  .subscription-container::after,
+  .activities-container::before,
+  .activities-container::after,
   .contacts-container::before {
     height: 90px;
   }
@@ -190,8 +190,8 @@ BEFORE AND AFTER EFFECTS
 // ==========================================
 @media (max-width: 576px) {
   .title-section::after,
-  .subscription-container::before,
-  .subscription-container::after,
+  .activities-container::before,
+  .activities-container::after,
   .contacts-container::before {
     height: 80px;
   }

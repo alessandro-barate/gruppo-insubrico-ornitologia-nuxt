@@ -175,7 +175,7 @@ onUnmounted(() => {
         </section>
 
         <!-- Subscribe section -->
-        <section>
+        <!-- <section>
           <div class="subscription-container news-container">
             <div class="sections-title subscription-title">
               <h2 class="title-1 title-color uppercase">diventa nostro</h2>
@@ -204,7 +204,7 @@ onUnmounted(() => {
               </div>
             </div>
           </div>
-        </section>
+        </section> -->
 
         <!-- Activities section -->
         <section class="activities-section">
@@ -254,8 +254,8 @@ onUnmounted(() => {
 
             <!-- Activities title and description -->
             <div class="sections-title activities-title">
-              <h2 class="title-1 title-color uppercase">scopri le nostre</h2>
-              <h2 class="title-2 title-color uppercase">attività</h2>
+              <h2 class="title-1 uppercase">scopri le nostre</h2>
+              <h2 class="title-2 uppercase">attività</h2>
             </div>
           </div>
         </section>
@@ -517,113 +517,119 @@ onUnmounted(() => {
 // END news section
 
 // Subscription section
-.subscription-container {
-  padding-top: clamp(4rem, 10vw, 10rem);
-  padding-bottom: clamp(6rem, 14vw, 14rem);
+// .subscription-container {
+//   padding-top: clamp(4rem, 10vw, 10rem);
+//   padding-bottom: clamp(6rem, 14vw, 14rem);
+//   width: 100%;
+//   position: relative;
+//   min-height: clamp(500px, 80vh, 1000px);
+//   background-size: cover;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-attachment: fixed;
+//   background-image: url(../assets/images/parallax-image.webp);
+
+//   .sections-title {
+//     margin-bottom: 2rem;
+//     overflow: hidden;
+
+//     .title-1,
+//     .title-2 {
+//       opacity: 0;
+//       transform: translateY(-100%);
+//     }
+
+//     &.visible {
+//       .title-1 {
+//         animation: slideInTop 1s ease-in-out forwards;
+//       }
+
+//       .title-2 {
+//         animation: slideInTop 1s ease-in-out 0.3s forwards;
+//       }
+//     }
+
+//     .title-1 {
+//       font-size: clamp(1.5rem, 4vw, 3rem);
+//       padding-top: 2rem;
+//       padding-left: clamp(1rem, 6vw, 6rem);
+//     }
+
+//     .title-2 {
+//       font-size: clamp(2.5rem, 8vw, 6rem);
+//       padding-top: clamp(1rem, 3vw, 3rem);
+//       padding-left: clamp(2rem, 10vw, 12rem);
+//     }
+//   }
+
+//   .subscription-box {
+//     margin: 0 auto;
+//     width: clamp(85%, 70vw, 70%);
+//     padding: clamp(0.75rem, 2vw, 1rem);
+//     border-radius: 0.5rem;
+
+//     .card-logo {
+//       width: 100%;
+//       padding-top: 1rem;
+//       margin-bottom: clamp(1rem, 2vw, 2rem);
+
+//       img {
+//         width: clamp(8%, 5vw, 5%);
+//       }
+//     }
+
+//     h3 {
+//       font-size: clamp(1.5rem, 4vw, 3rem);
+//     }
+
+//     p {
+//       font-size: clamp(1rem, 2vw, 1.5rem);
+//       margin-top: 1rem;
+//       margin-bottom: clamp(1rem, 2vw, 2rem);
+//     }
+
+//     .subscription-button {
+//       text-align: center;
+//     }
+
+//     .button {
+//       padding-bottom: 1rem;
+
+//       button {
+//         background: linear-gradient(90deg, #d2420d, #ffbf00);
+
+//         &:hover {
+//           color: rgb(0, 0, 0);
+//         }
+//       }
+//     }
+//   }
+
+//   hr {
+//     width: 10%;
+//     border: none;
+//     margin-left: clamp(2rem, 10vw, 10rem);
+//     margin-bottom: 2rem;
+//     border-bottom: 2px solid rgb(141, 141, 141);
+//   }
+// }
+// END subscription section
+
+// Activities section
+.activities-container {
   width: 100%;
+  margin: 0 auto;
+  padding-top: clamp(20rem, 15vw, 20rem);
+  padding-bottom: clamp(18rem, 14vw, 18rem);
   position: relative;
+  align-items: center;
+  flex-wrap: wrap;
   min-height: clamp(500px, 80vh, 1000px);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-image: url(../assets/images/parallax-image.webp);
-
-  .sections-title {
-    margin-bottom: 2rem;
-    overflow: hidden;
-
-    .title-1,
-    .title-2 {
-      opacity: 0;
-      transform: translateY(-100%);
-    }
-
-    &.visible {
-      .title-1 {
-        animation: slideInTop 1s ease-in-out forwards;
-      }
-
-      .title-2 {
-        animation: slideInTop 1s ease-in-out 0.3s forwards;
-      }
-    }
-
-    .title-1 {
-      font-size: clamp(1.5rem, 4vw, 3rem);
-      padding-top: 2rem;
-      padding-left: clamp(1rem, 6vw, 6rem);
-    }
-
-    .title-2 {
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      padding-top: clamp(1rem, 3vw, 3rem);
-      padding-left: clamp(2rem, 10vw, 12rem);
-    }
-  }
-
-  .subscription-box {
-    margin: 0 auto;
-    width: clamp(85%, 70vw, 70%);
-    padding: clamp(0.75rem, 2vw, 1rem);
-    border-radius: 0.5rem;
-
-    .card-logo {
-      width: 100%;
-      padding-top: 1rem;
-      margin-bottom: clamp(1rem, 2vw, 2rem);
-
-      img {
-        width: clamp(8%, 5vw, 5%);
-      }
-    }
-
-    h3 {
-      font-size: clamp(1.5rem, 4vw, 3rem);
-    }
-
-    p {
-      font-size: clamp(1rem, 2vw, 1.5rem);
-      margin-top: 1rem;
-      margin-bottom: clamp(1rem, 2vw, 2rem);
-    }
-
-    .subscription-button {
-      text-align: center;
-    }
-
-    .button {
-      padding-bottom: 1rem;
-
-      button {
-        background: linear-gradient(90deg, #d2420d, #ffbf00);
-
-        &:hover {
-          color: rgb(0, 0, 0);
-        }
-      }
-    }
-  }
-
-  hr {
-    width: 10%;
-    border: none;
-    margin-left: clamp(2rem, 10vw, 10rem);
-    margin-bottom: 2rem;
-    border-bottom: 2px solid rgb(141, 141, 141);
-  }
-}
-// END subscription section
-
-// Activities section
-.activities-container {
-  width: 90%;
-  margin: 0 auto;
-  padding-top: clamp(2rem, 5vw, 5rem);
-  padding-bottom: clamp(2rem, 5vw, 5rem);
-  position: relative;
-  align-items: center;
-  flex-wrap: wrap;
 
   hr {
     height: clamp(100px, 20vw, 210px);
@@ -669,7 +675,7 @@ onUnmounted(() => {
             width: 100%;
             padding: 5%;
             display: inline-block;
-            opacity: 0.8;
+            opacity: 0.9;
             font-size: 9cqw;
           }
         }
@@ -713,9 +719,7 @@ onUnmounted(() => {
       }
 
       .card-1,
-      .card-2,
       .card-3,
-      .card-4,
       .card-5 {
         background-size: cover;
         background-position: center;
@@ -724,14 +728,8 @@ onUnmounted(() => {
       .card-1 {
         background-image: url(../assets/images/grid-1.webp);
       }
-      .card-2 {
-        background-image: url(../assets/images/grid-2.webp);
-      }
       .card-3 {
         background-image: url(../assets/images/grid-3.webp);
-      }
-      .card-4 {
-        background-image: url(../assets/images/grid-4.webp);
       }
       .card-5 {
         background-image: url(../assets/images/grid-5.webp);
@@ -746,6 +744,7 @@ onUnmounted(() => {
     .title-1,
     .title-2 {
       opacity: 0;
+      color: rgb(200, 200, 200);
       transform: translateX(100%);
     }
 

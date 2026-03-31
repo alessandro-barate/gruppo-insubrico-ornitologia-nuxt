@@ -290,7 +290,7 @@ onUnmounted(() => {
             height: 3px;
             margin: 8px auto;
             border-radius: 30%;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgb(200, 200, 200);
             transition: transform 0.6s ease-in-out;
           }
 
