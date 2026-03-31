@@ -217,7 +217,7 @@ onUnmounted(() => {
                     <span class="bg-blue">progetti</span>
                   </div>
                   <div class="card-hover bg-blue">
-                    <img src="~/assets/images/arrow-right.svg" alt="" />
+                    <img src="~/assets/images/arrow-right-white.svg" alt="" />
                     <p>progetti</p>
                   </div>
                 </NuxtLink>
@@ -230,7 +230,7 @@ onUnmounted(() => {
                     <span class="bg-blue">divulgazione</span>
                   </div>
                   <div class="card-hover bg-blue">
-                    <img src="~/assets/images/arrow-right.svg" alt="" />
+                    <img src="~/assets/images/arrow-right-white.svg" alt="" />
                     <p>divulgazione</p>
                   </div>
                 </NuxtLink>
@@ -243,7 +243,7 @@ onUnmounted(() => {
                     <span class="bg-blue">pubblicazioni</span>
                   </div>
                   <div class="card-hover bg-blue">
-                    <img src="~/assets/images/arrow-right.svg" alt="" />
+                    <img src="~/assets/images/arrow-right-white.svg" alt="" />
                     <p>pubblicazioni</p>
                   </div>
                 </NuxtLink>
@@ -661,7 +661,7 @@ onUnmounted(() => {
           background-size: cover;
           background-position: center;
           opacity: 1;
-          color: rgba(255, 255, 255, 0.8);
+          color: rgba(255, 255, 255, 0.9);
           transition: opacity 0.5s ease-in-out;
 
           span {
