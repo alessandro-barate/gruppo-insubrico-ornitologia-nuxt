@@ -111,7 +111,35 @@ onUnmounted(() => {
     <div class="container gradient-color-header">
       <div class="row">
         <div class="col d-flex">
-          <nav class="d-flex">
+          <nav id="nav-menu" class="d-flex">
+            <!-- Desktop nav menu -->
+            <ul class="nav-menu nav-menu--desktop d-flex">
+              <li>
+                <a href="/" data-index="01">Home</a>
+              </li>
+              <li>
+                <a href="/chi-siamo" data-index="02">Chi siamo</a>
+              </li>
+              <li>
+                <a href="/news" data-index="03">News</a>
+              </li>
+              <li>
+                <a href="/progetti" data-index="04">Progetti</a>
+              </li>
+              <li>
+                <a href="/divulgazione" data-index="05">Divulgazione</a>
+              </li>
+              <li>
+                <a href="/pubblicazioni" data-index="06">Pubblicazioni</a>
+              </li>
+              <li>
+                <a href="/socials" data-index="07">Social</a>
+              </li>
+              <li>
+                <a href="/links" data-index="08">Link utili</a>
+              </li>
+            </ul>
+
             <!-- Hamburger menu -->
             <div class="hamburger-menu-container d-flex">
               <div @click="toggleNavbarHamburger()" class="hamburger-menu">
@@ -121,7 +149,7 @@ onUnmounted(() => {
               </div>
             </div>
 
-            <!-- List page (fullscreen menu) -->
+            <!-- List page (fullscreen menu mobile) -->
             <div class="list-page">
               <div class="menu-logo">
                 <span>G I O</span>
@@ -237,7 +265,7 @@ onUnmounted(() => {
             <div class="search-bar-section">
               <div class="search-bar-box d-flex">
                 <button @click="openSearchBar">
-                  <img src="~/assets/images/magnifier.svg" alt="Ricerca" />
+                  <img src="~/assets/images/magnifier-lens.png" alt="Ricerca" />
                 </button>
               </div>
               <div class="input-field" :class="{ visible: isSearchOpen }">
@@ -271,14 +299,60 @@ onUnmounted(() => {
     width: 100%;
 
     nav {
-      width: 90%;
+      width: 92%;
       height: 60px;
       margin: 0 auto;
+      align-items: center;
+
+      .nav-menu--desktop {
+        display: none;
+        gap: 2rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        @media (min-width: 993px) {
+          display: flex;
+          align-items: center;
+          flex: 1;
+        }
+
+        @media (min-width: 1200px) {
+          gap: 3rem;
+        }
+
+        @media (min-width: 1400px) {
+          gap: 4rem;
+        }
+
+        @media (min-width: 1600px) {
+          gap: 5rem;
+        }
+
+        li {
+          margin-left: 0;
+          margin-right: 0;
+
+          a {
+            display: inline-block;
+            transition: transform 0.5s ease-in-out;
+
+            &:hover {
+              transform: scale(1.1);
+            }
+          }
+        }
+      }
 
       .hamburger-menu-container {
-        width: 50%;
+        width: 90%;
         position: relative;
         align-items: center;
+        display: flex;
+
+        @media (min-width: 993px) {
+          display: none;
+        }
 
         .hamburger-menu {
           cursor: pointer;
@@ -555,15 +629,18 @@ onUnmounted(() => {
       }
 
       .search-bar-section {
-        width: 50%;
+        width: 8%;
         position: relative;
-        justify-content: end;
 
         .search-bar-box {
-          width: 100%;
-          padding-top: 1rem;
+          width: 80%;
+          margin-right: 0;
           position: relative;
           justify-content: end;
+
+          @media (min-width: 1281px) {
+            width: 60%;
+          }
 
           button {
             border: none;
@@ -572,7 +649,7 @@ onUnmounted(() => {
             background-color: transparent;
 
             img {
-              width: 20%;
+              width: 65%;
               transition: transform 0.5s ease-in-out;
 
               &:hover {
@@ -648,57 +725,67 @@ onUnmounted(() => {
 }
 
 @media (max-width: 992px) {
-  .container .col nav .list-page {
-    .menu-logo {
-      top: 1.5rem;
-      left: 2rem;
-    }
-
-    .close-button-container {
-      top: 1.5rem;
-      right: 2rem;
-
-      button img {
-        width: 35px;
-        height: 35px;
-      }
-    }
-
-    .nav-menu {
-      margin-top: 2rem;
-      padding: 2rem 2rem 0.5rem;
-
-      li {
-        margin-bottom: 0.3rem;
-
-        &:nth-child(even) {
-          justify-content: unset;
-          padding-left: 0;
-        }
-
-        &:nth-child(odd) {
-          justify-content: unset;
-          padding-right: 0%;
-        }
-
-        a {
-          font-size: clamp(1.4rem, 7vw, 2.5rem);
-        }
-      }
-    }
-
-    .menu-footer {
-      flex-direction: column;
-      gap: 0.75rem;
-      padding: 0.75rem 2rem;
-      text-align: center;
-
-      .company-name {
-        display: none;
+  .container .col nav {
+    .list-page {
+      .menu-logo {
+        top: 1.5rem;
+        left: 2rem;
       }
 
-      .social-links {
-        gap: 1.5rem;
+      .close-button-container {
+        top: 1.5rem;
+        right: 2rem;
+
+        button img {
+          width: 35px;
+          height: 35px;
+        }
+      }
+
+      .nav-menu {
+        margin-top: 2rem;
+        padding: 2rem 2rem 0.5rem;
+
+        li {
+          margin-bottom: 0.3rem;
+
+          &:nth-child(even) {
+            justify-content: unset;
+            padding-left: 0;
+          }
+
+          &:nth-child(odd) {
+            justify-content: unset;
+            padding-right: 0%;
+          }
+
+          a {
+            font-size: clamp(1.4rem, 7vw, 2.5rem);
+          }
+        }
+      }
+
+      .menu-footer {
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 0.75rem 2rem;
+        text-align: center;
+
+        .company-name {
+          display: none;
+        }
+
+        .social-links {
+          gap: 1.5rem;
+        }
+      }
+
+      .search-bar-section {
+        width: 12%;
+
+        .search-bar-box button img {
+          width: 100%;
+        }
       }
     }
   }

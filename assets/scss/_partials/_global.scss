@@ -32,6 +32,10 @@ a {
   text-decoration: none;
 }
 
+nav a {
+  color: rgb(200, 200, 200);
+}
+
 /**********
 KEYFRAMES
 **********/
@@ -123,7 +127,14 @@ BACKGROUNDS COLORS
 .mission-section,
 .news-section,
 .activities-section {
-  background-color: #c2c3e3;
+  background-color: #ebf2fc; // #c2c3e3 colore di prima, perchè?
+}
+
+.title-section::after,
+.activities-container::before,
+.activities-container::after,
+.contacts-container::before {
+  background: #ebf2fc;
 }
 
 /*************************
@@ -136,7 +147,6 @@ BEFORE AND AFTER EFFECTS
   left: 0;
   width: 100%;
   height: 150px;
-  background: #c2c3e3;
   clip-path: polygon(0 100%, 100% 0, 100% 100%);
 }
 
@@ -147,7 +157,6 @@ BEFORE AND AFTER EFFECTS
   left: 0;
   width: 100%;
   height: 150px;
-  background: #c2c3e3;
   clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 
@@ -158,7 +167,6 @@ BEFORE AND AFTER EFFECTS
   left: 0;
   width: 100%;
   height: 150px;
-  background: #c2c3e3;
   clip-path: polygon(0 100%, 100% 0, 100% 100%);
 }
 
@@ -169,7 +177,6 @@ BEFORE AND AFTER EFFECTS
   left: 0;
   width: 100%;
   height: 150px;
-  background: #c2c3e3;
   clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 

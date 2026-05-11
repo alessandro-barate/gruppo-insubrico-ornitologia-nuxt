@@ -143,7 +143,42 @@ onUnmounted(() => {
 
         <section class="mission-section">
           <div class="square">
-            <p>MISSION</p>
+            <p>
+              Il Gruppo Insubrico di Ornitologia si ispira ai principi
+              dell'educazione ambientale e della promozione della cultura
+              naturalistica tra i cittadini e persegue, nell'ambito territoriale
+              locale come scopo prioritario lo studio e la conservazione
+              dell'avifauna, nonché la gestione e la valorizzazione di aree di
+              interesse naturalistico.
+            </p>
+            <p>
+              Crediamo che conoscere la natura sia il primo passo per
+              proteggerla. Il Gruppo Insubrico di Ornitologia promuove la
+              cultura naturalistica e l'educazione ambientale, coinvolgendo
+              cittadini, appassionati e ricercatori nello studio dell'avifauna e
+              dei suoi habitat. Attraverso ricerca, divulgazione e gestione di
+              aree di interesse naturalistico lavoriamo per conservare la
+              biodiversità e rafforzare il legame tra persone e territorio.
+            </p>
+            <p>
+              Osservare un uccello in volo significa raccontare una storia di
+              natura, territorio e biodiversità. Il Gruppo Insubrico di
+              Ornitologia nasce per studiare e proteggere l'avifauna locale,
+              promuovendo allo stesso tempo la conoscenza della natura tra i
+              cittadini. Con attività di ricerca, monitoraggio e divulgazione
+              lavoriamo per custodire gli habitat e valorizzare le aree
+              naturalistiche del nostro territorio.
+            </p>
+            <p>
+              Studiare, conoscere, proteggere. Il Gruppo Insubrico di
+              Ornitologia promuove la cultura naturalistica e l'educazione
+              ambientale attraverso lo studio e la conservazione dell'avifauna e
+              dei suoi habitat, contribuendo alla tutela e alla valorizzazione
+              del patrimonio naturale del territorio.
+            </p>
+            <div class="button-container">
+              <button class="uppercase">cosa facciamo</button>
+            </div>
           </div>
         </section>
 
@@ -427,6 +462,7 @@ onUnmounted(() => {
 .mission-section {
   width: 100%;
   height: 400px;
+  padding-top: 5rem;
 
   .square {
     width: 80%;
