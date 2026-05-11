@@ -133,10 +133,7 @@ onUnmounted(() => {
                 <a href="/pubblicazioni" data-index="06">Pubblicazioni</a>
               </li>
               <li>
-                <a href="/socials" data-index="07">Social</a>
-              </li>
-              <li>
-                <a href="/links" data-index="08">Link utili</a>
+                <a href="/links" data-index="07">Social e Link utili</a>
               </li>
             </ul>
 
@@ -215,18 +212,10 @@ onUnmounted(() => {
                 </li>
                 <li>
                   <a
-                    href="/socials"
-                    @click.prevent="closeMenu('Socials')"
-                    data-index="07"
-                    >Social</a
-                  >
-                </li>
-                <li>
-                  <a
                     href="/links"
                     @click.prevent="closeMenu('Links')"
-                    data-index="08"
-                    >Link utili</a
+                    data-index="07"
+                    >Social e Link utili</a
                   >
                 </li>
               </ul>

@@ -1,13 +1,13 @@
 <script setup>
-const showPrivacy = ref(false)
+const showPrivacy = ref(false);
 
 // Email generation (anti-spam)
 const openMail = () => {
-  const user = 'gruppoinsubricoornitologia'
-  const domain = 'gmail'
-  const tld = 'com'
-  window.location.href = `mailto:${user}@${domain}.${tld}`
-}
+  const user = "gruppoinsubricoornitologia";
+  const domain = "gmail";
+  const tld = "com";
+  window.location.href = `mailto:${user}@${domain}.${tld}`;
+};
 </script>
 
 <template>
@@ -16,20 +16,6 @@ const openMail = () => {
       <div class="row">
         <div class="col">
           <div class="main-container">
-            <!-- Logo box -->
-            <div class="logo-box">
-              <div class="logo-container d-flex">
-                <img
-                  class="footer-logo"
-                  src="~/assets/images/gio-logo.webp"
-                  alt="Logo del Gruppo Insubrico di Ornitologia"
-                />
-              </div>
-              <div class="logo-text">
-                <h1>Gruppo Insubrico di Ornitologia</h1>
-              </div>
-            </div>
-
             <!-- Details section -->
             <div class="details-container">
               <!-- Copyright container -->
@@ -47,7 +33,11 @@ const openMail = () => {
                     <a href="#" @click.prevent="openMail">Scrivici una mail</a>
                   </p>
                   <p>
-                    <a href="https://maps.app.goo.gl/eLrT1GPGxuw4QmLeA" target="_blank">Dove siamo</a>
+                    <a
+                      href="https://maps.app.goo.gl/eLrT1GPGxuw4QmLeA"
+                      target="_blank"
+                      >Dove siamo</a
+                    >
                   </p>
                   <p>Codice Fiscale</p>
                   <p>ODV - RUNTS 89826 del 07.11.2022</p>
@@ -57,13 +47,18 @@ const openMail = () => {
                 <div class="details-column">
                   <h3 class="uppercase">il gruppo</h3>
                   <p>
-                    <a href="/documents/atto-costitutivo.pdf" target="_blank">Atto Costitutivo</a>
+                    <a href="/documents/atto-costitutivo.pdf" target="_blank"
+                      >Atto Costitutivo</a
+                    >
                   </p>
                   <p>
                     <a href="/documents/statuto.pdf" target="_blank">Statuto</a>
                   </p>
                   <p>
-                    <a href="/documents/iscrizione-registro-volontariato.pdf" target="_blank">
+                    <a
+                      href="/documents/iscrizione-registro-volontariato.pdf"
+                      target="_blank"
+                    >
                       Iscrizione Registro Volontariato
                     </a>
                   </p>
@@ -100,31 +95,22 @@ const openMail = () => {
           width: 35%;
         }
       }
-
-      .logo-text {
-        width: 100%;
-        display: flex;
-        text-align: center;
-        align-items: center;
-
-        h1 {
-          font-size: 3.2rem;
-        }
-      }
     }
 
     .details-container {
       display: flex;
-      width: 100%;
+      width: 95%;
       margin: 0 auto;
       padding-bottom: 3rem;
       border-radius: 0.5rem;
 
       .copyright-container {
         width: 30%;
+        margin-top: 3rem;
         font-size: 1.1rem;
-        padding-top: 6rem;
+        padding-top: 3rem;
         padding-left: 2.5rem;
+        border-top: 1px solid black;
 
         & p:last-child {
           font-size: 2rem;
@@ -155,7 +141,9 @@ const openMail = () => {
         }
 
         a {
-          transition: color 0.3s ease-in-out, text-decoration 0.6s ease-in-out;
+          transition:
+            color 0.3s ease-in-out,
+            text-decoration 0.6s ease-in-out;
 
           &:hover {
             color: bisque;
@@ -172,8 +160,9 @@ const openMail = () => {
 @media (max-width: 992px) {
   .col .main-container {
     .logo-box {
-      .logo-container img { width: 64%; }
-      .logo-text h1 { font-size: 2rem; }
+      .logo-container img {
+        width: 64%;
+      }
     }
 
     .details-container {
@@ -195,7 +184,9 @@ const openMail = () => {
         width: 100%;
       }
 
-      .details-column { width: 45%; }
+      .details-column {
+        width: 45%;
+      }
     }
   }
 }
@@ -214,8 +205,9 @@ const openMail = () => {
 
   .col .main-container {
     .logo-box {
-      .logo-container { display: none; }
-      .logo-text h1 { font-size: 2rem; }
+      .logo-container {
+        display: none;
+      }
     }
 
     .details-container {

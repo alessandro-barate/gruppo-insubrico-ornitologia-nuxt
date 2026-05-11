@@ -15,12 +15,9 @@ DISPLAY
 /************
 BACKGROUNDS
 ************/
-.bg-blue {
-  background-color: #323c71;
-}
-
+.bg-blue,
 .gradient-color-header {
-  background: #031a8c; // linear-gradient(90deg, #323c71, #36427c);
+  background-color: #031a8c; // linear-gradient(90deg, #323c71, #36427c);
 }
 
 .gradient-color-header-reverse {

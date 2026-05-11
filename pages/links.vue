@@ -71,7 +71,7 @@ const getLinksColumns = (categoryKey: string) => {
         <!-- Title -->
         <section>
           <div class="title-container">
-            <h1 id="links" class="uppercase">link utili</h1>
+            <h1 id="links" class="uppercase">social e link utili</h1>
           </div>
         </section>
 
@@ -128,21 +128,84 @@ const getLinksColumns = (categoryKey: string) => {
           </div>
         </section>
       </div>
+
+      <!-- Contacts section -->
+      <div class="col-2">
+        <section class="contacts-container">
+          <div class="contacts-box d-flex">
+            <div class="contacts-text uppercase">
+              <div class="first-box">
+                <h3 class="text-1">resta sempre aggiornato!</h3>
+                <h3 class="text-2">seguici sui nostri</h3>
+                <h2 class="text-3">social</h2>
+              </div>
+
+              <hr />
+
+              <div class="second-box">
+                <h3 class="text-4">e iscriviti alla</h3>
+                <h2 class="text-5">newsletter</h2>
+              </div>
+            </div>
+            <div class="socials-container">
+              <!-- Facebook -->
+              <div class="facebook">
+                <a
+                  href="https://www.facebook.com/GruppoInsubricoDiOrnitologia"
+                  target="_blank"
+                >
+                  <img
+                    src="~/assets/images/facebook.png"
+                    alt="Facebook logo e link"
+                  />
+                </a>
+                <h3>Aggiungigi su Facebook</h3>
+              </div>
+
+              <hr class="space" />
+
+              <!-- Instagram -->
+              <div class="instagram">
+                <a
+                  href="https://www.instagram.com/gruppoinsubricoornitologia/"
+                  target="_blank"
+                >
+                  <img
+                    src="~/assets/images/instagram.svg"
+                    alt="Instagram logo e link"
+                  />
+                </a>
+                <h3>Seguici su Instagram</h3>
+              </div>
+
+              <hr class="space" />
+
+              <!-- Newsletter -->
+              <div class="newsletter">
+                <a href="">
+                  <img
+                    src="~/assets/images/newsletter.svg"
+                    alt="Newsletter e link"
+                  />
+                </a>
+                <h3>Iscriviti alla nostra newsletter</h3>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .row {
-  width: 100%;
-  background-position: center;
-  background-size: cover;
-  background-image: url(../assets/images/gheppio.jpg);
-
   .col {
     width: 100%;
     padding-bottom: 6rem;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-position: center;
+    background-size: cover;
+    background-image: url(../assets/images/gheppio.jpg);
 
     .title-container {
       width: 100%;
@@ -317,10 +380,231 @@ const getLinksColumns = (categoryKey: string) => {
   }
 }
 
+// Contacts section
+.contacts-container {
+  width: 100%;
+  position: relative;
+  padding-bottom: 3rem;
+  background-image:
+    linear-gradient(90deg, rgba(0, 119, 255, 0.85), rgba(233, 233, 233, 0.85)),
+    url(../assets/images/social.jpg);
+  padding-top: clamp(4rem, 10vw, 10rem);
+  min-height: clamp(500px, 80vh, 875px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  .contacts-box {
+    width: 95%;
+    padding: clamp(1rem, 2vw, 2rem);
+    margin: 0 auto;
+    flex-wrap: wrap;
+
+    .contacts-text {
+      width: 60%;
+      color: white;
+      padding-top: 3rem;
+
+      h2 {
+        font-size: clamp(2.5rem, 8vw, 6rem);
+      }
+
+      h3 {
+        font-size: clamp(1.2rem, 4vw, 3rem);
+      }
+
+      hr {
+        width: clamp(100px, 20vw, 250px);
+        border: none;
+        margin-left: clamp(5rem, 25vw, 25rem);
+        border-bottom: 2px solid white;
+      }
+
+      .first-box {
+        opacity: 0;
+        overflow: hidden;
+        transform: translateX(50%);
+
+        &.visible {
+          animation: slideInLeft 1s ease-in-out forwards;
+        }
+      }
+
+      .second-box {
+        opacity: 0;
+        overflow: hidden;
+        transform: translateY(100%);
+
+        &.visible {
+          animation: slideInBottom 1s ease-in-out forwards;
+        }
+      }
+
+      .text-1 {
+        margin-bottom: 0.8rem;
+      }
+
+      .text-2 {
+        margin-left: clamp(0.5rem, 1vw, 1rem);
+        margin-bottom: clamp(1rem, 2vw, 2rem);
+      }
+
+      .text-3 {
+        margin-left: clamp(2rem, 7vw, 7rem);
+        margin-bottom: clamp(1.5rem, 3vw, 3rem);
+      }
+
+      .text-4 {
+        margin-top: clamp(1rem, 2vw, 2rem);
+        margin-left: clamp(1rem, 3vw, 3rem);
+        margin-bottom: clamp(1rem, 2vw, 2rem);
+      }
+
+      .text-5 {
+        margin-left: clamp(1.5rem, 4vw, 4rem);
+      }
+    }
+
+    .socials-container {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+
+      .space {
+        border: none;
+        width: 70%;
+        margin-left: clamp(2rem, 12vw, 12rem);
+        border-bottom: 2px solid black;
+      }
+
+      .facebook,
+      .instagram,
+      .newsletter,
+      .change {
+        width: 100%;
+        display: flex;
+        padding-left: clamp(1rem, 3vw, 3rem);
+        align-items: center;
+        height: calc(100% / 3);
+        margin-left: 0;
+
+        a {
+          margin-left: 0;
+          margin-right: 0;
+          width: clamp(80px, 20%, 80px);
+          min-width: 50px;
+          z-index: 1;
+          border-radius: 26px;
+          position: relative;
+          padding: 6px 6px 6px 6px;
+          border: 3px solid black;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, #d2420d, #ffbf00);
+            border-radius: 23px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: -1;
+          }
+
+          &:hover::before {
+            opacity: 1;
+          }
+        }
+
+        h3 {
+          padding-left: clamp(1rem, 4vw, 4rem);
+          font-size: clamp(0.9rem, 2vw, 1.5rem);
+        }
+      }
+
+      .change a {
+        width: clamp(107.7px, 20%, 107.7px);
+      }
+    }
+  }
+}
+// END contacts section
+
 // ==========================================
 // MEDIA QUERIES - TABLET
 // ==========================================
 @media (max-width: 992px) {
+  // Contacts section
+  .contacts-container {
+    .contacts-box {
+      margin-top: 5rem;
+      flex-direction: column;
+
+      .contacts-text {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 3rem;
+
+        hr {
+          margin: 1.5rem auto;
+        }
+
+        .text-2,
+        .text-3,
+        .text-4,
+        .text-5 {
+          margin-left: 0;
+        }
+      }
+
+      .socials-container {
+        width: 100%;
+        align-items: center;
+
+        .space {
+          width: 65%;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .facebook a,
+        .instagram a,
+        .newsletter a,
+        .change a {
+          width: 13%;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        .space {
+          width: 75%;
+        }
+
+        .facebook,
+        .instagram,
+        .newsletter,
+        .change {
+          padding-left: 0;
+          padding: 2rem 0;
+          flex-direction: column;
+          text-align: center;
+
+          h3 {
+            font-size: 1.3rem;
+            padding-top: 1rem;
+            padding-left: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+  // END contacts section
+
   .accordion-container {
     height: 60vh;
     min-height: 450px;
@@ -366,6 +650,36 @@ const getLinksColumns = (categoryKey: string) => {
     .col {
       .title-container {
         padding-top: 8rem;
+      }
+    }
+  }
+
+  // Contacts
+  .contacts-container {
+    // background-attachment: scroll; -> Fix per iOS
+
+    .contacts-box {
+      .socials-container {
+        .facebook a,
+        .instagram a,
+        .newsletter a,
+        .change a {
+          width: 16%;
+        }
+
+        .facebook,
+        .instagram,
+        .newsletter,
+        .change {
+          h3 {
+            padding-left: 0;
+            padding-top: 0.5rem;
+          }
+        }
+
+        .space {
+          width: 70%;
+        }
       }
     }
   }

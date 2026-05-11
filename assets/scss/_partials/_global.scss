@@ -124,16 +124,18 @@ APP
 /********************
 BACKGROUNDS COLORS
 ********************/
-.mission-section,
-.news-section,
-.activities-section {
-  background-color: #ebf2fc; // #c2c3e3 colore di prima, perchè?
+.mission-section {
+  background-color: #031a8c; // Blu scuro per la mission
 }
 
-.title-section::after,
+.news-section,
+.activities-section {
+  background-color: #ebf2fc; // Azzurro chiaro per news e activities
+}
+
+.news-section::before,
 .activities-container::before,
-.activities-container::after,
-.contacts-container::before {
+.contacts-container::after {
   background: #ebf2fc;
 }
 
@@ -147,7 +149,30 @@ BEFORE AND AFTER EFFECTS
   left: 0;
   width: 100%;
   height: 150px;
+  background: #031a8c;
   clip-path: polygon(0 100%, 100% 0, 100% 100%);
+}
+
+.mission-section::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: #031a8c;
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  z-index: 1;
+}
+
+.news-section::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 
 .activities-container::before {
@@ -167,10 +192,11 @@ BEFORE AND AFTER EFFECTS
   left: 0;
   width: 100%;
   height: 150px;
+  background: #8c8882;
   clip-path: polygon(0 100%, 100% 0, 100% 100%);
 }
 
-.contacts-container::before {
+.contacts-container::after {
   content: "";
   position: absolute;
   top: -1px;
@@ -185,6 +211,7 @@ BEFORE AND AFTER EFFECTS
 // ==========================================
 @media (max-width: 576px) {
   .title-section::after,
+  .mission-section::after,
   .activities-container::before,
   .activities-container::after,
   .contacts-container::before {
@@ -197,6 +224,7 @@ BEFORE AND AFTER EFFECTS
 // ==========================================
 @media (max-width: 576px) {
   .title-section::after,
+  .mission-section::after,
   .activities-container::before,
   .activities-container::after,
   .contacts-container::before {
