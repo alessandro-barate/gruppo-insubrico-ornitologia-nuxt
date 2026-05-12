@@ -87,10 +87,18 @@ onMounted(() => {
   const activitiesTitle = document.querySelector(".activities-title");
   const firstBox = document.querySelector(".first-box");
   const secondBox = document.querySelector(".second-box");
+  const firstParagraph = document.querySelector(".first-paragraph");
+  const secondParagraph = document.querySelector(".second-paragraph");
+  const thirdParagraph = document.querySelector(".third-paragraph");
+  const fourthParagraph = document.querySelector(".fourth-paragraph");
 
   if (newsBox) observer.observe(newsBox);
   if (subscriptionTitle) observer.observe(subscriptionTitle);
   if (activitiesTitle) observer.observe(activitiesTitle);
+  if (firstParagraph) observerLow.observe(firstParagraph);
+  if (secondParagraph) observerLow.observe(secondParagraph);
+  if (thirdParagraph) observerLow.observe(thirdParagraph);
+  if (fourthParagraph) observerLow.observe(fourthParagraph);
   if (firstBox) observerLow.observe(firstBox);
   if (secondBox) observerLow.observe(secondBox);
 
@@ -133,6 +141,9 @@ onUnmounted(() => {
               dell'avifauna, nonché la gestione e la valorizzazione di aree di
               interesse naturalistico.
             </p>
+
+            <hr class="first-line" />
+
             <p class="second-paragraph">
               Crediamo che conoscere la natura sia il primo passo per
               proteggerla. Il Gruppo Insubrico di Ornitologia promuove la
@@ -142,6 +153,9 @@ onUnmounted(() => {
               aree di interesse naturalistico lavoriamo per conservare la
               biodiversità e rafforzare il legame tra persone e territorio.
             </p>
+
+            <hr class="second-line" />
+
             <p class="third-paragraph">
               Osservare un uccello in volo significa raccontare una storia di
               natura, territorio e biodiversità. Il Gruppo Insubrico di
@@ -151,6 +165,9 @@ onUnmounted(() => {
               lavoriamo per custodire gli habitat e valorizzare le aree
               naturalistiche del nostro territorio.
             </p>
+
+            <hr class="third-line" />
+
             <p class="fourth-paragraph">
               Studiare, conoscere, proteggere. Il Gruppo Insubrico di
               Ornitologia promuove la cultura naturalistica e l'educazione
@@ -363,17 +380,83 @@ onUnmounted(() => {
   padding-bottom: 8rem;
   background-color: #031a8c;
 
+  hr {
+    border: none;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid white;
+  }
+
+  .first-line {
+    width: 40%;
+    margin-left: 10%;
+  }
+
+  .second-line {
+    width: 40%;
+    margin-left: 45%;
+  }
+
+  .third-line {
+    width: 40%;
+    margin-left: 20%;
+  }
+
   .square {
     width: 80%;
     padding: 4rem;
     font-size: 1.2rem;
     line-height: 1.7rem;
     color: rgb(200, 200, 200);
+
+    .first-paragraph,
+    .second-paragraph,
+    .third-paragraph,
+    .fourth-paragraph {
+      width: 80%;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .first-paragraph,
+    .third-paragraph {
+      margin-left: 0;
+      transform: translateX(50px);
+    }
+
+    .second-paragraph,
+    .fourth-paragraph {
+      margin-right: 0;
+      transform: translateX(-50px);
+    }
+
+    .first-paragraph.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .second-paragraph.visible {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.15s;
+    }
+
+    .third-paragraph.visible {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.3s;
+    }
+
+    .fourth-paragraph.visible {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.45s;
+    }
   }
 
   .button-container {
     text-align: center;
-    margin-top: 5rem;
+    margin-top: 4rem;
 
     button {
       border: none;

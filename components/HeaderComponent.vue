@@ -621,11 +621,27 @@ onUnmounted(() => {
         width: 8%;
         position: relative;
 
+        @media (max-width: 992px) {
+          width: 10%;
+        }
+
         .search-bar-box {
           width: 80%;
           margin-right: 0;
           position: relative;
           justify-content: end;
+
+          @media (max-width: 576px) {
+            width: 100%;
+          }
+
+          @media (min-width: 577px) and (max-width: 768px) {
+            width: 90%;
+          }
+
+          @media (min-width: 769px) {
+            width: 70%;
+          }
 
           @media (min-width: 1281px) {
             width: 60%;
@@ -640,6 +656,18 @@ onUnmounted(() => {
             img {
               width: 65%;
               transition: transform 0.5s ease-in-out;
+
+              @media (max-width: 576px) {
+                width: 100%;
+              }
+
+              @media (min-width: 577px) and (max-width: 768px) {
+                width: 80%;
+              }
+
+              @media (min-width: 769px) {
+                width: 75%;
+              }
 
               &:hover {
                 transform: scale(1.1);
