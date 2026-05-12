@@ -115,28 +115,10 @@ onUnmounted(() => {
           class="title-section jumbo-bg d-flex"
           :style="{ backgroundImage: currentBackgroundImage }"
         >
-          <!-- Logo container -->
-          <div class="logo-section fade-wrapper-3">
-            <div class="logo-container">
-              <div class="overlay-2">
-                <img
-                  src="~/assets/images/gio-logo.webp"
-                  alt="Logo del Gruppo Insubrico di Ornitologia"
-                />
-              </div>
-            </div>
-          </div>
-
           <!-- Organization's name -->
           <div class="title-container title-container-2">
             <div class="fade-wrapper-2">
-              <p class="uppercase">gruppo insubrico</p>
-            </div>
-          </div>
-
-          <div class="title-container title-container-3">
-            <div class="fade-wrapper-2">
-              <p class="uppercase">di ornitologia</p>
+              <p class="uppercase">gruppo insubrico di ornitologia</p>
             </div>
           </div>
         </section>
@@ -336,57 +318,33 @@ onUnmounted(() => {
     width: 100%;
     height: 110vh;
     overflow: hidden;
-
-    .logo-section {
-      width: 100%;
-      margin-top: clamp(2rem, 5vw, 5rem);
-      padding-bottom: clamp(1.5rem, 3vw, 3rem);
-
-      .logo-container {
-        top: 28rem;
-        width: 100%;
-        text-align: center;
-        position: relative;
-
-        .overlay-2 {
-          width: clamp(50%, 25vw, 25%);
-          margin: 0 auto;
-
-          img {
-            width: 120%;
-            max-width: unset;
-          }
-        }
-      }
-    }
-
-    .fade-wrapper-3 {
-      opacity: 0;
-      animation: fadeIn 6s ease-in-out forwards;
-    }
   }
 
   .title-container {
-    width: 100%;
+    width: 90%;
     text-align: center;
-    padding-top: 1rem;
-
-    p {
-      font-size: clamp(1.5rem, 4vw, 3rem);
-    }
+    padding-top: 2rem;
 
     .fade-wrapper-2 {
       opacity: 0;
       animation: fadeIn 4.5s ease-in-out forwards;
 
       p {
-        font-size: clamp(1.5rem, 4vw, 3.2rem);
+        font-size: clamp(1.5rem, 4vw, 4rem);
         font-weight: 600;
         letter-spacing: clamp(0.3rem, 2vw, 1rem);
-        background: linear-gradient(90deg, #1f1f1f, #b6b6b6);
+        background: linear-gradient(90deg, #031a8c, #4e62c5);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
+
+        @media (max-width: 576px) {
+          font-size: clamp(2.5rem, 4vw, 6rem);
+        }
+
+        @media (min-width: 577px) and (max-width: 1080px) {
+          font-size: clamp(2.5rem, 5vw, 6rem);
+        }
       }
     }
   }
@@ -435,7 +393,7 @@ onUnmounted(() => {
 // News section
 .news-section {
   position: relative;
-  padding-top: 4rem;
+  padding-top: 15rem;
 
   .news-container {
     width: 100%;
@@ -782,16 +740,6 @@ onUnmounted(() => {
   .col {
     .title-section {
       height: 110vh;
-
-      .logo-section {
-        .logo-container {
-          .overlay-2 {
-            img {
-              width: 100%;
-            }
-          }
-        }
-      }
     }
   }
   // END jumbo section
@@ -893,17 +841,6 @@ onUnmounted(() => {
     // Jumbo
     .title-section {
       height: 80vh;
-
-      .logo-section {
-        .logo-container {
-          .overlay-2 {
-            img {
-              width: 100%;
-              padding-top: 1rem;
-            }
-          }
-        }
-      }
     }
 
     // News
