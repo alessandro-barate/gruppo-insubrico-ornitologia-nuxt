@@ -51,16 +51,11 @@ export default defineNuxtConfig({
       ],
     },
 
-    // Transizioni pagina (replica usePageTransition)
+    // Transizioni pagina
     pageTransition: {
       name: "page",
       mode: "out-in",
-      onBeforeEnter() {
-        // Scroll to top prima che la nuova pagina appaia
-        if (typeof window !== "undefined") {
-          window.scrollTo({ top: 0 });
-        }
-      },
+      duration: 500, // 500ms = 0.5s (sincronizzato con CSS)
     },
   },
 

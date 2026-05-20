@@ -62,6 +62,27 @@ const getLinksColumns = (categoryKey: string) => {
   const itemsPerColumn = Math.ceil(categoryLinks.length / columns);
   return chunkArray(categoryLinks, itemsPerColumn);
 };
+
+onMounted(() => {
+  const observerLow = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observerLow.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.3 },
+  );
+
+  // Elementi da osservare
+  const firstBox = document.querySelector(".first-box");
+  const secondBox = document.querySelector(".second-box");
+
+  if (firstBox) observerLow.observe(firstBox);
+  if (secondBox) observerLow.observe(secondBox);
+});
 </script>
 
 <template>
@@ -388,7 +409,7 @@ const getLinksColumns = (categoryKey: string) => {
   background-image:
     linear-gradient(90deg, rgba(0, 119, 255, 0.85), rgba(233, 233, 233, 0.85)),
     url(../assets/images/social.jpg);
-  padding-top: clamp(4rem, 10vw, 10rem);
+  padding-top: 3rem;
   min-height: clamp(500px, 80vh, 875px);
   background-size: cover;
   background-position: center;

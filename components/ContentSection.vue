@@ -479,7 +479,7 @@ $border-color: rgb(141, 141, 141);
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, #0077ff, #e1e7dd);
+    background: linear-gradient(90deg, #031a8c, #e1e7dd);
     z-index: -1;
     transform: scaleX(0);
     transform-origin: center;

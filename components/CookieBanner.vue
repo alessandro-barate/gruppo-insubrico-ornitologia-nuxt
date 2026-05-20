@@ -202,6 +202,7 @@ onMounted(() => {
 
   &.overlay {
     padding: 40px;
+    background-color: black;
   }
 
   .cookie-banner-title,
@@ -233,7 +234,7 @@ onMounted(() => {
 
     button {
       border: none;
-      color: black;
+      color: rgba(255, 255, 0, 0.856);
       font-size: 16px;
       font-weight: bold;
       background-color: transparent;
@@ -241,7 +242,6 @@ onMounted(() => {
       transition: 0.5s ease-in-out;
 
       &:hover {
-        color: yellow;
         transform: scale(1.1);
       }
     }

@@ -1,21 +1,7 @@
 <script setup lang="ts">
-const router = useRouter();
-
 // Refs per gestire lo stato
 const isMenuOpen = ref(false);
 const isSearchOpen = ref(false);
-
-// Mappa route names Vue -> paths Nuxt
-const routeMap: Record<string, string> = {
-  Homepage: "/",
-  "Chi Siamo": "/chi-siamo",
-  News: "/news",
-  Progetti: "/progetti",
-  Divulgazione: "/divulgazione",
-  Pubblicazioni: "/pubblicazioni",
-  Socials: "/socials",
-  Links: "/links",
-};
 
 // Header sticky allo scroll
 const handleScroll = () => {
@@ -56,8 +42,8 @@ const toggleNavbarHamburger = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
 
-// Chiudi menu e naviga
-const closeMenu = (routeName?: string) => {
+// Chiudi menu
+const closeMenu = () => {
   const listPage = document.querySelector(".list-page") as HTMLElement;
   const bar2 = document.getElementById("bar-2");
 
@@ -69,10 +55,6 @@ const closeMenu = (routeName?: string) => {
   setTimeout(() => {
     listPage.classList.remove("closing");
     listPage.style.visibility = "hidden";
-
-    if (routeName && routeMap[routeName]) {
-      router.push(routeMap[routeName]);
-    }
   }, 500);
 
   bar2.classList.remove("bar-active");
@@ -115,25 +97,31 @@ onUnmounted(() => {
             <!-- Desktop nav menu -->
             <ul class="nav-menu nav-menu--desktop d-flex">
               <li>
-                <a href="/" data-index="01">Home</a>
+                <NuxtLink to="/" data-index="01">Home</NuxtLink>
               </li>
               <li>
-                <a href="/chi-siamo" data-index="02">Chi siamo</a>
+                <NuxtLink to="/chi-siamo" data-index="02">Chi siamo</NuxtLink>
               </li>
               <li>
-                <a href="/news" data-index="03">News</a>
+                <NuxtLink to="/news" data-index="03">News</NuxtLink>
               </li>
               <li>
-                <a href="/progetti" data-index="04">Progetti</a>
+                <NuxtLink to="/progetti" data-index="04">Progetti</NuxtLink>
               </li>
               <li>
-                <a href="/divulgazione" data-index="05">Divulgazione</a>
+                <NuxtLink to="/divulgazione" data-index="05"
+                  >Divulgazione</NuxtLink
+                >
               </li>
               <li>
-                <a href="/pubblicazioni" data-index="06">Pubblicazioni</a>
+                <NuxtLink to="/pubblicazioni" data-index="06"
+                  >Pubblicazioni</NuxtLink
+                >
               </li>
               <li>
-                <a href="/links" data-index="07">Social e Link utili</a>
+                <NuxtLink to="/links" data-index="07"
+                  >Social e Link utili</NuxtLink
+                >
               </li>
             </ul>
 
@@ -163,59 +151,44 @@ onUnmounted(() => {
 
               <ul class="nav-menu">
                 <li>
-                  <a
-                    href="/"
-                    @click.prevent="closeMenu('Homepage')"
-                    data-index="01"
-                    >Home</a
+                  <NuxtLink to="/" @click="closeMenu()" data-index="01"
+                    >Home</NuxtLink
                   >
                 </li>
                 <li>
-                  <a
-                    href="/chi-siamo"
-                    @click.prevent="closeMenu('Chi Siamo')"
-                    data-index="02"
-                    >Chi siamo</a
+                  <NuxtLink to="/chi-siamo" @click="closeMenu()" data-index="02"
+                    >Chi siamo</NuxtLink
                   >
                 </li>
                 <li>
-                  <a
-                    href="/news"
-                    @click.prevent="closeMenu('News')"
-                    data-index="03"
-                    >News</a
+                  <NuxtLink to="/news" @click="closeMenu()" data-index="03"
+                    >News</NuxtLink
                   >
                 </li>
                 <li>
-                  <a
-                    href="/progetti"
-                    @click.prevent="closeMenu('Progetti')"
-                    data-index="04"
-                    >Progetti</a
+                  <NuxtLink to="/progetti" @click="closeMenu()" data-index="04"
+                    >Progetti</NuxtLink
                   >
                 </li>
                 <li>
-                  <a
-                    href="/divulgazione"
-                    @click.prevent="closeMenu('Divulgazione')"
+                  <NuxtLink
+                    to="/divulgazione"
+                    @click="closeMenu()"
                     data-index="05"
-                    >Divulgazione</a
+                    >Divulgazione</NuxtLink
                   >
                 </li>
                 <li>
-                  <a
-                    href="/pubblicazioni"
-                    @click.prevent="closeMenu('Pubblicazioni')"
+                  <NuxtLink
+                    to="/pubblicazioni"
+                    @click="closeMenu()"
                     data-index="06"
-                    >Pubblicazioni</a
+                    >Pubblicazioni</NuxtLink
                   >
                 </li>
                 <li>
-                  <a
-                    href="/links"
-                    @click.prevent="closeMenu('Links')"
-                    data-index="07"
-                    >Social e Link utili</a
+                  <NuxtLink to="/links" @click="closeMenu()" data-index="07"
+                    >Social e Link utili</NuxtLink
                   >
                 </li>
               </ul>
@@ -681,7 +654,7 @@ onUnmounted(() => {
           top: 100%;
           display: none;
           position: absolute;
-          padding-top: 0.5rem;
+          padding-top: 1rem;
 
           &.visible {
             display: block;

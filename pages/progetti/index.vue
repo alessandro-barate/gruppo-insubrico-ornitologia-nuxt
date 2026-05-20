@@ -17,10 +17,8 @@ useHead({
       <div class="col">
         <!-- Hero Section (specifica per questa pagina) -->
         <section class="title-section jumbo-bg">
-          <div class="overlay">
-            <div class="title uppercase">
-              <h1 id="projects">progetti</h1>
-            </div>
+          <div class="title uppercase">
+            <h1 id="projects">progetti</h1>
           </div>
         </section>
 
@@ -39,7 +37,7 @@ useHead({
   .title-section {
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 700px;
     overflow: hidden;
     margin-bottom: 3rem;
 

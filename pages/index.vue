@@ -85,12 +85,13 @@ onMounted(() => {
   const newsBox = document.querySelector(".news-box");
   const subscriptionTitle = document.querySelector(".subscription-title");
   const activitiesTitle = document.querySelector(".activities-title");
-  const firstBox = document.querySelector(".first-box");
-  const secondBox = document.querySelector(".second-box");
   const firstParagraph = document.querySelector(".first-paragraph");
   const secondParagraph = document.querySelector(".second-paragraph");
   const thirdParagraph = document.querySelector(".third-paragraph");
   const fourthParagraph = document.querySelector(".fourth-paragraph");
+  const firstLine = document.querySelector(".first-line");
+  const secondLine = document.querySelector(".second-line");
+  const thirdLine = document.querySelector(".third-line");
 
   if (newsBox) observer.observe(newsBox);
   if (subscriptionTitle) observer.observe(subscriptionTitle);
@@ -99,8 +100,9 @@ onMounted(() => {
   if (secondParagraph) observerLow.observe(secondParagraph);
   if (thirdParagraph) observerLow.observe(thirdParagraph);
   if (fourthParagraph) observerLow.observe(fourthParagraph);
-  if (firstBox) observerLow.observe(firstBox);
-  if (secondBox) observerLow.observe(secondBox);
+  if (firstLine) observerLow.observe(firstLine);
+  if (secondLine) observerLow.observe(secondLine);
+  if (thirdLine) observerLow.observe(thirdLine);
 
   if (slides && slides.length > 1) {
     slideInterval = setInterval(nextSlide, 4000);
@@ -120,6 +122,7 @@ onUnmounted(() => {
       <div class="col">
         <!-- Jumbo section -->
         <section
+          id="home-title"
           class="title-section jumbo-bg d-flex"
           :style="{ backgroundImage: currentBackgroundImage }"
         >
@@ -418,6 +421,42 @@ onUnmounted(() => {
       transition: all 1s cubic-bezier(0.77, 0, 0.175, 1);
     }
 
+    .first-line,
+    .second-line,
+    .third-line {
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .first-line,
+    .third-line {
+      transform: translateX(50px);
+    }
+
+    .second-line {
+      transform: translateX(-50px);
+    }
+
+    .first-line.visible,
+    .second-line.visible,
+    .third-line.visible {
+      opacity: 1;
+    }
+
+    .first-line.visible {
+      transform: translateX(0);
+    }
+
+    .second-line.visible {
+      transform: translateX(0);
+      transition-delay: 0.15s;
+    }
+
+    .third-line.visible {
+      transform: translateX(0);
+      transition-delay: 0.3s;
+    }
+
     .first-paragraph,
     .third-paragraph {
       margin-left: 0;
@@ -676,7 +715,7 @@ onUnmounted(() => {
     height: clamp(100px, 20vw, 210px);
     align-self: flex-end;
     border: none;
-    border-left: 2px solid rgb(141, 141, 141);
+    border-left: 2px solid rgb(200, 200, 200);
   }
 
   .activities-box {
@@ -923,7 +962,7 @@ onUnmounted(() => {
   .col {
     // Jumbo
     .title-section {
-      height: 80vh;
+      height: 79vh;
     }
 
     // News

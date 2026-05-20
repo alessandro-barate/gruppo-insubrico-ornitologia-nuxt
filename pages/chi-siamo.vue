@@ -113,10 +113,8 @@ const closeModal = () => {
       <div class="col">
         <!-- Jumbo -->
         <section class="title-section jumbo-bg">
-          <div class="overlay">
-            <div class="title uppercase">
-              <h1 id="about-us">chi siamo</h1>
-            </div>
+          <div class="title uppercase">
+            <h1 id="about-us">chi siamo</h1>
           </div>
         </section>
 
@@ -131,32 +129,49 @@ const closeModal = () => {
               presso il Civico Museo Insubrico di Storia naturale di Induno
               Olona, grazie all'ospitalità offerta dal Curatore Gianluca Danini.
               <br />
-              Scopo principale dell'associazione è quello di promuovere
-              l'indagine ornitologica a livello provinciale ed insubrico,
-              unitamente ad attività di divulgazione con l'organizzazione di
-              conferenze, corsi e convegni, collaborando anche con enti pubblici
-              e privati.
+              Nel dicembre 2009 il GIO, per volontà di 9 soci fondatori, si
+              costituisce come Onlus presso il Registro di Varese, spostandosi
+              da Induno Olona a Clivio, nell’edificio che diverrà la sede del
+              nuovo Museo Civico di Storia Naturale di Clivio e Induno Olona.
             </p>
 
-            <hr class="first-line" />
+            <hr class="break-line" />
 
             <!-- Second paragraph -->
             <div class="second-paragraph-container d-flex">
               <p class="second-paragraph">
-                Nel dicembre 2009 il GIO, per volontà di 9 soci fondatori, si
-                costituisce come Onlus presso il Registro di Varese, spostandosi
-                da Induno Olona a Clivio, nell'edificio che diverrà la sede del
-                nuovo Civico Museo Insubrico di Storia Naturale di Clivio e
-                Induno Olona.
-                <br />
                 Per il periodo 2010-2012 viene eletto il primo Consiglio
                 Direttivo con Fabio Saporetti (Presidente), Monica Carabella
                 (Vice-Presidente) e 3 Consiglieri: Paolo Casali (poi sostituito
                 da Andrea Vidolini), Silvio Colaone e Walter Guenzani.
+                <br />
+                Dal 2022 il G.I.O. è iscritto al Runts come Organizzazione di
+                Volontariato (ODV) senza scopo di lucro. Dopo oltre 20 anni di
+                attività conta più di 80 soci ed è l'associazione di riferimento
+                per l'ornitologia dell'area varesina e ha tuttora sede ufficiale
+                presso il Civico Museo Insubrico di Storia Naturale di Clivio e
+                Induno Olona.
               </p>
             </div>
 
-            <hr class="second-line" />
+            <hr class="break-line" />
+
+            <!-- Third paragraph -->
+            <div class="second-paragraph-container d-flex">
+              <p class="second-paragraph">
+                Scopo principale dell’associazione è quello di promuovere
+                l’indagine ornitologica a livello provinciale ed insubrico,
+                unitamente ad attività di divulgazione con l’organizzazione di
+                conferenze, corsi didattici e convegni. Si occupa di censimenti,
+                monitoraggi, studi ecologici, pubblicazioni scientifiche e
+                divulgative sull'avifauna e collabora regolarmente con enti
+                pubblici e privati e istituzioni territoriali, tra cui la
+                Provincia di Varese, l'Università degli Studi dell'Insubria, le
+                Comunità Montane del Verbano e del Piambello.
+              </p>
+            </div>
+
+            <hr class="break-line" />
           </article>
 
           <!-- Button-container per panel -->
@@ -164,7 +179,7 @@ const closeModal = () => {
             class="button-container d-flex"
             :class="{ 'panel-open': isPanelOpen }"
           >
-            <div class="half-circle gradient-color">
+            <div class="half-circle bg-blue">
               <button @click="togglePanel" class="toggle-btn">
                 <div class="toggle-icon">
                   <span
@@ -181,10 +196,7 @@ const closeModal = () => {
           </div>
 
           <!-- List container (direttivo) -->
-          <div
-            class="right-container gradient-color-reverse"
-            :class="{ active: isPanelOpen }"
-          >
+          <div class="right-container bg-blue" :class="{ active: isPanelOpen }">
             <div class="list-container">
               <h2>Dal 2025 il direttivo è così composto</h2>
               <div class="list">
@@ -253,31 +265,6 @@ const closeModal = () => {
         >
           <div class="subscribe-container">
             <div class="subscribe-box">
-              <div class="subscribe-text">
-                <div class="subscribe-title">
-                  <h2>Diventare socio del GIO</h2>
-                </div>
-                <p class="bottom-paragraph">
-                  Associarsi al Gruppo Insubrico di Ornitologia significa
-                  sentirsi parte attiva di un gruppo di amici realmente
-                  appassionati di avifauna, sotto i variegati aspetti che
-                  spaziano dal birdwatching all'ornitologia vera e propria.
-                  <br /><br />
-                  Punto centrale e irrinunciabile dello spirito
-                  dell'associazione è quello di promuovere la conoscenza e la
-                  conservazione della fauna e degli habitat, che rientrano negli
-                  aspetti più generali del rispetto della vita che ci circonda e
-                  del miglioramento della qualità dell'ambiente in cui viviamo.
-                  <br /><br />
-                  Se siete curiosi e avete voglia di scoprire, studiare,
-                  condividere, dedicarvi ai monitoraggi e censimenti, e anche
-                  alla didattica dell'ornitologia, il GIO è l'associazione che
-                  fa per voi!
-                </p>
-              </div>
-
-              <hr class="third-line" />
-
               <!-- Buttons container - Desktop -->
               <div class="details-container desktop-only">
                 <div ref="selectionBarRef" class="selection-bar">
@@ -286,9 +273,17 @@ const closeModal = () => {
                     class="selector uppercase"
                     :class="{ highlight: activeSection === 'year' }"
                   >
-                    <p class="number">1</p>
-                    <p>iscrizione</p>
-                    <p>annuale</p>
+                    <div class="d-flex">
+                      <div>
+                        <p class="number">1</p>
+                      </div>
+
+                      <div class="right-text d-flex">
+                        <div>
+                          <p>iscrizione</p>
+                        </div>
+                      </div>
+                    </div>
                     <hr />
                     <div class="find-out-more-container">
                       <p class="find-out-more">Scopri di più</p>
@@ -303,9 +298,18 @@ const closeModal = () => {
                     class="selector uppercase"
                     :class="{ highlight: activeSection === 'month' }"
                   >
-                    <p class="number">2</p>
-                    <p>riunioni</p>
-                    <p>mensili</p>
+                    <div class="d-flex">
+                      <div>
+                        <p class="number">2</p>
+                      </div>
+
+                      <div class="right-text d-flex">
+                        <div>
+                          <p>diventare</p>
+                          <p>soci del g.i.o.</p>
+                        </div>
+                      </div>
+                    </div>
                     <hr />
                     <div class="find-out-more-container">
                       <p class="find-out-more">Scopri di più</p>
@@ -320,9 +324,18 @@ const closeModal = () => {
                     class="selector uppercase"
                     :class="{ highlight: activeSection === 'members' }"
                   >
-                    <p class="number">3</p>
-                    <p>comunicazioni</p>
-                    <p>tra soci</p>
+                    <div class="d-flex">
+                      <div>
+                        <p class="number">3</p>
+                      </div>
+
+                      <div class="right-text d-flex">
+                        <div>
+                          <p>modulo di</p>
+                          <p>iscrizione</p>
+                        </div>
+                      </div>
+                    </div>
                     <hr />
                     <div class="find-out-more-container">
                       <p class="find-out-more">Scopri di più</p>
@@ -523,11 +536,11 @@ button {
   line-height: 1.65rem;
 }
 
-.first-line,
-.second-line,
-.third-line {
+.break-line {
   position: relative;
   border: none;
+  width: 40%;
+  border-top: 1px solid rgb(141, 141, 141);
 }
 
 // Jumbo section
@@ -535,7 +548,7 @@ button {
   .title-section {
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 700px;
     overflow: hidden;
     margin-bottom: 3rem;
 
@@ -580,21 +593,6 @@ button {
       .second-paragraph {
         width: 70%;
       }
-    }
-
-    .first-line,
-    .second-line {
-      border-top: 2px solid rgb(141, 141, 141);
-    }
-
-    .first-line {
-      left: -20%;
-      width: 40%;
-    }
-
-    .second-line {
-      left: 0%;
-      width: 50%;
     }
   }
 
@@ -690,7 +688,7 @@ button {
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
         h4 {
-          font-size: 1rem;
+          font-size: 1.2rem;
           color: rgba(255, 255, 255, 0.9);
           margin-bottom: 0.5rem;
         }
@@ -702,7 +700,7 @@ button {
 
           li {
             color: white;
-            font-size: 1.1rem;
+            font-size: 1rem;
             padding: 0.2rem 0;
           }
         }
@@ -755,7 +753,7 @@ button {
     left: 0;
     width: 100%;
     height: 150px;
-    background: #ffffff;
+    background: #ebf2fc;
     clip-path: polygon(0 0, 100% 0, 0 100%);
   }
 
@@ -766,22 +764,12 @@ button {
     .bottom-paragraph {
       font-size: 1.2rem;
     }
-
-    .subscribe-title {
-      text-align: center;
-      padding-bottom: 2rem;
-
-      h2 {
-        font-size: 2.5rem;
-      }
-    }
   }
 
-  .third-line {
-    left: 20%;
+  .break-line {
     width: 50%;
     margin-top: 3rem;
-    border-top: 2px solid rgb(0, 0, 0);
+    border-top: 1px solid rgb(0, 0, 0);
   }
 
   // Desktop version
@@ -796,7 +784,7 @@ button {
 
       .selector {
         font-size: 1.2rem;
-        padding: 1rem 2rem;
+        padding: 1rem;
         margin-left: 2rem;
         border: 1px solid black;
         border-radius: 0.7rem;
@@ -806,13 +794,15 @@ button {
 
         hr {
           border: none;
-          margin-top: 5rem;
           margin-bottom: 1.5rem;
           border-top: 1px solid black;
         }
 
+        .right-text {
+          align-items: center;
+        }
+
         .number {
-          margin-bottom: 1rem;
           font-size: 4rem;
           text-align: start;
           font-style: italic;
@@ -822,7 +812,6 @@ button {
         .find-out-more-container {
           display: flex;
           align-items: center;
-          padding-bottom: 1rem;
 
           img {
             width: 100%;
@@ -977,11 +966,6 @@ button {
         .first-paragraph {
           width: 90%;
         }
-
-        .first-line {
-          left: 0;
-          width: 75%;
-        }
       }
     }
 
@@ -997,7 +981,7 @@ button {
 
       .subscribe-container {
         .subscribe-box {
-          .third-line {
+          .break-line {
             left: 0;
             width: 100%;
           }

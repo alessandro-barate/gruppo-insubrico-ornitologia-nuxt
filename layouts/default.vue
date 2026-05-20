@@ -2,6 +2,7 @@
 // Stato per scroll-to-top button
 const visible = ref(false);
 const showPanel = ref(false);
+const route = useRoute();
 
 // Scroll to top
 function scrollUp() {
@@ -20,21 +21,30 @@ onMounted(() => {
     history.scrollRestoration = "manual";
   }
 
-  window.scrollTo(0, 0);
   window.addEventListener("scroll", handleScroll);
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
+
+// Scroll to top quando cambia route (invece che in onMounted)
+watch(
+  () => route.path,
+  () => {
+    window.scrollTo(0, 0);
+  },
+);
 </script>
 
 <template>
   <div id="app">
     <HeaderComponent />
 
-    <!-- Contenuto pagina (sostituisce router-view) -->
-    <slot />
+    <!-- Contenuto pagina con key per forzare transizioni -->
+    <main :key="route.fullPath">
+      <slot />
+    </main>
 
     <!-- Pulsanti fissi -->
     <div class="buttons-container d-flex">
