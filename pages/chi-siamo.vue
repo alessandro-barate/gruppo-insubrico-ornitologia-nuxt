@@ -131,7 +131,7 @@ const closeModal = () => {
               <br />
               Nel dicembre 2009 il GIO, per volontà di 9 soci fondatori, si
               costituisce come Onlus presso il Registro di Varese, spostandosi
-              da Induno Olona a Clivio, nell’edificio che diverrà la sede del
+              da Induno Olona a Clivio, nell'edificio che diverrà la sede del
               nuovo Museo Civico di Storia Naturale di Clivio e Induno Olona.
             </p>
 
@@ -159,9 +159,9 @@ const closeModal = () => {
             <!-- Third paragraph -->
             <div class="second-paragraph-container d-flex">
               <p class="second-paragraph">
-                Scopo principale dell’associazione è quello di promuovere
-                l’indagine ornitologica a livello provinciale ed insubrico,
-                unitamente ad attività di divulgazione con l’organizzazione di
+                Scopo principale dell'associazione è quello di promuovere
+                l'indagine ornitologica a livello provinciale ed insubrico,
+                unitamente ad attività di divulgazione con l'organizzazione di
                 conferenze, corsi didattici e convegni. Si occupa di censimenti,
                 monitoraggi, studi ecologici, pubblicazioni scientifiche e
                 divulgative sull'avifauna e collabora regolarmente con enti
@@ -382,12 +382,13 @@ const closeModal = () => {
                     <h3>RIUNIONI MENSILI</h3>
                     <p>
                       Ci riuniamo il secondo lunedì di ogni mese (escluso
-                      agosto, di solito) in un locale presso il Comune di
-                      Casciago (VA), dove ci aggiorniamo sui progetti in corso,
-                      proponiamo e organizziamo iniziative con un "ordine del
-                      giorno" che viene mandato dal Presidente tempestivamente
-                      per mail a tutti i soci, che possono proporre ulteriori
-                      argomenti o apportare modifiche.
+                      agosto, di solito) presso la Biblioteca Comunale del
+                      Comune di Gazzada Schianno (VA), dove ci aggiorniamo sui
+                      progetti in corso, proponiamo e organizziamo iniziative
+                      con un "ordine del giorno" che viene mandato dal
+                      Presidente tempestivamente per mail a tutti i soci, che
+                      possono proporre ulteriori argomenti o apportare
+                      modifiche.
                       <br /><br />
                       Gli incontri ufficiali (come l'assemblea annuale) vengono
                       invece tenuti presso la nostra sede al Civico Museo
@@ -407,7 +408,8 @@ const closeModal = () => {
                   >
                     <h3>COMUNICAZIONI TRA SOCI</h3>
                     <p>
-                      Tutti i soci sono compresi nella mailing-list del GIO,
+                      Tutti i soci sono compresi nella mailing-list del GIO e
+                      possono entrare a far parte del gruppo WhatsApp dei soci,
                       attraverso cui si viene informati dell'intera attività del
                       gruppo. Alcuni argomenti, di solito quelli più formali e
                       amministrativi, vengono trattati dal Consiglio Direttivo,

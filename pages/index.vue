@@ -40,6 +40,120 @@ let slides = [
   },
 ];
 
+// Direction-aware slider
+const hoveredSlide = ref(null);
+const slideDirection = ref("from-bottom");
+const sliderCurrentIndex = ref(0);
+
+const sliderItems = [
+  {
+    image: nibbio,
+    title: "Non lasciare traccia in natura",
+    description:
+      "Passa nella natura con rispetto: osserva, impara, non lasciare traccia.",
+    text: "",
+    quote: "",
+  },
+  {
+    image: nibbio2,
+    title: "Restare curiosi come da bambini",
+    description:
+      "La curiosità nasce da bambini: custodiamola per continuare a scoprire la natura.",
+    text: "Le parole di Gianluca Danini:",
+    quote:
+      "Ciò che spinge tutti alla ricerca è la curiosità. È una cosa che nasce da bambini ed è bene tenersela da adulti, anzi direi anche a settant'anni, come faccio io...",
+  },
+  {
+    image: nibbio3,
+    title: "Osservare la natura dal quotidiano",
+    description:
+      "La natura è ovunque: impariamo a osservarla, a partire dal balcone di casa.",
+    text: "",
+    quote: "",
+  },
+  {
+    image: nibbio4,
+    title: "Oltre l'osservazione",
+    description:
+      "Conoscere per proteggere: ricerca e divulgazione per la tutela dell'avifauna insubrica.",
+    text: "",
+    quote: "",
+  },
+];
+
+// Numero di slide visibili in base alla viewport
+const slidesPerView = ref(3);
+
+const updateSlidesPerView = () => {
+  if (typeof window !== "undefined") {
+    if (window.innerWidth > 1024) {
+      slidesPerView.value = 3;
+    } else if (window.innerWidth > 576) {
+      slidesPerView.value = 2;
+    } else {
+      slidesPerView.value = 1;
+    }
+  }
+};
+
+const nextSliderSlide = () => {
+  const maxIndex = sliderItems.length - slidesPerView.value;
+  if (sliderCurrentIndex.value < maxIndex) {
+    sliderCurrentIndex.value++;
+  }
+};
+
+const prevSliderSlide = () => {
+  if (sliderCurrentIndex.value > 0) {
+    sliderCurrentIndex.value--;
+  }
+};
+
+const canGoPrev = computed(() => sliderCurrentIndex.value > 0);
+const canGoNext = computed(
+  () => sliderCurrentIndex.value < sliderItems.length - slidesPerView.value,
+);
+
+// Calcola il transform corretto in base alle card visibili
+const sliderTransform = computed(() => {
+  // Desktop (3 cards): ogni step = 31% + 1rem gap
+  // Tablet (2 cards): ogni step = 48% + 1rem gap
+  // Mobile (1 card): ogni step = 100% + gap
+  const baseWidth =
+    slidesPerView.value === 3 ? 31 : slidesPerView.value === 2 ? 48 : 100;
+  const gapInRem = 1;
+
+  // Convertiamo rem in percentuale approssimativa (1rem ≈ 1.5%)
+  const gapPercent = gapInRem * 1.5;
+
+  return `translateX(-${sliderCurrentIndex.value * (baseWidth + gapPercent)}%)`;
+});
+
+const handleSlideHover = (index, event) => {
+  hoveredSlide.value = index;
+
+  // Determina la direzione da cui arriva il mouse
+  const slide = event.currentTarget;
+  const rect = slide.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+  const width = rect.width;
+  const height = rect.height;
+
+  // Calcola da quale lato è entrato il mouse
+  const fromTop = y;
+  const fromBottom = height - y;
+  const fromLeft = x;
+  const fromRight = width - x;
+
+  const min = Math.min(fromTop, fromBottom, fromLeft, fromRight);
+
+  if (min === fromTop) slideDirection.value = "from-top";
+  else if (min === fromBottom) slideDirection.value = "from-bottom";
+  else if (min === fromLeft) slideDirection.value = "from-left";
+  else slideDirection.value = "from-right";
+};
+
 const nextSlide = () => {
   if (slides && slides.length > 0) {
     currentIndex.value = (currentIndex.value + 1) % slides.length;
@@ -57,6 +171,10 @@ const currentBackgroundImage = computed(() => {
 
 // IntersectionObserver per animazioni scroll
 onMounted(() => {
+  // Update slides per view on mount and resize
+  updateSlidesPerView();
+  window.addEventListener("resize", updateSlidesPerView);
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -113,6 +231,9 @@ onUnmounted(() => {
   if (slideInterval) {
     clearInterval(slideInterval);
   }
+  if (typeof window !== "undefined") {
+    window.removeEventListener("resize", updateSlidesPerView);
+  }
 });
 </script>
 
@@ -131,6 +252,77 @@ onUnmounted(() => {
             <div class="fade-wrapper-2">
               <p class="uppercase">gruppo insubrico di ornitologia</p>
             </div>
+          </div>
+        </section>
+
+        <!-- Direction-aware slider -->
+        <section class="direction-slider-section">
+          <div class="slider-wrapper">
+            <!-- Previous arrow -->
+            <button
+              class="slider-nav slider-nav-prev"
+              @click="prevSliderSlide"
+              :disabled="!canGoPrev"
+              aria-label="Slide precedente"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+
+            <!-- Slider container -->
+            <div class="slider-container">
+              <div class="slider-track" :style="{ transform: sliderTransform }">
+                <div
+                  v-for="(slide, index) in sliderItems"
+                  :key="index"
+                  :class="['slider-item', { active: hoveredSlide === index }]"
+                  @mouseenter="handleSlideHover(index, $event)"
+                  @mouseleave="hoveredSlide = null"
+                >
+                  <div
+                    class="slide-image"
+                    :style="{ backgroundImage: `url(${slide.image})` }"
+                  ></div>
+                  <div :class="['slide-overlay', slideDirection]">
+                    <div class="slide-content">
+                      <h3 class="slide-title uppercase">{{ slide.title }}</h3>
+                      <p class="slide-description">
+                        {{ slide.description }}
+                      </p>
+                      <p id="text" class="slide-description">
+                        {{ slide.text }}
+                      </p>
+                      <p class="slide-description italic">
+                        {{ slide.quote }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Next arrow -->
+            <button
+              class="slider-nav slider-nav-next"
+              @click="nextSliderSlide"
+              :disabled="!canGoNext"
+              aria-label="Slide successiva"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
           </div>
         </section>
 
@@ -374,6 +566,247 @@ onUnmounted(() => {
   }
 }
 // END jumbo section
+
+// ==========================================
+// DIRECTION-AWARE SLIDER
+// ==========================================
+.direction-slider-section {
+  width: 100%;
+  margin-bottom: 10rem;
+  padding: clamp(3rem, 8vw, 8rem) 0;
+  background: #ebf2fc;
+  position: relative;
+}
+
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
+  max-width: 1750px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 4rem);
+}
+
+.slider-nav {
+  flex-shrink: 0;
+  width: clamp(40px, 5vw, 40px);
+  height: clamp(40px, 5vw, 40px);
+  border: none;
+  border-radius: 50%;
+  background: rgba(3, 26, 140, 0.9);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+
+  svg {
+    width: 60%;
+    height: 60%;
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba(3, 26, 140, 1);
+    transform: scale(1.1);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+.slider-container {
+  flex: 1;
+  overflow: hidden;
+  height: clamp(400px, 50vh, 600px);
+}
+
+.slider-track {
+  display: flex;
+  gap: 1rem;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  width: max-content; // Importante: permette al track di estendersi oltre il container */
+}
+
+.slider-item {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // Desktop (>1024px): 3 card visibili su 4 totali
+  // Larghezza container ~1400px max, togliamo padding e frecce = ~1100px disponibili
+  // Diviso 3 card + gaps = base ~31% del container visibile
+  width: 31%;
+  min-width: 280px;
+
+  &:hover {
+    width: 50%; // Card espansa al 50%
+
+    // Quando una card è in hover, le altre si restringono
+    & ~ .slider-item:not(:hover) {
+      width: 25%;
+    }
+  }
+
+  // Quando un'altra card prima di questa è in hover
+  &:has(~ .slider-item:hover) {
+    width: 25%;
+  }
+
+  .slide-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover .slide-image {
+    transform: scale(1.05);
+  }
+
+  .slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.4) 50%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: clamp(1.5rem, 3vw, 3rem);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+
+    .slide-content {
+      width: 100%;
+      transform: translateY(20px);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+    }
+
+    .slide-title {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .slide-description {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    #text {
+      margin-top: 1rem;
+    }
+
+    // Direction-aware animations
+    &.from-top .slide-content {
+      animation: slideFromTop 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    &.from-bottom .slide-content {
+      animation: slideFromBottom 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    &.from-left .slide-content {
+      animation: slideFromLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    &.from-right .slide-content {
+      animation: slideFromRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+  }
+
+  &.active .slide-overlay {
+    opacity: 1;
+  }
+
+  // Overlay sempre visibile su mobile/tablet
+  @media (max-width: 992px) {
+    .slide-overlay {
+      opacity: 1;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.75) 0%,
+        rgba(0, 0, 0, 0.3) 60%,
+        rgba(0, 0, 0, 0) 100%
+      );
+
+      .slide-content {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+// Direction-aware animations
+@keyframes slideFromTop {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromBottom {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromLeft {
+  from {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+// END direction-aware slider
 
 // Mission section
 .mission-section {
@@ -866,6 +1299,50 @@ onUnmounted(() => {
   }
   // END jumbo section
 
+  // Direction-aware slider
+  .direction-slider-section {
+    padding: clamp(2rem, 5vw, 4rem) 0;
+
+    .slider-container {
+      height: clamp(350px, 40vh, 500px);
+    }
+
+    .slider-nav {
+      width: 45px;
+      height: 45px;
+    }
+
+    // Tablet: 2 card visibili su 4 - sistema espansione
+    .slider-item {
+      // Base: 2 card visibili = ~48% ciascuna
+      width: 48%;
+      min-width: 250px;
+
+      &:hover {
+        width: 65%; // Card espansa
+
+        & ~ .slider-item:not(:hover) {
+          width: 35%; // Altre compresse
+        }
+      }
+
+      &:has(~ .slider-item:hover) {
+        width: 35%;
+      }
+
+      .slide-overlay {
+        .slide-title {
+          font-size: clamp(1.2rem, 2.5vw, 2rem);
+        }
+
+        .slide-description {
+          font-size: clamp(0.85rem, 1.3vw, 1rem);
+        }
+      }
+    }
+  }
+  // END direction-aware slider
+
   // News section
   .news-section {
     .news-container {
@@ -963,6 +1440,68 @@ onUnmounted(() => {
     // Jumbo
     .title-section {
       height: 79vh;
+    }
+
+    // Direction-aware slider - Mobile (1 card visible su 4)
+    .direction-slider-section {
+      padding: clamp(1.5rem, 4vw, 3rem) 0;
+
+      .slider-wrapper {
+        gap: 0.75rem;
+        padding: 0 1rem;
+      }
+
+      .slider-nav {
+        width: 40px;
+        height: 40px;
+      }
+
+      .slider-container {
+        height: 300px;
+      }
+
+      .slider-track {
+        gap: 0.75rem;
+      }
+
+      .slider-item {
+        // Mobile: 1 card = 100% width, sempre uguale
+        width: 100%;
+        min-width: auto;
+        transition: none; // Rimuovi animazioni
+
+        // Disabilita hover expansion su mobile
+        &:hover {
+          width: 100%;
+        }
+
+        // Disabilita tutte le animazioni di contrazione
+        &:has(~ .slider-item:hover) {
+          width: 100%;
+        }
+
+        .slide-image {
+          transition: none; // Rimuovi zoom immagine
+        }
+
+        .slide-overlay {
+          opacity: 1;
+          transition: none; // Rimuovi animazioni overlay
+
+          .slide-content {
+            transform: none; // Rimuovi transform
+            transition: none;
+          }
+
+          .slide-title {
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
+          }
+
+          .slide-description {
+            font-size: clamp(0.9rem, 3vw, 1rem);
+          }
+        }
+      }
     }
 
     // News
