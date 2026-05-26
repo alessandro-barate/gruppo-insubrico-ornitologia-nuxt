@@ -244,7 +244,7 @@ onUnmounted(() => {
         <!-- Jumbo section -->
         <section
           id="home-title"
-          class="title-section jumbo-bg d-flex"
+          class="title-section jumbo-bg"
           :style="{ backgroundImage: currentBackgroundImage }"
         >
           <!-- Organization's name -->
@@ -257,6 +257,13 @@ onUnmounted(() => {
 
         <!-- Direction-aware slider -->
         <section class="direction-slider-section">
+          <!-- Logo -->
+          <div class="logo-container">
+            <div class="logo-box">
+              <img src="../public/gio-logo.webp" alt="" />
+            </div>
+          </div>
+
           <div class="slider-wrapper">
             <!-- Previous arrow -->
             <button
@@ -570,10 +577,28 @@ onUnmounted(() => {
 // ==========================================
 // DIRECTION-AWARE SLIDER
 // ==========================================
+.logo-container {
+  margin-bottom: 8rem;
+
+  .logo-box {
+    img {
+      width: 30%;
+
+      @media (max-width: 576px) {
+        width: 45%;
+      }
+
+      @media (min-width: 577px) and (max-width: 992px) {
+        width: 40%;
+      }
+    }
+  }
+}
+
 .direction-slider-section {
   width: 100%;
   margin-bottom: 10rem;
-  padding: clamp(3rem, 8vw, 8rem) 0;
+  padding: clamp(3rem, 8vw, 5rem) 0;
   background: #ebf2fc;
   position: relative;
 }
