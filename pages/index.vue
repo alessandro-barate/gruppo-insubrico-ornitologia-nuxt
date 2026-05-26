@@ -379,7 +379,7 @@ onUnmounted(() => {
             </p>
             <div class="button-container">
               <NuxtLink to="/chi-siamo">
-                <button class="uppercase">cosa facciamo</button>
+                <button class="uppercase">chi siamo</button>
               </NuxtLink>
             </div>
           </div>
