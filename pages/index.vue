@@ -260,7 +260,7 @@ onUnmounted(() => {
           <!-- Logo -->
           <div class="logo-container">
             <div class="logo-box">
-              <img src="../public/gio-logo.webp" alt="" />
+              <img src="../assets/images/logo/gio-cerchio.svg" alt="" />
             </div>
           </div>
 
@@ -455,7 +455,10 @@ onUnmounted(() => {
                     <span class="bg-blue">progetti</span>
                   </div>
                   <div class="card-hover bg-blue">
-                    <img src="~/assets/images/arrow-right-white.svg" alt="" />
+                    <img
+                      src="~/assets/images/activities-section/arrow-right-white.svg"
+                      alt=""
+                    />
                     <p>progetti</p>
                   </div>
                 </NuxtLink>
@@ -468,7 +471,10 @@ onUnmounted(() => {
                     <span class="bg-blue">divulgazione</span>
                   </div>
                   <div class="card-hover bg-blue">
-                    <img src="~/assets/images/arrow-right-white.svg" alt="" />
+                    <img
+                      src="~/assets/images/activities-section/arrow-right-white.svg"
+                      alt=""
+                    />
                     <p>divulgazione</p>
                   </div>
                 </NuxtLink>
@@ -481,7 +487,10 @@ onUnmounted(() => {
                     <span class="bg-blue">pubblicazioni</span>
                   </div>
                   <div class="card-hover bg-blue">
-                    <img src="~/assets/images/arrow-right-white.svg" alt="" />
+                    <img
+                      src="~/assets/images/activities-section/arrow-right-white.svg"
+                      alt=""
+                    />
                     <p>pubblicazioni</p>
                   </div>
                 </NuxtLink>
@@ -582,14 +591,14 @@ onUnmounted(() => {
 
   .logo-box {
     img {
-      width: 30%;
+      width: 40%;
 
       @media (max-width: 576px) {
-        width: 45%;
+        width: 60%;
       }
 
       @media (min-width: 577px) and (max-width: 992px) {
-        width: 40%;
+        width: 70%;
       }
     }
   }
@@ -1065,7 +1074,7 @@ onUnmounted(() => {
 //   background-position: center;
 //   background-repeat: no-repeat;
 //   background-attachment: fixed;
-//   background-image: url(../assets/images/parallax-image.webp);
+//   background-image: url(../assets/images/activities-section/parallax-image.webp);
 
 //   .sections-title {
 //     margin-bottom: 2rem;
@@ -1167,7 +1176,7 @@ onUnmounted(() => {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-image: url(../assets/images/parallax-image.webp);
+  background-image: url(../assets/images/activities-section/parallax-image.webp);
 
   hr {
     height: clamp(100px, 20vw, 210px);
@@ -1264,13 +1273,13 @@ onUnmounted(() => {
       }
 
       .card-1 {
-        background-image: url(../assets/images/grid-1.webp);
+        background-image: url(../assets/images/activities-section/grid-1.webp);
       }
       .card-3 {
-        background-image: url(../assets/images/grid-3.webp);
+        background-image: url(../assets/images/activities-section/grid-2.webp);
       }
       .card-5 {
-        background-image: url(../assets/images/grid-5.webp);
+        background-image: url(../assets/images/activities-section/grid-3.webp);
       }
     }
   }

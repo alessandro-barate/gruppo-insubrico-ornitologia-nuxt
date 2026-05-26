@@ -176,7 +176,7 @@ onMounted(() => {
                   target="_blank"
                 >
                   <img
-                    src="~/assets/images/facebook.png"
+                    src="~/assets/images/links-socials/facebook.png"
                     alt="Facebook logo e link"
                   />
                 </a>
@@ -192,7 +192,7 @@ onMounted(() => {
                   target="_blank"
                 >
                   <img
-                    src="~/assets/images/instagram.svg"
+                    src="~/assets/images/links-socials/instagram.svg"
                     alt="Instagram logo e link"
                   />
                 </a>
@@ -205,7 +205,7 @@ onMounted(() => {
               <div class="newsletter">
                 <a href="">
                   <img
-                    src="~/assets/images/newsletter.svg"
+                    src="~/assets/images/links-socials/newsletter.svg"
                     alt="Newsletter e link"
                   />
                 </a>
@@ -226,7 +226,7 @@ onMounted(() => {
     padding-bottom: 6rem;
     background-position: center;
     background-size: cover;
-    background-image: url(../assets/images/gheppio.jpg);
+    background-image: url(../assets/images/links-socials/gheppio.jpg);
 
     .title-container {
       width: 100%;
@@ -263,15 +263,15 @@ onMounted(() => {
   overflow: hidden;
 
   &.bg-ornithology {
-    background-image: url(../assets/images/poiana.webp);
+    background-image: url(../assets/images/links-socials/poiana.webp);
   }
 
   &.bg-birdwatching {
-    background-image: url(../assets/images/birdwatching.webp);
+    background-image: url(../assets/images/links-socials/birdwatching.webp);
   }
 
   &.bg-nature {
-    background-image: url(../assets/images/nature.webp);
+    background-image: url(../assets/images/links-socials/nature.webp);
   }
 
   &.active {
@@ -408,7 +408,7 @@ onMounted(() => {
   padding-bottom: 3rem;
   background-image:
     linear-gradient(90deg, rgba(0, 119, 255, 0.85), rgba(233, 233, 233, 0.85)),
-    url(../assets/images/social.jpg);
+    url(../assets/images/links-socials/social.jpg);
   padding-top: 3rem;
   min-height: clamp(500px, 80vh, 875px);
   background-size: cover;

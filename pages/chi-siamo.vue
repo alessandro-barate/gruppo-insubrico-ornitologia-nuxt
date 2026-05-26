@@ -247,7 +247,7 @@ const closeModal = () => {
         <section class="team-container">
           <div class="team-image">
             <img
-              src="~/assets/images/gruppo-gio-2023.jpg"
+              src="~/assets/images/chi-siamo/gruppo-gio-2023.jpg"
               alt="Foto di gruppo GIO 2023"
             />
           </div>
@@ -288,7 +288,10 @@ const closeModal = () => {
                     <div class="find-out-more-container">
                       <p class="find-out-more">Scopri di più</p>
                       <button @click="toggleSection('year')">
-                        <img src="~/assets/images/chevron-right.svg" alt="" />
+                        <img
+                          src="~/assets/images/chi-siamo/chevron-right.svg"
+                          alt=""
+                        />
                       </button>
                     </div>
                   </div>
@@ -314,7 +317,10 @@ const closeModal = () => {
                     <div class="find-out-more-container">
                       <p class="find-out-more">Scopri di più</p>
                       <button @click="toggleSection('month')">
-                        <img src="~/assets/images/chevron-right.svg" alt="" />
+                        <img
+                          src="~/assets/images/chi-siamo/chevron-right.svg"
+                          alt=""
+                        />
                       </button>
                     </div>
                   </div>
@@ -340,7 +346,10 @@ const closeModal = () => {
                     <div class="find-out-more-container">
                       <p class="find-out-more">Scopri di più</p>
                       <button @click="toggleSection('members')">
-                        <img src="~/assets/images/chevron-right.svg" alt="" />
+                        <img
+                          src="~/assets/images/chi-siamo/chevron-right.svg"
+                          alt=""
+                        />
                       </button>
                     </div>
                   </div>
@@ -560,7 +569,7 @@ button {
   }
 
   .jumbo-bg {
-    background: url(/assets/images/jumbo.webp) center/cover no-repeat;
+    background: url(/assets/images/chi-siamo/jumbo.webp) center/cover no-repeat;
 
     .title {
       text-align: center;
@@ -746,7 +755,7 @@ button {
 
   background-image:
     linear-gradient(90deg, #0077ffd9, #e9e9e9d9),
-    url(../assets/images/gruppo-angera.webp);
+    url(../assets/images/chi-siamo/gruppo-angera.webp);
 
   &::after {
     content: "";

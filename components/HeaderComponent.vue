@@ -227,7 +227,10 @@ onUnmounted(() => {
             <div class="search-bar-section">
               <div class="search-bar-box d-flex">
                 <button @click="openSearchBar">
-                  <img src="~/assets/images/magnifier-lens.png" alt="Ricerca" />
+                  <img
+                    src="~/assets/images/header-menu/magnifier-lens.png"
+                    alt="Ricerca"
+                  />
                 </button>
               </div>
               <div class="input-field" :class="{ visible: isSearchOpen }">

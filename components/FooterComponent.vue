@@ -138,7 +138,7 @@ onUnmounted(() => {
 .col {
   width: 100%;
   background-size: cover;
-  background-image: url(~/assets/images/footer-image.jpg);
+  background-image: url(~/assets/images/footer/footer-image.jpg);
 
   .main-container {
     padding-top: 3rem;
@@ -296,6 +296,7 @@ onUnmounted(() => {
 
       .details-column {
         width: 100%;
+        text-align: end;
         padding-left: 1rem;
 
         h3 {
@@ -304,7 +305,6 @@ onUnmounted(() => {
         }
 
         p {
-          text-align: end;
           padding-right: 1rem;
         }
       }
