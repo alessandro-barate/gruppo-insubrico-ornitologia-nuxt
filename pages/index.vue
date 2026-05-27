@@ -561,7 +561,7 @@ onUnmounted(() => {
         font-size: clamp(1.5rem, 4vw, 4rem);
         font-weight: 600;
         letter-spacing: clamp(0.3rem, 2vw, 1rem);
-        background: linear-gradient(90deg, #031a8c, #4e62c5);
+        background: linear-gradient(90deg, #233162, #4e62c5);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -627,7 +627,7 @@ onUnmounted(() => {
   height: clamp(40px, 5vw, 40px);
   border: none;
   border-radius: 50%;
-  background: rgba(3, 26, 140, 0.9);
+  background: #233162;
   color: white;
   cursor: pointer;
   display: flex;
@@ -848,7 +848,7 @@ onUnmounted(() => {
   width: 100%;
   padding-top: 8rem;
   padding-bottom: 8rem;
-  background-color: #031a8c;
+  background-color: #233162;
 
   hr {
     border: none;

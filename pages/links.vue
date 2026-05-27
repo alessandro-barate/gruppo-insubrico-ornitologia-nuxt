@@ -501,8 +501,7 @@ onMounted(() => {
 
       .facebook,
       .instagram,
-      .newsletter,
-      .change {
+      .newsletter {
         width: 100%;
         display: flex;
         padding-left: clamp(1rem, 3vw, 3rem);
@@ -544,10 +543,6 @@ onMounted(() => {
           padding-left: clamp(1rem, 4vw, 4rem);
           font-size: clamp(0.9rem, 2vw, 1.5rem);
         }
-      }
-
-      .change a {
-        width: clamp(107.7px, 20%, 107.7px);
       }
     }
   }
@@ -593,8 +588,7 @@ onMounted(() => {
 
         .facebook a,
         .instagram a,
-        .newsletter a,
-        .change a {
+        .newsletter a {
           width: 13%;
 
           img {
@@ -608,8 +602,7 @@ onMounted(() => {
 
         .facebook,
         .instagram,
-        .newsletter,
-        .change {
+        .newsletter {
           padding-left: 0;
           padding: 2rem 0;
           flex-direction: column;
@@ -683,15 +676,13 @@ onMounted(() => {
       .socials-container {
         .facebook a,
         .instagram a,
-        .newsletter a,
-        .change a {
+        .newsletter a {
           width: 16%;
         }
 
         .facebook,
         .instagram,
-        .newsletter,
-        .change {
+        .newsletter {
           h3 {
             padding-left: 0;
             padding-top: 0.5rem;
