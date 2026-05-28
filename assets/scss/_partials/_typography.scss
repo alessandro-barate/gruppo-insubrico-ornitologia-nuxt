@@ -38,6 +38,18 @@ h4 {
 #social,
 #links {
   font-size: 5rem;
+
+  @media (min-width: 429px) and (max-width: 576px) {
+    font-size: 3.5rem;
+  }
+
+  @media (min-width: 351px) and (max-width: 428px) {
+    font-size: 2.6rem;
+  }
+
+  @media (max-width: 350px) {
+    font-size: 2.3rem;
+  }
 }
 
 /**********

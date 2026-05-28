@@ -859,16 +859,31 @@ onUnmounted(() => {
   .first-line {
     width: 40%;
     margin-left: 10%;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-left: 0;
+    }
   }
 
   .second-line {
     width: 40%;
     margin-left: 45%;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-left: 0;
+    }
   }
 
   .third-line {
     width: 40%;
     margin-left: 20%;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-left: 0;
+    }
   }
 
   .square {
@@ -878,6 +893,10 @@ onUnmounted(() => {
     line-height: 1.7rem;
     color: rgb(200, 200, 200);
 
+    @media (max-width: 768px) {
+      padding: 2rem;
+    }
+
     .first-paragraph,
     .second-paragraph,
     .third-paragraph,
@@ -886,6 +905,10 @@ onUnmounted(() => {
       margin-bottom: 3rem;
       opacity: 0;
       transition: all 1s cubic-bezier(0.77, 0, 0.175, 1);
+
+      @media (max-width: 768px) {
+        width: 90%;
+      }
     }
 
     .first-line,

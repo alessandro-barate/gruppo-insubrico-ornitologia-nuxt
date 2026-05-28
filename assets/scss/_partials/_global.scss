@@ -150,6 +150,10 @@ BEFORE AND AFTER EFFECTS
   height: 150px;
   background: #ebf2fc;
   clip-path: polygon(0 100%, 100% 0, 100% 100%);
+
+  @media (max-width: 767px) {
+    height: 90px;
+  }
 }
 
 .title-section::after {
@@ -161,6 +165,10 @@ BEFORE AND AFTER EFFECTS
   height: 150px;
   background: #ebf2fc;
   clip-path: polygon(0 100%, 100% 0, 100% 100%);
+
+  @media (max-width: 767px) {
+    height: 90px;
+  }
 }
 
 // Triangle before mission section (blue)

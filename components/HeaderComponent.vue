@@ -753,7 +753,7 @@ onUnmounted(() => {
           }
 
           a {
-            font-size: clamp(1.4rem, 7vw, 2.5rem);
+            font-size: clamp(1.4rem, 7vw, 3rem);
           }
         }
       }
@@ -813,6 +813,8 @@ onUnmounted(() => {
 
       .nav-menu {
         padding: 0;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
         justify-content: center;
 
         li {
@@ -823,7 +825,7 @@ onUnmounted(() => {
           padding-right: 0 !important;
 
           a {
-            font-size: clamp(1.8rem, 10vw, 2.5rem);
+            font-size: clamp(1rem, 7vw, 2.5rem);
           }
         }
       }
