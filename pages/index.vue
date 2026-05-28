@@ -553,6 +553,10 @@ onUnmounted(() => {
     text-align: center;
     padding-top: 2rem;
 
+    @media (min-width: 768px) and (max-width: 992px) {
+      padding-top: 5rem;
+    }
+
     .fade-wrapper-2 {
       opacity: 0;
       animation: fadeIn 4.5s ease-in-out forwards;
@@ -566,8 +570,16 @@ onUnmounted(() => {
         background-clip: text;
         color: transparent;
 
-        @media (max-width: 576px) {
-          font-size: clamp(2.5rem, 4vw, 6rem);
+        @media (max-width: 320px) {
+          font-size: clamp(1.8rem, 4vw, 6rem);
+        }
+
+        @media (min-width: 321px) and (max-width: 430px) {
+          font-size: clamp(2rem, 4vw, 6rem);
+        }
+
+        @media (min-width: 431px) and (max-width: 576px) {
+          font-size: clamp(2.3rem, 4vw, 6rem);
         }
 
         @media (min-width: 577px) and (max-width: 1080px) {
@@ -850,10 +862,19 @@ onUnmounted(() => {
   padding-bottom: 8rem;
   background-color: #233162;
 
+  @media (max-width: 576px) {
+    padding-top: 2rem;
+    padding-bottom: 0;
+  }
+
   hr {
     border: none;
     margin-bottom: 3rem;
     border-bottom: 1px solid white;
+
+    @media (max-width: 576px) {
+      margin-bottom: 2rem;
+    }
   }
 
   .first-line {
@@ -894,7 +915,8 @@ onUnmounted(() => {
     color: rgb(200, 200, 200);
 
     @media (max-width: 768px) {
-      padding: 2rem;
+      padding: 2rem 0 0 0;
+      font-size: 1rem;
     }
 
     .first-paragraph,
@@ -951,12 +973,22 @@ onUnmounted(() => {
     .third-paragraph {
       margin-left: 0;
       transform: translateX(50px);
+
+      @media (max-width: 576px) {
+        margin: 0 auto;
+        margin-bottom: 2rem;
+      }
     }
 
     .second-paragraph,
     .fourth-paragraph {
       margin-right: 0;
       transform: translateX(-50px);
+
+      @media (max-width: 576px) {
+        margin: 0 auto;
+        margin-bottom: 2rem;
+      }
     }
 
     .first-paragraph.visible {

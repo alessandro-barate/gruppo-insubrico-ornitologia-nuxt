@@ -323,6 +323,10 @@ onUnmounted(() => {
           cursor: pointer;
           margin-left: 3.3rem;
 
+          @media (max-width: 430px) {
+            margin-left: 1rem;
+          }
+
           .bar {
             display: block;
             width: 35px;
@@ -595,10 +599,19 @@ onUnmounted(() => {
 
       .search-bar-section {
         width: 8%;
+        margin-right: 0.5rem;
         position: relative;
 
         @media (max-width: 992px) {
           width: 10%;
+        }
+
+        @media (max-width: 350px) {
+          width: 15%;
+        }
+
+        @media (min-width: 351px) and (max-width: 430px) {
+          width: 15%;
         }
 
         .search-bar-box {
