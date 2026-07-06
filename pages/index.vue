@@ -241,29 +241,25 @@ onUnmounted(() => {
   <div class="container">
     <div class="row">
       <div class="col">
-        <!-- Jumbo section -->
-        <section
-          id="home-title"
-          class="title-section jumbo-bg"
-          :style="{ backgroundImage: currentBackgroundImage }"
-        >
-          <!-- Organization's name -->
-          <div class="title-container title-container-2">
-            <div class="fade-wrapper-2">
-              <p class="uppercase">gruppo insubrico di ornitologia</p>
+        <!-- Logo container -->
+        <section class="logo-container">
+          <!-- Logo -->
+          <div>
+            <div class="fade-wrapper-2 logo-box">
+              <img src="../assets/images/logo/gio-cerchio.svg" alt="" />
             </div>
           </div>
         </section>
 
+        <!-- Jumbo section -->
+        <section
+          id="home-title"
+          class="jumbo-bg"
+          :style="{ backgroundImage: currentBackgroundImage }"
+        ></section>
+
         <!-- Direction-aware slider -->
         <section class="direction-slider-section">
-          <!-- Logo -->
-          <div class="logo-container">
-            <div class="logo-box">
-              <img src="../assets/images/logo/gio-cerchio.svg" alt="" />
-            </div>
-          </div>
-
           <div class="slider-wrapper">
             <!-- Previous arrow -->
             <button
@@ -541,56 +537,9 @@ onUnmounted(() => {
     transition: background-image 0.8s ease-in-out;
   }
 
-  .title-section {
-    position: relative;
-    width: 100%;
-    height: 110vh;
-    overflow: hidden;
-  }
-
-  .title-container {
-    width: 90%;
-    text-align: center;
-    padding-top: 2rem;
-
-    @media (min-width: 768px) and (max-width: 992px) {
-      padding-top: 5rem;
-    }
-
-    .fade-wrapper-2 {
-      opacity: 0;
-      animation: fadeIn 4.5s ease-in-out forwards;
-
-      p {
-        font-size: clamp(1.5rem, 4vw, 4rem);
-        font-weight: 600;
-        letter-spacing: clamp(0.3rem, 2vw, 1rem);
-        background: linear-gradient(90deg, #233162, #4e62c5);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-
-        @media (max-width: 320px) {
-          font-size: clamp(1.8rem, 4vw, 6rem);
-        }
-
-        @media (min-width: 321px) and (max-width: 430px) {
-          font-size: clamp(2rem, 4vw, 6rem);
-        }
-
-        @media (min-width: 431px) and (max-width: 576px) {
-          font-size: clamp(2.3rem, 4vw, 6rem);
-        }
-
-        @media (min-width: 577px) and (max-width: 1080px) {
-          font-size: clamp(2.5rem, 5vw, 6rem);
-        }
-      }
-    }
-  }
-
-  .title-container-3 {
-    padding-top: 1rem;
+  .fade-wrapper-2 {
+    opacity: 0;
+    animation: fadeIn 4.5s ease-in-out forwards;
   }
 }
 // END jumbo section
@@ -599,7 +548,10 @@ onUnmounted(() => {
 // DIRECTION-AWARE SLIDER
 // ==========================================
 .logo-container {
-  margin-bottom: 8rem;
+  width: 100%;
+  margin-top: 6rem;
+  position: relative;
+  margin-bottom: 5rem;
 
   .logo-box {
     img {
@@ -1380,14 +1332,6 @@ onUnmounted(() => {
 // MEDIA QUERIES - TABLET
 // ==========================================
 @media (max-width: 992px) {
-  // Jumbo section
-  .col {
-    .title-section {
-      height: 110vh;
-    }
-  }
-  // END jumbo section
-
   // Direction-aware slider
   .direction-slider-section {
     padding: clamp(2rem, 5vw, 4rem) 0;
@@ -1526,11 +1470,6 @@ onUnmounted(() => {
 // ==========================================
 @media (max-width: 576px) {
   .col {
-    // Jumbo
-    .title-section {
-      height: 79vh;
-    }
-
     // Direction-aware slider - Mobile (1 card visible su 4)
     .direction-slider-section {
       padding: clamp(1.5rem, 4vw, 3rem) 0;
