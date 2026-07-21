@@ -94,7 +94,7 @@ onMounted(() => {
 <template>
   <div class="container">
     <div class="row">
-      <div class="col">
+      <div id="news-container" class="col">
         <section class="title-section jumbo-bg">
           <div class="title uppercase">
             <h1 id="news">news</h1>
@@ -168,6 +168,17 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .col {
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -651px;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: #8c8882;
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  }
+
   .title-section {
     position: relative;
     width: 100%;
@@ -193,7 +204,7 @@ onMounted(() => {
     width: 90%;
     max-width: 1400px;
     margin: 0 auto;
-    padding-bottom: 4rem;
+    padding-bottom: 17rem;
 
     &__intro {
       font-size: clamp(1rem, 2vw, 1.3rem);

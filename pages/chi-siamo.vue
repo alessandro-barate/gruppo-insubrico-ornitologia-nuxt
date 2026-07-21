@@ -124,12 +124,12 @@ const closeModal = () => {
           <article class="paragraphs-container">
             <!-- First paragraph -->
             <p class="first-paragraph">
-              Il Gruppo Insubrico di Ornitologia (GIO) si forma nel 1999 per
+              Il Gruppo Insubrico di Ornitologia (G.I.O.) si forma nel 1999 per
               iniziativa di Piero Alberti, Walter Guenzani e Fabio Saporetti
               presso il Civico Museo Insubrico di Storia naturale di Induno
               Olona, grazie all'ospitalità offerta dal Curatore Gianluca Danini.
               <br />
-              Nel dicembre 2009 il GIO, per volontà di 9 soci fondatori, si
+              Nel dicembre 2009 il G.I.O., per volontà di 9 soci fondatori, si
               costituisce come Onlus presso il Registro di Varese, spostandosi
               da Induno Olona a Clivio, nell'edificio che diverrà la sede del
               nuovo Museo Civico di Storia Naturale di Clivio e Induno Olona.

@@ -407,7 +407,7 @@ $border-color: rgb(141, 141, 141);
   width: 90%;
   max-width: 1400px;
   margin: 0 auto;
-  padding-bottom: 4rem;
+  padding-bottom: 8rem;
 
   &__intro {
     font-size: clamp(1rem, 2vw, 1.3rem);

@@ -223,7 +223,7 @@ onMounted(() => {
 .row {
   .col {
     width: 100%;
-    padding-bottom: 6rem;
+    padding-bottom: 12rem;
     background-position: center;
     background-size: cover;
     background-image: url(../assets/images/links-socials/gheppio.jpg);
@@ -405,16 +405,34 @@ onMounted(() => {
 .contacts-container {
   width: 100%;
   position: relative;
-  padding-bottom: 3rem;
+  padding-bottom: 10rem;
   background-image:
     linear-gradient(90deg, rgba(0, 119, 255, 0.85), rgba(233, 233, 233, 0.85)),
     url(../assets/images/links-socials/social.jpg);
-  padding-top: 3rem;
+  padding-top: 10rem;
   min-height: clamp(500px, 80vh, 875px);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(
+      90deg,
+      #a8d5f4 0%,
+      #acd9f8 20%,
+      #b0ddfc 45%,
+      #b2dffe 73%,
+      #b6def8 100%
+    );
+    clip-path: polygon(0% 0%, 100% 0, 0% 100%);
+  }
 
   .contacts-box {
     width: 95%;

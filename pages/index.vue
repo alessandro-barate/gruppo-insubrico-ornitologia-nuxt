@@ -385,13 +385,9 @@ onUnmounted(() => {
         <section class="news-section">
           <div class="news-container d-flex">
             <div class="sections-title news-box">
-              <h2 class="title-1 title-color part-1 uppercase">le ultime</h2>
+              <h2 class="title-1 title-color part-1 uppercase">le</h2>
               <h2 class="title-2 title-color part-2 uppercase">news</h2>
-              <h2 class="title-1 title-color part-3 uppercase">del g i o</h2>
-            </div>
-            <div class="news-description">
-              <p>Le nostre news più recenti</p>
-              <hr />
+              <h2 class="title-1 title-color part-3 uppercase">del g. i. o.</h2>
             </div>
           </div>
 
@@ -1036,24 +1032,6 @@ onUnmounted(() => {
         padding-left: clamp(2rem, 10vw, 12rem);
       }
     }
-
-    .news-description {
-      width: 50%;
-      text-align: center;
-
-      p {
-        font-size: clamp(1rem, 2vw, 1.7rem);
-        padding-top: clamp(2rem, 6vw, 6rem);
-      }
-
-      hr {
-        width: 20%;
-        border: none;
-        margin-left: clamp(2rem, 8vw, 8rem);
-        margin-top: clamp(1.5rem, 4vw, 4rem);
-        border-bottom: 2px solid rgb(141, 141, 141);
-      }
-    }
   }
 
   .news-carousel-wrapper {
@@ -1189,11 +1167,16 @@ onUnmounted(() => {
     height: clamp(100px, 20vw, 210px);
     align-self: flex-end;
     border: none;
+    margin-left: 6.5rem;
+    margin-right: 0rem;
     border-left: 2px solid rgb(200, 200, 200);
   }
 
   .activities-box {
     width: 55%;
+
+    margin-left: 2rem;
+    margin-right: -4rem;
 
     .activities-list {
       display: grid;
@@ -1294,6 +1277,7 @@ onUnmounted(() => {
   .activities-title {
     margin-top: clamp(1rem, 4vw, 4rem);
     overflow: hidden;
+    margin-left: 1.5rem;
 
     .title-1,
     .title-2 {
@@ -1316,17 +1300,59 @@ onUnmounted(() => {
     .title-1 {
       font-size: clamp(1.5rem, 4vw, 3rem);
       padding-top: 2rem;
-      padding-left: clamp(1rem, 6vw, 6rem);
+      padding-left: clamp(1rem, 6vw, 2rem);
     }
 
     .title-2 {
       font-size: clamp(2.5rem, 8vw, 6rem);
       padding-top: clamp(1rem, 3vw, 3rem);
-      padding-left: clamp(2rem, 10vw, 12rem);
+      padding-left: clamp(6rem, 0vw, 12rem);
     }
   }
 }
 // END activities section
+
+// ==========================================
+// MEDIA QUERIES - DESKTOP UP TO 1400px
+// ==========================================
+@media (min-width: 993px) and (max-width: 1400px) {
+  // Activities section
+  .activities-container {
+    flex-direction: column-reverse;
+    padding-top: clamp(15rem, 15vw, 15rem);
+
+    hr {
+      display: none;
+    }
+
+    .activities-box {
+      width: 80%;
+      margin-top: 2rem;
+      margin-left: 0;
+      margin-right: 0;
+
+      .activities-list {
+        gap: 3rem;
+      }
+    }
+
+    .activities-title {
+      width: 100%;
+      margin-left: 0;
+      text-align: center;
+
+      .title-1 {
+        padding-left: 0;
+      }
+
+      .title-2 {
+        padding-left: 0;
+        position: relative;
+      }
+    }
+  }
+  // END activities section
+}
 
 // ==========================================
 // MEDIA QUERIES - TABLET
@@ -1385,6 +1411,7 @@ onUnmounted(() => {
       .sections-title {
         width: 100%;
         text-align: center;
+        padding-left: 0;
 
         .title-1 {
           padding-left: 0;
@@ -1392,17 +1419,8 @@ onUnmounted(() => {
         }
 
         .title-2 {
-          padding-left: clamp(2rem, 16vw, 12rem);
+          padding-left: 0;
           text-align: center;
-        }
-      }
-
-      .news-description {
-        width: 100%;
-
-        hr {
-          width: 60%;
-          margin: 2rem auto;
         }
       }
     }
@@ -1430,14 +1448,19 @@ onUnmounted(() => {
   // Activities section
   .activities-container {
     flex-direction: column-reverse;
+    padding-top: clamp(15rem, 15vw, 15rem);
 
     hr {
       display: none;
+      margin-left: 0;
+      margin-right: 1rem;
     }
 
     .activities-box {
       width: 100%;
       margin-top: 2rem;
+      margin-left: 0;
+      margin-right: 0;
 
       .activities-list {
         .activity-card {
@@ -1454,10 +1477,15 @@ onUnmounted(() => {
 
     .activities-title {
       width: 100%;
+      margin-left: 0;
       text-align: center;
 
+      .title-1 {
+        padding-left: 0;
+      }
+
       .title-2 {
-        left: 5rem;
+        padding-left: 0;
         position: relative;
       }
     }
@@ -1532,19 +1560,28 @@ onUnmounted(() => {
       }
     }
 
-    // News
+    // News section
     .news-section {
       .news-container {
-        .news-description {
-          hr {
-            width: 50%;
+        .sections-title {
+          padding-left: 0;
+
+          .title-1 {
+            font-size: clamp(2rem, 4vw, 2rem);
+          }
+
+          .title-2 {
+            font-size: clamp(3.5rem, 8vw, 3.5rem);
           }
         }
       }
     }
+    // END news section
 
     // Activities
     .activities-container {
+      padding-top: clamp(12rem, 15vw, 12rem);
+
       .activities-box {
         .activities-list {
           grid-template-columns: 1fr;
@@ -1558,9 +1595,14 @@ onUnmounted(() => {
       }
 
       .activities-title {
+        .title-1 {
+          font-size: clamp(2rem, 4vw, 2rem);
+        }
+
         .title-2 {
           padding-left: 0;
           padding-right: 2rem;
+          font-size: clamp(3.5rem, 4vw, 3.5rem);
         }
       }
     }
