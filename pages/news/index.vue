@@ -425,6 +425,12 @@ onMounted(() => {
 // ==========================================
 @media (max-width: 576px) {
   .col {
+    &::after {
+      bottom: -522px;
+      height: 70px;
+      clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    }
+
     .title-section {
       height: 350px;
     }

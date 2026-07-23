@@ -105,6 +105,32 @@ const closeModal = () => {
   isModalOpen.value = false;
   activeSection.value = "";
 };
+
+onMounted(() => {
+  // Update slides per view on mount and resize
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.7 },
+  );
+
+  // Elementi da osservare
+  const items = document.querySelectorAll<HTMLElement>(
+    ".first-paragraph, .second-paragraph",
+  );
+
+  items.forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.2}s`;
+    observer.observe(el);
+  });
+});
 </script>
 
 <template>
@@ -170,8 +196,6 @@ const closeModal = () => {
                 Comunità Montane del Verbano e del Piambello.
               </p>
             </div>
-
-            <hr class="break-line" />
           </article>
 
           <!-- Button-container per panel -->
@@ -590,16 +614,37 @@ button {
     width: 95%;
     transition: width 0.4s ease;
 
+    .first-paragraph,
+    .second-paragraph {
+      opacity: 0;
+      margin-top: 0;
+      transform: translateY(-50px);
+      transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+      // transition: all 1s cubic-bezier(0.77, 0, 0.175, 1);
+
+      @media (max-width: 576px) {
+        margin: 0 auto;
+        margin-bottom: 2rem;
+      }
+
+      &.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .first-paragraph {
       width: 70%;
-      padding: 1rem 0 2.3rem 2rem;
+      padding: 1rem 2rem 2.3rem 2rem;
     }
 
     .second-paragraph-container {
       width: 100%;
       justify-content: end;
       margin-bottom: 4rem;
-      padding: 4rem 2rem 0rem 0rem;
+      padding: 4rem 2rem 0rem 2rem;
 
       .second-paragraph {
         width: 70%;
