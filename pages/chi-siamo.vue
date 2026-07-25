@@ -799,7 +799,7 @@ button {
   transition: min-height 0.5s ease;
 
   background-image:
-    linear-gradient(90deg, #0077ffd9, #e9e9e9d9),
+    linear-gradient(90deg, #233162, #233162b6),
     url(../assets/images/chi-siamo/gruppo-angera.webp);
 
   &::after {
@@ -811,6 +811,10 @@ button {
     height: 150px;
     background: #ebf2fc;
     clip-path: polygon(0 0, 100% 0, 0 100%);
+
+    @media (max-width: 576px) {
+      height: 90px;
+    }
   }
 
   .subscribe-container {

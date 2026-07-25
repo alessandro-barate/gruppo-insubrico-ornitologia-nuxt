@@ -171,7 +171,7 @@ onMounted(() => {
   &::after {
     content: "";
     position: absolute;
-    bottom: -651px;
+    bottom: -589px;
     left: 0;
     width: 100%;
     height: 150px;
@@ -192,7 +192,7 @@ onMounted(() => {
   }
 
   .jumbo-bg {
-    background: url(/assets/images/news/beccaccini.webp) center/cover no-repeat;
+    background: url(/assets/images/news/beccaccini.webp) bottom/cover no-repeat;
 
     .title {
       text-align: center;
@@ -427,7 +427,7 @@ onMounted(() => {
   .col {
     &::after {
       bottom: -522px;
-      height: 70px;
+      height: 90px;
       clip-path: polygon(0 100%, 100% 0, 100% 100%);
     }
 

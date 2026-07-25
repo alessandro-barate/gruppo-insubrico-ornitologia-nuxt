@@ -432,6 +432,16 @@ onMounted(() => {
       #b6def8 100%
     );
     clip-path: polygon(0% 0%, 100% 0, 0% 100%);
+
+    @media (max-width: 576px) {
+      height: 90px;
+    }
+  }
+
+  &::after {
+    @media (max-width: 576px) {
+      height: 90px;
+    }
   }
 
   .contacts-box {
