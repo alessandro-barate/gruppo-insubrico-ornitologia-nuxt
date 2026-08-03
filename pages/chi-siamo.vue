@@ -66,7 +66,7 @@ const togglePanel = () => {
   isPanelOpen.value = !isPanelOpen.value;
 };
 
-// Toggle sezioni iscrizione (per desktop - toggle on/off)
+// Toggle sezione iscrizione (per desktop - toggle on/off)
 const toggleSection = (section: string) => {
   // Caso 1: clicco lo stesso bottone → chiudo e scrolla verso i bottoni
   if (activeSection.value === section) {
@@ -78,11 +78,7 @@ const toggleSection = (section: string) => {
       }
     }, 200);
   }
-  // Caso 2: c'è già una sezione aperta → cambio solo il contenuto (no scroll)
-  else if (activeSection.value !== "") {
-    activeSection.value = section;
-  }
-  // Caso 3: apertura da zero → scroll + poi mostra contenuto
+  // Caso 2: apertura da zero → scroll + poi mostra contenuto
   else {
     if (textContentRef.value) {
       smoothScrollTo(textContentRef.value, 800, 150, () => {
@@ -107,8 +103,6 @@ const closeModal = () => {
 };
 
 onMounted(() => {
-  // Update slides per view on mount and resize
-
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -283,8 +277,6 @@ onMounted(() => {
           :class="{
             'has-content': activeSection !== '',
             'content-year': activeSection === 'year',
-            'content-month': activeSection === 'month',
-            'content-members': activeSection === 'members',
           }"
         >
           <div class="subscribe-container">
@@ -292,89 +284,21 @@ onMounted(() => {
               <!-- Buttons container - Desktop -->
               <div class="details-container desktop-only">
                 <div ref="selectionBarRef" class="selection-bar">
-                  <!-- First card -->
+                  <!-- Card diventare soci -->
                   <div
-                    class="selector uppercase"
+                    class="activity-card card-1 d-flex uppercase"
                     :class="{ highlight: activeSection === 'year' }"
+                    @click="toggleSection('year')"
                   >
-                    <div class="d-flex">
-                      <div>
-                        <p class="number">1</p>
-                      </div>
-
-                      <div class="right-text d-flex">
-                        <div>
-                          <p>iscrizione</p>
-                        </div>
-                      </div>
+                    <div class="card-default d-flex">
+                      <span class="bg-blue">diventare soci del g.i.o.</span>
                     </div>
-                    <hr />
-                    <div class="find-out-more-container">
-                      <p class="find-out-more">Scopri di più</p>
-                      <button @click="toggleSection('year')">
-                        <img
-                          src="~/assets/images/chi-siamo/chevron-right.svg"
-                          alt=""
-                        />
-                      </button>
-                    </div>
-                  </div>
-
-                  <!-- Second card -->
-                  <div
-                    class="selector uppercase"
-                    :class="{ highlight: activeSection === 'month' }"
-                  >
-                    <div class="d-flex">
-                      <div>
-                        <p class="number">2</p>
-                      </div>
-
-                      <div class="right-text d-flex">
-                        <div>
-                          <p>diventare</p>
-                          <p>soci del g.i.o.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <hr />
-                    <div class="find-out-more-container">
-                      <p class="find-out-more">Scopri di più</p>
-                      <button @click="toggleSection('month')">
-                        <img
-                          src="~/assets/images/chi-siamo/chevron-right.svg"
-                          alt=""
-                        />
-                      </button>
-                    </div>
-                  </div>
-
-                  <!-- Third card -->
-                  <div
-                    class="selector uppercase"
-                    :class="{ highlight: activeSection === 'members' }"
-                  >
-                    <div class="d-flex">
-                      <div>
-                        <p class="number">3</p>
-                      </div>
-
-                      <div class="right-text d-flex">
-                        <div>
-                          <p>modulo di</p>
-                          <p>iscrizione</p>
-                        </div>
-                      </div>
-                    </div>
-                    <hr />
-                    <div class="find-out-more-container">
-                      <p class="find-out-more">Scopri di più</p>
-                      <button @click="toggleSection('members')">
-                        <img
-                          src="~/assets/images/chi-siamo/chevron-right.svg"
-                          alt=""
-                        />
-                      </button>
+                    <div class="card-hover bg-blue">
+                      <img
+                        src="~/assets/images/chi-siamo/chevron-right.svg"
+                        alt=""
+                      />
+                      <p>scopri di più</p>
                     </div>
                   </div>
                 </div>
@@ -406,84 +330,27 @@ onMounted(() => {
                       aggiungeranno i successivi bollini annuali adesivi.
                     </p>
                   </div>
-
-                  <!-- Monthly meetings -->
-                  <div
-                    class="choice-bottom-paragraph"
-                    :class="{ show: activeSection === 'month' }"
-                  >
-                    <h3>RIUNIONI MENSILI</h3>
-                    <p>
-                      Ci riuniamo il secondo lunedì di ogni mese (escluso
-                      agosto, di solito) presso la Biblioteca Comunale del
-                      Comune di Gazzada Schianno (VA), dove ci aggiorniamo sui
-                      progetti in corso, proponiamo e organizziamo iniziative
-                      con un "ordine del giorno" che viene mandato dal
-                      Presidente tempestivamente per mail a tutti i soci, che
-                      possono proporre ulteriori argomenti o apportare
-                      modifiche.
-                      <br /><br />
-                      Gli incontri ufficiali (come l'assemblea annuale) vengono
-                      invece tenuti presso la nostra sede al Civico Museo
-                      Insubrico di Storia Naturale a Clivio (VA).
-                      <br /><br />
-                      Le riunioni mensili sono incontri informali in cui ci si
-                      confronta anche su osservazioni ornitologiche, viaggi
-                      naturalistici, commenti e visione di pubblicazioni e
-                      fotografie ecc.
-                    </p>
-                  </div>
-
-                  <!-- Members communications -->
-                  <div
-                    class="choice-bottom-paragraph"
-                    :class="{ show: activeSection === 'members' }"
-                  >
-                    <h3>COMUNICAZIONI TRA SOCI</h3>
-                    <p>
-                      Tutti i soci sono compresi nella mailing-list del GIO e
-                      possono entrare a far parte del gruppo WhatsApp dei soci,
-                      attraverso cui si viene informati dell'intera attività del
-                      gruppo. Alcuni argomenti, di solito quelli più formali e
-                      amministrativi, vengono trattati dal Consiglio Direttivo,
-                      che ne informa quindi il resto dei soci in occasione delle
-                      riunioni mensili.
-                      <br /><br />
-                      Abbiamo anche un Tesoriere e un Vice-tesoriere che si
-                      occupano delle questioni finanziarie come le entrate e le
-                      uscite, il rendiconto economico, i rimborsi spese e
-                      acquisti vari.
-                    </p>
-                  </div>
                 </div>
               </div>
 
               <!-- Buttons container - Tablet/Mobile -->
               <div class="details-container tablet-mobile-only">
                 <div class="selection-bar">
-                  <button
-                    class="selector uppercase"
-                    :class="{ highlight: activeSection === 'year' }"
+                  <div
+                    class="activity-card card-1 d-flex uppercase"
                     @click="displayModal('year')"
                   >
-                    <span>iscrizione annuale</span>
-                  </button>
-
-                  <button
-                    class="selector uppercase"
-                    :class="{ highlight: activeSection === 'month' }"
-                    @click="displayModal('month')"
-                  >
-                    <span>riunioni mensili</span>
-                  </button>
-
-                  <button
-                    class="selector uppercase"
-                    :class="{ highlight: activeSection === 'members' }"
-                    @click="displayModal('members')"
-                  >
-                    <span>comunicazioni tra soci</span>
-                  </button>
+                    <div class="card-default d-flex">
+                      <span class="bg-blue">diventare soci del g.i.o.</span>
+                    </div>
+                    <div class="card-hover bg-blue">
+                      <img
+                        src="~/assets/images/chi-siamo/chevron-right.svg"
+                        alt=""
+                      />
+                      <p>scopri di più</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -512,45 +379,6 @@ onMounted(() => {
                 rilascia una tessera, con il "bollino" di validità dell'anno in
                 corso, a cui si aggiungeranno i successivi bollini annuali
                 adesivi.
-              </p>
-            </div>
-
-            <!-- Monthly meetings -->
-            <div v-if="activeSection === 'month'" class="modal-body">
-              <h3>RIUNIONI MENSILI</h3>
-              <p>
-                Ci riuniamo il secondo lunedì di ogni mese (escluso agosto, di
-                solito) in un locale presso il Comune di Casciago (VA), dove ci
-                aggiorniamo sui progetti in corso, proponiamo e organizziamo
-                iniziative con un "ordine del giorno" che viene mandato dal
-                Presidente tempestivamente per mail a tutti i soci, che possono
-                proporre ulteriori argomenti o apportare modifiche.
-                <br /><br />
-                Gli incontri ufficiali (come l'assemblea annuale) vengono invece
-                tenuti presso la nostra sede al Civico Museo Insubrico di Storia
-                Naturale a Clivio (VA).
-                <br /><br />
-                Le riunioni mensili sono incontri informali in cui ci si
-                confronta anche su osservazioni ornitologiche, viaggi
-                naturalistici, commenti e visione di pubblicazioni e fotografie
-                ecc.
-              </p>
-            </div>
-
-            <!-- Members communications -->
-            <div v-if="activeSection === 'members'" class="modal-body">
-              <h3>COMUNICAZIONI TRA SOCI</h3>
-              <p>
-                Tutti i soci sono compresi nella mailing-list del GIO,
-                attraverso cui si viene informati dell'intera attività del
-                gruppo. Alcuni argomenti, di solito quelli più formali e
-                amministrativi, vengono trattati dal Consiglio Direttivo, che ne
-                informa quindi il resto dei soci in occasione delle riunioni
-                mensili.
-                <br /><br />
-                Abbiamo anche un Tesoriere e un Vice-tesoriere che si occupano
-                delle questioni finanziarie come le entrate e le uscite, il
-                rendiconto economico, i rimborsi spese e acquisti vari.
               </p>
             </div>
           </div>
@@ -622,7 +450,6 @@ button {
       transition:
         opacity 0.6s ease,
         transform 0.6s ease;
-      // transition: all 1s cubic-bezier(0.77, 0, 0.175, 1);
 
       @media (max-width: 576px) {
         margin: 0 auto;
@@ -842,72 +669,81 @@ button {
       display: flex;
       justify-content: center;
 
-      .selector {
-        font-size: 1.2rem;
-        padding: 1rem;
-        margin-left: 2rem;
-        border: 1px solid black;
-        border-radius: 0.7rem;
-        transition: all 0.8s;
-        // background: linear-gradient(90deg, #d2420d, #ffbf00);
-        background: linear-gradient(90deg, #ffffff, #0d59d2);
+      // Card con lo stesso stile delle activity-card della home
+      .activity-card {
+        width: 300px;
+        max-width: 80%;
+        border-radius: 0.5rem;
+        position: relative;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        cursor: pointer;
+        container-type: inline-size;
+        background-size: cover;
+        background-position: center;
+        background-image: url(../assets/images/activities-section/grid-1.webp);
 
-        hr {
-          border: none;
-          margin-bottom: 1.5rem;
-          border-top: 1px solid black;
-        }
-
-        .right-text {
-          align-items: center;
-        }
-
-        .number {
-          font-size: 4rem;
-          text-align: start;
-          font-style: italic;
-          color: rgba(82, 82, 82, 0.9);
-        }
-
-        .find-out-more-container {
+        .card-default {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
           display: flex;
+          align-items: end;
+          text-align: center;
+          background-size: cover;
+          background-position: center;
+          opacity: 1;
+          color: rgba(255, 255, 255, 0.9);
+          transition: opacity 0.5s ease-in-out;
+
+          span {
+            font-weight: 500;
+            width: 100%;
+            padding: 5%;
+            display: inline-block;
+            opacity: 0.9;
+            font-size: 9cqw;
+          }
+        }
+
+        .card-hover {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
           align-items: center;
+          justify-content: center;
+          text-align: center;
+          opacity: 0;
+          transition: opacity 0.5s ease-in-out;
 
           img {
-            width: 100%;
-            transition: transform 0.6s;
-
-            &:hover {
-              transform: scale(1.2);
-            }
+            width: 17%;
+            margin-bottom: 5%;
           }
 
-          .find-out-more {
-            font-size: 1rem;
-            margin-left: 0;
-            text-transform: none;
+          p {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            padding: 5%;
+            font-size: 10cqw;
           }
         }
 
-        button {
-          width: 12%;
-          padding: 0;
-          border: none;
-          margin-right: 0;
-          border-radius: 50%;
-          background-color: unset;
-        }
-
+        &:hover,
         &.highlight {
-          transform: translate(10px, -10px);
-          background: rgb(241, 241, 135) !important;
-          box-shadow: -10px 10px rgba(80, 80, 80, 0.7);
-        }
+          .card-default {
+            opacity: 0;
+          }
 
-        &:hover {
-          background: beige;
-          transform: translate(10px, -10px);
-          box-shadow: -10px 10px rgba(80, 80, 80, 0.7);
+          .card-hover {
+            opacity: 1;
+          }
         }
       }
     }
@@ -998,17 +834,6 @@ button {
   }
 }
 
-// Fade transition
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 1s ease-in-out;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
 // Modal nascosto su desktop
 .modal-overlay {
   display: none;
@@ -1063,28 +888,47 @@ button {
               flex-direction: column;
               align-items: center;
 
-              .selector {
-                width: 100%;
-                margin-left: 0;
-                margin-bottom: 1.5rem;
-                padding: 1rem 2rem;
-                border: none;
-                border-radius: 0.3rem;
-                transition: all 0.3s;
-                // background: linear-gradient(90deg, #d2420d, #ffbf00);
-                background: linear-gradient(90deg, #ffffff, #0d59d2);
+              .activity-card {
+                width: 300px;
+                max-width: 100%;
+                border-radius: 0.5rem;
+                position: relative;
+                aspect-ratio: 1 / 1;
+                overflow: hidden;
+                cursor: pointer;
+                container-type: inline-size;
+                background-size: cover;
+                background-position: center;
+                background-image: url(../assets/images/activities-section/grid-1.webp);
 
-                p {
-                  font-size: 1.3rem;
+                .card-default {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  display: flex;
+                  align-items: end;
+                  text-align: center;
+                  background-size: cover;
+                  background-position: center;
+                  opacity: 1;
+                  color: rgba(255, 255, 255, 0.9);
+
+                  span {
+                    font-weight: 500;
+                    width: 100%;
+                    padding: 5%;
+                    display: inline-block;
+                    opacity: 0.9;
+                    font-size: 9cqw;
+                  }
                 }
 
-                &.highlight {
-                  background: rgb(241, 241, 135) !important;
+                // Su tablet/mobile la card resta nello stato default
+                .card-hover {
+                  display: none;
                 }
-
-                // &:hover {
-                //   background: linear-gradient(90deg, #d2420d, #ffbf00);
-                // }
               }
             }
           }
