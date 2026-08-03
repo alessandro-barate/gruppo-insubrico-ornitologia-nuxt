@@ -333,45 +333,47 @@ onUnmounted(() => {
           <div class="square">
             <p class="first-paragraph">
               Il Gruppo Insubrico di Ornitologia si ispira ai principi
-              dell'educazione ambientale e della promozione della cultura
-              naturalistica tra i cittadini e persegue, nell'ambito territoriale
-              locale come scopo prioritario lo studio e la conservazione
-              dell'avifauna, nonché la gestione e la valorizzazione di aree di
-              interesse naturalistico.
+              dell&rsquo;educazione ambientale e della promozione della cultura
+              naturalistica tra i cittadini e persegue, nell&rsquo;ambito
+              territoriale locale come scopo prioritario lo studio e la
+              salvaguardia dell&rsquo;avifauna, nonch&eacute; la gestione e la
+              valorizzazione di aree di interesse naturalistico.
             </p>
 
             <hr class="first-line" />
 
             <p class="second-paragraph">
-              Crediamo che conoscere la natura sia il primo passo per
-              proteggerla. Il Gruppo Insubrico di Ornitologia promuove la
-              cultura naturalistica e l'educazione ambientale, coinvolgendo
-              cittadini, appassionati e ricercatori nello studio dell'avifauna e
-              dei suoi habitat. Attraverso ricerca, divulgazione e gestione di
-              aree di interesse naturalistico lavoriamo per conservare la
-              biodiversità e rafforzare il legame tra persone e territorio.
+              Osservare un uccello in volo significa raccontare una storia di
+              natura, territorio e biodiversit&agrave;. La nostra associazione
+              mobilita una rete dinamica di cittadini, appassionati e
+              ricercatori, uniti dal desiderio di comprendere a fondo le specie
+              locali e i loro ecosistemi. Attraverso progetti mirati sul campo,
+              divulgazione scientifica e gestione attiva delle oasi protette,
+              lavoriamo quotidianamente per tutelare la biodiversit&agrave; e
+              rinsaldare il legame profondo tra comunit&agrave; e territorio.
             </p>
 
             <hr class="second-line" />
 
             <p class="third-paragraph">
-              Osservare un uccello in volo significa raccontare una storia di
-              natura, territorio e biodiversità. Il Gruppo Insubrico di
-              Ornitologia nasce per studiare e proteggere l'avifauna locale,
-              promuovendo allo stesso tempo la conoscenza della natura tra i
-              cittadini. Con attività di ricerca, monitoraggio e divulgazione
-              lavoriamo per custodire gli habitat e valorizzare le aree
-              naturalistiche del nostro territorio.
+              Crediamo che conoscere la natura sia il primo passo per
+              proteggerla. Il sodalizio investe risorse ed energie nel
+              monitoraggio scientifico, trasformando i dati raccolti in efficaci
+              strumenti di conservazione e in preziosi elementi a disposizione
+              delle autorit&agrave; competenti per una gestione consapevole del
+              territorio, utili a pianificare interventi mirati di tutela
+              ambientale. Questa sinergia tra ricerca e sensibilizzazione
+              permette di salvaguardare concretamente la fauna selvatica,
+              valorizzando l'immenso patrimonio ecologico circostante.
             </p>
 
             <hr class="third-line" />
 
             <p class="fourth-paragraph">
-              Studiare, conoscere, proteggere. Il Gruppo Insubrico di
-              Ornitologia promuove la cultura naturalistica e l'educazione
-              ambientale attraverso lo studio e la conservazione dell'avifauna e
-              dei suoi habitat, contribuendo alla tutela e alla valorizzazione
-              del patrimonio naturale del territorio.
+              Studiare, conoscere, proteggere. Sosteniamo un modello di sviluppo
+              sostenibile in cui la cittadinanza attiva diventa custode
+              consapevole del paesaggio, garantendo un futuro alle ricchezze
+              biologiche della nostra regione
             </p>
             <div class="button-container">
               <NuxtLink to="/chi-siamo">
@@ -444,14 +446,14 @@ onUnmounted(() => {
               <div class="activities-list d-grid uppercase">
                 <NuxtLink to="/progetti" class="activity-card card-1 d-flex">
                   <div class="card-default d-flex">
-                    <span class="bg-blue">progetti</span>
+                    <span class="bg-blue">progetti di ricerca</span>
                   </div>
                   <div class="card-hover bg-blue">
                     <img
                       src="~/assets/images/activities-section/arrow-right-white.svg"
                       alt=""
                     />
-                    <p>progetti</p>
+                    <p>progetti di ricerca</p>
                   </div>
                 </NuxtLink>
 
@@ -476,14 +478,14 @@ onUnmounted(() => {
                   class="activity-card card-5 d-flex"
                 >
                   <div class="card-default d-flex">
-                    <span class="bg-blue">pubblicazioni</span>
+                    <span class="bg-blue">pubblicazioni scientifiche</span>
                   </div>
                   <div class="card-hover bg-blue">
                     <img
                       src="~/assets/images/activities-section/arrow-right-white.svg"
                       alt=""
                     />
-                    <p>pubblicazioni</p>
+                    <p>pubblicazioni scientifiche</p>
                   </div>
                 </NuxtLink>
               </div>

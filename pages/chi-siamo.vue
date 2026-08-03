@@ -146,13 +146,15 @@ onMounted(() => {
             <p class="first-paragraph">
               Il Gruppo Insubrico di Ornitologia (G.I.O.) si forma nel 1999 per
               iniziativa di Piero Alberti, Walter Guenzani e Fabio Saporetti
-              presso il Civico Museo Insubrico di Storia naturale di Induno
-              Olona, grazie all'ospitalità offerta dal Curatore Gianluca Danini.
+              presso il Civico Museo Insubrico di Storia Naturale di Induno
+              Olona, grazie all&rsquo;ospitalit&agrave; offerta dal Curatore
+              Gianluca Danini.
               <br />
-              Nel dicembre 2009 il G.I.O., per volontà di 9 soci fondatori, si
-              costituisce come Onlus presso il Registro di Varese, spostandosi
-              da Induno Olona a Clivio, nell'edificio che diverrà la sede del
-              nuovo Museo Civico di Storia Naturale di Clivio e Induno Olona.
+              Nel dicembre 2009 il G.I.O., per volont&agrave; di 9 soci
+              fondatori, si costituisce come Onlus presso il Registro di Varese,
+              spostandosi da Induno Olona a Clivio, nell&rsquo;edificio che
+              diverr&agrave; la sede del nuovo Museo Civico di Storia Naturale
+              di Clivio e Induno Olona.
             </p>
 
             <hr class="break-line" />
@@ -165,12 +167,12 @@ onMounted(() => {
                 (Vice-Presidente) e 3 Consiglieri: Paolo Casali (poi sostituito
                 da Andrea Vidolini), Silvio Colaone e Walter Guenzani.
                 <br />
-                Dal 2022 il G.I.O. è iscritto al Runts come Organizzazione di
-                Volontariato (ODV) senza scopo di lucro. Dopo oltre 20 anni di
-                attività conta più di 80 soci ed è l'associazione di riferimento
-                per l'ornitologia dell'area varesina e ha tuttora sede ufficiale
-                presso il Civico Museo Insubrico di Storia Naturale di Clivio e
-                Induno Olona.
+                Dal 2022 il G.I.O. &egrave; iscritto al Runts come&nbsp;
+                Organizzazione di Volontariato (ODV) senza scopo di lucro. Dopo
+                oltre 20 anni di attivit&agrave; conta pi&ugrave; di 80 soci ed
+                &egrave; l'associazione di riferimento per l'ornitologia
+                dell'area varesina e ha tuttora sede ufficiale presso il Civico
+                Museo Insubrico di Storia Naturale di Clivio e Induno Olona.
               </p>
             </div>
 
@@ -179,15 +181,16 @@ onMounted(() => {
             <!-- Third paragraph -->
             <div class="second-paragraph-container d-flex">
               <p class="second-paragraph">
-                Scopo principale dell'associazione è quello di promuovere
-                l'indagine ornitologica a livello provinciale ed insubrico,
-                unitamente ad attività di divulgazione con l'organizzazione di
-                conferenze, corsi didattici e convegni. Si occupa di censimenti,
-                monitoraggi, studi ecologici, pubblicazioni scientifiche e
-                divulgative sull'avifauna e collabora regolarmente con enti
-                pubblici e privati e istituzioni territoriali, tra cui la
-                Provincia di Varese, l'Università degli Studi dell'Insubria, le
-                Comunità Montane del Verbano e del Piambello.
+                Scopo principale dell&rsquo;associazione &egrave; quello di
+                promuovere l&rsquo;indagine ornitologica a livello provinciale
+                ed insubrico, unitamente ad attivit&agrave; di divulgazione con
+                l&rsquo;organizzazione di conferenze, corsi didattici e
+                convegni. Si occupa di censimenti, monitoraggi, studi ecologici,
+                pubblicazioni scientifiche e divulgative sull'avifauna e
+                collabora regolarmente con enti pubblici e privati e istituzioni
+                territoriali, tra cui la Provincia di Varese,
+                l'Universit&agrave; degli Studi dell'Insubria, le
+                Comunit&agrave; Montane del Verbano e del Piambello
               </p>
             </div>
           </article>
@@ -295,8 +298,8 @@ onMounted(() => {
                     </div>
                     <div class="card-hover bg-blue">
                       <img
-                        src="~/assets/images/chi-siamo/chevron-right.svg"
-                        alt=""
+                        src="~/assets/images/activities-section/arrow-right-white.svg"
+                        alt="Freccia rivolta a destra che permette di cliccare un bottone che apre la sezione che spiega come diventari soci del G.I.O."
                       />
                       <p>scopri di più</p>
                     </div>
@@ -342,13 +345,6 @@ onMounted(() => {
                   >
                     <div class="card-default d-flex">
                       <span class="bg-blue">diventare soci del g.i.o.</span>
-                    </div>
-                    <div class="card-hover bg-blue">
-                      <img
-                        src="~/assets/images/chi-siamo/chevron-right.svg"
-                        alt=""
-                      />
-                      <p>scopri di più</p>
                     </div>
                   </div>
                 </div>
@@ -681,7 +677,7 @@ button {
         container-type: inline-size;
         background-size: cover;
         background-position: center;
-        background-image: url(../assets/images/activities-section/grid-1.webp);
+        background-image: url(../assets/images/chi-siamo/diventare-soci.webp);
 
         .card-default {
           position: absolute;
