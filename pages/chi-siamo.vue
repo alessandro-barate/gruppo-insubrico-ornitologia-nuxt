@@ -190,7 +190,7 @@ onMounted(() => {
                 collabora regolarmente con enti pubblici e privati e istituzioni
                 territoriali, tra cui la Provincia di Varese,
                 l'Universit&agrave; degli Studi dell'Insubria, le
-                Comunit&agrave; Montane del Verbano e del Piambello
+                Comunit&agrave; Montane del Verbano e del Piambello.
               </p>
             </div>
           </article>
@@ -317,20 +317,90 @@ onMounted(() => {
                     class="choice-bottom-paragraph"
                     :class="{ show: activeSection === 'year' }"
                   >
-                    <h3>ISCRIZIONE ANNUALE</h3>
+                    <p>
+                      Associarsi al Gruppo Insubrico di Ornitologia significa
+                      sentirsi parte attiva di un gruppo di amici realmente
+                      appassionati di avifauna, sotto i variegati aspetti che
+                      spaziano dal birdwatching all&rsquo;ornitologia vera e
+                      propria.<br />Punto centrale e irrinunciabile dello
+                      spirito dell&rsquo;associazione &egrave; quello di
+                      promuovere la conoscenza e la conservazione della fauna e
+                      degli habitat, che rientrano negli aspetti pi&ugrave;
+                      generali del rispetto della vita che ci circonda e del
+                      miglioramento della qualit&agrave; dell&rsquo;ambiente in
+                      cui viviamo. <br />Se siete curiosi e avete voglia di
+                      scoprire, studiare, condividere, dedicarvi ai monitoraggi
+                      e censimenti, e anche alla didattica
+                      dell&rsquo;ornitologia, il G.I.O. &egrave;
+                      l&rsquo;associazione che fa per voi. <br /><br />
+                    </p>
+                    <h3>iscrizione annuale</h3>
                     <p>
                       Chiunque condivida gli scopi della nostra associazione e
-                      abbia un po' di tempo libero da dedicare a questa
-                      particolare forma di "volontariato di ricerca", o voglia
-                      comunque sostenere il GIO, può iscriversi pagando una
-                      quota annuale di 20 euro (10 euro per minorenni e
-                      studenti).
-                      <br /><br />
-                      La quota di iscrizione comprende l'assicurazione
-                      "responsabilità civile" obbligatoria per le onlus.
-                      All'iscrizione il GIO rilascia una tessera, con il
-                      "bollino" di validità dell'anno in corso, a cui si
-                      aggiungeranno i successivi bollini annuali adesivi.
+                      abbia un po&rsquo; di tempo libero da dedicare a questa
+                      particolare forma di &ldquo;volontariato di
+                      ricerca&rdquo;, o voglia comunque sostenere il G.I.O.,
+                      pu&ograve; iscriversi pagando una quota annuale. La quota
+                      di iscrizione comprende l&rsquo;assicurazione
+                      &ldquo;responsabilit&agrave; civile&rdquo; obbligatoria
+                      per le onlus. All&rsquo;iscrizione il G.I.O. rilascia una
+                      tessera, con il &ldquo;bollino&rdquo; di validit&agrave;
+                      dell&rsquo;anno in corso, a cui si aggiungeranno i
+                      successivi bollini annuali adesivi.
+                    </p>
+                    <br /><br />
+                    <h3>riunioni mensili</h3>
+                    <p>
+                      Chiunque condivida gli scopi della nostra associazione e
+                      abbia un po&rsquo; di tempo libero da dedicare a questa
+                      particolare forma di &ldquo;volontariato di
+                      ricerca&rdquo;, o voglia comunque sostenere il G.I.O.,
+                      pu&ograve; iscriversi pagando una quota annuale. La quota
+                      di iscrizione comprende l&rsquo;assicurazione
+                      &ldquo;responsabilit&agrave; civile&rdquo; obbligatoria
+                      per le onlus. All&rsquo;iscrizione il G.I.O. rilascia una
+                      tessera, con il &ldquo;bollino&rdquo; di validit&agrave;
+                      dell&rsquo;anno in corso, a cui si aggiungeranno i
+                      successivi bollini annuali adesivi.
+                    </p>
+                    <br /><br />
+                    <h3>comunicazioni tra i soci</h3>
+                    <p>
+                      Chiunque condivida gli scopi della nostra associazione e
+                      abbia un po&rsquo; di tempo libero da dedicare a questa
+                      particolare forma di &ldquo;volontariato di
+                      ricerca&rdquo;, o voglia comunque sostenere il G.I.O.,
+                      pu&ograve; iscriversi pagando una quota annuale. La quota
+                      di iscrizione comprende l&rsquo;assicurazione
+                      &ldquo;responsabilit&agrave; civile&rdquo; obbligatoria
+                      per le onlus. All&rsquo;iscrizione il G.I.O. rilascia una
+                      tessera, con il &ldquo;bollino&rdquo; di validit&agrave;
+                      dell&rsquo;anno in corso, a cui si aggiungeranno i
+                      successivi bollini annuali adesivi.
+                    </p>
+                    <br /><br />
+                    <h3>donazioni</h3>
+                    <p>
+                      Chiunque condivida gli scopi della nostra associazione e
+                      abbia un po&rsquo; di tempo libero da dedicare a questa
+                      particolare forma di &ldquo;volontariato di
+                      ricerca&rdquo;, o voglia comunque sostenere il G.I.O.,
+                      pu&ograve; iscriversi pagando una quota annuale. La quota
+                      di iscrizione comprende l&rsquo;assicurazione
+                      &ldquo;responsabilit&agrave; civile&rdquo; obbligatoria
+                      per le onlus. All&rsquo;iscrizione il G.I.O. rilascia una
+                      tessera, con il &ldquo;bollino&rdquo; di validit&agrave;
+                      dell&rsquo;anno in corso, a cui si aggiungeranno i
+                      successivi bollini annuali adesivi. <br /><br />
+                      Per informazioni scrivere una mail alla segreteria usando
+                      il <a href="">form di contatto</a>.
+                    </p>
+                    <br /><br />
+                    <h3>modulo di iscrizione</h3>
+                    <p>
+                      Vuoi unirti a noi?
+                      <NuxtLink to="/module">Clicca il link</NuxtLink> e compila
+                      il modulo.
                     </p>
                   </div>
                 </div>
@@ -614,7 +684,7 @@ button {
   min-height: 105vh;
   margin-top: 3rem;
   position: relative;
-  padding-top: 12rem;
+  padding-top: 17rem;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -763,8 +833,8 @@ button {
       transform: translateX(-50%);
 
       &.active {
-        padding: 2rem 2.5rem;
-        max-height: 800px;
+        padding: 4rem 2.5rem 10rem 2.5rem;
+        max-height: 1200px;
         opacity: 1;
       }
 
@@ -778,15 +848,28 @@ button {
         }
 
         h3 {
+          text-transform: uppercase;
           font-size: 1.5rem;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
           color: rgb(0, 0, 0);
         }
 
         p {
-          font-size: 1.15rem;
+          font-size: 1rem;
           line-height: 1.7;
           color: rgba(0, 0, 0, 0.95);
+        }
+
+        a {
+          color: rgb(255, 60, 0);
+          transition:
+            color 0.4s ease-in-out,
+            text-decoration 0.4s ease-in-out;
+
+          &:hover {
+            color: rgb(0, 68, 255);
+            text-decoration: underline 2px solid rgb(0, 68, 255);
+          }
         }
       }
     }
@@ -1002,7 +1085,7 @@ button {
   .modal-body {
     h3 {
       font-size: 1.4rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       color: #333;
       text-align: center;
     }
