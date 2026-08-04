@@ -2,14 +2,6 @@
 const showPrivacy = ref(false);
 const showZoomedCard = ref(false);
 
-// Email generation (anti-spam)
-const openMail = () => {
-  const user = "gruppoinsubricoornitologia";
-  const domain = "gmail";
-  const tld = "com";
-  window.location.href = `mailto:${user}@${domain}.${tld}`;
-};
-
 // Modal controls
 const openZoomedCard = () => {
   showZoomedCard.value = true;
@@ -62,7 +54,7 @@ onUnmounted(() => {
                 <div class="details-column">
                   <h3 class="uppercase">contatti</h3>
                   <p>
-                    <a href="#" @click.prevent="openMail">Scrivici una mail</a>
+                    <NuxtLink to="/form">Scrivici una mail</NuxtLink>
                   </p>
                   <p>
                     <a
