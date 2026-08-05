@@ -202,7 +202,7 @@ onMounted(() => {
 
   &.overlay {
     padding: 40px;
-    background-color: black;
+    background-color: #233162;
   }
 
   .cookie-banner-title,

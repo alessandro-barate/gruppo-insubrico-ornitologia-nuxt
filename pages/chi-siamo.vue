@@ -294,7 +294,7 @@ onMounted(() => {
                     @click="toggleSection('year')"
                   >
                     <div class="card-default d-flex">
-                      <span class="bg-blue">diventare soci del g.i.o.</span>
+                      <span class="bg-blue">diventa socio del g.i.o.</span>
                     </div>
                     <div class="card-hover bg-blue">
                       <img
