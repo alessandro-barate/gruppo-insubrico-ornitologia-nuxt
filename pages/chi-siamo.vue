@@ -317,31 +317,40 @@ onMounted(() => {
                     class="choice-bottom-paragraph"
                     :class="{ show: activeSection === 'year' }"
                   >
+                    <h3>Diventa socio del Gruppo Insubrico di Ornitologia</h3>
                     <p>
                       Associarsi al Gruppo Insubrico di Ornitologia significa
-                      sentirsi parte attiva di un gruppo di amici realmente
-                      appassionati di avifauna, sotto i variegati aspetti che
-                      spaziano dal birdwatching all&rsquo;ornitologia vera e
-                      propria.<br />Punto centrale e irrinunciabile dello
-                      spirito dell&rsquo;associazione &egrave; quello di
-                      promuovere la conoscenza e la conservazione della fauna e
-                      degli habitat, che rientrano negli aspetti pi&ugrave;
-                      generali del rispetto della vita che ci circonda e del
-                      miglioramento della qualit&agrave; dell&rsquo;ambiente in
-                      cui viviamo. <br />Se siete curiosi e avete voglia di
-                      scoprire, studiare, condividere, dedicarvi ai monitoraggi
-                      e censimenti, e anche alla didattica
-                      dell&rsquo;ornitologia, il G.I.O. &egrave;
-                      l&rsquo;associazione che fa per voi. <br /><br />
+                      sentirsi parte attiva di un
+                      <strong
+                        >gruppo di amici realmente appassionati di
+                        avifauna</strong
+                      >, sotto i variegati aspetti che spaziano dal birdwatching
+                      all&rsquo;ornitologia vera e propria.<br /><strong
+                        >Punto centrale e irrinunciabile dello spirito
+                        dell&rsquo;associazione &egrave; quello di promuovere la
+                        conoscenza e la conservazione dell&rsquo;avifauna e
+                        degli habitat naturali</strong
+                      >, che rientrano negli aspetti pi&ugrave; generali del
+                      rispetto della vita che ci circonda e del miglioramento
+                      della qualit&agrave; dell&rsquo;ambiente in cui viviamo.
+                      <br />Se siete curiosi e avete voglia di scoprire,
+                      studiare, condividere, dedicarvi ai monitoraggi e
+                      censimenti, e anche alla didattica dell&rsquo;ornitologia,
+                      il G.I.O. &egrave; l&rsquo;associazione che fa per voi.
+                      <br /><br />
                     </p>
                     <h3>iscrizione annuale</h3>
                     <p>
-                      Chiunque condivida gli scopi della nostra associazione e
-                      abbia un po&rsquo; di tempo libero da dedicare a questa
+                      <strong
+                        >Chiunque condivida gli scopi della nostra
+                        associazione</strong
+                      >
+                      e abbia un po&rsquo; di tempo libero da dedicare a questa
                       particolare forma di &ldquo;volontariato di
                       ricerca&rdquo;, o voglia comunque sostenere il G.I.O.,
-                      pu&ograve; iscriversi pagando una quota annuale. La quota
-                      di iscrizione comprende l&rsquo;assicurazione
+                      <strong
+                        >pu&ograve; iscriversi pagando una quota annuale</strong
+                      >. La quota di iscrizione comprende l&rsquo;assicurazione
                       &ldquo;responsabilit&agrave; civile&rdquo; obbligatoria
                       per le onlus. All&rsquo;iscrizione il G.I.O. rilascia una
                       tessera, con il &ldquo;bollino&rdquo; di validit&agrave;
@@ -351,47 +360,47 @@ onMounted(() => {
                     <br /><br />
                     <h3>riunioni mensili</h3>
                     <p>
-                      Chiunque condivida gli scopi della nostra associazione e
-                      abbia un po&rsquo; di tempo libero da dedicare a questa
-                      particolare forma di &ldquo;volontariato di
-                      ricerca&rdquo;, o voglia comunque sostenere il G.I.O.,
-                      pu&ograve; iscriversi pagando una quota annuale. La quota
-                      di iscrizione comprende l&rsquo;assicurazione
-                      &ldquo;responsabilit&agrave; civile&rdquo; obbligatoria
-                      per le onlus. All&rsquo;iscrizione il G.I.O. rilascia una
-                      tessera, con il &ldquo;bollino&rdquo; di validit&agrave;
-                      dell&rsquo;anno in corso, a cui si aggiungeranno i
-                      successivi bollini annuali adesivi.
+                      Ci riuniamo il
+                      <strong>secondo luned&igrave; di ogni mese</strong> presso
+                      la Biblioteca Comunale del Comune di Gazzada Schianno (VA)
+                      per condividere
+                      <strong
+                        >aggiornamenti sui progetti in corso,&nbsp; idee e nuove
+                        iniziative</strong
+                      >
+                      con un ordine del giorno, che viene mandato dal Presidente
+                      per mail ai soci, che possono proporre ulteriori argomenti
+                      o apportare modifiche.&nbsp; Le assemblee ufficiali (come
+                      l&rsquo;assemblea annuale) si svolgono invece presso la
+                      nostra sede al Civico Museo Insubrico di Storia Naturale a
+                      Clivio (VA). <br /><br />Le riunioni mensili sono
+                      <strong>incontri informali</strong> in cui ci si confronta
+                      anche su osservazioni ornitologiche, viaggi naturalistici,
+                      commenti e visione di pubblicazioni e fotografie ecc.
                     </p>
                     <br /><br />
                     <h3>comunicazioni tra i soci</h3>
                     <p>
-                      Chiunque condivida gli scopi della nostra associazione e
-                      abbia un po&rsquo; di tempo libero da dedicare a questa
-                      particolare forma di &ldquo;volontariato di
-                      ricerca&rdquo;, o voglia comunque sostenere il G.I.O.,
-                      pu&ograve; iscriversi pagando una quota annuale. La quota
-                      di iscrizione comprende l&rsquo;assicurazione
-                      &ldquo;responsabilit&agrave; civile&rdquo; obbligatoria
-                      per le onlus. All&rsquo;iscrizione il G.I.O. rilascia una
-                      tessera, con il &ldquo;bollino&rdquo; di validit&agrave;
-                      dell&rsquo;anno in corso, a cui si aggiungeranno i
-                      successivi bollini annuali adesivi.
+                      I soci sono compresi nella
+                      <strong>mailing-list</strong> del G.I.O. e possono entrare
+                      a far parte del <strong>gruppo WhatsApp</strong> dei soci,
+                      attraverso cui si&nbsp; viene informati dell&rsquo;intera
+                      attivit&agrave; del gruppo. Alcuni argomenti, di solito
+                      quelli pi&ugrave; formali e amministrativi, vengono
+                      trattati dal Consiglio Direttivo, che ne informa quindi il
+                      resto dei soci in occasione delle riunioni mensili.
+                      Abbiamo anche un Tesoriere e un Vice-tesoriere che si
+                      occupano delle questioni finanziarie (entrate e uscite,
+                      rendiconto economico, rimborsi spese, acquisti vari).
                     </p>
                     <br /><br />
                     <h3>donazioni</h3>
                     <p>
-                      Chiunque condivida gli scopi della nostra associazione e
-                      abbia un po&rsquo; di tempo libero da dedicare a questa
-                      particolare forma di &ldquo;volontariato di
-                      ricerca&rdquo;, o voglia comunque sostenere il G.I.O.,
-                      pu&ograve; iscriversi pagando una quota annuale. La quota
-                      di iscrizione comprende l&rsquo;assicurazione
-                      &ldquo;responsabilit&agrave; civile&rdquo; obbligatoria
-                      per le onlus. All&rsquo;iscrizione il G.I.O. rilascia una
-                      tessera, con il &ldquo;bollino&rdquo; di validit&agrave;
-                      dell&rsquo;anno in corso, a cui si aggiungeranno i
-                      successivi bollini annuali adesivi. <br /><br />
+                      Privati, enti e istituzioni possono contribuire al
+                      finanziamento delle nostre attivit&agrave; di ricerca,
+                      divulgazione e organizzazione di eventi specifici con una
+                      donazione al G.I.O., godendo dei benefici fiscali di
+                      legge. <br /><br />
                       Per informazioni scrivere una mail alla segreteria usando
                       il <a href="">form di contatto</a>.
                     </p>
@@ -693,7 +702,7 @@ button {
 
   background-image:
     linear-gradient(90deg, #233162, #233162b6),
-    url(../assets/images/chi-siamo/gruppo-angera.webp);
+    url(../assets/images/chi-siamo/aironi-bianchi.webp);
 
   &::after {
     content: "";
@@ -834,17 +843,21 @@ button {
 
       &.active {
         padding: 4rem 2.5rem 10rem 2.5rem;
-        max-height: 1200px;
+        max-height: 1550px;
         opacity: 1;
       }
 
       .choice-bottom-paragraph {
         display: none;
-        text-align: center;
 
         &.show {
+          width: 60%;
           display: block;
           animation: fadeIn 0.4s ease;
+
+          h3 {
+            text-align: center;
+          }
         }
 
         h3 {
@@ -867,7 +880,7 @@ button {
             text-decoration 0.4s ease-in-out;
 
           &:hover {
-            color: rgb(0, 68, 255);
+            color: #233162;
             text-decoration: underline 2px solid rgb(0, 68, 255);
           }
         }
