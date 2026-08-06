@@ -1,16 +1,18 @@
-import type { NewsItem } from "~/types/news";
-import newsData from "~/server/data/news.json";
+// server/api/news/[slug].get.ts
+// Mock endpoint per la singola news. Quando Laravel sarà pronto,
+// puntare API_BASE al backend: la forma della risposta resta la stessa.
+import newsData from "~/data/carousel.js";
 
-const news = newsData as NewsItem[];
 export default defineEventHandler((event) => {
   const slug = getRouterParam(event, "slug");
-  const item = news.find((n) => n.slug === slug);
+  const item = newsData.find((n) => n.slug === slug);
 
-  if (!item)
+  if (!item) {
     throw createError({
       statusCode: 404,
       statusMessage: "News non trovata",
     });
+  }
 
   return item;
 });

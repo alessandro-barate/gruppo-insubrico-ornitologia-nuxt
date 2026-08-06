@@ -28,32 +28,9 @@ defineProps({
       <h3 class="news-card__title">{{ news.title }}</h3>
     </div>
 
-    <!-- Pulsante + -->
-    <!-- Se ha un link esterno -->
+    <!-- La card apre SEMPRE la pagina di dettaglio.
+         PDF ed eventuali link esterni sono gestiti dentro il dettaglio. -->
     <NuxtLink
-      v-if="news.link"
-      :to="news.link"
-      class="news-card__action-btn"
-      aria-label="Leggi di più"
-    >
-      <span>+</span>
-    </NuxtLink>
-
-    <!-- Se è un PDF -->
-    <a
-      v-else-if="news.pdf"
-      :href="news.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="news-card__action-btn"
-      aria-label="Scarica PDF"
-    >
-      <span>+</span>
-    </a>
-
-    <!-- Default: apre la pagina dettaglio della news -->
-    <NuxtLink
-      v-else
       :to="`/news/${news.slug || news.id}`"
       class="news-card__action-btn"
       aria-label="Leggi di più"
@@ -64,9 +41,11 @@ defineProps({
 </template>
 
 <style lang="scss" scoped>
+@use "sass:color";
+
 .news-card {
   --border-radius: 16px;
-  --accent-color: #e85a2c;
+  --accent-color: #002fff;
 
   position: relative;
   width: 100%;
@@ -154,7 +133,7 @@ defineProps({
     }
 
     &:hover {
-      background: darken(#e85a2c, 8%);
+      background: color.adjust(#002fff, $lightness: -8%);
       transform: scale(1.1);
     }
   }
