@@ -402,7 +402,7 @@ onMounted(() => {
                       donazione al G.I.O., godendo dei benefici fiscali di
                       legge. <br /><br />
                       Per informazioni scrivere una mail alla segreteria usando
-                      il <a href="">form di contatto</a>.
+                      il <NuxtLink to="/form">form di contatto</NuxtLink>.
                     </p>
                     <br /><br />
                     <h3>modulo di iscrizione</h3>

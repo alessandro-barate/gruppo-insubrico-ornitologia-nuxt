@@ -84,4 +84,10 @@ export default defineNuxtConfig({
     host: "0.0.0.0",
     port: 3000,
   },
+
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.API_BASE || "/api",
+    },
+  },
 });

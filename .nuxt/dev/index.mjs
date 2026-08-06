@@ -648,7 +648,9 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "public": {}
+  "public": {
+    "apiBase": "/api"
+  }
 };
 const envOptions = {
   prefix: "NITRO_",
@@ -1861,10 +1863,12 @@ async function getIslandContext(event) {
   return ctx;
 }
 
+const _lazy_BJPWlJ = () => Promise.resolve().then(function () { return _slug__get$1; });
 const _lazy_EPsZSH = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
   { route: '', handler: _rlsLPl, lazy: false, middleware: true, method: undefined },
+  { route: '/api/news/:slug', handler: _lazy_BJPWlJ, lazy: true, middleware: false, method: "get" },
   { route: '/__nuxt_error', handler: _lazy_EPsZSH, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_EPsZSH, lazy: true, middleware: false, method: undefined }
@@ -2196,6 +2200,116 @@ const styles = {};
 const styles$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: styles
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const newsData = [
+	{
+		id: 1,
+		slug: "aironi-bianchi",
+		title: "Avvistamento aironi",
+		date: "2026-08-01",
+		excerpt: "Nuovo avvistamento in palude",
+		body: "Sono stati avvistati ben 6 aironi in palude, all'ora di pranzo",
+		cover: "/assets/images/aironi-bianchi.webp"
+	},
+	{
+		id: 2,
+		slug: "aironi-bianchi",
+		title: "Avvistamento aironi",
+		date: "2026-07-15",
+		excerpt: "Nuovo avvistamento i palude",
+		body: "Sono stati avvistati ben 6 aironi in palude, all'ora di pranzo",
+		cover: "/assets/images/aironi-bianchi.webp"
+	},
+	{
+		id: 3,
+		slug: "aironi-bianchi",
+		title: "Avvistamento aironi",
+		date: "2026-06-23",
+		excerpt: "Nuovo avvistamento i palude",
+		body: "Sono stati avvistati ben 6 aironi in palude, all'ora di pranzo",
+		cover: "/assets/images/aironi-bianchi.webp"
+	},
+	{
+		id: 4,
+		slug: "aironi-bianchi",
+		title: "Avvistamento aironi",
+		date: "2026-05-07",
+		excerpt: "Nuovo avvistamento i palude",
+		body: "Sono stati avvistati ben 6 aironi in palude, all'ora di pranzo",
+		cover: "/assets/images/aironi-bianchi.webp"
+	},
+	{
+		id: 5,
+		slug: "aironi-bianchi",
+		title: "Avvistamento aironi",
+		date: "2026-04-30",
+		excerpt: "Nuovo avvistamento i palude",
+		body: "Sono stati avvistati ben 6 aironi in palude, all'ora di pranzo",
+		cover: "/assets/images/aironi-bianchi.webp"
+	},
+	{
+		id: 6,
+		slug: "aironi-bianchi",
+		title: "Avvistamento aironi",
+		date: "2026-03-15",
+		excerpt: "Nuovo avvistamento i palude",
+		body: "Sono stati avvistati ben 6 aironi in palude, all'ora di pranzo",
+		cover: "/assets/images/aironi-bianchi.webp"
+	},
+	{
+		id: 7,
+		slug: "aironi-bianchi",
+		title: "Avvistamento aironi",
+		date: "2026-02-28",
+		excerpt: "Nuovo avvistamento i palude",
+		body: "Sono stati avvistati ben 6 aironi in palude, all'ora di pranzo",
+		cover: "/assets/images/aironi-bianchi.webp"
+	},
+	{
+		id: 8,
+		slug: "aironi-bianchi",
+		title: "Avvistamento aironi",
+		date: "2026-01-06",
+		excerpt: "Nuovo avvistamento i palude",
+		body: "Sono stati avvistati ben 6 aironi in palude, all'ora di pranzo",
+		cover: "/assets/images/aironi-bianchi.webp"
+	},
+	{
+		id: 9,
+		slug: "aironi-bianchi",
+		title: "Avvistamento aironi",
+		date: "2025-12-27",
+		excerpt: "Nuovo avvistamento i palude",
+		body: "Sono stati avvistati ben 6 aironi in palude, all'ora di pranzo",
+		cover: "/assets/images/aironi-bianchi.webp"
+	},
+	{
+		id: 10,
+		slug: "aironi-bianchi",
+		title: "Avvistamento aironi",
+		date: "2025-11-01",
+		excerpt: "Nuovo avvistamento i palude",
+		body: "Sono stati avvistati ben 6 aironi in palude, all'ora di pranzo",
+		cover: "/assets/images/aironi-bianchi.webp"
+	}
+];
+
+const news = newsData;
+const _slug__get = defineEventHandler((event) => {
+  const slug = getRouterParam(event, "slug");
+  const item = news.find((n) => n.slug === slug);
+  if (!item)
+    throw createError({
+      statusCode: 404,
+      statusMessage: "News non trovata"
+    });
+  return item;
+});
+
+const _slug__get$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: _slug__get
 }, Symbol.toStringTag, { value: 'Module' }));
 
 function renderPayloadResponse(ssrContext) {
