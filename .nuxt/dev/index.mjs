@@ -1870,11 +1870,13 @@ async function getIslandContext(event) {
 }
 
 const _lazy_XgkR20 = () => Promise.resolve().then(function () { return _slug__get$1; });
+const _lazy_k81IVv = () => Promise.resolve().then(function () { return index_get$1; });
 const _lazy_p1bMAd = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
   { route: '', handler: _rM28vw, lazy: false, middleware: true, method: undefined },
   { route: '/api/news/:slug', handler: _lazy_XgkR20, lazy: true, middleware: false, method: "get" },
+  { route: '/api/news', handler: _lazy_k81IVv, lazy: true, middleware: false, method: "get" },
   { route: '/__nuxt_error', handler: _lazy_p1bMAd, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_p1bMAd, lazy: true, middleware: false, method: undefined }
@@ -2223,6 +2225,27 @@ const _slug__get = defineEventHandler((event) => {
 const _slug__get$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: _slug__get
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const index_get = defineEventHandler((event) => {
+  const query = getQuery$1(event);
+  const all = [...newsData].sort(
+    (a, b) => String(b.date).localeCompare(String(a.date))
+  );
+  const page = Number(query.page) || 1;
+  const perPage = Number(query.perPage) || 6;
+  const start = (page - 1) * perPage;
+  return {
+    data: all.slice(start, start + perPage),
+    total: all.length,
+    page,
+    perPage
+  };
+});
+
+const index_get$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: index_get
 }, Symbol.toStringTag, { value: 'Module' }));
 
 function renderPayloadResponse(ssrContext) {

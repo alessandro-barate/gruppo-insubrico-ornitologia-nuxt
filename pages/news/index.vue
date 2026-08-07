@@ -1,12 +1,4 @@
 <script setup>
-// ============================================
-// MOCK DATA - Rimuovere quando il backend è pronto
-// ============================================
-import newsData from "~/data/carousel.js";
-const MOCK_MODE = true; // Cambiare a false quando avrò il backend
-const MOCK_YEARS = [2026, 2025, 2024, 2023, 2022]; // Rimuovere quando avrò il backend
-// ============================================
-
 useSeoMeta({
   title: "News | Gruppo Insubrico di Ornitologia",
   description:
@@ -16,79 +8,33 @@ useHead({
   link: [{ rel: "canonical", href: "https://gruppoinsubrico.com/news" }],
 });
 
-// Anni disponibili (caricati dal backend)
-const availableYears = ref([]);
+const config = useRuntimeConfig();
 
-// Anno selezionato (null = nessuna selezione)
-const selectedYear = ref(null);
+// Pagina corrente (reattiva: al cambio, useFetch rifà la chiamata).
+const page = ref(1);
+const perPage = 6;
 
-// Loading states
-const isLoadingYears = ref(true);
-const isLoadingNews = ref(false);
-
-// Lista news
-const newsList = ref([]);
-
-// ============================================
-// Carica gli anni disponibili al mount
-// ============================================
-const loadAvailableYears = async () => {
-  isLoadingYears.value = true;
-
-  if (MOCK_MODE) {
-    // MOCK: Simula delay e usa dati fittizi
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    availableYears.value = MOCK_YEARS;
-  } else {
-    // BACKEND: Chiama l'API Laravel
-    try {
-      const { data } = await useFetch("/api/news/years");
-      availableYears.value = data.value || [];
-    } catch (error) {
-      console.error("Errore caricamento anni:", error);
-      availableYears.value = [];
-    }
-  }
-
-  isLoadingYears.value = false;
-};
-
-// ============================================
-// Carica le news per l'anno selezionato
-// ============================================
-const selectYear = async (year) => {
-  // Se clicco sullo stesso anno, lo deseleziono
-  if (selectedYear.value === year) {
-    selectedYear.value = null;
-    newsList.value = [];
-    return;
-  }
-
-  selectedYear.value = year;
-  isLoadingNews.value = true;
-
-  if (MOCK_MODE) {
-    // MOCK: Simula delay e usa dati fittizi
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    newsList.value = newsData;
-  } else {
-    // BACKEND: Chiama l'API Laravel
-    try {
-      const { data } = await useFetch(`/api/news/year/${year}`);
-      newsList.value = data.value || [];
-    } catch (error) {
-      console.error("Errore caricamento news:", error);
-      newsList.value = [];
-    }
-  }
-
-  isLoadingNews.value = false;
-};
-
-// Carica gli anni al mount del componente
-onMounted(() => {
-  loadAvailableYears();
+// La server route restituisce già le news ordinate per data decrescente
+// (più recente prima) e paginate a 6. In dev colpisce il mock Nitro (/api/news);
+// in prod basterà cambiare API_BASE per puntare a Laravel.
+const { data, pending, error } = await useFetch("/news", {
+  baseURL: config.public.apiBase,
+  query: { page, perPage },
 });
+
+const newsList = computed(() => data.value?.data ?? []);
+const total = computed(() => data.value?.total ?? 0);
+const totalPages = computed(() => Math.ceil(total.value / perPage));
+
+const goToPage = (p) => {
+  if (p < 1 || p > totalPages.value) return;
+  page.value = p;
+  if (import.meta.client) {
+    document
+      .getElementById("news-container")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }
+};
 </script>
 
 <template>
@@ -105,61 +51,71 @@ onMounted(() => {
           <p class="news-list__intro">
             Vuoi tenerti informato su quello che facciamo al G I O e cosa
             succede intorno a noi?<br />
-            Ti basta scegliere l'anno e potrai trovare tutte le news che
-            pubblichiamo.
+            Qui trovi tutte le ultime notizie che pubblichiamo.
           </p>
 
-          <!-- Loading anni -->
-          <div
-            v-if="isLoadingYears"
-            class="year-selector year-selector--loading"
-          >
-            <span class="year-selector__label">Caricamento anni...</span>
-            <div class="year-selector__buttons">
-              <span class="year-btn year-btn--skeleton"></span>
-              <span class="year-btn year-btn--skeleton"></span>
-              <span class="year-btn year-btn--skeleton"></span>
-            </div>
-          </div>
-
-          <!-- Bottoni selezione anno -->
-          <div v-else class="year-selector">
-            <div class="year-selector__buttons">
-              <button
-                v-for="year in availableYears"
-                :key="year"
-                :class="[
-                  'year-btn',
-                  { 'year-btn--active': selectedYear === year },
-                ]"
-                @click="selectYear(year)"
-              >
-                {{ year }}
-              </button>
-            </div>
-          </div>
-
-          <!-- Loading news -->
-          <div v-if="isLoadingNews" class="news-loading">
+          <!-- Loading -->
+          <div v-if="pending" class="news-loading">
             <span class="news-loading__spinner"></span>
             <p>Caricamento news...</p>
           </div>
 
-          <!-- Messaggio se nessun anno selezionato -->
-          <div v-else-if="!selectedYear" class="news-empty">
-            <p>Seleziona un anno per visualizzare le news.</p>
+          <!-- Errore -->
+          <div v-else-if="error" class="news-empty">
+            <p>Si è verificato un errore nel caricamento delle news.</p>
           </div>
 
-          <!-- Griglia news -->
-          <div v-else class="news-grid">
-            <div
-              v-for="news in newsList"
-              :key="news.id"
-              class="news-grid__item"
-            >
-              <NewsCard :news="news" />
-            </div>
+          <!-- Nessuna news -->
+          <div v-else-if="newsList.length === 0" class="news-empty">
+            <p>Al momento non ci sono news pubblicate.</p>
           </div>
+
+          <!-- Griglia news + paginazione -->
+          <template v-else>
+            <div class="news-grid">
+              <div
+                v-for="news in newsList"
+                :key="news.id"
+                class="news-grid__item"
+              >
+                <NewsCard :news="news" />
+              </div>
+            </div>
+
+            <nav
+              v-if="totalPages > 1"
+              class="pagination"
+              aria-label="Paginazione news"
+            >
+              <button
+                class="pagination__btn"
+                :disabled="page === 1"
+                @click="goToPage(page - 1)"
+              >
+                ‹ Prec
+              </button>
+
+              <button
+                v-for="p in totalPages"
+                :key="p"
+                :class="[
+                  'pagination__btn',
+                  { 'pagination__btn--active': p === page },
+                ]"
+                @click="goToPage(p)"
+              >
+                {{ p }}
+              </button>
+
+              <button
+                class="pagination__btn"
+                :disabled="page === totalPages"
+                @click="goToPage(page + 1)"
+              >
+                Succ ›
+              </button>
+            </nav>
+          </template>
         </section>
       </div>
     </div>
@@ -213,125 +169,6 @@ onMounted(() => {
     }
   }
 
-  // Selettore anno
-  .year-selector {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid rgb(141, 141, 141);
-
-    &--loading {
-      opacity: 0.7;
-    }
-
-    &__label {
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: #333;
-    }
-
-    &__buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-  }
-
-  .year-btn {
-    position: relative;
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #333;
-    background-color: #f5f5f5;
-    border: 1px solid #000000;
-    border-radius: 8px;
-    cursor: pointer;
-    transition:
-      color 0.3s ease,
-      border-color 0.3s ease,
-      transform 0.25s ease;
-    overflow: hidden;
-    z-index: 1;
-
-    // Pseudo-elemento per l'effetto hover
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, #0077ff, #e1e7dd);
-      z-index: -1;
-      transform: scaleX(0);
-      transform-origin: center;
-      transition: transform 0.5s ease;
-    }
-
-    // Pseudo-elemento per l'effetto active (da destra a sinistra)
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, #002fff, #00e1ff);
-      z-index: -1;
-      transform: scaleX(0);
-      transform-origin: center; // Entra da destra
-      transition: transform 0.5s ease;
-    }
-
-    &:hover:not(.year-btn--active) {
-      color: #000000;
-      transform: translateY(-2px);
-
-      &::before {
-        transform: scaleX(1);
-      }
-    }
-
-    &--active {
-      color: #ffffff;
-
-      &::after {
-        transform: scaleX(1);
-      }
-
-      &:hover {
-        transform: translateY(-2px);
-      }
-    }
-
-    // Skeleton loading
-    &--skeleton {
-      width: 80px;
-      height: 42px;
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-      border: none;
-
-      &::before {
-        display: none;
-      }
-    }
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: 200% 0;
-    }
-    100% {
-      background-position: -200% 0;
-    }
-  }
-
   // Loading state
   .news-loading {
     display: flex;
@@ -345,7 +182,6 @@ onMounted(() => {
       width: 40px;
       height: 40px;
       border: 3px solid #f0f0f0;
-      // border-top-color: #f68b24;
       border-top-color: #002affd5;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
@@ -363,7 +199,7 @@ onMounted(() => {
     }
   }
 
-  // Messaggio vuoto
+  // Messaggio vuoto / errore
   .news-empty {
     text-align: center;
     padding: 4rem 2rem;
@@ -387,6 +223,46 @@ onMounted(() => {
       min-height: 400px;
     }
   }
+
+  // Paginazione
+  .pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 3rem;
+
+    &__btn {
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #333;
+      background-color: #f5f5f5;
+      border: 1px solid #000000;
+      border-radius: 8px;
+      cursor: pointer;
+      transition:
+        color 0.3s ease,
+        background-color 0.3s ease,
+        transform 0.25s ease;
+
+      &:hover:not(:disabled):not(.pagination__btn--active) {
+        transform: translateY(-2px);
+      }
+
+      &--active {
+        color: #ffffff;
+        background: linear-gradient(90deg, #002fff, #00e1ff);
+        border-color: transparent;
+      }
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+  }
 }
 
 // ==========================================
@@ -394,21 +270,6 @@ onMounted(() => {
 // ==========================================
 @media (max-width: 992px) {
   .col {
-    .year-selector {
-      flex-direction: column;
-      align-items: flex-start;
-
-      &__buttons {
-        width: 100%;
-      }
-    }
-
-    .year-btn {
-      flex: 1;
-      min-width: calc(50% - 0.375rem);
-      text-align: center;
-    }
-
     .news-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 1.25rem;
@@ -437,25 +298,6 @@ onMounted(() => {
 
     .news-list {
       width: 95%;
-    }
-
-    .year-selector {
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-
-      &__label {
-        font-size: 1rem;
-      }
-
-      &__buttons {
-        gap: 0.5rem;
-      }
-    }
-
-    .year-btn {
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      min-width: calc(50% - 0.25rem);
     }
 
     .news-grid {
