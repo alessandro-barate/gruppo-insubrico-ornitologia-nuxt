@@ -127,7 +127,7 @@ const goToPage = (p) => {
   &::after {
     content: "";
     position: absolute;
-    bottom: -589px;
+    bottom: -1114px;
     left: 0;
     width: 100%;
     height: 150px;
