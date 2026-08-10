@@ -319,61 +319,67 @@ onMounted(() => {
                   >
                     <h3>Diventa socio del Gruppo Insubrico di Ornitologia</h3>
                     <p>
-                      Associarsi al Gruppo Insubrico di Ornitologia significa
-                      sentirsi parte attiva di un
+                      Associarsi al
+                      <strong>Gruppo Insubrico di Ornitologia</strong> significa
+                      sentirsi parte attiva di un gruppo di amici realmente
+                      appassionati di avifauna, sotto i variegati aspetti che
+                      spaziano dal
+                      <strong>birdwatching all&rsquo;ornitologia</strong> vera e
+                      propria.<br />Punto centrale e irrinunciabile dello
+                      spirito dell&rsquo;associazione &egrave; quello di
                       <strong
-                        >gruppo di amici realmente appassionati di
-                        avifauna</strong
-                      >, sotto i variegati aspetti che spaziano dal birdwatching
-                      all&rsquo;ornitologia vera e propria.<br /><strong
-                        >Punto centrale e irrinunciabile dello spirito
-                        dell&rsquo;associazione &egrave; quello di promuovere la
-                        conoscenza e la conservazione dell&rsquo;avifauna e
-                        degli habitat naturali</strong
+                        >promuovere la conoscenza e la conservazione
+                        dell&rsquo;avifauna e degli habitat naturali</strong
                       >, che rientrano negli aspetti pi&ugrave; generali del
                       rispetto della vita che ci circonda e del miglioramento
                       della qualit&agrave; dell&rsquo;ambiente in cui viviamo.
                       <br />Se siete curiosi e avete voglia di scoprire,
-                      studiare, condividere, dedicarvi ai monitoraggi e
-                      censimenti, e anche alla didattica dell&rsquo;ornitologia,
-                      il G.I.O. &egrave; l&rsquo;associazione che fa per voi.
+                      studiare, condividere, dedicarvi ai
+                      <strong>monitoraggi e censimenti</strong>, e anche alla
+                      <strong>didattica</strong> dell&rsquo;ornitologia, il
+                      G.I.O. &egrave; l&rsquo;associazione che fa per voi.
                       <br /><br />
                     </p>
                     <h3>iscrizione annuale</h3>
                     <p>
-                      <strong
-                        >Chiunque condivida gli scopi della nostra
-                        associazione</strong
-                      >
-                      e abbia un po&rsquo; di tempo libero da dedicare a questa
+                      Chiunque condivida gli scopi della nostra associazione e
+                      abbia un po&rsquo; di tempo libero da dedicare a questa
                       particolare forma di &ldquo;volontariato di
                       ricerca&rdquo;, o voglia comunque sostenere il G.I.O.,
+                      pu&ograve; iscriversi pagando una
+                      <strong>quota annuale</strong>. La quota di iscrizione
+                      comprende
                       <strong
-                        >pu&ograve; iscriversi pagando una quota annuale</strong
-                      >. La quota di iscrizione comprende l&rsquo;assicurazione
-                      &ldquo;responsabilit&agrave; civile&rdquo; obbligatoria
-                      per le onlus. All&rsquo;iscrizione il G.I.O. rilascia una
-                      tessera, con il &ldquo;bollino&rdquo; di validit&agrave;
-                      dell&rsquo;anno in corso, a cui si aggiungeranno i
-                      successivi bollini annuali adesivi.
+                        >l&rsquo;assicurazione &ldquo;responsabilit&agrave;
+                        civile&rdquo;</strong
+                      >
+                      obbligatoria per le onlus. All&rsquo;iscrizione il G.I.O.
+                      rilascia una <strong>tessera socio</strong>, con il
+                      &ldquo;bollino&rdquo; di validit&agrave; dell&rsquo;anno
+                      in corso, a cui si aggiungeranno i successivi bollini
+                      annuali adesivi.
                     </p>
                     <br /><br />
                     <h3>riunioni mensili</h3>
                     <p>
                       Ci riuniamo il
                       <strong>secondo luned&igrave; di ogni mese</strong> presso
-                      la Biblioteca Comunale del Comune di Gazzada Schianno (VA)
-                      per condividere
+                      la
                       <strong
-                        >aggiornamenti sui progetti in corso,&nbsp; idee e nuove
-                        iniziative</strong
+                        >Biblioteca Comunale del Comune di Gazzada Schianno
+                        (VA)</strong
                       >
-                      con un ordine del giorno, che viene mandato dal Presidente
-                      per mail ai soci, che possono proporre ulteriori argomenti
-                      o apportare modifiche.&nbsp; Le assemblee ufficiali (come
+                      per condividere aggiornamenti sui progetti in corso,&nbsp;
+                      idee e nuove iniziative con un ordine del giorno, che
+                      viene mandato dal Presidente per mail ai soci, che possono
+                      proporre ulteriori argomenti o apportare modifiche.&nbsp;
+                      Le <strong>assemblee ufficiali</strong> (come
                       l&rsquo;assemblea annuale) si svolgono invece presso la
-                      nostra sede al Civico Museo Insubrico di Storia Naturale a
-                      Clivio (VA). <br /><br />Le riunioni mensili sono
+                      nostra sede al
+                      <strong
+                        >Civico Museo Insubrico di Storia Naturale a Clivio
+                        (VA)</strong
+                      >. <br /><br />Le riunioni mensili sono
                       <strong>incontri informali</strong> in cui ci si confronta
                       anche su osservazioni ornitologiche, viaggi naturalistici,
                       commenti e visione di pubblicazioni e fotografie ecc.
@@ -383,8 +389,8 @@ onMounted(() => {
                     <p>
                       I soci sono compresi nella
                       <strong>mailing-list</strong> del G.I.O. e possono entrare
-                      a far parte del <strong>gruppo WhatsApp</strong> dei soci,
-                      attraverso cui si&nbsp; viene informati dell&rsquo;intera
+                      a far parte del <strong>gruppo WhatsApp dei soci</strong>,
+                      attraverso cui si viene informati dell&rsquo;intera
                       attivit&agrave; del gruppo. Alcuni argomenti, di solito
                       quelli pi&ugrave; formali e amministrativi, vengono
                       trattati dal Consiglio Direttivo, che ne informa quindi il
@@ -399,8 +405,8 @@ onMounted(() => {
                       Privati, enti e istituzioni possono contribuire al
                       finanziamento delle nostre attivit&agrave; di ricerca,
                       divulgazione e organizzazione di eventi specifici con una
-                      donazione al G.I.O., godendo dei benefici fiscali di
-                      legge. <br /><br />
+                      <strong>donazione al G.I.O.</strong>, godendo dei
+                      <strong>benefici fiscali di legge</strong>. <br /><br />
                       Per informazioni scrivere una mail alla segreteria usando
                       il <NuxtLink to="/form">form di contatto</NuxtLink>.
                     </p>
