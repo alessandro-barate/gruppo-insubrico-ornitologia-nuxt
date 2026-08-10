@@ -24,11 +24,25 @@ useHead({
           </div>
         </section>
 
-        <!-- Sezione contenuti con filtri -->
-        <ContentSection
-          content-type="pubblicazioni"
-          intro-text="Le nostre pubblicazioni scientifiche e divulgative sull'ornitologia."
-        />
+        <!-- Sezione contenuti -->
+        <section>
+          <div class="main-description">
+            <p class="main-description__intro">
+              Le pubblicazioni scientifiche del Gruppo Insubrico di Ornitologia
+              raccolgono oltre vent'anni di attivit&agrave; scientifica e
+              divulgativa, documentando ricerche, monitoraggi e studi dedicati
+              all'avifauna. In questa sezione sono disponibili i
+              <em>Quaderni del G.I.O.</em>, il
+              <em>Bollettino Ornitologico Lombardo</em>, gli
+              <em>Uccelli della Provincia di Varese</em> che comprende la
+              <em>Lista degli uccelli</em> e il
+              <em>Resoconto ornitologico della provincia di Varese</em>, oltre
+              alla bibliografia dei lavori scientifici realizzati dai soci. Un
+              patrimonio di conoscenze messo a disposizione di ricercatori,
+              appassionati e di tutti gli interessati all'ornitologia.
+            </p>
+          </div>
+        </section>
       </div>
     </div>
   </div>
@@ -71,6 +85,23 @@ useHead({
     .title {
       text-align: center;
       padding-top: 10rem;
+    }
+  }
+
+  .main-description {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-bottom: 17rem;
+
+    @media (max-width: 576px) {
+      width: 95%;
+    }
+
+    &__intro {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      margin-bottom: 4rem;
+      color: #555;
     }
   }
 }

@@ -24,11 +24,23 @@ useHead({
           </div>
         </section>
 
-        <!-- Sezione contenuti con filtri -->
-        <ContentSection
-          content-type="divulgazione"
-          intro-text="Le nostre attività di divulgazione e sensibilizzazione sul territorio."
-        />
+        <!-- Sezione contenuti -->
+        <section>
+          <div class="main-description">
+            <p class="main-description__intro">
+              La divulgazione &egrave; una delle attivit&agrave; fondamentali
+              del Gruppo Insubrico di Ornitologia e rappresenta il principale
+              strumento per condividere conoscenze, promuovere la cultura
+              scientifica e sensibilizzare alla tutela dell'avifauna. Attraverso
+              corsi di ornitologia, serate divulgative, incontri e convegni, il
+              G.I.O. favorisce il dialogo tra ricercatori, appassionati e
+              cittadini. In questa sezione sono raccolte le iniziative
+              organizzate nel corso degli anni, testimonianza dell'impegno della
+              nostra associazione nella formazione, nella ricerca e nella
+              diffusione della conoscenza ornitologica.
+            </p>
+          </div>
+        </section>
       </div>
     </div>
   </div>
@@ -39,7 +51,7 @@ useHead({
   &::after {
     content: "";
     position: absolute;
-    bottom: -549px;
+    bottom: -392px;
     left: 0;
     width: 100%;
     height: 150px;
@@ -71,6 +83,23 @@ useHead({
     .title {
       text-align: center;
       padding-top: 10rem;
+    }
+  }
+
+  .main-description {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-bottom: 17rem;
+
+    @media (max-width: 576px) {
+      width: 95%;
+    }
+
+    &__intro {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      margin-bottom: 4rem;
+      color: #555;
     }
   }
 }
