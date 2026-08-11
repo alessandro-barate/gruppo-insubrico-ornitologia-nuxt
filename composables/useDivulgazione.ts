@@ -34,46 +34,75 @@ export type SubsectionCardData = Pick<
 const MOCK_SUBSECTIONS: Record<string, Subsection> = {
   "corsi-ornitologia": {
     slug: "corsi-ornitologia",
-    title: "Corsi di Ornitologia",
+    title: "Corsi di Birdwatching e Ornitologia",
     intro_text:
-      "<p>I nostri corsi di ornitologia sono pensati per appassionati di ogni livello, dai principianti che si avvicinano per la prima volta al birdwatching fino agli esperti che desiderano approfondire tecniche di riconoscimento e monitoraggio delle specie del territorio insubrico.</p>",
+      "<p>Per il <strong>Gruppo Insubrico di Ornitologia (G.I.O.)</strong> l'osservazione degli uccelli &egrave; solo il primo passo. Da oltre un decennio, i nostri corsi si pongono l'obiettivo di fornire le basi tecniche per il riconoscimento delle specie, trasformando semplici appassionati in <strong>cittadini-scienziati</strong> capaci di contribuire attivamente al monitoraggio dell'avifauna.</p><p>I nostri corsi sono <strong>aperti a tutti</strong> coloro che desiderano imparare a distinguere e riconoscere le specie di uccelli nel loro habitat naturale. Che si tratti di principianti o di appassionati che vogliono approfondire le proprie conoscenze tecniche, i nostri corsi mirano a fornire le basi per l'identificazione, l'ecologia e il monitoraggio dell'avifauna attraverso lezioni teoriche ed esercitazioni sul campo.</p><p><strong>Scienza e Pratica sul Campo</strong></p><p>I nostri corsi sono strutturati per offrire un percorso completo che unisce il rigore della teoria all'emozione dell'osservazione diretta.</p><ul><li><strong>Lezioni Teoriche: </strong>incontri serali tenuti da soci esperti del GIO o di altre associazioni/istituzioni,&nbsp; supportati da registrazioni di canti e filmati per apprendere le caratteristiche di varie specie.</li><li><strong>Esercitazioni sul Campo: </strong>Uscite guidate dagli esperti ornitologi del G.I.O. nei principali hotspot del territorio, come le zone umide, i boschi e le aree urbane, per mettere in pratica quanto appreso con binocoli e cannocchiali.</li></ul><p><strong>Cosa si impara</strong></p><p>I nostri programmi spaziano dai corsi base per principianti ai moduli avanzati di approfondimento:</p><ul><li><strong>Identificazione e Sistematica: </strong>Come distinguere le specie simili a confronto e imparare a 'leggere' i diversi piumaggi.</li><li><strong>Bioacustica: </strong>L'ascolto e il riconoscimento dei canti, chiave indispensabile per l'identificazione in natura.</li><li><strong>Biologia ed Ecologia: </strong>Focus specifici su rapaci diurni e notturni, limicoli, uccelli acquatici e del bosco.</li><li><strong>Metodi di Ricerca: </strong>Tecniche di censimento, inanellamento e l'uso di piattaforme digitali come <strong>Ornitho.it</strong>.</li></ul><p><strong>Collaborazioni</strong></p><p>I nostri corsi si avvalgono di preziose collaborazioni consolidate nel tempo con:</p><ul><li><strong>Universit&agrave; degli Studi dell'Insubria</strong>.</li><li><strong>Comunit&agrave; Montana Valli del Verbano</strong> e <strong>Comunit&agrave; Montana del Piambello</strong>.</li><li><strong>Parchi Regionali: </strong>Parco Pineta di Appiano Gentile e Tradate, Parco del Ticino e Parco Campo dei Fiori.</li></ul>",
     intro_excerpt: "Percorsi formativi per appassionati di ogni livello.",
-    image_path: "/images/mock/corsi-cover.jpg",
+    image_path: "",
     items: [
       {
         id: 1,
-        title: "Corso base di riconoscimento",
-        body: "<p>Un percorso introduttivo di 6 lezioni per imparare a riconoscere le specie più comuni del territorio insubrico, con materiale teorico e uscite pratiche sul campo.</p>",
-        image_path: "/images/mock/corso-base.jpg",
+        title: "Corso di ornitologia CMVV",
+        body: "<p></p>",
+        image_path: "/images/divulgazione/cards/corsi/2025-03-14.jpg",
         links: [
-          { label: "Programma completo", url: "https://example.com/programma" },
-          { label: "Iscriviti", url: "https://example.com/iscrizione" },
+          {
+            label: "Guarda il video",
+            url: "https://www.facebook.com/share/p/18D6sDzjoM/",
+          },
         ],
       },
       {
         id: 2,
         title: "Corso avanzato di birdwatching",
         body: "<p>Approfondimento sul campo con uscite guidate ed esperti del settore, dedicato a chi ha già frequentato il corso base o possiede esperienza equivalente.</p>",
-        image_path: "/images/mock/corso-avanzato.jpg",
+        image_path: "",
+        links: [
+          { label: "Scopri di più", url: "https://example.com/avanzato" },
+        ],
+      },
+      {
+        id: 3,
+        title: "Corso avanzato di birdwatching",
+        body: "<p>Approfondimento sul campo con uscite guidate ed esperti del settore, dedicato a chi ha già frequentato il corso base o possiede esperienza equivalente.</p>",
+        image_path: "",
+        links: [
+          { label: "Scopri di più", url: "https://example.com/avanzato" },
+        ],
+      },
+      {
+        id: 4,
+        title: "Corso avanzato di birdwatching",
+        body: "<p>Approfondimento sul campo con uscite guidate ed esperti del settore, dedicato a chi ha già frequentato il corso base o possiede esperienza equivalente.</p>",
+        image_path: "",
+        links: [
+          { label: "Scopri di più", url: "https://example.com/avanzato" },
+        ],
+      },
+      {
+        id: 5,
+        title: "Corso avanzato di birdwatching",
+        body: "<p>Approfondimento sul campo con uscite guidate ed esperti del settore, dedicato a chi ha già frequentato il corso base o possiede esperienza equivalente.</p>",
+        image_path: "",
         links: [
           { label: "Scopri di più", url: "https://example.com/avanzato" },
         ],
       },
     ],
   },
-  "eventi-convegni": {
-    slug: "eventi-convegni",
-    title: "Eventi e Convegni",
+  eventi: {
+    slug: "eventi",
+    title: "Eventi",
     intro_text:
       "<p>Organizziamo e partecipiamo a eventi e convegni dedicati all'ornitologia, occasioni di incontro e confronto tra appassionati, ricercatori e studiosi del settore.</p>",
     intro_excerpt: "Incontri, giornate di studio e convegni.",
-    image_path: "/images/mock/eventi-cover.jpg",
+    image_path: "",
     items: [
       {
         id: 3,
         title: "Convegno annuale GIO 2026",
         body: "<p>La giornata di studio annuale del Gruppo Insubrico di Ornitologia, con relatori nazionali e internazionali e sessioni dedicate alle ultime ricerche sul campo.</p>",
-        image_path: "/images/mock/convegno-2026.jpg",
+        image_path: "",
         links: [
           { label: "Programma", url: "https://example.com/convegno-2026" },
         ],
@@ -82,7 +111,7 @@ const MOCK_SUBSECTIONS: Record<string, Subsection> = {
         id: 4,
         title: "Giornata mondiale degli uccelli migratori",
         body: "<p>Un'uscita divulgativa aperta a tutti per celebrare la migrazione e osservare da vicino le specie di passaggio sul nostro territorio.</p>",
-        image_path: "/images/mock/migratori.jpg",
+        image_path: "",
         links: [],
       },
     ],

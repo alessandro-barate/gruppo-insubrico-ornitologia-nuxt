@@ -19,7 +19,7 @@ defineProps<{
 
     <div class="subsection-card__body">
       <h2>{{ subsection.title }}</h2>
-      <p v-if="subsection.intro_excerpt">{{ subsection.intro_excerpt }}</p>
+      <!-- <p v-if="subsection.intro_excerpt">{{ subsection.intro_excerpt }}</p> -->
       <span class="subsection-card__cta">Scopri di più &rarr;</span>
     </div>
   </NuxtLink>

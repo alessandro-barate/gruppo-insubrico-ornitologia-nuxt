@@ -14,12 +14,13 @@ type HydrationStrategies = {
 type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }> & T
 
 
-export const ContentSection: typeof import("../components/ContentSection.vue").default
 export const CookieBanner: typeof import("../components/CookieBanner.vue").default
 export const FooterComponent: typeof import("../components/FooterComponent.vue").default
 export const HeaderComponent: typeof import("../components/HeaderComponent.vue").default
 export const NewsCard: typeof import("../components/NewsCard.vue").default
 export const NewsCarousel: typeof import("../components/NewsCarousel.vue").default
+export const ContenutoDinamicoLeft: typeof import("../components/contenuto-dinamico/Left.vue").default
+export const ContenutoDinamicoRight: typeof import("../components/contenuto-dinamico/Right.vue").default
 export const DivulgazioneItemCard: typeof import("../components/divulgazione/ItemCard.vue").default
 export const DivulgazioneSubsectionCard: typeof import("../components/divulgazione/SubsectionCard.vue").default
 export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue").default
@@ -45,12 +46,13 @@ export const Head: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/components").Html
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components").Body
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island").default
-export const LazyContentSection: LazyComponent<typeof import("../components/ContentSection.vue").default>
 export const LazyCookieBanner: LazyComponent<typeof import("../components/CookieBanner.vue").default>
 export const LazyFooterComponent: LazyComponent<typeof import("../components/FooterComponent.vue").default>
 export const LazyHeaderComponent: LazyComponent<typeof import("../components/HeaderComponent.vue").default>
 export const LazyNewsCard: LazyComponent<typeof import("../components/NewsCard.vue").default>
 export const LazyNewsCarousel: LazyComponent<typeof import("../components/NewsCarousel.vue").default>
+export const LazyContenutoDinamicoLeft: LazyComponent<typeof import("../components/contenuto-dinamico/Left.vue").default>
+export const LazyContenutoDinamicoRight: LazyComponent<typeof import("../components/contenuto-dinamico/Right.vue").default>
 export const LazyDivulgazioneItemCard: LazyComponent<typeof import("../components/divulgazione/ItemCard.vue").default>
 export const LazyDivulgazioneSubsectionCard: LazyComponent<typeof import("../components/divulgazione/SubsectionCard.vue").default>
 export const LazyNuxtWelcome: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue").default>

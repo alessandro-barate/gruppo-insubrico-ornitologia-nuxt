@@ -14,6 +14,25 @@ if (!subsection.value) {
   });
 }
 
+// Paginazione
+const PER_PAGE = 4;
+const currentPage = ref(1);
+
+const totalPages = computed(() =>
+  Math.ceil((subsection.value?.items.length ?? 0) / PER_PAGE),
+);
+
+const paginatedItems = computed(() => {
+  const start = (currentPage.value - 1) * PER_PAGE;
+  return subsection.value?.items.slice(start, start + PER_PAGE) ?? [];
+});
+
+function goToPage(page: number) {
+  if (page < 1 || page > totalPages.value) return;
+  currentPage.value = page;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 useSeoMeta({
   title: () => subsection.value?.title,
   description: () => subsection.value?.intro_excerpt,
@@ -22,18 +41,53 @@ useSeoMeta({
 
 <template>
   <section v-if="subsection" class="subsection">
-    <header class="subsection__intro">
+    <div class="subsection__intro">
       <NuxtLink to="/divulgazione" class="subsection__back">
         &larr; Divulgazione
       </NuxtLink>
       <h1>{{ subsection.title }}</h1>
       <!-- intro_text arriva come HTML sanitizzato dal backend -->
       <div class="subsection__intro-text" v-html="subsection.intro_text" />
-    </header>
+    </div>
 
     <div class="subsection__items">
-      <ItemCard v-for="item in subsection.items" :key="item.id" :item="item" />
+      <DivulgazioneItemCard
+        v-for="item in paginatedItems"
+        :key="item.id"
+        :item="item"
+      />
     </div>
+
+    <nav v-if="totalPages > 1" class="pagination" aria-label="Paginazione">
+      <button
+        class="pagination__arrow"
+        :disabled="currentPage === 1"
+        aria-label="Pagina precedente"
+        @click="goToPage(currentPage - 1)"
+      >
+        &larr;
+      </button>
+
+      <button
+        v-for="page in totalPages"
+        :key="page"
+        class="pagination__page"
+        :class="{ 'is-active': page === currentPage }"
+        :aria-current="page === currentPage ? 'page' : undefined"
+        @click="goToPage(page)"
+      >
+        {{ page }}
+      </button>
+
+      <button
+        class="pagination__arrow"
+        :disabled="currentPage === totalPages"
+        aria-label="Pagina successiva"
+        @click="goToPage(currentPage + 1)"
+      >
+        &rarr;
+      </button>
+    </nav>
   </section>
 </template>
 

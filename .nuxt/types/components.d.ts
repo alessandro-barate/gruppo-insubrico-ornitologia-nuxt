@@ -14,12 +14,13 @@ type HydrationStrategies = {
 type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }> & T
 
 interface _GlobalComponents {
-  'ContentSection': typeof import("../../components/ContentSection.vue").default
   'CookieBanner': typeof import("../../components/CookieBanner.vue").default
   'FooterComponent': typeof import("../../components/FooterComponent.vue").default
   'HeaderComponent': typeof import("../../components/HeaderComponent.vue").default
   'NewsCard': typeof import("../../components/NewsCard.vue").default
   'NewsCarousel': typeof import("../../components/NewsCarousel.vue").default
+  'ContenutoDinamicoLeft': typeof import("../../components/contenuto-dinamico/Left.vue").default
+  'ContenutoDinamicoRight': typeof import("../../components/contenuto-dinamico/Right.vue").default
   'DivulgazioneItemCard': typeof import("../../components/divulgazione/ItemCard.vue").default
   'DivulgazioneSubsectionCard': typeof import("../../components/divulgazione/SubsectionCard.vue").default
   'NuxtWelcome': typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue").default
@@ -45,12 +46,13 @@ interface _GlobalComponents {
   'Html': typeof import("../../node_modules/nuxt/dist/head/runtime/components").Html
   'Body': typeof import("../../node_modules/nuxt/dist/head/runtime/components").Body
   'NuxtIsland': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-island").default
-  'LazyContentSection': LazyComponent<typeof import("../../components/ContentSection.vue").default>
   'LazyCookieBanner': LazyComponent<typeof import("../../components/CookieBanner.vue").default>
   'LazyFooterComponent': LazyComponent<typeof import("../../components/FooterComponent.vue").default>
   'LazyHeaderComponent': LazyComponent<typeof import("../../components/HeaderComponent.vue").default>
   'LazyNewsCard': LazyComponent<typeof import("../../components/NewsCard.vue").default>
   'LazyNewsCarousel': LazyComponent<typeof import("../../components/NewsCarousel.vue").default>
+  'LazyContenutoDinamicoLeft': LazyComponent<typeof import("../../components/contenuto-dinamico/Left.vue").default>
+  'LazyContenutoDinamicoRight': LazyComponent<typeof import("../../components/contenuto-dinamico/Right.vue").default>
   'LazyDivulgazioneItemCard': LazyComponent<typeof import("../../components/divulgazione/ItemCard.vue").default>
   'LazyDivulgazioneSubsectionCard': LazyComponent<typeof import("../../components/divulgazione/SubsectionCard.vue").default>
   'LazyNuxtWelcome': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue").default>
