@@ -32,14 +32,19 @@ useHead({
               raccolgono oltre vent'anni di attivit&agrave; scientifica e
               divulgativa, documentando ricerche, monitoraggi e studi dedicati
               all'avifauna. In questa sezione sono disponibili i
-              <em>Quaderni del G.I.O.</em>, il
-              <em>Bollettino Ornitologico Lombardo</em>, gli
-              <em>Uccelli della Provincia di Varese</em> che comprende la
-              <em>Lista degli uccelli</em> e il
-              <em>Resoconto ornitologico della provincia di Varese</em>, oltre
-              alla bibliografia dei lavori scientifici realizzati dai soci. Un
-              patrimonio di conoscenze messo a disposizione di ricercatori,
-              appassionati e di tutti gli interessati all'ornitologia.
+              <strong><em>Quaderni del G.I.O.</em></strong
+              >, il <strong><em>Bollettino Ornitologico Lombardo</em></strong
+              >, gli
+              <strong><em>Uccelli della Provincia di Varese</em></strong> che
+              comprende la <strong><em>Lista degli uccelli</em></strong> e il
+              <strong
+                ><em
+                  >Resoconto ornitologico della provincia di Varese</em
+                ></strong
+              >, oltre alla bibliografia dei lavori scientifici realizzati dai
+              soci. Un patrimonio di conoscenze messo a disposizione di
+              ricercatori, appassionati e di tutti gli interessati
+              all'ornitologia.
             </p>
           </div>
         </section>
@@ -53,7 +58,7 @@ useHead({
   &::after {
     content: "";
     position: absolute;
-    bottom: -549px;
+    bottom: -348px;
     left: 0;
     width: 100%;
     height: 150px;
@@ -99,9 +104,10 @@ useHead({
     }
 
     &__intro {
-      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-size: 1.1rem;
       margin-bottom: 4rem;
-      color: #555;
+      color: #333;
+      line-height: 1.75rem;
     }
   }
 }

@@ -42,7 +42,7 @@ watch(
     <HeaderComponent />
 
     <!-- Contenuto pagina con key per forzare transizioni -->
-    <main :key="route.fullPath">
+    <main>
       <slot />
     </main>
 

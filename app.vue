@@ -7,7 +7,7 @@
 <style lang="scss">
 .page-enter-active,
 .page-leave-active {
-  transition: all 400ms cubic-bezier(0.77, 0, 0.175, 1);
+  transition: all 500ms cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .page-enter-from {

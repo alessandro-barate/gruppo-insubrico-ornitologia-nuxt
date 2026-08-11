@@ -20,6 +20,8 @@ interface _GlobalComponents {
   'HeaderComponent': typeof import("../../components/HeaderComponent.vue").default
   'NewsCard': typeof import("../../components/NewsCard.vue").default
   'NewsCarousel': typeof import("../../components/NewsCarousel.vue").default
+  'DivulgazioneItemCard': typeof import("../../components/divulgazione/ItemCard.vue").default
+  'DivulgazioneSubsectionCard': typeof import("../../components/divulgazione/SubsectionCard.vue").default
   'NuxtWelcome': typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue").default
   'NuxtLayout': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout").default
   'NuxtErrorBoundary': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue").default
@@ -49,6 +51,8 @@ interface _GlobalComponents {
   'LazyHeaderComponent': LazyComponent<typeof import("../../components/HeaderComponent.vue").default>
   'LazyNewsCard': LazyComponent<typeof import("../../components/NewsCard.vue").default>
   'LazyNewsCarousel': LazyComponent<typeof import("../../components/NewsCarousel.vue").default>
+  'LazyDivulgazioneItemCard': LazyComponent<typeof import("../../components/divulgazione/ItemCard.vue").default>
+  'LazyDivulgazioneSubsectionCard': LazyComponent<typeof import("../../components/divulgazione/SubsectionCard.vue").default>
   'LazyNuxtWelcome': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue").default>
   'LazyNuxtLayout': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout").default>
   'LazyNuxtErrorBoundary': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue").default>

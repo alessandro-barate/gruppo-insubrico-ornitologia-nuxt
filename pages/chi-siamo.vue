@@ -862,6 +862,7 @@ button {
           animation: fadeIn 0.4s ease;
 
           h3 {
+            color: #333;
             text-align: center;
           }
         }
@@ -870,13 +871,13 @@ button {
           text-transform: uppercase;
           font-size: 1.5rem;
           margin-bottom: 1rem;
-          color: rgb(0, 0, 0);
+          color: #333;
         }
 
         p {
           font-size: 1rem;
           line-height: 1.7;
-          color: rgba(0, 0, 0, 0.95);
+          color: #333;
         }
 
         a {

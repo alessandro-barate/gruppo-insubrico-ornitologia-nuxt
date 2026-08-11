@@ -101,6 +101,7 @@ declare global {
   const useCookies: typeof import('../../composables/useSiteStore').useCookies
   const useCssModule: typeof import('vue').useCssModule
   const useCssVars: typeof import('vue').useCssVars
+  const useDivulgazione: typeof import('../../composables/useDivulgazione').useDivulgazione
   const useError: typeof import('../../node_modules/nuxt/dist/app/composables/error').useError
   const useFetch: typeof import('../../node_modules/nuxt/dist/app/composables/fetch').useFetch
   const useHead: typeof import('../../node_modules/nuxt/dist/app/composables/head').useHead
@@ -185,6 +186,9 @@ declare global {
   // @ts-ignore
   export type { Component, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
+  // @ts-ignore
+  export type { ItemLink, SubsectionItem, Subsection, SubsectionCardData } from '../../composables/useDivulgazione'
+  import('../../composables/useDivulgazione')
 }
 // for vue template auto import
 import { UnwrapRef } from 'vue'
@@ -290,6 +294,7 @@ declare module 'vue' {
     readonly useCookies: UnwrapRef<typeof import('../../composables/useSiteStore')['useCookies']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
+    readonly useDivulgazione: UnwrapRef<typeof import('../../composables/useDivulgazione')['useDivulgazione']>
     readonly useError: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/error')['useError']>
     readonly useFetch: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/fetch')['useFetch']>
     readonly useHead: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/head')['useHead']>

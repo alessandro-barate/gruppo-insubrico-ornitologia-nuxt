@@ -1,8 +1,11 @@
-<script setup>
+<script setup lang="ts">
+const { getSubsections } = useDivulgazione();
+const { data: subsections } = await getSubsections();
+
 useSeoMeta({
   title: "Divulgazione | Gruppo Insubrico di Ornitologia",
   description:
-    "Le attività divulgative del Gruppo Insubrico Ornitologico: convegni, corsi, eventi.",
+    "Corsi di ornitologia, eventi e convegni organizzati dal Gruppo Insubrico di Ornitologia.",
   ogTitle: "Divulgazione | Gruppo Insubrico di Ornitologia",
 });
 
@@ -40,6 +43,14 @@ useHead({
               diffusione della conoscenza ornitologica.
             </p>
           </div>
+
+          <div class="cards-section">
+            <DivulgazioneSubsectionCard
+              v-for="sub in subsections"
+              :key="sub.slug"
+              :subsection="sub"
+            />
+          </div>
         </section>
       </div>
     </div>
@@ -51,7 +62,7 @@ useHead({
   &::after {
     content: "";
     position: absolute;
-    bottom: -392px;
+    bottom: -348px;
     left: 0;
     width: 100%;
     height: 150px;
@@ -97,9 +108,10 @@ useHead({
     }
 
     &__intro {
-      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-size: 1.1rem;
       margin-bottom: 4rem;
-      color: #555;
+      color: #333;
+      line-height: 1.75rem;
     }
   }
 }
