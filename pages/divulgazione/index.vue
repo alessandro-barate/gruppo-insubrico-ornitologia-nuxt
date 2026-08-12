@@ -101,7 +101,7 @@ useHead({
     width: 90%;
     max-width: 1400px;
     margin: 0 auto;
-    padding-bottom: 17rem;
+    padding-bottom: 2rem;
 
     @media (max-width: 576px) {
       width: 95%;
