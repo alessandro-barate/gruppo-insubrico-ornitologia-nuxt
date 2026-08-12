@@ -17,6 +17,7 @@ export interface SubsectionItem {
 export interface Subsection {
   slug: string;
   title: string;
+  title_parts: string[];
   aria_label: string;
   intro_text: string;
   intro_excerpt?: string;
@@ -27,7 +28,12 @@ export interface Subsection {
 // Forma ridotta usata per le card in index.vue
 export type SubsectionCardData = Pick<
   Subsection,
-  "slug" | "title" | "aria_label" | "intro_excerpt" | "image_path"
+  | "slug"
+  | "title"
+  | "title_parts"
+  | "aria_label"
+  | "intro_excerpt"
+  | "image_path"
 >;
 
 // ─── MOCK DATA ───────────────────────────────────────────
@@ -36,6 +42,7 @@ const MOCK_SUBSECTIONS: Record<string, Subsection> = {
   "corsi-ornitologia": {
     slug: "corsi-ornitologia",
     title: "Corsi di Birdwatching e Ornitologia",
+    title_parts: ["Corsi di", "Birdwatching", "e Ornitologia"],
     aria_label:
       "Bottone che porta alla pagina dove vengono elencati tutti i corsi di birdwatching e ornitologia del G.I.O.",
     intro_text:
@@ -96,6 +103,7 @@ const MOCK_SUBSECTIONS: Record<string, Subsection> = {
   eventi: {
     slug: "eventi",
     title: "Eventi",
+    title_parts: ["Eventi"],
     aria_label:
       "Bottone che porta alla pagina dove vengono elencati tutti gli eventi tenuti dal G.I.O.",
     intro_text:
@@ -134,6 +142,7 @@ export function useDivulgazione() {
         Object.values(MOCK_SUBSECTIONS).map((s) => ({
           slug: s.slug,
           title: s.title,
+          title_parts: s.title_parts,
           aria_label: s.aria_label,
           intro_excerpt: s.intro_excerpt,
           image_path: s.image_path,

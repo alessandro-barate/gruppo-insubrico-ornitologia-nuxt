@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from "vue";
 import carousel from "~/data/carousel";
+import Button from "~/components/utili/Button.vue";
 
 // Importa le immagini per il carousel
 import nibbio from "~/assets/images/jumbo-home/nibbio.webp";
@@ -376,9 +377,7 @@ onUnmounted(() => {
               biologiche della nostra regione
             </p>
             <div class="button-container">
-              <NuxtLink to="/chi-siamo">
-                <button class="uppercase">chi siamo</button>
-              </NuxtLink>
+              <Button to="/chi-siamo" class="uppercase">chi siamo </Button>
             </div>
           </div>
         </section>
@@ -400,43 +399,9 @@ onUnmounted(() => {
 
           <!-- News button -->
           <div class="button">
-            <NuxtLink to="/news">
-              <button>Leggi tutte le news</button>
-            </NuxtLink>
+            <Button to="/news" class="uppercase">Leggi tutte le news</Button>
           </div>
         </section>
-
-        <!-- Subscribe section -->
-        <!-- <section>
-          <div class="subscription-container news-container">
-            <div class="sections-title subscription-title">
-              <h2 class="title-1 title-color uppercase">diventa nostro</h2>
-              <h2 class="title-2 title-color gradient-color uppercase">
-                socio
-              </h2>
-            </div>
-            <hr />
-            <div class="subscription-box gradient-color-subscribe">
-              <div class="card-logo">
-                <img src="~/assets/images/subscribe-icon.svg" alt="" />
-              </div>
-              <div class="subscription-description">
-                <h3 class="uppercase">unisciti al g i o !</h3>
-                <p>
-                  Vuoi diventare parte del gruppo o solo sostenerci?
-                  <br />
-                  Scopri come.
-                </p>
-                <p>Ti aspettiamo!</p>
-              </div>
-              <div class="subscription-button button">
-                <NuxtLink to="/chi-siamo">
-                  <button>Diventa socio</button>
-                </NuxtLink>
-              </div>
-            </div>
-          </div>
-        </section> -->
 
         <!-- Activities section -->
         <section class="activities-section">
@@ -509,19 +474,10 @@ onUnmounted(() => {
 // Buttons
 .button {
   width: 100%;
+  font-weight: 500;
   text-align: center;
   padding-top: clamp(2rem, 4vw, 4rem);
   padding-bottom: clamp(1.5rem, 3vw, 3rem);
-
-  button {
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-weight: 500;
-    border-radius: 0.5rem;
-    padding: clamp(0.75rem, 2vw, 1rem);
-    font-size: clamp(0.875rem, 2vw, 1rem);
-  }
 }
 // END buttons
 
@@ -967,20 +923,9 @@ onUnmounted(() => {
 
   .button-container {
     text-align: center;
-    margin-top: 4rem;
-
-    button {
-      border: none;
-      padding: 1rem;
-      cursor: pointer;
-      border-radius: 5px;
-      background-color: rgb(200, 200, 200);
-      transition: all 0.5s ease-in-out;
-
-      &:hover {
-        transform: scale(1.05);
-      }
-    }
+    margin-top: 6rem;
+    font-weight: 500;
+    letter-spacing: 0.15rem;
   }
 }
 
@@ -1049,105 +994,6 @@ onUnmounted(() => {
   }
 }
 // END news section
-
-// Subscription section
-// .subscription-container {
-//   padding-top: clamp(4rem, 10vw, 10rem);
-//   padding-bottom: clamp(6rem, 14vw, 14rem);
-//   width: 100%;
-//   position: relative;
-//   min-height: clamp(500px, 80vh, 1000px);
-//   background-size: cover;
-//   background-position: center;
-//   background-repeat: no-repeat;
-//   background-attachment: fixed;
-//   background-image: url(../assets/images/activities-section/parallax-image.webp);
-
-//   .sections-title {
-//     margin-bottom: 2rem;
-//     overflow: hidden;
-
-//     .title-1,
-//     .title-2 {
-//       opacity: 0;
-//       transform: translateY(-100%);
-//     }
-
-//     &.visible {
-//       .title-1 {
-//         animation: slideInTop 1s ease-in-out forwards;
-//       }
-
-//       .title-2 {
-//         animation: slideInTop 1s ease-in-out 0.3s forwards;
-//       }
-//     }
-
-//     .title-1 {
-//       font-size: clamp(1.5rem, 4vw, 3rem);
-//       padding-top: 2rem;
-//       padding-left: clamp(1rem, 6vw, 6rem);
-//     }
-
-//     .title-2 {
-//       font-size: clamp(2.5rem, 8vw, 6rem);
-//       padding-top: clamp(1rem, 3vw, 3rem);
-//       padding-left: clamp(2rem, 10vw, 12rem);
-//     }
-//   }
-
-//   .subscription-box {
-//     margin: 0 auto;
-//     width: clamp(85%, 70vw, 70%);
-//     padding: clamp(0.75rem, 2vw, 1rem);
-//     border-radius: 0.5rem;
-
-//     .card-logo {
-//       width: 100%;
-//       padding-top: 1rem;
-//       margin-bottom: clamp(1rem, 2vw, 2rem);
-
-//       img {
-//         width: clamp(8%, 5vw, 5%);
-//       }
-//     }
-
-//     h3 {
-//       font-size: clamp(1.5rem, 4vw, 3rem);
-//     }
-
-//     p {
-//       font-size: clamp(1rem, 2vw, 1.5rem);
-//       margin-top: 1rem;
-//       margin-bottom: clamp(1rem, 2vw, 2rem);
-//     }
-
-//     .subscription-button {
-//       text-align: center;
-//     }
-
-//     .button {
-//       padding-bottom: 1rem;
-
-//       button {
-//         background: linear-gradient(90deg, #d2420d, #ffbf00);
-
-//         &:hover {
-//           color: rgb(0, 0, 0);
-//         }
-//       }
-//     }
-//   }
-
-//   hr {
-//     width: 10%;
-//     border: none;
-//     margin-left: clamp(2rem, 10vw, 10rem);
-//     margin-bottom: 2rem;
-//     border-bottom: 2px solid rgb(141, 141, 141);
-//   }
-// }
-// END subscription section
 
 // Activities section
 .activities-container {

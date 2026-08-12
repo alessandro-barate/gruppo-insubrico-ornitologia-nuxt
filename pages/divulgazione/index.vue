@@ -62,7 +62,7 @@ useHead({
   &::after {
     content: "";
     position: absolute;
-    bottom: -348px;
+    bottom: -582px;
     left: 0;
     width: 100%;
     height: 150px;
@@ -113,6 +113,10 @@ useHead({
       color: #333;
       line-height: 1.75rem;
     }
+  }
+
+  .cards-section {
+    margin-bottom: 14rem;
   }
 }
 </style>
