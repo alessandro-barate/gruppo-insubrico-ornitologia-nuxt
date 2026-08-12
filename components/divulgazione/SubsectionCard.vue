@@ -21,9 +21,13 @@ defineProps<{
       variant="dark"
       class="single-card"
     >
-      <span v-for="(part, i) in subsection.title_parts" :key="i">{{
-        part
-      }}</span>
+      <span
+        v-for="(part, i) in subsection.title_parts"
+        :key="i"
+        class="word"
+        :data-text="part"
+        >{{ part }}</span
+      >
       <!-- <h2>{{ subsection.title }}</h2> -->
       <!-- <p v-if="subsection.intro_excerpt">{{ subsection.intro_excerpt }}</p> -->
     </Button>

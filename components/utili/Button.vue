@@ -31,11 +31,10 @@ defineEmits<{
 </template>
 <style scoped>
 .body {
-  align-items: center;
-  border-radius: 50px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50px;
   padding: 1rem 3rem;
   position: relative;
   overflow: hidden;
@@ -52,60 +51,77 @@ defineEmits<{
   background-color: #233162;
 }
 
-/* il fill che sale dal basso all'hover */
+/* fill scuro che sale dal basso su hover */
 .body::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: #1a2340; /* tinta di arrivo */
+  background: linear-gradient(90deg, #ff8636, #f9a268);
   transform: translateY(100%);
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease;
 }
-
 .body:hover::before,
 .body:focus-visible::before {
   transform: translateY(0);
 }
 
-/* il testo sta sopra il fill */
 .body-content {
   position: relative;
   z-index: 1;
 }
 
-/* animazione degli span in ingresso */
-.body-content :deep(span) {
-  display: inline-block; /* necessario per translateY */
-  transform: translateY(80%);
-  opacity: 0;
-  transition:
-    transform 0.5s ease,
-    opacity 0.5s ease,
-    color 0.5s ease;
+/* LAYER NORMALE: centrato e fermo. Su hover svanisce (non si sposta). */
+.body-content :deep(.word) {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  white-space: pre; /* preserva gli spazi dei title_parts */
+  color: inherit;
+  /* transition: opacity 0.4s ease; */
 }
-
-.body:hover .body-content :deep(span),
-.body:focus-visible .body-content :deep(span) {
-  transform: translateY(0);
+.body:hover .body-content :deep(.word),
+.body:focus-visible .body-content :deep(.word) {
   opacity: 1;
-  color: #fff;
 }
 
-/* delay scalati per effetto "a cascata" */
-.body-content :deep(span:nth-child(1)) {
+/* SECONDO LAYER (::after): parte dal basso, sale al centro su hover */
+.body-content :deep(.word)::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0; /* stessa posizione del testo normale */
+  color: #fff;
+  opacity: 0;
+  transform: translateY(80%); /* parte più in basso */
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+.body:hover .body-content :deep(.word)::after,
+.body:focus-visible .body-content :deep(.word)::after {
+  opacity: 1;
+  transform: translateY(0); /* arriva esattamente al centro */
+}
+
+/* cascata: delay crescenti per parola, validi in entrata e uscita */
+.body-content :deep(.word:nth-child(1)),
+.body-content :deep(.word:nth-child(1))::after {
   transition-delay: 0s;
 }
-.body-content :deep(span:nth-child(2)) {
-  transition-delay: 0.1s;
+.body-content :deep(.word:nth-child(2)),
+.body-content :deep(.word:nth-child(2))::after {
+  transition-delay: 0.08s;
 }
-.body-content :deep(span:nth-child(3)) {
-  transition-delay: 0.2s;
+.body-content :deep(.word:nth-child(3)),
+.body-content :deep(.word:nth-child(3))::after {
+  transition-delay: 0.16s;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .body::before,
-  .body-content :deep(span) {
+  .body-content :deep(.word),
+  .body-content :deep(.word)::after {
     transition: none;
   }
 }
