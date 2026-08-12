@@ -925,7 +925,7 @@ onUnmounted(() => {
     text-align: center;
     margin-top: 6rem;
     font-weight: 500;
-    letter-spacing: 0.15rem;
+    letter-spacing: 0.1rem;
   }
 }
 

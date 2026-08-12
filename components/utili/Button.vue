@@ -29,6 +29,7 @@ defineEmits<{
     ><span class="body-content"><slot /></span>
   </NuxtLink>
 </template>
+
 <style scoped>
 .body {
   display: inline-flex;
@@ -38,7 +39,7 @@ defineEmits<{
   padding: 1rem 3rem;
   position: relative;
   overflow: hidden;
-  isolation: isolate;
+  text-decoration: none;
 }
 
 .primary {
@@ -51,16 +52,22 @@ defineEmits<{
   background-color: #233162;
 }
 
-/* fill scuro che sale dal basso su hover */
+/* fill arancione che sale dal basso su hover */
 .body::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   background: linear-gradient(90deg, #ff8636, #f9a268);
   transform: translateY(100%);
   transition: transform 0.3s ease;
 }
+
+/* variante PRIMARY: base arancione, fill che sale BLU */
+.primary::before {
+  background: #233162;
+}
+
 .body:hover::before,
 .body:focus-visible::before {
   transform: translateY(0);
@@ -69,58 +76,61 @@ defineEmits<{
 .body-content {
   position: relative;
   z-index: 1;
+  display: inline-flex;
 }
 
-/* LAYER NORMALE: centrato e fermo. Su hover svanisce (non si sposta). */
+/* ogni parola è una finestra che mostra una riga per volta */
 .body-content :deep(.word) {
   display: inline-block;
   position: relative;
   vertical-align: top;
   white-space: pre; /* preserva gli spazi dei title_parts */
+  line-height: 1.2;
   color: inherit;
-  /* transition: opacity 0.4s ease; */
+  overflow: hidden; /* ritaglia il proprio ::after */
+  transition: color 0s linear 0.3s;
 }
+/* a riposo il testo blu è visibile; su hover diventa trasparente
+   (il box resta, così fa da finestra) */
 .body:hover .body-content :deep(.word),
 .body:focus-visible .body-content :deep(.word) {
-  opacity: 1;
+  color: transparent;
+  transition: color 0s linear 0s;
 }
 
-/* SECONDO LAYER (::after): parte dal basso, sale al centro su hover */
+/* seconda copia: parte una riga sotto e sale al centro */
 .body-content :deep(.word)::after {
   content: attr(data-text);
   position: absolute;
   left: 0;
-  top: 0; /* stessa posizione del testo normale */
+  top: 0;
+  line-height: 1.2;
   color: #fff;
-  opacity: 0;
-  transform: translateY(80%); /* parte più in basso */
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
 }
 .body:hover .body-content :deep(.word)::after,
 .body:focus-visible .body-content :deep(.word)::after {
-  opacity: 1;
-  transform: translateY(0); /* arriva esattamente al centro */
+  transform: translateY(0);
 }
 
-/* cascata: delay crescenti per parola, validi in entrata e uscita */
+/* cascata + spaziatura tra parole */
 .body-content :deep(.word:nth-child(1)),
+.body-content :deep(.word:nth-child(2)) {
+  margin-right: 0.23rem;
+}
 .body-content :deep(.word:nth-child(1))::after {
   transition-delay: 0s;
 }
-.body-content :deep(.word:nth-child(2)),
 .body-content :deep(.word:nth-child(2))::after {
   transition-delay: 0.08s;
 }
-.body-content :deep(.word:nth-child(3)),
 .body-content :deep(.word:nth-child(3))::after {
   transition-delay: 0.16s;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .body::before,
-  .body-content :deep(.word),
   .body-content :deep(.word)::after {
     transition: none;
   }
