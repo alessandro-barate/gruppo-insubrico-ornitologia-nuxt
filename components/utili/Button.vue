@@ -6,7 +6,7 @@ withDefaults(
     to?: RouteLocationRaw;
     disabled?: boolean;
     ariaLabel?: string;
-    variant?: "primary" | "dark";
+    variant?: "primary" | "dark" | "static";
   }>(),
   {
     disabled: false,
@@ -42,14 +42,31 @@ defineEmits<{
   text-decoration: none;
 }
 
+/* variante con background blu scuro */
 .primary {
   color: #333;
   background: linear-gradient(90deg, #ff8636, #f9a268);
 }
 
+/* variante con background arancione */
 .dark {
   color: #ebf2fc;
   background-color: #233162;
+}
+
+/* variante senza animazione: solo arancione fisso */
+.static {
+  background: linear-gradient(90deg, #ff8636, #f9a268);
+  color: #333;
+}
+.static::before {
+  display: none;
+}
+.static .body-content :deep(.word) {
+  color: inherit;
+}
+.static .body-content :deep(.word)::after {
+  display: none;
 }
 
 /* fill arancione che sale dal basso su hover */

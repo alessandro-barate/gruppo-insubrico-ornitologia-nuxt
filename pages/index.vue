@@ -377,7 +377,13 @@ onUnmounted(() => {
               biologiche della nostra regione
             </p>
             <div class="button-container">
-              <Button to="/chi-siamo" class="uppercase">chi siamo </Button>
+              <Button
+                to="/chi-siamo"
+                class="uppercase"
+                variant="static"
+                id="chi-siamo-button"
+                >chi siamo
+              </Button>
             </div>
           </div>
         </section>
@@ -399,7 +405,13 @@ onUnmounted(() => {
 
           <!-- News button -->
           <div class="button">
-            <Button to="/news" class="uppercase">Leggi tutte le news</Button>
+            <Button
+              to="/news"
+              class="uppercase"
+              variant="static"
+              id="news-button"
+              >Leggi tutte le news</Button
+            >
           </div>
         </section>
 

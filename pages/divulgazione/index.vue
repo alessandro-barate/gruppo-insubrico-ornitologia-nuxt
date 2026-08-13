@@ -62,7 +62,7 @@ useHead({
   &::after {
     content: "";
     position: absolute;
-    bottom: -582px;
+    bottom: -562px;
     left: 0;
     width: 100%;
     height: 150px;

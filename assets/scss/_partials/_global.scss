@@ -7,6 +7,18 @@ button {
   font-family: "Sora", sans-serif;
 }
 
+/********
+BUTTONS
+********/
+#chi-siamo-button,
+#news-button {
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
 /***************
 VARIOUS STYLES
 ***************/
