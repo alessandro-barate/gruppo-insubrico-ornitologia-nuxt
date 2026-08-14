@@ -34,13 +34,17 @@ VARIOUS STYLES
   animation: slideInBottom 1s ease-in-out forwards;
 }
 
-li {
-  list-style-type: none;
-}
-
 a {
   color: black;
   text-decoration: none;
+}
+
+.specific-list {
+  list-style-type: disc;
+}
+
+.specific-link {
+  color: rgb(255, 60, 0);
 }
 
 nav a {

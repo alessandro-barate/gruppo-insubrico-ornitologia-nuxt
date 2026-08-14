@@ -651,11 +651,11 @@ onUnmounted(() => {
               }
 
               @media (min-width: 577px) and (max-width: 768px) {
-                width: 80%;
+                width: 100%;
               }
 
               @media (min-width: 769px) {
-                width: 75%;
+                width: 55%;
               }
 
               &:hover {

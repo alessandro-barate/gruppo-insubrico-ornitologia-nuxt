@@ -1,4 +1,7 @@
 <script setup>
+const { getHome } = usePubblicazioni();
+const { data } = await getHome();
+
 useSeoMeta({
   title: "Pubblicazioni | Gruppo Insubrico di Ornitologia",
   description:
@@ -27,25 +30,16 @@ useHead({
         <!-- Sezione contenuti -->
         <section>
           <div class="main-description">
-            <p class="main-description__intro">
-              Le pubblicazioni scientifiche del Gruppo Insubrico di Ornitologia
-              raccolgono oltre vent'anni di attivit&agrave; scientifica e
-              divulgativa, documentando ricerche, monitoraggi e studi dedicati
-              all'avifauna. In questa sezione sono disponibili i
-              <strong><em>Quaderni del G.I.O.</em></strong
-              >, il <strong><em>Bollettino Ornitologico Lombardo</em></strong
-              >, gli
-              <strong><em>Uccelli della Provincia di Varese</em></strong> che
-              comprende la <strong><em>Lista degli uccelli</em></strong> e il
-              <strong
-                ><em
-                  >Resoconto ornitologico della provincia di Varese</em
-                ></strong
-              >, oltre alla bibliografia dei lavori scientifici realizzati dai
-              soci. Un patrimonio di conoscenze messo a disposizione di
-              ricercatori, appassionati e di tutti gli interessati
-              all'ornitologia.
-            </p>
+            <p class="main-description__intro" v-html="data.intro_text"></p>
+          </div>
+
+          <div class="pubblicazioni__grid">
+            <PubblicazioniNavCard
+              v-for="card in data.cards"
+              :key="card.slug"
+              :card="card"
+              base-path="/pubblicazioni"
+            />
           </div>
         </section>
       </div>
@@ -109,6 +103,12 @@ useHead({
       color: #333;
       line-height: 1.75rem;
     }
+  }
+
+  .pubblicazioni__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
   }
 }
 </style>

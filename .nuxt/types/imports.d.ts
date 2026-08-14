@@ -119,6 +119,7 @@ declare global {
   const useNuxtData: typeof import('../../node_modules/nuxt/dist/app/composables/asyncData').useNuxtData
   const useNuxtDevTools: typeof import('../../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools').useNuxtDevTools
   const usePreviewMode: typeof import('../../node_modules/nuxt/dist/app/composables/preview').usePreviewMode
+  const usePubblicazioni: typeof import('../../composables/usePubblicazioni').usePubblicazioni
   const useRequestEvent: typeof import('../../node_modules/nuxt/dist/app/composables/ssr').useRequestEvent
   const useRequestFetch: typeof import('../../node_modules/nuxt/dist/app/composables/ssr').useRequestFetch
   const useRequestHeader: typeof import('../../node_modules/nuxt/dist/app/composables/ssr').useRequestHeader
@@ -189,6 +190,9 @@ declare global {
   // @ts-ignore
   export type { ItemLink, SubsectionItem, Subsection, SubsectionCardData } from '../../composables/useDivulgazione'
   import('../../composables/useDivulgazione')
+  // @ts-ignore
+  export type { CardItem, PdfItem, BibliographyItem, SubsectionType, PubNode, PubCardData } from '../../composables/usePubblicazioni'
+  import('../../composables/usePubblicazioni')
 }
 // for vue template auto import
 import { UnwrapRef } from 'vue'
@@ -312,6 +316,7 @@ declare module 'vue' {
     readonly useNuxtData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['useNuxtData']>
     readonly useNuxtDevTools: UnwrapRef<typeof import('../../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools')['useNuxtDevTools']>
     readonly usePreviewMode: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/preview')['usePreviewMode']>
+    readonly usePubblicazioni: UnwrapRef<typeof import('../../composables/usePubblicazioni')['usePubblicazioni']>
     readonly useRequestEvent: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestEvent']>
     readonly useRequestFetch: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestFetch']>
     readonly useRequestHeader: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestHeader']>

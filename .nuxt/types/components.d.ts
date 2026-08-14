@@ -19,10 +19,12 @@ interface _GlobalComponents {
   'HeaderComponent': typeof import("../../components/HeaderComponent.vue").default
   'NewsCard': typeof import("../../components/NewsCard.vue").default
   'NewsCarousel': typeof import("../../components/NewsCarousel.vue").default
-  'ContenutoDinamicoLeft': typeof import("../../components/contenuto-dinamico/Left.vue").default
-  'ContenutoDinamicoRight': typeof import("../../components/contenuto-dinamico/Right.vue").default
   'DivulgazioneItemCard': typeof import("../../components/divulgazione/ItemCard.vue").default
   'DivulgazioneSubsectionCard': typeof import("../../components/divulgazione/SubsectionCard.vue").default
+  'PubblicazioniBiblioItem': typeof import("../../components/pubblicazioni/BiblioItem.vue").default
+  'PubblicazioniCardItem': typeof import("../../components/pubblicazioni/CardItem.vue").default
+  'PubblicazioniNavCard': typeof import("../../components/pubblicazioni/NavCard.vue").default
+  'PubblicazioniPdfItem': typeof import("../../components/pubblicazioni/PdfItem.vue").default
   'UtiliButton': typeof import("../../components/utili/Button.vue").default
   'NuxtWelcome': typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue").default
   'NuxtLayout': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout").default
@@ -52,10 +54,12 @@ interface _GlobalComponents {
   'LazyHeaderComponent': LazyComponent<typeof import("../../components/HeaderComponent.vue").default>
   'LazyNewsCard': LazyComponent<typeof import("../../components/NewsCard.vue").default>
   'LazyNewsCarousel': LazyComponent<typeof import("../../components/NewsCarousel.vue").default>
-  'LazyContenutoDinamicoLeft': LazyComponent<typeof import("../../components/contenuto-dinamico/Left.vue").default>
-  'LazyContenutoDinamicoRight': LazyComponent<typeof import("../../components/contenuto-dinamico/Right.vue").default>
   'LazyDivulgazioneItemCard': LazyComponent<typeof import("../../components/divulgazione/ItemCard.vue").default>
   'LazyDivulgazioneSubsectionCard': LazyComponent<typeof import("../../components/divulgazione/SubsectionCard.vue").default>
+  'LazyPubblicazioniBiblioItem': LazyComponent<typeof import("../../components/pubblicazioni/BiblioItem.vue").default>
+  'LazyPubblicazioniCardItem': LazyComponent<typeof import("../../components/pubblicazioni/CardItem.vue").default>
+  'LazyPubblicazioniNavCard': LazyComponent<typeof import("../../components/pubblicazioni/NavCard.vue").default>
+  'LazyPubblicazioniPdfItem': LazyComponent<typeof import("../../components/pubblicazioni/PdfItem.vue").default>
   'LazyUtiliButton': LazyComponent<typeof import("../../components/utili/Button.vue").default>
   'LazyNuxtWelcome': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue").default>
   'LazyNuxtLayout': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout").default>

@@ -42,9 +42,15 @@ useSeoMeta({
 <template>
   <section v-if="subsection" class="subsection">
     <div class="subsection__intro">
-      <NuxtLink to="/divulgazione" class="subsection__back">
-        &larr; Divulgazione
-      </NuxtLink>
+      <div class="subsection__back">
+        <NuxtLink to="/divulgazione" class="subsection__link">
+          <img
+            src="../../assets/images/scientific-dissemination/chevron-left.svg"
+            alt=""
+          />
+        </NuxtLink>
+        <span>Divulgazione</span>
+      </div>
       <h1>{{ subsection.title }}</h1>
       <!-- intro_text arriva come HTML sanitizzato dal backend -->
       <div class="subsection__intro-text" v-html="subsection.intro_text" />
@@ -65,7 +71,10 @@ useSeoMeta({
         aria-label="Pagina precedente"
         @click="goToPage(currentPage - 1)"
       >
-        &larr;
+        <img
+          src="../../assets/images/scientific-dissemination/chevron-left.svg"
+          alt="Freccia sinistra per navigare alla lista precedente dei contenuti"
+        />
       </button>
 
       <button
@@ -85,33 +94,54 @@ useSeoMeta({
         aria-label="Pagina successiva"
         @click="goToPage(currentPage + 1)"
       >
-        &rarr;
+        <img
+          src="../../assets/images/scientific-dissemination/chevron-right.svg"
+          alt="Freccia destra per navigare alla lista successiva dei contenuti"
+        />
       </button>
     </nav>
   </section>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .subsection {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem 1.25rem 4rem;
-}
+  color: var(--color-text-muted, #333);
 
-.subsection__back {
-  display: inline-block;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-  color: var(--color-text-muted, #555);
-  text-decoration: none;
-}
+  &__back {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    text-decoration: none;
 
-.subsection__back:hover {
-  text-decoration: underline;
-}
+    img {
+      width: 100%;
+      margin-left: 0;
+      transition: all 0.5s ease-in-out;
 
-.subsection__intro {
-  margin-bottom: 3rem;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  &__link {
+    width: 1%;
+    margin-left: 0;
+    margin-right: 1.5rem;
+  }
+
+  span {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  &__intro {
+    margin-bottom: 3rem;
+  }
 }
 
 .subsection__intro h1 {
@@ -128,5 +158,36 @@ useSeoMeta({
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+.pagination {
+  width: 50%;
+  margin-top: 2rem;
+  text-align: center;
+
+  button {
+    border: none;
+    background-color: transparent;
+  }
+
+  &__page {
+    color: #333;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  &__arrow {
+    width: 10%;
+    color: aqua;
+
+    img {
+      width: 20%;
+    }
+  }
+
+  &__arrow,
+  &__page {
+    cursor: pointer;
+  }
 }
 </style>

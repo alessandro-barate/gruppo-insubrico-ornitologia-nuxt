@@ -31,5 +31,6 @@ export { setInterval } from '#app/compat/interval';
 export { definePageMeta } from '../node_modules/nuxt/dist/pages/runtime/composables';
 export { defineLazyHydrationComponent } from '#app/composables/lazy-hydration';
 export { useDivulgazione, ItemLink, SubsectionItem, Subsection, SubsectionCardData } from '../composables/useDivulgazione';
+export { usePubblicazioni, CardItem, PdfItem, BibliographyItem, SubsectionType, PubNode, PubCardData } from '../composables/usePubblicazioni';
 export { useSiteStore, useCookies, useLinks, useMetaDescriptions } from '../composables/useSiteStore';
 export { useNuxtDevTools } from '../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';
