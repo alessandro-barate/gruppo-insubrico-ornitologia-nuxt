@@ -1,9 +1,6 @@
 // ─────────────────────────────────────────────────────────
 // Stili condivisi dalle pagine "sottosezione" (Divulgazione,
-// Pubblicazioni e, in futuro, Progetti).
-// Import in ogni pagina con:  @use "~/assets/scss/_partials/subsection" as *;
-// (il file di questo partial NON deve essere iniettato globalmente,
-//  altrimenti duplichi le regole in ogni componente.)
+// Pubblicazioni e Progetti).
 // ─────────────────────────────────────────────────────────
 
 .subsection {
