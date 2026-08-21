@@ -28,7 +28,7 @@ useHead({
         </section>
 
         <!-- Sezione contenuti -->
-        <section>
+        <section class="content-section">
           <div class="main-description">
             <p class="main-description__intro" v-html="data.intro_text"></p>
           </div>
@@ -52,7 +52,7 @@ useHead({
   &::after {
     content: "";
     position: absolute;
-    bottom: -348px;
+    bottom: -782px;
     left: 0;
     width: 100%;
     height: 150px;
@@ -87,28 +87,32 @@ useHead({
     }
   }
 
-  .main-description {
+  .content-section {
     width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding-bottom: 17rem;
+    margin-bottom: 17rem;
 
-    @media (max-width: 576px) {
-      width: 95%;
+    .main-description {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-bottom: 5rem;
+
+      @media (max-width: 576px) {
+        width: 95%;
+      }
+
+      &__intro {
+        font-size: 1.1rem;
+        margin-bottom: 4rem;
+        color: #333;
+        line-height: 1.75rem;
+      }
     }
 
-    &__intro {
-      font-size: 1.1rem;
-      margin-bottom: 4rem;
-      color: #333;
-      line-height: 1.75rem;
+    .pubblicazioni__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
     }
-  }
-
-  .pubblicazioni__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
   }
 }
 </style>

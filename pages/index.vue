@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from "vue";
-import carousel from "~/data/carousel";
+// import carousel from "~/data/carousel";
 import Button from "~/components/utili/Button.vue";
 
 // Importa le immagini per il carousel
@@ -51,7 +51,7 @@ const sliderItems = [
     image: nibbio,
     title: "Non lasciare traccia in natura",
     description:
-      "Passa nella natura con rispetto: osserva, impara, non lasciare traccia.",
+      "Passa nella natura con <strong>rispetto: osserva, impara, non lasciare traccia</strong>.",
     text: "",
     quote: "",
   },
@@ -59,16 +59,16 @@ const sliderItems = [
     image: nibbio2,
     title: "Restare curiosi come da bambini",
     description:
-      "La curiosità nasce da bambini: custodiamola per continuare a scoprire la natura.",
+      "La <strong>curiosità</strong> nasce da bambini: custodiamola per continuare a <strong>scoprire la natura</strong>.",
     text: "Le parole di Gianluca Danini:",
     quote:
-      "Ciò che spinge tutti alla ricerca è la curiosità. È una cosa che nasce da bambini ed è bene tenersela da adulti, anzi direi anche a settant'anni, come faccio io...",
+      "<strong>&laquo;Ciò che spinge tutti alla ricerca è la curiosità. È una cosa che nasce da bambini ed è bene tenersela da adulti, anzi direi anche a settant'anni, come faccio io...&raquo;</strong>",
   },
   {
     image: nibbio3,
     title: "Osservare la natura dal quotidiano",
     description:
-      "La natura è ovunque: impariamo a osservarla, a partire dal balcone di casa.",
+      "La natura è ovunque: <strong>impariamo a osservarla</strong>, a partire dal <strong>balcone di casa</strong>.",
     text: "",
     quote: "",
   },
@@ -76,7 +76,7 @@ const sliderItems = [
     image: nibbio4,
     title: "Oltre l'osservazione",
     description:
-      "Conoscere per proteggere: ricerca e divulgazione per la tutela dell'avifauna insubrica.",
+      "<strong>Conoscere per proteggere: ricerca e divulgazione</strong> per la <strong>tutela dell'avifauna insubrica</strong>.",
     text: "",
     quote: "",
   },
@@ -296,15 +296,14 @@ onUnmounted(() => {
                   <div :class="['slide-overlay', slideDirection]">
                     <div class="slide-content">
                       <h3 class="slide-title uppercase">{{ slide.title }}</h3>
-                      <p class="slide-description">
-                        {{ slide.description }}
-                      </p>
+                      <p
+                        class="slide-description"
+                        v-html="slide.description"
+                      ></p>
                       <p id="text" class="slide-description">
                         {{ slide.text }}
                       </p>
-                      <p class="slide-description italic">
-                        {{ slide.quote }}
-                      </p>
+                      <p class="slide-description" v-html="slide.quote"></p>
                     </div>
                   </div>
                 </div>
@@ -334,47 +333,65 @@ onUnmounted(() => {
           <div class="square">
             <p class="first-paragraph">
               Il Gruppo Insubrico di Ornitologia si ispira ai principi
-              dell&rsquo;educazione ambientale e della promozione della cultura
-              naturalistica tra i cittadini e persegue, nell&rsquo;ambito
-              territoriale locale come scopo prioritario lo studio e la
-              salvaguardia dell&rsquo;avifauna, nonch&eacute; la gestione e la
-              valorizzazione di aree di interesse naturalistico.
+              dell&rsquo;&nbsp;<strong>educazione ambientale</strong> e della
+              <strong>promozione della cultura naturalistica</strong> tra i
+              cittadini e persegue, nell&rsquo;&nbsp;ambito territoriale locale
+              come scopo prioritario
+              <strong
+                >lo studio e la salvaguardia dell&rsquo;&nbsp;avifauna</strong
+              >, nonch&eacute; la
+              <strong
+                >gestione e la valorizzazione di aree di interesse
+                naturalistico</strong
+              >.
             </p>
 
             <hr class="first-line" />
 
             <p class="second-paragraph">
               Osservare un uccello in volo significa raccontare una storia di
-              natura, territorio e biodiversit&agrave;. La nostra associazione
-              mobilita una rete dinamica di cittadini, appassionati e
-              ricercatori, uniti dal desiderio di comprendere a fondo le specie
-              locali e i loro ecosistemi. Attraverso progetti mirati sul campo,
-              divulgazione scientifica e gestione attiva delle oasi protette,
-              lavoriamo quotidianamente per tutelare la biodiversit&agrave; e
-              rinsaldare il legame profondo tra comunit&agrave; e territorio.
+              natura, territorio e <strong>biodiversit&agrave;</strong>. La
+              nostra associazione mobilita una
+              <strong
+                >rete dinamica di cittadini, appassionati e ricercatori</strong
+              >, uniti dal desiderio di comprendere a fondo le
+              <strong>specie locali</strong> e i loro
+              <strong>ecosistemi</strong>. Attraverso
+              <strong
+                >progetti mirati sul campo e divulgazione scientifica</strong
+              >, lavoriamo quotidianamente per
+              <strong>tutelare la biodiversit&agrave;</strong> e rinsaldare il
+              legame profondo tra comunit&agrave; e territorio.
             </p>
 
             <hr class="second-line" />
 
             <p class="third-paragraph">
-              Crediamo che conoscere la natura sia il primo passo per
-              proteggerla. Il sodalizio investe risorse ed energie nel
-              monitoraggio scientifico, trasformando i dati raccolti in efficaci
-              strumenti di conservazione e in preziosi elementi a disposizione
-              delle autorit&agrave; competenti per una gestione consapevole del
-              territorio, utili a pianificare interventi mirati di tutela
-              ambientale. Questa sinergia tra ricerca e sensibilizzazione
-              permette di salvaguardare concretamente la fauna selvatica,
-              valorizzando l'immenso patrimonio ecologico circostante.
+              Crediamo che
+              <strong
+                >conoscere la natura sia il primo passo per proteggerla</strong
+              >. Il sodalizio investe risorse ed energie nel
+              <strong>monitoraggio scientifico</strong>, trasformando i dati
+              raccolti in <strong>efficaci strumenti di conservazione</strong> e
+              in preziosi elementi a disposizione delle autorit&agrave;
+              competenti per una
+              <strong>gestione consapevole del territorio</strong>, utili a
+              pianificare
+              <strong>interventi mirati di tutela ambientale</strong>. Questa
+              sinergia tra <strong>ricerca e sensibilizzazione</strong> permette
+              di salvaguardare concretamente l&rsquo;&nbsp;<strong
+                >avifauna selvatica</strong
+              >, valorizzando il patrimonio ecologico circostante.
             </p>
 
             <hr class="third-line" />
 
             <p class="fourth-paragraph">
-              Studiare, conoscere, proteggere. Sosteniamo un modello di sviluppo
-              sostenibile in cui la cittadinanza attiva diventa custode
-              consapevole del paesaggio, garantendo un futuro alle ricchezze
-              biologiche della nostra regione
+              <strong>Studiare, conoscere, proteggere</strong>. Sosteniamo un
+              modello di <strong>sviluppo sostenibile</strong> in cui la
+              <strong>cittadinanza attiva</strong> diventa
+              <strong>custode consapevole del paesaggio</strong>, garantendo un
+              futuro alle ricchezze biologiche della nostra regione.
             </p>
             <div class="button-container">
               <Button
