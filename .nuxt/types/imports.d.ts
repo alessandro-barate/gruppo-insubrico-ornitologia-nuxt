@@ -191,7 +191,7 @@ declare global {
   export type { ItemLink, SubsectionItem, Subsection, SubsectionCardData } from '../../composables/useDivulgazione'
   import('../../composables/useDivulgazione')
   // @ts-ignore
-  export type { CardItem, PdfItem, BibliographyItem, SubsectionType, CardsNode, PdfListNode, BibliographyNode, GroupNode, PubNode, PubCardData } from '../../composables/usePubblicazioni'
+  export type { CardItem, PdfItem, BibliographyItem, SubsectionType, CardsNode, PdfListNode, BibliographyNode, GroupNode, PubNode, PubCardData, Crumb } from '../../composables/usePubblicazioni'
   import('../../composables/usePubblicazioni')
 }
 // for vue template auto import

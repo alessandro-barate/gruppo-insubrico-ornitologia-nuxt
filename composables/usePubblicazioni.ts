@@ -68,11 +68,17 @@ export interface PubCardData {
   type: SubsectionType;
 }
 
+// Voce di breadcrumb: titolo leggibile + URL cumulativo
+export interface Crumb {
+  title: string;
+  to: string;
+}
+
 // ─── MOCK DATA ───────────────────────────────────────────
 // TODO: rimuovere quando il backend è pronto.
 // La forma replica l'output atteso dalle API Resources Laravel.
 const PUBBLICAZIONI_INTRO =
-  "Le pubblicazioni scientifiche del Gruppo Insubrico di Ornitologia raccolgono oltre vent'anni di attivit&agrave; scientifica e divulgativa, documentando ricerche, monitoraggi e studi dedicati all'avifauna. In questa sezione sono disponibili i <strong><em>Quaderni del G.I.O.</em></strong>, il <strong><em>Bollettino Ornitologico Lombardo</em></strong>, gli <strong><em>Uccelli della Provincia di Varese</em></strong> che comprende la <strong><em>Lista degli uccelli</em></strong> e il <strong><em>Resoconto ornitologico della provincia di Varese</em></strong>, oltre alla bibliografia dei lavori scientifici realizzati dai soci. Un patrimonio di conoscenze messo a disposizione di ricercatori, appassionati e di tutti gli interessati all'ornitologia.";
+  "Le pubblicazioni scientifiche del Gruppo Insubrico di Ornitologia raccolgono oltre vent'anni di attivit&agrave; scientifica e divulgativa, documentando ricerche, monitoraggi e studi dedicati all'avifauna. In questa sezione sono disponibili i <strong><em>Quaderni del G.I.O.</em></strong>, il <strong><em>BOL - Bollettino Ornitologico Lombardo</em></strong>, gli <strong><em>Uccelli della Provincia di Varese</em></strong> che comprende la <strong><em>Lista degli uccelli</em></strong> e il <strong><em>Resoconto ornitologico della provincia di Varese</em></strong>, oltre alla bibliografia dei lavori scientifici realizzati dai soci. Un patrimonio di conoscenze messo a disposizione di ricercatori, appassionati e di tutti gli interessati all'ornitologia.";
 
 const MOCK_TREE: PubNode[] = [
   {
@@ -112,7 +118,7 @@ const MOCK_TREE: PubNode[] = [
   },
   {
     slug: "bol",
-    title: "BOL — Bollettino Ornitologico Lombardo",
+    title: "BOL",
     type: "pdf-list",
     intro_text:
       "<p>Il Bollettino Ornitologico Lombardo raccoglie le osservazioni e i contributi dei soci, pubblicato periodicamente.</p>",
@@ -275,6 +281,23 @@ function resolveNode(segments: string[]): PubNode | null {
   return found;
 }
 
+// Come resolveNode, ma raccoglie TUTTI i nodi attraversati (la "scia").
+// Es. ['liste','racconti-ornitologici'] → [nodoListe, nodoRacconti].
+// Si ferma appena un segmento non si risolve.
+function resolveTrail(segments: string[]): PubNode[] {
+  const trail: PubNode[] = [];
+  let currentLevel: PubNode[] = MOCK_TREE;
+
+  for (const segment of segments) {
+    const match = currentLevel.find((n) => n.slug === segment);
+    if (!match) break;
+    trail.push(match);
+    currentLevel = match.type === "group" ? match.children : [];
+  }
+
+  return trail;
+}
+
 // Riduce un nodo alla forma-card per la navigazione
 function toCard(node: PubNode): PubCardData {
   return {
@@ -318,5 +341,15 @@ export function usePubblicazioni() {
     });
   };
 
-  return { getHome, getNode };
+  // Voci breadcrumb DOPO la home. Ogni voce ha l'URL cumulativo
+  // fino a quel livello; l'ultima corrisponde alla pagina corrente.
+  const buildCrumbs = (segments: string[]): Crumb[] => {
+    const trail = resolveTrail(segments);
+    return trail.map((node, i) => ({
+      title: node.title,
+      to: `/pubblicazioni/${segments.slice(0, i + 1).join("/")}`,
+    }));
+  };
+
+  return { getHome, getNode, buildCrumbs };
 }

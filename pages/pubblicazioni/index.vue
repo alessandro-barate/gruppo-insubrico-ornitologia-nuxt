@@ -2,6 +2,9 @@
 const { getHome } = usePubblicazioni();
 const { data } = await getHome();
 
+console.log("intro_text:", data.value?.intro_text);
+console.log("cards:", data.value?.cards?.length);
+
 useSeoMeta({
   title: "Pubblicazioni | Gruppo Insubrico di Ornitologia",
   description:

@@ -14,7 +14,7 @@ const segments = computed(() => {
   return Array.isArray(raw) ? raw : [raw].filter(Boolean);
 });
 
-const { getNode } = usePubblicazioni();
+const { getNode, buildCrumbs } = usePubblicazioni();
 const { data } = await getNode(segments.value);
 
 if (!data.value) {
@@ -29,6 +29,9 @@ const node = computed(() => data.value?.node ?? null);
 const childCards = computed(() => data.value?.childCards ?? []);
 
 const basePath = computed(() => `/pubblicazioni/${segments.value.join("/")}`);
+
+// Breadcrumb: le voci dopo la home. L'ultima è la pagina corrente.
+const crumbs = computed(() => buildCrumbs(segments.value));
 
 // ─── Paginazione ────────────────────────────────────────
 const PER_PAGE = 4;
@@ -86,26 +89,32 @@ useSeoMeta({
 <template>
   <section v-if="node" class="subsection">
     <div class="subsection__intro">
-      <div class="subsection__back">
-        <NuxtLink to="/pubblicazioni" class="subsection__link">
+      <!-- Breadcrumb: Pubblicazioni / …livelli intermedi… / pagina corrente -->
+      <nav class="breadcrumb" aria-label="Percorso di navigazione">
+        <NuxtLink to="/pubblicazioni" class="breadcrumb__link">
           <img
             src="../../assets/images/scientific-dissemination/chevron-left.svg"
             alt=""
           />
-          Pubblicazioni</NuxtLink
-        >
-        <NuxtLink
-          v-if="node.liste"
-          to="/pubblicazioni"
-          class="subsection__link"
-        >
-          <img
-            src="../../assets/images/scientific-dissemination/chevron-left.svg"
-            alt=""
-          />
-          Pubblicazioni</NuxtLink
-        >
-      </div>
+          Pubblicazioni
+        </NuxtLink>
+
+        <template v-for="(crumb, i) in crumbs" :key="crumb.to">
+          <span class="breadcrumb__sep" aria-hidden="true">/</span>
+          <!-- l'ultima voce è la pagina corrente: testo, non link -->
+          <NuxtLink
+            v-if="i < crumbs.length - 1"
+            :to="crumb.to"
+            class="breadcrumb__link"
+          >
+            {{ crumb.title }}
+          </NuxtLink>
+          <span v-else class="breadcrumb__current" aria-current="page">
+            {{ crumb.title }}
+          </span>
+        </template>
+      </nav>
+
       <h1>{{ node.title }}</h1>
       <div
         v-if="node.intro_text"
