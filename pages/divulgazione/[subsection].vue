@@ -48,8 +48,8 @@ useSeoMeta({
             src="../../assets/images/scientific-dissemination/chevron-left.svg"
             alt=""
           />
-        </NuxtLink>
-        <span>Divulgazione</span>
+          Divulgazione</NuxtLink
+        >
       </div>
       <h1>{{ subsection.title }}</h1>
       <!-- intro_text arriva come HTML sanitizzato dal backend -->
@@ -104,90 +104,5 @@ useSeoMeta({
 </template>
 
 <style scoped lang="scss">
-.subsection {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem 1.25rem 4rem;
-  color: var(--color-text-muted, #333);
-
-  &__back {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    text-decoration: none;
-
-    img {
-      width: 100%;
-      margin-left: 0;
-      transition: all 0.5s ease-in-out;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-  }
-
-  &__link {
-    width: 1%;
-    margin-left: 0;
-    margin-right: 1.5rem;
-  }
-
-  span {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  &__intro {
-    margin-bottom: 3rem;
-  }
-}
-
-.subsection__intro h1 {
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  margin-bottom: 1rem;
-}
-
-.subsection__intro-text {
-  color: var(--color-text-muted, #444);
-  line-height: 1.7;
-}
-
-.subsection__items {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.pagination {
-  width: 50%;
-  margin-top: 2rem;
-  text-align: center;
-
-  button {
-    border: none;
-    background-color: transparent;
-  }
-
-  &__page {
-    color: #333;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-  }
-
-  &__arrow {
-    width: 10%;
-    color: aqua;
-
-    img {
-      width: 20%;
-    }
-  }
-
-  &__arrow,
-  &__page {
-    cursor: pointer;
-  }
-}
+@use "~/assets/scss/_partials/subsection" as *;
 </style>

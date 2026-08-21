@@ -144,17 +144,21 @@ onMounted(() => {
           <article class="paragraphs-container">
             <!-- First paragraph -->
             <p class="first-paragraph">
-              Il Gruppo Insubrico di Ornitologia (G.I.O.) si forma nel 1999 per
-              iniziativa di Piero Alberti, Walter Guenzani e Fabio Saporetti
-              presso il Civico Museo Insubrico di Storia Naturale di Induno
-              Olona, grazie all&rsquo;ospitalit&agrave; offerta dal Curatore
+              <strong>Il Gruppo Insubrico di Ornitologia (G.I.O.)</strong> si
+              forma nel <strong>1999</strong> per iniziativa di Piero Alberti,
+              Walter Guenzani e Fabio Saporetti presso il
+              <strong
+                >Civico Museo Insubrico di Storia Naturale di Induno
+                Olona</strong
+              >, grazie all&rsquo;&nbsp;ospitalit&agrave; offerta dal Curatore
               Gianluca Danini.
               <br />
-              Nel dicembre 2009 il G.I.O., per volont&agrave; di 9 soci
-              fondatori, si costituisce come Onlus presso il Registro di Varese,
-              spostandosi da Induno Olona a Clivio, nell&rsquo;edificio che
-              diverr&agrave; la sede del nuovo Museo Civico di Storia Naturale
-              di Clivio e Induno Olona.
+              Nel <strong>dicembre 2009</strong> il G.I.O., per volont&agrave;
+              di 9 soci fondatori, si costituisce come
+              <strong>Onlus</strong> presso il Registro di Varese, spostandosi
+              da Induno Olona a <strong>Clivio</strong>,
+              nell&rsquo;&nbsp;edificio che diverr&agrave; la sede del nuovo
+              Museo Civico di Storia Naturale di Clivio e Induno Olona.
             </p>
 
             <hr class="break-line" />
@@ -162,17 +166,28 @@ onMounted(() => {
             <!-- Second paragraph -->
             <div class="second-paragraph-container d-flex">
               <p class="second-paragraph">
-                Per il periodo 2010-2012 viene eletto il primo Consiglio
-                Direttivo con Fabio Saporetti (Presidente), Monica Carabella
+                Per il periodo 2010-2012 viene eletto il
+                <strong>primo Consiglio Direttivo</strong> con
+                <strong>Fabio Saporetti (Presidente)</strong>, Monica Carabella
                 (Vice-Presidente) e 3 Consiglieri: Paolo Casali (poi sostituito
                 da Andrea Vidolini), Silvio Colaone e Walter Guenzani.
                 <br />
-                Dal 2022 il G.I.O. &egrave; iscritto al Runts come&nbsp;
-                Organizzazione di Volontariato (ODV) senza scopo di lucro. Dopo
-                oltre 20 anni di attivit&agrave; conta pi&ugrave; di 80 soci ed
-                &egrave; l'associazione di riferimento per l'ornitologia
-                dell'area varesina e ha tuttora sede ufficiale presso il Civico
-                Museo Insubrico di Storia Naturale di Clivio e Induno Olona.
+                Dal <strong>2022</strong> il G.I.O. &egrave; iscritto al
+                <strong>Runts</strong> come
+                <strong>Organizzazione di Volontariato (ODV)</strong> senza
+                scopo di lucro. Dopo
+                <strong>oltre 20 anni di attivit&agrave;</strong> conta
+                <strong>pi&ugrave; di 80 soci</strong> ed &egrave;
+                <strong
+                  >l&rsquo;&nbsp;associazione di riferimento per
+                  l&rsquo;&nbsp;ornitologia dell&rsquo;&nbsp;area
+                  varesina</strong
+                >
+                e ha tuttora <strong>sede ufficiale</strong> presso il
+                <strong
+                  >Civico Museo Insubrico di Storia Naturale di Clivio e Induno
+                  Olona</strong
+                >.
               </p>
             </div>
 
@@ -181,16 +196,26 @@ onMounted(() => {
             <!-- Third paragraph -->
             <div class="second-paragraph-container d-flex">
               <p class="second-paragraph">
-                Scopo principale dell&rsquo;associazione &egrave; quello di
-                promuovere l&rsquo;indagine ornitologica a livello provinciale
-                ed insubrico, unitamente ad attivit&agrave; di divulgazione con
-                l&rsquo;organizzazione di conferenze, corsi didattici e
-                convegni. Si occupa di censimenti, monitoraggi, studi ecologici,
-                pubblicazioni scientifiche e divulgative sull'avifauna e
-                collabora regolarmente con enti pubblici e privati e istituzioni
-                territoriali, tra cui la Provincia di Varese,
-                l'Universit&agrave; degli Studi dell'Insubria, le
-                Comunit&agrave; Montane del Verbano e del Piambello.
+                Scopo principale dell&rsquo;&nbsp;associazione &egrave; quello
+                di
+                <strong>promuovere l&rsquo;&nbsp;indagine ornitologica</strong>
+                a livello provinciale ed insubrico, unitamente ad
+                <strong>attivit&agrave; di divulgazione</strong> con
+                l&rsquo;&nbsp;organizzazione di
+                <strong>conferenze, corsi didattici e convegni</strong>. Si
+                occupa di
+                <strong
+                  >censimenti, monitoraggi, studi ecologici, pubblicazioni
+                  scientifiche e divulgative</strong
+                >
+                sull&rsquo;&nbsp;avifauna e
+                <strong
+                  >collabora regolarmente con enti pubblici e privati e
+                  istituzioni territoriali</strong
+                >, tra cui la Provincia di Varese,
+                l&rsquo;&nbsp;Universit&agrave; degli Studi
+                dell&rsquo;&nbsp;Insubria, le Comunit&agrave; Montane del
+                Verbano e del Piambello.
               </p>
             </div>
           </article>
@@ -545,7 +570,7 @@ button {
 
     .first-paragraph {
       width: 70%;
-      padding: 1rem 2rem 2.3rem 2rem;
+      padding: 2rem 2rem 2.3rem 2rem;
     }
 
     .second-paragraph-container {

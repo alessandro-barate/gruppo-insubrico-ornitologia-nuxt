@@ -1,7 +1,9 @@
 // ─── TIPI (contratto con la futura API Laravel) ──────────
 // Il modello è un ALBERO: ogni nodo è una sottosezione che O ha
 // item propri (foglia) O ha figli (contenitore "group").
-// Il campo `type` dice al frontend come renderizzare gli item.
+// Usiamo una DISCRIMINATED UNION sul campo `type`: così quando
+// controlli `node.type === 'cards'`, TypeScript sa già che
+// `node.items` è CardItem[]. Nessun cast necessario.
 
 // Tipi di item, uno per natura di sottosezione ───────────
 export interface CardItem {
@@ -24,18 +26,38 @@ export interface BibliographyItem {
 
 export type SubsectionType = "cards" | "pdf-list" | "bibliography" | "group";
 
-// Un nodo dell'albero. `items` e `children` sono mutuamente
-// esclusivi: un "group" ha children, tutti gli altri hanno items.
-export interface PubNode {
+// Campi comuni a tutti i nodi
+interface BaseNode {
   slug: string;
   title: string;
-  type: SubsectionType;
   intro_text?: string;
   intro_excerpt?: string;
   image_path?: string;
-  items?: CardItem[] | PdfItem[] | BibliographyItem[];
-  children?: PubNode[];
 }
+
+// Varianti: ogni `type` è legato al suo tipo di item (o a children)
+export interface CardsNode extends BaseNode {
+  type: "cards";
+  items: CardItem[];
+}
+
+export interface PdfListNode extends BaseNode {
+  type: "pdf-list";
+  items: PdfItem[];
+}
+
+export interface BibliographyNode extends BaseNode {
+  type: "bibliography";
+  items: BibliographyItem[];
+}
+
+export interface GroupNode extends BaseNode {
+  type: "group";
+  children: PubNode[];
+}
+
+// L'unione discriminata: un nodo è UNA di queste quattro forme.
+export type PubNode = CardsNode | PdfListNode | BibliographyNode | GroupNode;
 
 // Forma ridotta per le card di navigazione (home e nodi group)
 export interface PubCardData {
@@ -50,7 +72,7 @@ export interface PubCardData {
 // TODO: rimuovere quando il backend è pronto.
 // La forma replica l'output atteso dalle API Resources Laravel.
 const PUBBLICAZIONI_INTRO =
-  "Le pubblicazioni scientifiche del Gruppo Insubrico di Ornitologia raccolgono oltre vent'anni di attivit&agrave; scientifica e divulgativa, documentando ricerche, monitoraggi e studi dedicatiall'avifauna. In questa sezione sono disponibili i <strong><em>Quaderni del G.I.O.</em></strong>, il <strong><em>Bollettino Ornitologico Lombardo</em></strong>, gli <strong><em>Uccelli della Provincia di Varese</em></strong> che comprende la <strong><em>Lista degli uccelli</em></strong> e il <strong><em>Resoconto ornitologico della provincia di Varese</em></strong>, oltre alla bibliografia dei lavori scientifici realizzati dai soci. Un patrimonio di conoscenze messo a disposizione di ricercatori, appassionati e di tutti gli interessati all'ornitologia.";
+  "Le pubblicazioni scientifiche del Gruppo Insubrico di Ornitologia raccolgono oltre vent'anni di attivit&agrave; scientifica e divulgativa, documentando ricerche, monitoraggi e studi dedicati all'avifauna. In questa sezione sono disponibili i <strong><em>Quaderni del G.I.O.</em></strong>, il <strong><em>Bollettino Ornitologico Lombardo</em></strong>, gli <strong><em>Uccelli della Provincia di Varese</em></strong> che comprende la <strong><em>Lista degli uccelli</em></strong> e il <strong><em>Resoconto ornitologico della provincia di Varese</em></strong>, oltre alla bibliografia dei lavori scientifici realizzati dai soci. Un patrimonio di conoscenze messo a disposizione di ricercatori, appassionati e di tutti gli interessati all'ornitologia.";
 
 const MOCK_TREE: PubNode[] = [
   {
@@ -86,7 +108,7 @@ const MOCK_TREE: PubNode[] = [
         body: "<p>L'adattamento dell'avifauna agli ambienti antropizzati e urbani.</p>",
         image_path: "/images/pubblicazioni/quaderni/q4.jpg",
       },
-    ] as CardItem[],
+    ],
   },
   {
     slug: "bol",
@@ -132,7 +154,7 @@ const MOCK_TREE: PubNode[] = [
         title: "Bollettino N.1 2026",
         pdf_url: "/docs/bol/bol-1-2026.pdf",
       },
-    ] as PdfItem[],
+    ],
   },
   {
     slug: "paper",
@@ -155,7 +177,7 @@ const MOCK_TREE: PubNode[] = [
         id: 22,
         text: "Gialli P. (2023). <em>Svernamento degli acquatici nei laghi prealpini</em>. Alula, 30(1), 3-15.",
       },
-    ] as BibliographyItem[],
+    ],
   },
   {
     slug: "liste",
@@ -179,7 +201,7 @@ const MOCK_TREE: PubNode[] = [
             title: "Lista uccelli Provincia di Varese 2020",
             pdf_url: "/docs/liste/lista-varese-2020.pdf",
           },
-        ] as PdfItem[],
+        ],
       },
       {
         slug: "racconti-ornitologici",
@@ -229,7 +251,7 @@ const MOCK_TREE: PubNode[] = [
             title: "Racconto Ornitologico 2024",
             pdf_url: "/docs/racconti/2024.pdf",
           },
-        ] as PdfItem[],
+        ],
       },
     ],
   },
@@ -246,7 +268,8 @@ function resolveNode(segments: string[]): PubNode | null {
     const match = currentLevel.find((n) => n.slug === segment);
     if (!match) return null;
     found = match;
-    currentLevel = match.children ?? [];
+    // solo i nodi "group" hanno figli su cui proseguire
+    currentLevel = match.type === "group" ? match.children : [];
   }
 
   return found;
@@ -290,8 +313,7 @@ export function usePubblicazioni() {
       return Promise.resolve({
         node,
         // se è un contenitore, pre-calcolo le card dei figli
-        childCards:
-          node.type === "group" ? (node.children ?? []).map(toCard) : [],
+        childCards: node.type === "group" ? node.children.map(toCard) : [],
       });
     });
   };

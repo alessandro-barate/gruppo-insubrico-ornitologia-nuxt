@@ -31,16 +31,26 @@ useHead({
         <section>
           <div class="main-description">
             <p class="main-description__intro">
-              La divulgazione &egrave; una delle attivit&agrave; fondamentali
-              del Gruppo Insubrico di Ornitologia e rappresenta il principale
-              strumento per condividere conoscenze, promuovere la cultura
-              scientifica e sensibilizzare alla tutela dell'avifauna. Attraverso
-              corsi di ornitologia, serate divulgative, incontri e convegni, il
-              G.I.O. favorisce il dialogo tra ricercatori, appassionati e
-              cittadini. In questa sezione sono raccolte le iniziative
-              organizzate nel corso degli anni, testimonianza dell'impegno della
-              nostra associazione nella formazione, nella ricerca e nella
-              diffusione della conoscenza ornitologica.
+              La <strong>divulgazione</strong> &egrave; una delle
+              attivit&agrave; fondamentali del
+              <strong>Gruppo Insubrico di Ornitologia</strong> e rappresenta il
+              principale strumento per
+              <strong
+                >condividere conoscenze, promuovere la cultura
+                scientifica</strong
+              >
+              e <strong>sensibilizzare alla tutela dell'avifauna</strong>.
+              Attraverso
+              <strong
+                >corsi di ornitologia, serate divulgative, incontri e
+                convegni</strong
+              >, il <strong>G.I.O.</strong> favorisce il
+              <strong>dialogo tra ricercatori, appassionati e cittadini</strong
+              >. In questa sezione sono raccolte le
+              <strong>iniziative</strong> organizzate nel corso degli anni,
+              testimonianza dell'impegno della nostra associazione nella
+              <strong>formazione</strong>, nella <strong>ricerca</strong> e
+              nella <strong>diffusione della conoscenza ornitologica</strong>.
             </p>
           </div>
 
