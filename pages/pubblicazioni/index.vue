@@ -2,9 +2,6 @@
 const { getHome } = usePubblicazioni();
 const { data } = await getHome();
 
-console.log("intro_text:", data.value?.intro_text);
-console.log("cards:", data.value?.cards?.length);
-
 useSeoMeta({
   title: "Pubblicazioni | Gruppo Insubrico di Ornitologia",
   description:
@@ -37,11 +34,13 @@ useHead({
           </div>
 
           <div class="pubblicazioni__grid">
-            <PubblicazioniNavCard
+            <SharedNavCard
               v-for="card in data.cards"
               :key="card.slug"
-              :card="card"
-              base-path="/pubblicazioni"
+              :to="`/pubblicazioni/${card.slug}`"
+              :title="card.title"
+              :excerpt="card.intro_excerpt"
+              :image="card.image_path"
             />
           </div>
         </section>

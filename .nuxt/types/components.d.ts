@@ -20,12 +20,13 @@ interface _GlobalComponents {
   'NewsCard': typeof import("../../components/NewsCard.vue").default
   'NewsCarousel': typeof import("../../components/NewsCarousel.vue").default
   'DivulgazioneItemCard': typeof import("../../components/divulgazione/ItemCard.vue").default
-  'DivulgazioneSubsectionCard': typeof import("../../components/divulgazione/SubsectionCard.vue").default
+  'ProgettiProjectCard': typeof import("../../components/progetti/ProjectCard.vue").default
+  'ProgettiTypedLink': typeof import("../../components/progetti/TypedLink.vue").default
   'PubblicazioniBiblioItem': typeof import("../../components/pubblicazioni/BiblioItem.vue").default
   'PubblicazioniCardItem': typeof import("../../components/pubblicazioni/CardItem.vue").default
-  'PubblicazioniNavCard': typeof import("../../components/pubblicazioni/NavCard.vue").default
   'PubblicazioniPdfItem': typeof import("../../components/pubblicazioni/PdfItem.vue").default
-  'UtiliButton': typeof import("../../components/utili/Button.vue").default
+  'SharedButton': typeof import("../../components/shared/Button.vue").default
+  'SharedNavCard': typeof import("../../components/shared/NavCard.vue").default
   'NuxtWelcome': typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue").default
   'NuxtLayout': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout").default
   'NuxtErrorBoundary': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue").default
@@ -55,12 +56,13 @@ interface _GlobalComponents {
   'LazyNewsCard': LazyComponent<typeof import("../../components/NewsCard.vue").default>
   'LazyNewsCarousel': LazyComponent<typeof import("../../components/NewsCarousel.vue").default>
   'LazyDivulgazioneItemCard': LazyComponent<typeof import("../../components/divulgazione/ItemCard.vue").default>
-  'LazyDivulgazioneSubsectionCard': LazyComponent<typeof import("../../components/divulgazione/SubsectionCard.vue").default>
+  'LazyProgettiProjectCard': LazyComponent<typeof import("../../components/progetti/ProjectCard.vue").default>
+  'LazyProgettiTypedLink': LazyComponent<typeof import("../../components/progetti/TypedLink.vue").default>
   'LazyPubblicazioniBiblioItem': LazyComponent<typeof import("../../components/pubblicazioni/BiblioItem.vue").default>
   'LazyPubblicazioniCardItem': LazyComponent<typeof import("../../components/pubblicazioni/CardItem.vue").default>
-  'LazyPubblicazioniNavCard': LazyComponent<typeof import("../../components/pubblicazioni/NavCard.vue").default>
   'LazyPubblicazioniPdfItem': LazyComponent<typeof import("../../components/pubblicazioni/PdfItem.vue").default>
-  'LazyUtiliButton': LazyComponent<typeof import("../../components/utili/Button.vue").default>
+  'LazySharedButton': LazyComponent<typeof import("../../components/shared/Button.vue").default>
+  'LazySharedNavCard': LazyComponent<typeof import("../../components/shared/NavCard.vue").default>
   'LazyNuxtWelcome': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue").default>
   'LazyNuxtLayout': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout").default>
   'LazyNuxtErrorBoundary': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue").default>

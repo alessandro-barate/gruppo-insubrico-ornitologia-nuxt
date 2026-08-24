@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from "vue";
 // import carousel from "~/data/carousel";
-import Button from "~/components/utili/Button.vue";
+import Button from "~/components/shared/Button.vue";
 
 // Importa le immagini per il carousel
 import nibbio from "~/assets/images/jumbo-home/nibbio.webp";

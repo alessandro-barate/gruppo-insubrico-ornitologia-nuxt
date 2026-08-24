@@ -55,10 +55,13 @@ useHead({
           </div>
 
           <div class="cards-section">
-            <DivulgazioneSubsectionCard
+            <SharedNavCard
               v-for="sub in subsections"
               :key="sub.slug"
-              :subsection="sub"
+              :to="`/divulgazione/${sub.slug}`"
+              :title="sub.title"
+              :excerpt="sub.intro_excerpt"
+              :image="sub.image_path"
             />
           </div>
         </section>
@@ -127,6 +130,17 @@ useHead({
 
   .cards-section {
     margin-bottom: 14rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    width: 90%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (max-width: 576px) {
+      width: 95%;
+    }
   }
 }
 </style>

@@ -125,11 +125,13 @@ useSeoMeta({
 
     <!-- CONTENITORE (group): mostra le card dei figli -->
     <div v-if="node.type === 'group'" class="subsection__grid">
-      <PubblicazioniNavCard
+      <SharedNavCard
         v-for="card in childCards"
         :key="card.slug"
-        :card="card"
-        :base-path="basePath"
+        :to="`${basePath}/${card.slug}`"
+        :title="card.title"
+        :excerpt="card.intro_excerpt"
+        :image="card.image_path"
       />
     </div>
 

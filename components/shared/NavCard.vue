@@ -1,28 +1,22 @@
 <script setup lang="ts">
-import type { PubCardData } from "~/composables/usePubblicazioni";
-
-const props = defineProps<{
-  card: PubCardData;
-  basePath: string;
+// Card di navigazione condivisa da Divulgazione, Pubblicazioni e Progetti.
+// Riceve il link GIÀ COSTRUITO (`to`) più i campi da mostrare.
+defineProps<{
+  to: string;
+  title: string;
+  excerpt?: string;
+  image?: string;
 }>();
-
-// Costruisce il link concatenando base + slug del nodo
-const to = computed(() => `${props.basePath}/${props.card.slug}`);
 </script>
 
 <template>
   <NuxtLink :to="to" class="nav-card">
     <div class="nav-card__media">
-      <img
-        v-if="card.image_path"
-        :src="card.image_path"
-        :alt="card.title"
-        loading="lazy"
-      />
+      <img v-if="image" :src="image" :alt="title" loading="lazy" />
     </div>
     <div class="nav-card__body">
-      <h2>{{ card.title }}</h2>
-      <p v-if="card.intro_excerpt">{{ card.intro_excerpt }}</p>
+      <h2>{{ title }}</h2>
+      <p v-if="excerpt">{{ excerpt }}</p>
       <span class="nav-card__cta">Vai &rarr;</span>
     </div>
   </NuxtLink>
