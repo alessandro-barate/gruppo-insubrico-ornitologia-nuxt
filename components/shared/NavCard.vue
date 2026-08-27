@@ -10,31 +10,52 @@ defineProps<{
 </script>
 
 <template>
-  <NuxtLink :to="to" class="nav-card">
-    <div class="nav-card__media">
-      <img v-if="image" :src="image" :alt="title" loading="lazy" />
-    </div>
+  <NuxtLink
+    :to="to"
+    class="nav-card"
+    :style="image ? { backgroundImage: `url(${image})` } : undefined"
+  >
     <div class="nav-card__body">
       <h2>{{ title }}</h2>
       <!-- <p v-if="excerpt">{{ excerpt }}</p> -->
-      <span class="nav-card__cta">Scopri di più</span>
+      <!-- <span class="nav-card__cta">Scopri di più</span> -->
     </div>
   </NuxtLink>
 </template>
 
 <style scoped>
 .nav-card {
+  text-align: center;
+  width: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  min-height: 220px;
   overflow: hidden;
   border-radius: 12px;
-  background: var(--color-surface, #fff);
+  background-size: cover;
+  background-position: center;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   text-decoration: none;
-  color: inherit;
+  color: #e0e0e0;
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+/* Overlay scuro per rendere i testi ben leggibili */
+.nav-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.35) 60%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  transition: background 0.4s ease;
 }
 
 .nav-card:hover {
@@ -42,19 +63,18 @@ defineProps<{
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-.nav-card__media {
-  aspect-ratio: 16 / 9;
-  background: var(--color-surface-alt, #eee);
-}
-
-.nav-card__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.nav-card:hover::before {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.5) 60%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
 }
 
 .nav-card__body {
+  position: relative; /* sopra l'overlay */
+  z-index: 1;
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -64,11 +84,11 @@ defineProps<{
 .nav-card__body h2 {
   font-size: 1.25rem;
   margin: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .nav-card__body p {
   margin: 0;
-  color: var(--color-text-muted, #555);
   line-height: 1.5;
   font-size: 0.95rem;
 }
@@ -76,6 +96,6 @@ defineProps<{
 .nav-card__cta {
   margin-top: 0.5rem;
   font-weight: 600;
-  color: var(--color-accent, #2c6e49);
+  color: #c8c8c8;
 }
 </style>

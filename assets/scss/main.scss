@@ -25,3 +25,20 @@
   min-height: 100vh;
   background-color: rgb(235, 242, 252);
 }
+
+// Stili per sezioni specifiche
+.page-altri-lavori::after {
+  content: "";
+  position: absolute;
+  bottom: -278px;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: #8c8882;
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+
+  @media (max-width: 576px) {
+    bottom: -720px;
+    height: 90px;
+  }
+}

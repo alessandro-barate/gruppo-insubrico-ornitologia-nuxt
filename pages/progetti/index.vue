@@ -44,7 +44,8 @@ useHead({
               <strong>cambiamenti e le trasformazioni</strong> avvenuti nel
               tempo. I risultati delle ricerche riportate qui sotto sono
               consultabili alla pagina
-              <NuxtLink to="/pubblicazioni">Pubblicazioni Scientifiche</NuxtLink
+              <NuxtLink to="/pubblicazioni" class="specific-link"
+                >Pubblicazioni Scientifiche</NuxtLink
               >.
             </p>
           </div>
@@ -70,7 +71,7 @@ useHead({
   &::after {
     content: "";
     position: absolute;
-    bottom: -674px;
+    bottom: -734px;
     left: 0;
     width: 100%;
     height: 150px;
@@ -129,7 +130,7 @@ useHead({
   }
 
   .cards-section {
-    margin-bottom: 14rem;
+    margin-bottom: 22rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.5rem;
