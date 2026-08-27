@@ -75,6 +75,7 @@ defineProps<{
 }
 
 .project-card__content h3 {
+  text-align: center;
   margin: 0 0 0.75rem;
   font-size: 1.4rem;
 }

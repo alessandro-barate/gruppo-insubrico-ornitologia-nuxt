@@ -16,8 +16,8 @@ defineProps<{
     </div>
     <div class="nav-card__body">
       <h2>{{ title }}</h2>
-      <p v-if="excerpt">{{ excerpt }}</p>
-      <span class="nav-card__cta">Vai &rarr;</span>
+      <!-- <p v-if="excerpt">{{ excerpt }}</p> -->
+      <span class="nav-card__cta">Scopri di più</span>
     </div>
   </NuxtLink>
 </template>

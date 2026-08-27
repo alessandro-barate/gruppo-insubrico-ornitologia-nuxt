@@ -45,8 +45,8 @@ const currentTitle = computed(() =>
 // Path base per i link delle card-progetto (livello 2 navigabile)
 const basePath = computed(() => `/progetti/${segments.value.join("/")}`);
 
-// ─── Paginazione (4/pagina, sia liv.2 che liv.3) ────────
-const PER_PAGE = 4;
+// ─── Paginazione (3/pagina, sia liv.2 che liv.3) ────────
+const PER_PAGE = 3;
 const currentPage = ref(1);
 
 // La lista da paginare dipende dal caso:
@@ -231,6 +231,7 @@ useSeoMeta({
 @use "~/assets/scss/_partials/subsection" as *;
 
 .project-block {
+  text-align: center;
   margin-bottom: 1.5rem;
   color: var(--color-text-muted, #333);
   line-height: 1.7;

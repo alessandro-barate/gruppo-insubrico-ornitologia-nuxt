@@ -7,11 +7,12 @@ defineProps<{
 
 // Etichetta breve del tipo, usata come "badge" testuale dell'icona.
 // (Se in futuro userai SVG dedicati, qui mappi kind → componente icona.)
-const KIND_LABEL: Record<TypedLink["kind"], string> = {
-  pdf: "PDF",
-  external: "WEB",
-  excel: "XLS",
-  powerpoint: "PPT",
+const KIND_ICON: Record<TypedLink["kind"], string> = {
+  pdf: "/images/pdf-icon.png",
+  external: "/images/link-icon.png",
+  excel: "/images/excel-icon.png",
+  powerpoint: "/images/powerpoint-icon.png",
+  word: "/images/word-icon.png",
 };
 </script>
 
@@ -23,9 +24,7 @@ const KIND_LABEL: Record<TypedLink["kind"], string> = {
     class="typed-link"
     :class="`typed-link--${link.kind}`"
   >
-    <span class="typed-link__badge" aria-hidden="true">
-      {{ KIND_LABEL[link.kind] }}
-    </span>
+    <img class="typed-icon" :src="KIND_ICON[link.kind]" alt="" />
     <span class="typed-link__label">{{ link.label }}</span>
   </a>
 </template>
@@ -51,6 +50,13 @@ const KIND_LABEL: Record<TypedLink["kind"], string> = {
   background: var(--color-surface-alt, #f7f7f7);
 }
 
+.typed-link__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
 .typed-link__badge {
   flex-shrink: 0;
   font-size: 0.65rem;
@@ -62,7 +68,7 @@ const KIND_LABEL: Record<TypedLink["kind"], string> = {
 }
 
 /* Un colore per tipo, così l'icona-badge distingue a colpo d'occhio */
-.typed-link--pdf .typed-link__badge {
+/* .typed-link--pdf .typed-link__badge {
   background: #c0392b;
 }
 .typed-link--external .typed-link__badge {
@@ -73,5 +79,5 @@ const KIND_LABEL: Record<TypedLink["kind"], string> = {
 }
 .typed-link--powerpoint .typed-link__badge {
   background: #c43e1c;
-}
+} */
 </style>
