@@ -86,7 +86,7 @@ const MOCK_TREE: PubNode[] = [
     title: "Quaderni",
     type: "cards",
     intro_text:
-      "<p>I Quaderni del G.I.O. raccolgono studi monografici e approfondimenti tematici sull'avifauna insubrica.</p>",
+      "<p>I Quaderni del G.I.O. sono pubblicazioni scientifiche curate dai soci del Gruppo, nate con l'obiettivo di raccogliere e divulgare i risultati delle ricerche ornitologiche condotte sul territorio.<br>Si tratta di volumi cartacei che si possono ricevere tramite una donazione minima al G.I.O. OdV (gli importi sono comprensivi di eventuali spese di spedizione): le copie possono anche ritirate personalmente.<br><br>Per tutte le informazioni, le richieste per ricevere delle copie e le modalità di pagamento contattateci tramite il nostro <a href='/form' class='specific-link'>form di contatto</a>.</p>",
     intro_excerpt: "Studi monografici e approfondimenti tematici.",
     image_path: "/images/pubblicazioni/cards/quaderni.jpg",
     items: [

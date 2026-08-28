@@ -6,6 +6,7 @@ import type {
 } from "~/composables/usePubblicazioni";
 
 const route = useRoute();
+const router = useRouter();
 
 // slug catch-all → array di segmenti. Es: /pubblicazioni/liste/racconti
 // dà ['liste', 'racconti']. Nuxt lo passa come stringa o array.
@@ -78,6 +79,17 @@ function goToPage(page: number) {
   currentPage.value = page;
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
+function handleContentClick(e: MouseEvent) {
+  const a = (e.target as HTMLElement).closest("a");
+  if (!a) return;
+  const href = a.getAttribute("href");
+  // solo link interni relativi
+  if (href && href.startsWith("/")) {
+    e.preventDefault();
+    router.push(href);
+  }
+}
 // ────────────────────────────────────────────────────────
 
 useSeoMeta({
@@ -120,6 +132,7 @@ useSeoMeta({
         v-if="node.intro_text"
         class="subsection__intro-text"
         v-html="node.intro_text"
+        @click="handleContentClick"
       />
     </div>
 

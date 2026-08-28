@@ -433,14 +433,19 @@ onMounted(() => {
                       <strong>donazione al G.I.O.</strong>, godendo dei
                       <strong>benefici fiscali di legge</strong>. <br /><br />
                       Per informazioni scrivere una mail alla segreteria usando
-                      il <NuxtLink to="/form">form di contatto</NuxtLink>.
+                      il
+                      <NuxtLink to="/form" class="specific-link"
+                        >form di contatto</NuxtLink
+                      >.
                     </p>
                     <br /><br />
                     <h3>modulo di iscrizione</h3>
                     <p>
                       Vuoi unirti a noi?
-                      <NuxtLink to="/module">Clicca il link</NuxtLink> e compila
-                      il modulo.
+                      <NuxtLink to="/module" class="specific-link"
+                        >Clicca il link</NuxtLink
+                      >
+                      e compila il modulo.
                     </p>
                   </div>
                 </div>
@@ -903,18 +908,6 @@ button {
           font-size: 1rem;
           line-height: 1.7;
           color: #333;
-        }
-
-        a {
-          color: rgb(255, 60, 0);
-          transition:
-            color 0.4s ease-in-out,
-            text-decoration 0.4s ease-in-out;
-
-          &:hover {
-            color: #233162;
-            text-decoration: underline 2px solid rgb(0, 68, 255);
-          }
         }
       }
     }

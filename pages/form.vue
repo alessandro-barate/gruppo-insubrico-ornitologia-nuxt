@@ -1,6 +1,6 @@
 <script></script>
 <template>
-  <div class="container gradient-color-header">
+  <div class="container">
     <div class="row">
       <div class="col">
         <div class="form-container">
@@ -50,9 +50,10 @@
     </div>
   </div>
 </template>
-<style>
+<style scoped lang="scss">
 .container {
   width: 100%;
+  padding-bottom: 15rem;
 
   input,
   textarea {
