@@ -8,15 +8,6 @@ const segments = computed(() =>
     : [route.params.slug].filter(Boolean),
 );
 
-// Classe univoca per l'intero percorso, così ogni pagina e sottopagina
-// può posizionare la banda (::after) col proprio bottom.
-// "ricerca-in-corso/iwc" → "subsection--ricerca-in-corso--iwc"
-const pathClass = computed(() =>
-  segments.value.length
-    ? `subsection--${segments.value.join("--")}`
-    : "subsection--root",
-);
-
 const { getNode } = useProgetti();
 const { data } = await getNode(segments.value);
 
@@ -107,7 +98,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <section v-if="section" class="subsection" :class="pathClass">
+  <section v-if="section" class="subsection">
     <div class="subsection__intro">
       <!-- Breadcrumb: Progetti / sezione [ / progetto ] -->
       <nav class="breadcrumb" aria-label="Percorso di navigazione">
@@ -240,31 +231,6 @@ useSeoMeta({
 
 <style scoped lang="scss">
 @use "~/assets/scss/_partials/subsection" as *;
-
-// ─── Posizionamento banda (::after) per percorso ─────────
-
-// Livello 2 — sezioni
-.subsection--ricerca-in-corso::after {
-  bottom: 71px;
-}
-
-.subsection--ricerca-terminati::after {
-  bottom: -1385px;
-}
-
-.subsection--atlanti::after {
-  bottom: 129px;
-}
-
-.subsection--altri-lavori::after {
-  bottom: -278px;
-}
-
-// Livello 3 — pagine progetto (sezione--progetto)
-.subsection--ricerca-in-corso--iwc::after {
-  bottom: 60px;
-}
-// ─────────────────────────────────────────────────────────
 
 .project-block {
   text-align: center;

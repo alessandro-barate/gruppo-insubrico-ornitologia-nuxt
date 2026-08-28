@@ -71,23 +71,11 @@ useHead({
 </template>
 
 <style scoped lang="scss">
+.nav-card {
+  min-height: 375px;
+}
+
 .col {
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -562px;
-    left: 0;
-    width: 100%;
-    height: 150px;
-    background: #8c8882;
-    clip-path: polygon(0 100%, 100% 0, 100% 100%);
-
-    @media (max-width: 576px) {
-      bottom: -720px;
-      height: 90px;
-    }
-  }
-
   .title-section {
     position: relative;
     width: 100%;
@@ -132,7 +120,7 @@ useHead({
     margin-bottom: 14rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
+    gap: 5rem;
     width: 90%;
     max-width: 1400px;
     margin-left: auto;

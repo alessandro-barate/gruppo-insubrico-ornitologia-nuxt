@@ -127,6 +127,26 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="scss">
+footer {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: #8c8882;
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    transform: translateY(-100%);
+
+    @media (max-width: 576px) {
+      height: 90px;
+    }
+  }
+}
+
 .col {
   width: 100%;
   background-size: cover;

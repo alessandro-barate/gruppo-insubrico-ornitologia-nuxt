@@ -124,17 +124,6 @@ const goToPage = (p) => {
 
 <style scoped lang="scss">
 .col {
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -1114px;
-    left: 0;
-    width: 100%;
-    height: 150px;
-    background: #8c8882;
-    clip-path: polygon(0 100%, 100% 0, 100% 100%);
-  }
-
   .title-section {
     position: relative;
     width: 100%;
