@@ -26,30 +26,30 @@ const newsList = computed(() => data.value?.data ?? []);
 const total = computed(() => data.value?.total ?? 0);
 const totalPages = computed(() => Math.ceil(total.value / perPage));
 
+// Scroll condizionale condiviso (stessa regola di usePagination):
+// dopo il cambio pagina risale all'inizio della lista solo se serve.
+const { listTop, scrollIfNeeded } = useConditionalScroll();
+
 const goToPage = (p) => {
   if (p < 1 || p > totalPages.value) return;
   page.value = p;
-  if (import.meta.client) {
-    document
-      .getElementById("news-container")
-      ?.scrollIntoView({ behavior: "smooth" });
-  }
+  scrollIfNeeded();
 };
 </script>
 
 <template>
   <div class="container">
     <div class="row">
-      <div id="news-container" class="col">
+      <div class="col">
         <section class="title-section jumbo-bg">
           <div class="title uppercase">
             <h1 id="news">news</h1>
           </div>
         </section>
 
-        <section class="news-list">
+        <section ref="listTop" class="news-list">
           <p class="news-list__intro">
-            Vuoi tenerti informato su quello che facciamo al G I O e cosa
+            Vuoi tenerti informato su quello che facciamo al G.I.O. e cosa
             succede intorno a noi?<br />
             Qui trovi tutte le ultime notizie che pubblichiamo.
           </p>
@@ -154,7 +154,7 @@ const goToPage = (p) => {
     &__intro {
       font-size: clamp(1rem, 2vw, 1.3rem);
       margin-bottom: 4rem;
-      color: #555;
+      color: #333;
     }
   }
 

@@ -35,9 +35,6 @@ const basePath = computed(() => `/pubblicazioni/${segments.value.join("/")}`);
 const crumbs = computed(() => buildCrumbs(segments.value));
 
 // ─── Paginazione ────────────────────────────────────────
-const PER_PAGE = 4;
-const currentPage = ref(1);
-
 // Numero totale di item del nodo corrente (qualunque tipo)
 const itemCount = computed(() => {
   const n = node.value;
@@ -46,13 +43,12 @@ const itemCount = computed(() => {
   return n.items.length;
 });
 
-const totalPages = computed(() => Math.ceil(itemCount.value / PER_PAGE));
-
-// Intervallo [start, end) della pagina corrente, riusato dalle liste tipizzate
-const pageRange = computed(() => {
-  const start = (currentPage.value - 1) * PER_PAGE;
-  return { start, end: start + PER_PAGE };
-});
+// Logica condivisa in usePagination (stato, totalPages, pageRange,
+// goToPage con scroll condizionale, listTop).
+const { currentPage, totalPages, pageRange, goToPage, listTop } = usePagination(
+  itemCount,
+  { perPage: 4 },
+);
 
 // Liste tipizzate: ognuna è valorizzata SOLO se il nodo è di quel tipo.
 // Il controllo su `node.type` fa sì che TypeScript sappia il tipo esatto
@@ -69,17 +65,31 @@ const pdfItems = computed<PdfItem[]>(() => {
   return n.items.slice(pageRange.value.start, pageRange.value.end);
 });
 
+// Raggruppa gli item PDF della pagina corrente per anno.
+// Ogni gruppo ha una sola intestazione. Gli anni sono in ordine
+// decrescente; le voci senza anno finiscono in un gruppo con
+// `year: null`, reso in fondo e senza intestazione.
+const pdfItemsByYear = computed(() => {
+  const groups = new Map<number | null, PdfItem[]>();
+  for (const item of pdfItems.value) {
+    const key = item.year ?? null;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(item);
+  }
+  return [...groups.entries()]
+    .map(([year, items]) => ({ year, items }))
+    .sort((a, b) => {
+      if (a.year === null) return 1; // senza anno in fondo
+      if (b.year === null) return -1;
+      return a.year - b.year; // anni decrescenti
+    });
+});
+
 const biblioItems = computed<BibliographyItem[]>(() => {
   const n = node.value;
   if (!n || n.type !== "bibliography") return [];
   return n.items.slice(pageRange.value.start, pageRange.value.end);
 });
-
-function goToPage(page: number) {
-  if (page < 1 || page > totalPages.value) return;
-  currentPage.value = page;
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
 
 function handleContentClick(e: MouseEvent) {
   const a = (e.target as HTMLElement).closest("a");
@@ -162,61 +172,75 @@ useSeoMeta({
 
     <!-- FOGLIA: mostra gli item secondo il tipo -->
     <template v-else>
-      <!-- Dettaglio (es. singolo Quaderno): immagine + testo + prezzo + PDF -->
-      <article v-if="node.type === 'detail'" class="detail">
-        <img
-          v-if="node.image_path"
-          :src="node.image_path"
-          :alt="node.title"
-          class="detail__cover"
-        />
+      <div ref="listTop">
+        <!-- Dettaglio (es. singolo Quaderno): immagine + testo + prezzo + PDF -->
+        <article v-if="node.type === 'detail'" class="detail">
+          <img
+            v-if="node.image_path"
+            :src="node.image_path"
+            :alt="node.title"
+            class="detail__cover"
+          />
+          <div
+            v-if="node.body"
+            class="detail__body"
+            v-html="node.body"
+            @click="handleContentClick"
+          />
+          <p v-if="node.price" class="detail__price">
+            Donazione minima: <strong>{{ node.price }}</strong>
+          </p>
+          <a
+            v-if="node.pdf_url"
+            :href="node.pdf_url"
+            class="detail__pdf specific-link"
+            target="_blank"
+            rel="noopener"
+          >
+            <img src="/images/pdf-icon.png" alt="" class="detail__pdf-icon" />
+            Scarica il PDF
+          </a>
+        </article>
+
+        <!-- Cards: titolo + immagine + testo (es. Quaderni) -->
+        <div v-else-if="node.type === 'cards'" class="subsection__items">
+          <PubblicazioniCardItem
+            v-for="item in cardItems"
+            :key="item.id"
+            :item="item"
+          />
+        </div>
+
+        <!-- Lista PDF raggruppata per anno (es. BOL, Racconti) -->
         <div
-          v-if="node.body"
-          class="detail__body"
-          v-html="node.body"
-          @click="handleContentClick"
-        />
-        <p v-if="node.price" class="detail__price">
-          Donazione minima: <strong>{{ node.price }}</strong>
-        </p>
-        <a
-          v-if="node.pdf_url"
-          :href="node.pdf_url"
-          class="detail__pdf specific-link"
-          target="_blank"
-          rel="noopener"
+          v-else-if="node.type === 'pdf-list'"
+          class="subsection__pdf-groups"
         >
-          <img src="/images/pdf-icon.png" alt="" class="detail__pdf-icon" />
-          Scarica il PDF
-        </a>
-      </article>
+          <div
+            v-for="group in pdfItemsByYear"
+            :key="group.year ?? 'no-year'"
+            class="pdf-year-group"
+          >
+            <p v-if="group.year" class="year-field">{{ group.year }}</p>
+            <ul class="subsection__pdf-list">
+              <PubblicazioniPdfItem
+                v-for="item in group.items"
+                :key="item.id"
+                :item="item"
+              />
+            </ul>
+          </div>
+        </div>
 
-      <!-- Cards: titolo + immagine + testo (es. Quaderni) -->
-      <div v-else-if="node.type === 'cards'" class="subsection__items">
-        <PubblicazioniCardItem
-          v-for="item in cardItems"
-          :key="item.id"
-          :item="item"
-        />
+        <!-- Bibliografia: solo testo (es. Paper) -->
+        <ol v-else-if="node.type === 'bibliography'" class="subsection__biblio">
+          <PubblicazioniBiblioItem
+            v-for="item in biblioItems"
+            :key="item.id"
+            :item="item"
+          />
+        </ol>
       </div>
-
-      <!-- Lista PDF (es. BOL, Racconti) -->
-      <ul v-else-if="node.type === 'pdf-list'" class="subsection__pdf-list">
-        <PubblicazioniPdfItem
-          v-for="item in pdfItems"
-          :key="item.id"
-          :item="item"
-        />
-      </ul>
-
-      <!-- Bibliografia: solo testo (es. Paper) -->
-      <ol v-else-if="node.type === 'bibliography'" class="subsection__biblio">
-        <PubblicazioniBiblioItem
-          v-for="item in biblioItems"
-          :key="item.id"
-          :item="item"
-        />
-      </ol>
 
       <!-- Paginazione condivisa da tutte le foglie -->
       <nav v-if="totalPages > 1" class="pagination" aria-label="Paginazione">
@@ -269,8 +293,23 @@ h1 {
 }
 
 .main-image {
+  width: 100%;
   margin-top: 3rem;
   margin-bottom: 3rem;
+
+  img {
+    width: 50%;
+  }
+}
+
+.pdf-year-group {
+  width: 100%;
+  text-align: center;
+
+  .year-field {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .detail {

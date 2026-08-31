@@ -14,24 +14,14 @@ if (!subsection.value) {
   });
 }
 
-// Paginazione
-const PER_PAGE = 4;
-const currentPage = ref(1);
-
-const totalPages = computed(() =>
-  Math.ceil((subsection.value?.items.length ?? 0) / PER_PAGE),
+// Paginazione (logica condivisa in usePagination)
+const itemCount = computed(() => subsection.value?.items.length ?? 0);
+const { currentPage, totalPages, paginate, goToPage, listTop } = usePagination(
+  itemCount,
+  { perPage: 4 },
 );
 
-const paginatedItems = computed(() => {
-  const start = (currentPage.value - 1) * PER_PAGE;
-  return subsection.value?.items.slice(start, start + PER_PAGE) ?? [];
-});
-
-function goToPage(page: number) {
-  if (page < 1 || page > totalPages.value) return;
-  currentPage.value = page;
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
+const paginatedItems = computed(() => paginate(subsection.value?.items ?? []));
 
 useSeoMeta({
   title: () => subsection.value?.title,
@@ -56,7 +46,7 @@ useSeoMeta({
       <div class="subsection__intro-text" v-html="subsection.intro_text" />
     </div>
 
-    <div class="subsection__items">
+    <div ref="listTop" class="subsection__items">
       <DivulgazioneItemCard
         v-for="item in paginatedItems"
         :key="item.id"

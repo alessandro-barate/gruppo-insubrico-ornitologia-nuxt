@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const { getHome } = useProgetti();
 const { data: home } = await getHome();
-console.log("HOME:", JSON.stringify(home.value));
 const router = useRouter();
 
 useSeoMeta({

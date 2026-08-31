@@ -30,7 +30,9 @@ export { requestIdleCallback, cancelIdleCallback } from '#app/compat/idle-callba
 export { setInterval } from '#app/compat/interval';
 export { definePageMeta } from '../node_modules/nuxt/dist/pages/runtime/composables';
 export { defineLazyHydrationComponent } from '#app/composables/lazy-hydration';
+export { useConditionalScroll } from '../composables/useConditionalScroll';
 export { useDivulgazione, ItemLink, SubsectionItem, Subsection, SubsectionCardData } from '../composables/useDivulgazione';
+export { usePagination } from '../composables/usePagination';
 export { useProgetti, LinkKind, ProgettiNode, TypedLink, ContentBlock, Project, ProjectSection, NavCardData } from '../composables/useProgetti';
 export { usePubblicazioni, CardItem, PdfItem, BibliographyItem, SubsectionType, CardsNode, PdfListNode, BibliographyNode, GroupNode, DetailNode, PubNode, PubCardData, Crumb } from '../composables/usePubblicazioni';
 export { useSiteStore, useCookies, useLinks, useMetaDescriptions } from '../composables/useSiteStore';

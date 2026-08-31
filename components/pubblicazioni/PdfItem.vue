@@ -16,7 +16,6 @@ defineProps<{
     >
       <img src="/images/pdf-icon.png" alt="" class="pdf-item__icon" />
       <span class="pdf-item__title">{{ item.title }}</span>
-      <span class="pdf-item__arrow" aria-hidden="true">&darr;</span>
     </a>
   </li>
 </template>

@@ -97,6 +97,7 @@ declare global {
   const useAppConfig: typeof import('../../node_modules/nuxt/dist/app/config').useAppConfig
   const useAsyncData: typeof import('../../node_modules/nuxt/dist/app/composables/asyncData').useAsyncData
   const useAttrs: typeof import('vue').useAttrs
+  const useConditionalScroll: typeof import('../../composables/useConditionalScroll').useConditionalScroll
   const useCookie: typeof import('../../node_modules/nuxt/dist/app/composables/cookie').useCookie
   const useCookies: typeof import('../../composables/useSiteStore').useCookies
   const useCssModule: typeof import('vue').useCssModule
@@ -118,6 +119,7 @@ declare global {
   const useNuxtApp: typeof import('../../node_modules/nuxt/dist/app/nuxt').useNuxtApp
   const useNuxtData: typeof import('../../node_modules/nuxt/dist/app/composables/asyncData').useNuxtData
   const useNuxtDevTools: typeof import('../../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools').useNuxtDevTools
+  const usePagination: typeof import('../../composables/usePagination').usePagination
   const usePreviewMode: typeof import('../../node_modules/nuxt/dist/app/composables/preview').usePreviewMode
   const useProgetti: typeof import('../../composables/useProgetti').useProgetti
   const usePubblicazioni: typeof import('../../composables/usePubblicazioni').usePubblicazioni
@@ -298,6 +300,7 @@ declare module 'vue' {
     readonly useAppConfig: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/config')['useAppConfig']>
     readonly useAsyncData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['useAsyncData']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
+    readonly useConditionalScroll: UnwrapRef<typeof import('../../composables/useConditionalScroll')['useConditionalScroll']>
     readonly useCookie: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/cookie')['useCookie']>
     readonly useCookies: UnwrapRef<typeof import('../../composables/useSiteStore')['useCookies']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
@@ -319,6 +322,7 @@ declare module 'vue' {
     readonly useNuxtApp: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/nuxt')['useNuxtApp']>
     readonly useNuxtData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['useNuxtData']>
     readonly useNuxtDevTools: UnwrapRef<typeof import('../../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools')['useNuxtDevTools']>
+    readonly usePagination: UnwrapRef<typeof import('../../composables/usePagination')['usePagination']>
     readonly usePreviewMode: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/preview')['usePreviewMode']>
     readonly useProgetti: UnwrapRef<typeof import('../../composables/useProgetti')['useProgetti']>
     readonly usePubblicazioni: UnwrapRef<typeof import('../../composables/usePubblicazioni')['usePubblicazioni']>

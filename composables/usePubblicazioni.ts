@@ -15,6 +15,7 @@ export interface CardItem {
 
 export interface PdfItem {
   id: number;
+  year?: number;
   title: string;
   pdf_url: string;
 }
@@ -178,38 +179,81 @@ const MOCK_TREE: PubNode[] = [
     items: [
       {
         id: 10,
-        title: "Bollettino N.1 2020",
-        pdf_url: "/docs/bol/bol-1-2020.pdf",
+        year: 2019,
+        title: "Volume 1 Numero 1",
+        pdf_url: "/documents/pubblicazioni/bol/2019/bol-v1-n1.pdf",
       },
       {
         id: 11,
-        title: "Bollettino N.2 2020",
-        pdf_url: "/docs/bol/bol-2-2020.pdf",
+        year: 2019,
+        title: "Volume 1 Numero 2",
+        pdf_url: "/documents/pubblicazioni/bol/2019/bol-v1-n2.pdf",
       },
       {
         id: 12,
-        title: "Bollettino N.1 2022",
-        pdf_url: "/docs/bol/bol-1-2022.pdf",
+        year: 2020,
+        title: "Volume 2 Numero 1",
+        pdf_url: "/documents/pubblicazioni/bol/2020/bol-v2-n1.pdf",
       },
       {
         id: 13,
-        title: "Bollettino N.2 2022",
-        pdf_url: "/docs/bol/bol-2-2022.pdf",
+        year: 2020,
+        title: "Volume 2 Numero 2",
+        pdf_url: "/documents/pubblicazioni/bol/2020/bol-v2-n2.pdf",
       },
       {
         id: 14,
-        title: "Bollettino N.3 2022",
-        pdf_url: "/docs/bol/bol-3-2022.pdf",
+        year: 2021,
+        title: "Volume 3 Numero 1",
+        pdf_url: "/documents/pubblicazioni/bol/2021/bol-v3-n1.pdf",
       },
       {
         id: 15,
-        title: "Bollettino N.1 2025",
-        pdf_url: "/docs/bol/bol-1-2025.pdf",
+        year: 2021,
+        title: "Volume 3 Numero 2",
+        pdf_url: "/documents/pubblicazioni/bol/2021/bol-v3-n2.pdf",
       },
       {
         id: 16,
-        title: "Bollettino N.1 2026",
-        pdf_url: "/docs/bol/bol-1-2026.pdf",
+        year: 2022,
+        title: "Volume 4 Numero 1",
+        pdf_url: "/documents/pubblicazioni/bol/2022/bol-v4-n1.pdf",
+      },
+      {
+        id: 17,
+        year: 2022,
+        title: "Volume 4 Numero 2",
+        pdf_url: "/documents/pubblicazioni/bol/2022/bol-v4-n2.pdf",
+      },
+      {
+        id: 18,
+        year: 2023,
+        title: "Volume 5 Numero 1",
+        pdf_url: "/documents/pubblicazioni/bol/2023/bol-v5-n1.pdf",
+      },
+      {
+        id: 19,
+        year: 2023,
+        title: "Volume 5 Numero 2",
+        pdf_url: "/documents/pubblicazioni/bol/2023/bol-v5-n2.pdf",
+      },
+      {
+        id: 111,
+        year: 2024,
+        title: "Volume 6 Numero 1",
+        pdf_url: "/documents/pubblicazioni/bol/2024/bol-v6-n1.pdf",
+      },
+      {
+        id: 121,
+        year: 2024,
+        title: "Volume 6 Numero 2",
+        pdf_url: "/documents/pubblicazioni/bol/2024/bol-v6-n2.pdf",
+      },
+      {
+        id: 131,
+        year: 2025,
+        title: "Volume 7 Numero 1",
+        pdf_url: "/documents/pubblicazioni/bol/2025/bol-v7-n1.pdf",
       },
     ],
   },

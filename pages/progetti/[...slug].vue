@@ -48,9 +48,6 @@ const currentTitle = computed(() =>
 const basePath = computed(() => `/progetti/${segments.value.join("/")}`);
 
 // ─── Paginazione (3/pagina, sia liv.2 che liv.3) ────────
-const PER_PAGE = 3;
-const currentPage = ref(1);
-
 // La lista da paginare dipende dal caso:
 // - progetto navigabile (liv.2) → le card-progetto
 // - sezione inline (liv.2) → i progetti mostrati come schede
@@ -61,33 +58,25 @@ const paginatedSource = computed(() => {
   return projects.value;
 });
 
-const totalPages = computed(() =>
-  Math.ceil(paginatedSource.value.length / PER_PAGE),
+// Paginazione (logica condivisa in usePagination)
+const itemCount = computed(() => paginatedSource.value.length);
+const { currentPage, totalPages, pageRange, goToPage, listTop } = usePagination(
+  itemCount,
+  { perPage: 3 },
 );
-
-const pageSlice = computed(() => {
-  const start = (currentPage.value - 1) * PER_PAGE;
-  return { start, end: start + PER_PAGE };
-});
 
 const paginatedProjectCards = computed(() =>
-  projectCards.value.slice(pageSlice.value.start, pageSlice.value.end),
+  projectCards.value.slice(pageRange.value.start, pageRange.value.end),
 );
 const paginatedProjects = computed(() =>
-  projects.value.slice(pageSlice.value.start, pageSlice.value.end),
+  projects.value.slice(pageRange.value.start, pageRange.value.end),
 );
 const paginatedBlocks = computed(() =>
   (project.value?.blocks ?? []).slice(
-    pageSlice.value.start,
-    pageSlice.value.end,
+    pageRange.value.start,
+    pageRange.value.end,
   ),
 );
-
-function goToPage(page: number) {
-  if (page < 1 || page > totalPages.value) return;
-  currentPage.value = page;
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
 // ────────────────────────────────────────────────────────
 
 useSeoMeta({
@@ -146,50 +135,52 @@ useSeoMeta({
       />
     </div>
 
-    <!-- ═══ LIVELLO 3: pagina di un progetto ═══ -->
-    <template v-if="isProject">
-      <div class="subsection__items">
-        <div
-          v-for="(block, i) in paginatedBlocks"
-          :key="i"
-          class="project-block"
-        >
-          <div v-if="block.text" v-html="block.text" />
-          <div v-if="block.links?.length" class="project-block__links">
-            <ProgettiTypedLink
-              v-for="link in block.links"
-              :key="link.url"
-              :link="link"
-            />
+    <div ref="listTop">
+      <!-- ═══ LIVELLO 3: pagina di un progetto ═══ -->
+      <template v-if="isProject">
+        <div class="subsection__items">
+          <div
+            v-for="(block, i) in paginatedBlocks"
+            :key="i"
+            class="project-block"
+          >
+            <div v-if="block.text" v-html="block.text" />
+            <div v-if="block.links?.length" class="project-block__links">
+              <ProgettiTypedLink
+                v-for="link in block.links"
+                :key="link.url"
+                :link="link"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </template>
+      </template>
 
-    <!-- ═══ LIVELLO 2 (navigabile): card-bottone verso i progetti ═══ -->
-    <template v-else-if="isNavigable">
-      <div class="subsection__grid">
-        <SharedNavCard
-          v-for="card in paginatedProjectCards"
-          :key="card.slug"
-          :to="`${basePath}/${card.slug}`"
-          :title="card.title"
-          :excerpt="card.intro_excerpt"
-          :image="card.image_path"
-        />
-      </div>
-    </template>
+      <!-- ═══ LIVELLO 2 (navigabile): card-bottone verso i progetti ═══ -->
+      <template v-else-if="isNavigable">
+        <div class="subsection__grid">
+          <SharedNavCard
+            v-for="card in paginatedProjectCards"
+            :key="card.slug"
+            :to="`${basePath}/${card.slug}`"
+            :title="card.title"
+            :excerpt="card.intro_excerpt"
+            :image="card.image_path"
+          />
+        </div>
+      </template>
 
-    <!-- ═══ LIVELLO 2 (inline): schede progetto espanse ═══ -->
-    <template v-else-if="section.has_projects">
-      <div class="subsection__items">
-        <ProgettiProjectCard
-          v-for="p in paginatedProjects"
-          :key="p.id"
-          :project="p"
-        />
-      </div>
-    </template>
+      <!-- ═══ LIVELLO 2 (inline): schede progetto espanse ═══ -->
+      <template v-else-if="section.has_projects">
+        <div class="subsection__items">
+          <ProgettiProjectCard
+            v-for="p in paginatedProjects"
+            :key="p.id"
+            :project="p"
+          />
+        </div>
+      </template>
+    </div>
 
     <!-- Paginazione condivisa da tutti i casi con più di una pagina -->
     <nav v-if="totalPages > 1" class="pagination" aria-label="Paginazione">
