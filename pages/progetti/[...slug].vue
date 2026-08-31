@@ -232,6 +232,10 @@ useSeoMeta({
 <style scoped lang="scss">
 @use "~/assets/scss/_partials/subsection" as *;
 
+h1 {
+  text-align: center;
+}
+
 .project-block {
   text-align: center;
   margin-bottom: 1.5rem;

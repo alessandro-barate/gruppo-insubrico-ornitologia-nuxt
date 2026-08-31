@@ -84,6 +84,14 @@ function goToPage(page: number) {
 function handleContentClick(e: MouseEvent) {
   const a = (e.target as HTMLElement).closest("a");
   if (!a) return;
+
+  // Rispetta i link che devono aprirsi in una nuova tab
+  if (a.target === "_blank") return;
+
+  // Rispetta ctrl/cmd/shift/alt-click e il click centrale (nuova tab)
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0)
+    return;
+
   const href = a.getAttribute("href");
   // solo link interni relativi, senza target esplicito
   if (href && href.startsWith("/")) {
@@ -129,6 +137,9 @@ useSeoMeta({
       </nav>
 
       <h1>{{ node.title }}</h1>
+      <div v-if="node.header_image" class="main-image">
+        <img :src="node.header_image" :alt="node.title" loading="lazy" />
+      </div>
       <div
         v-if="node.intro_text"
         class="subsection__intro-text"
@@ -175,6 +186,7 @@ useSeoMeta({
           target="_blank"
           rel="noopener"
         >
+          <img src="/images/pdf-icon.png" alt="" class="detail__pdf-icon" />
           Scarica il PDF
         </a>
       </article>
@@ -248,6 +260,19 @@ useSeoMeta({
 <style scoped lang="scss">
 @use "~/assets/scss/_partials/subsection" as *;
 
+h1 {
+  text-align: center;
+}
+
+.nav-card {
+  min-height: 395px;
+}
+
+.main-image {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
 .detail {
   max-width: 800px;
   margin: 0 auto;
@@ -274,6 +299,9 @@ useSeoMeta({
 
   &__pdf {
     align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     padding: 0.6rem 1.2rem;
     border: 1px solid currentColor;
     border-radius: 0.4rem;
@@ -283,6 +311,13 @@ useSeoMeta({
     &:hover {
       background: rgba(0, 0, 0, 0.05);
     }
+  }
+
+  &__pdf-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
   }
 }
 </style>

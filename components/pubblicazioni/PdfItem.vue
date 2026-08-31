@@ -14,7 +14,7 @@ defineProps<{
       rel="noopener noreferrer"
       class="pdf-item__link"
     >
-      <span class="pdf-item__icon" aria-hidden="true">PDF</span>
+      <img src="/images/pdf-icon.png" alt="" class="pdf-item__icon" />
       <span class="pdf-item__title">{{ item.title }}</span>
       <span class="pdf-item__arrow" aria-hidden="true">&darr;</span>
     </a>
@@ -44,13 +44,9 @@ defineProps<{
 
 .pdf-item__icon {
   flex-shrink: 0;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  padding: 0.35rem 0.5rem;
-  border-radius: 4px;
-  background: var(--color-accent, #2c6e49);
-  color: #fff;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .pdf-item__title {
