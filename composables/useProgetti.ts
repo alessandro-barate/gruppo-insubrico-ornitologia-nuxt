@@ -66,7 +66,7 @@ export interface NavCardData {
 
 // ─── MOCK DATA ───────────────────────────────────────────
 const PROGETTI_INTRO =
-  "<p>Il Gruppo Insubrico di Ornitologia porta avanti progetti di ricerca e monitoraggio dell'avifauna sul territorio della provincia di Varese.</p>";
+  "Il G.I.O. ha intrapreso <strong>progetti di ricerca</strong> nel campo dell'ornitologia fin dai suoi esordi. Il nostro atto costitutivo recita che: “la nostra associazione persegue come scopo prioritario <strong>lo studio e la conservazione dell'avifauna</strong>. Infatti è sempre stato nello spirito dei nostri soci <strong>fare ricerca sul territorio della provincia di Varese</strong> per individuare l'avifauna presente, lo <strong>stato di conservazione</strong> e i <strong>cambiamenti e le trasformazioni</strong> avvenuti nel tempo. I risultati delle ricerche riportate qui sotto sono consultabili alla pagina <a href='/pubblicazioni' class='specific-link' target='_blank'>Pubblicazioni Scientifiche</a>.";
 
 const SECTIONS: ProjectSection[] = [
   {
@@ -406,7 +406,7 @@ const PROJECTS: Project[] = [
     id: 21,
     section_slug: "ricerca-terminati",
     slug: "bosco-igrofilo-1999-2001",
-    title: "Comunità Prnitica Bosco Igrofilo Lago di Varese 1999-2001",
+    title: "Comunità Ornitica Bosco Igrofilo Lago di Varese 1999-2001",
     blocks: [
       {
         text: "",

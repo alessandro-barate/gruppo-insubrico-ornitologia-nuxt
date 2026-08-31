@@ -1,4 +1,15 @@
-<script></script>
+<script>
+useSeoMeta({
+  title: "Contattaci | Gruppo Insubrico di Ornitologia",
+  description:
+    "Il form di contatto per mettersi in contato con il Gruppo Insubrico Ornitologico.",
+  ogTitle: "Contattaci | Gruppo Insubrico di Ornitologia",
+});
+
+useHead({
+  link: [{ rel: "canonical", href: "https://gruppoinsubrico.com/form" }],
+});
+</script>
 <template>
   <div class="container">
     <div class="row">

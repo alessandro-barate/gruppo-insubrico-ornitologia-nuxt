@@ -41,7 +41,8 @@ const currentPage = ref(1);
 // Numero totale di item del nodo corrente (qualunque tipo)
 const itemCount = computed(() => {
   const n = node.value;
-  if (!n || n.type === "group") return 0;
+  // group e detail non hanno `items` da paginare
+  if (!n || n.type === "group" || n.type === "detail") return 0;
   return n.items.length;
 });
 
@@ -84,7 +85,7 @@ function handleContentClick(e: MouseEvent) {
   const a = (e.target as HTMLElement).closest("a");
   if (!a) return;
   const href = a.getAttribute("href");
-  // solo link interni relativi
+  // solo link interni relativi, senza target esplicito
   if (href && href.startsWith("/")) {
     e.preventDefault();
     router.push(href);
@@ -150,8 +151,36 @@ useSeoMeta({
 
     <!-- FOGLIA: mostra gli item secondo il tipo -->
     <template v-else>
+      <!-- Dettaglio (es. singolo Quaderno): immagine + testo + prezzo + PDF -->
+      <article v-if="node.type === 'detail'" class="detail">
+        <img
+          v-if="node.image_path"
+          :src="node.image_path"
+          :alt="node.title"
+          class="detail__cover"
+        />
+        <div
+          v-if="node.body"
+          class="detail__body"
+          v-html="node.body"
+          @click="handleContentClick"
+        />
+        <p v-if="node.price" class="detail__price">
+          Donazione minima: <strong>{{ node.price }}</strong>
+        </p>
+        <a
+          v-if="node.pdf_url"
+          :href="node.pdf_url"
+          class="detail__pdf specific-link"
+          target="_blank"
+          rel="noopener"
+        >
+          Scarica il PDF
+        </a>
+      </article>
+
       <!-- Cards: titolo + immagine + testo (es. Quaderni) -->
-      <div v-if="node.type === 'cards'" class="subsection__items">
+      <div v-else-if="node.type === 'cards'" class="subsection__items">
         <PubblicazioniCardItem
           v-for="item in cardItems"
           :key="item.id"
@@ -218,4 +247,42 @@ useSeoMeta({
 
 <style scoped lang="scss">
 @use "~/assets/scss/_partials/subsection" as *;
+
+.detail {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  &__cover {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    border-radius: 0.5rem;
+    align-self: center;
+  }
+
+  &__body {
+    line-height: 1.7;
+    color: var(--color-text-muted, #333);
+  }
+
+  &__price {
+    font-size: 1.1rem;
+  }
+
+  &__pdf {
+    align-self: flex-start;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid currentColor;
+    border-radius: 0.4rem;
+    text-decoration: none;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+}
 </style>

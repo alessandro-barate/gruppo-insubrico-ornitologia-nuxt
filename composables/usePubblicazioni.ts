@@ -24,7 +24,12 @@ export interface BibliographyItem {
   text: string;
 }
 
-export type SubsectionType = "cards" | "pdf-list" | "bibliography" | "group";
+export type SubsectionType =
+  | "cards"
+  | "pdf-list"
+  | "bibliography"
+  | "group"
+  | "detail";
 
 // Campi comuni a tutti i nodi
 interface BaseNode {
@@ -56,8 +61,23 @@ export interface GroupNode extends BaseNode {
   children: PubNode[];
 }
 
-// L'unione discriminata: un nodo è UNA di queste quattro forme.
-export type PubNode = CardsNode | PdfListNode | BibliographyNode | GroupNode;
+// Pagina di dettaglio (foglia navigabile): un singolo contenuto —
+// es. un Quaderno — con testo descrittivo e, opzionali, immagine di
+// copertina, PDF scaricabile e prezzo (donazione minima).
+export interface DetailNode extends BaseNode {
+  type: "detail";
+  body: string; // HTML descrittivo
+  pdf_url?: string;
+  price?: string; // testo libero, es. "€ 18"
+}
+
+// L'unione discriminata: un nodo è UNA di queste cinque forme.
+export type PubNode =
+  | CardsNode
+  | PdfListNode
+  | BibliographyNode
+  | GroupNode
+  | DetailNode;
 
 // Forma ridotta per le card di navigazione (home e nodi group)
 export interface PubCardData {
@@ -84,35 +104,52 @@ const MOCK_TREE: PubNode[] = [
   {
     slug: "quaderni",
     title: "Quaderni",
-    type: "cards",
+    type: "group",
     intro_text:
-      "<p>I Quaderni del G.I.O. sono pubblicazioni scientifiche curate dai soci del Gruppo, nate con l'obiettivo di raccogliere e divulgare i risultati delle ricerche ornitologiche condotte sul territorio.<br>Si tratta di volumi cartacei che si possono ricevere tramite una donazione minima al G.I.O. OdV (gli importi sono comprensivi di eventuali spese di spedizione): le copie possono anche ritirate personalmente.<br><br>Per tutte le informazioni, le richieste per ricevere delle copie e le modalità di pagamento contattateci tramite il nostro <a href='/form' class='specific-link'>form di contatto</a>.</p>",
+      "<p>I Quaderni del G.I.O. sono pubblicazioni scientifiche curate dai soci del Gruppo, nate con l'obiettivo di raccogliere e divulgare i risultati delle ricerche ornitologiche condotte sul territorio.<br>Si tratta di volumi cartacei che si possono ricevere tramite una donazione minima al G.I.O. OdV (gli importi sono comprensivi di eventuali spese di spedizione): le copie possono anche ritirate personalmente.<br><br>Per tutte le informazioni, le richieste per ricevere delle copie e le modalità di pagamento contattateci tramite il nostro <a href='/form' class='specific-link' target='_blank'>form di contatto</a>.<br><ul class='specific-list'><li><strong>Quaderno 4/2022</strong> <em>Gli Uccelli del Lago Maggiore</em>: <strong>&euro; 18</strong> cadauno</li></ul><p>Sempre disponibili anche gli altri Quaderni del G.I.O.:</p><ul class='specific-list'><li><strong>Quaderno 3/2018</strong> <em>Gli Uccelli del Lago Maggiore</em>: <strong>&euro; 15</strong> cadauno</li><li><strong>Quaderno 2/2015</strong> <em>Gli Uccelli del Lago Maggiore</em>: <strong>&euro; 8</strong> cadauno</li><li><strong>Quaderno 1/2012</strong> <em>Gli Uccelli del Lago Maggiore</em>: <strong>&euro; 5</strong> cadauno</li></ul><p><strong>Donazione minima per serie:</strong></p><ul class='specific-list'><li>Intera collana - Quaderni 1/2/3/4: <strong>&euro; 35</strong></li><li>Quaderni 1/2/4, oppure 1/3/4, oppure 2/3/4: <strong>&euro; 30</strong></li><li>Quaderni 1/2/3: <strong>&euro; 25</strong></li></ul><p><strong>Dati per bonifici:</strong><br>Gruppo Insubrico di Ornitologia<br>IBAN: IT13A0569650240000020568X10<br>Causale: NOME e COGNOME, donazione/Quaderno (specificare quale/quali) n° X copie</p></p>",
     intro_excerpt: "Studi monografici e approfondimenti tematici.",
     image_path: "/images/pubblicazioni/cards/quaderni.jpg",
-    items: [
+    children: [
       {
-        id: 1,
-        title: "Quaderno n.1 — Gli uccelli delle zone umide",
-        body: "<p>Una panoramica sulle specie acquatiche del territorio insubrico e sul loro stato di conservazione.</p>",
-        image_path: "/images/pubblicazioni/quaderni/q1.jpg",
-      },
-      {
-        id: 2,
-        title: "Quaderno n.2 — Rapaci diurni",
-        body: "<p>Studio sulla distribuzione e nidificazione dei rapaci diurni nelle province di Varese e Como.</p>",
-        image_path: "/images/pubblicazioni/quaderni/q2.jpg",
-      },
-      {
-        id: 3,
-        title: "Quaderno n.3 — Migrazione",
-        body: "<p>I flussi migratori osservati sul territorio e le tecniche di monitoraggio adottate.</p>",
-        image_path: "/images/pubblicazioni/quaderni/q3.jpg",
-      },
-      {
-        id: 4,
-        title: "Quaderno n.4 — Uccelli urbani",
-        body: "<p>L'adattamento dell'avifauna agli ambienti antropizzati e urbani.</p>",
+        slug: "quaderno-4-2022",
+        title: "Quaderno 4/2022 - Uccelli del Lago Maggiore",
+        type: "detail",
+        intro_excerpt: "L'adattamento dell'avifauna agli ambienti urbani.",
         image_path: "/images/pubblicazioni/quaderni/q4.jpg",
+        price: "€ 18",
+        pdf_url: "/docs/quaderni/quaderno-4-2022.pdf",
+        body: "<p>L'adattamento dell'avifauna agli ambienti antropizzati e urbani.</p>",
+      },
+      {
+        slug: "quaderno-3-2018",
+        title: "Quaderno 3/2018 - Storia naturale dei picchi",
+        type: "detail",
+        intro_excerpt: "I flussi migratori osservati sul territorio.",
+        image_path: "/images/pubblicazioni/quaderni/q3.jpg",
+        price: "€ 15",
+        pdf_url: "/docs/quaderni/quaderno-3-2018.pdf",
+        body: "<p>I flussi migratori osservati sul territorio e le tecniche di monitoraggio adottate.</p>",
+      },
+      {
+        slug: "quaderno-2-2015",
+        title:
+          "Quaderno 2/2015 - Check-list degli uccelli della provincia di Varese",
+        type: "detail",
+        intro_excerpt: "Rapaci diurni: distribuzione e nidificazione.",
+        image_path: "/images/pubblicazioni/quaderni/q2.jpg",
+        price: "€ 8",
+        pdf_url: "/docs/quaderni/quaderno-2-2015.pdf",
+        body: "<p>Studio sulla distribuzione e nidificazione dei rapaci diurni nelle province di Varese e Como.</p>",
+      },
+      {
+        slug: "quaderno-1-2012",
+        title: "Quaderno 1/2012 - Uccelli acquatici svernanti",
+        type: "detail",
+        intro_excerpt: "Le specie acquatiche del territorio insubrico.",
+        image_path: "/images/pubblicazioni/quaderni/q1.jpg",
+        price: "€ 5",
+        pdf_url: "/docs/quaderni/quaderno-1-2012.pdf",
+        body: "<p>Una panoramica sulle specie acquatiche del territorio insubrico e sul loro stato di conservazione.</p>",
       },
     ],
   },

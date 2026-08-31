@@ -32,6 +32,6 @@ export { definePageMeta } from '../node_modules/nuxt/dist/pages/runtime/composab
 export { defineLazyHydrationComponent } from '#app/composables/lazy-hydration';
 export { useDivulgazione, ItemLink, SubsectionItem, Subsection, SubsectionCardData } from '../composables/useDivulgazione';
 export { useProgetti, LinkKind, ProgettiNode, TypedLink, ContentBlock, Project, ProjectSection, NavCardData } from '../composables/useProgetti';
-export { usePubblicazioni, CardItem, PdfItem, BibliographyItem, SubsectionType, CardsNode, PdfListNode, BibliographyNode, GroupNode, PubNode, PubCardData, Crumb } from '../composables/usePubblicazioni';
+export { usePubblicazioni, CardItem, PdfItem, BibliographyItem, SubsectionType, CardsNode, PdfListNode, BibliographyNode, GroupNode, DetailNode, PubNode, PubCardData, Crumb } from '../composables/usePubblicazioni';
 export { useSiteStore, useCookies, useLinks, useMetaDescriptions } from '../composables/useSiteStore';
 export { useNuxtDevTools } from '../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';

@@ -195,7 +195,7 @@ declare global {
   export type { LinkKind, ProgettiNode, TypedLink, ContentBlock, Project, ProjectSection, NavCardData } from '../../composables/useProgetti'
   import('../../composables/useProgetti')
   // @ts-ignore
-  export type { CardItem, PdfItem, BibliographyItem, SubsectionType, CardsNode, PdfListNode, BibliographyNode, GroupNode, PubNode, PubCardData, Crumb } from '../../composables/usePubblicazioni'
+  export type { CardItem, PdfItem, BibliographyItem, SubsectionType, CardsNode, PdfListNode, BibliographyNode, GroupNode, DetailNode, PubNode, PubCardData, Crumb } from '../../composables/usePubblicazioni'
   import('../../composables/usePubblicazioni')
 }
 // for vue template auto import

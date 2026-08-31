@@ -1,6 +1,8 @@
-<script setup>
+<script setup lang="ts">
 const { getHome } = useProgetti();
-const { data } = await getHome();
+const { data: home } = await getHome();
+console.log("HOME:", JSON.stringify(home.value));
+const router = useRouter();
 
 useSeoMeta({
   title: "Progetti | Gruppo Insubrico di Ornitologia",
@@ -12,6 +14,17 @@ useSeoMeta({
 useHead({
   link: [{ rel: "canonical", href: "https://gruppoinsubrico.com/progetti" }],
 });
+
+function handleContentClick(e: MouseEvent) {
+  const a = (e.target as HTMLElement).closest("a");
+  if (!a) return;
+  const href = a.getAttribute("href");
+  // solo link interni relativi
+  if (href && href.startsWith("/")) {
+    e.preventDefault();
+    router.push(href);
+  }
+}
 </script>
 
 <template>
@@ -29,30 +42,16 @@ useHead({
         <section>
           <div class="main-description">
             <h2>Progetti di Ricerca</h2>
-            <p class="main-description__intro">
-              Il G.I.O. ha intrapreso <strong>progetti di ricerca</strong> nel
-              campo dell'ornitologia fin dai suoi esordi. Il nostro atto
-              costitutivo recita che: “la nostra associazione persegue come
-              scopo prioritario
-              <strong>lo studio e la conservazione dell'avifauna</strong>
-              Infatti è sempre stato nello spirito dei nostri soci
-              <strong
-                >fare ricerca sul territorio della provincia di Varese</strong
-              >
-              per individuare l'avifauna presente, lo
-              <strong>stato di conservazione</strong> e i
-              <strong>cambiamenti e le trasformazioni</strong> avvenuti nel
-              tempo. I risultati delle ricerche riportate qui sotto sono
-              consultabili alla pagina
-              <NuxtLink to="/pubblicazioni" class="specific-link"
-                >Pubblicazioni Scientifiche</NuxtLink
-              >.
-            </p>
+            <p
+              class="main-description__intro"
+              v-html="home?.intro_text"
+              @click="handleContentClick"
+            ></p>
           </div>
 
           <div class="cards-section">
             <SharedNavCard
-              v-for="card in data.cards"
+              v-for="card in home?.cards"
               :key="card.slug"
               :to="`/progetti/${card.slug}`"
               :title="card.title"
