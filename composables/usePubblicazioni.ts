@@ -291,12 +291,13 @@ const MOCK_TREE: PubNode[] = [
     intro_excerpt: "Liste sistematiche e racconti ornitologici.",
     image_path: "/images/pubblicazioni/cards/liste.jpg",
     children: [
+      // Lista uccelli
       {
         slug: "lista-uccelli",
         title: "Lista uccelli",
         type: "pdf-list",
         intro_text:
-          "<p>Le liste sistematiche delle specie osservate sul territorio provinciale, aggiornate periodicamente.</p>",
+          "<p>Questa pubblicazione rende disponibile un elenco documentato relativo a tutte le specie di uccelli osservati e segnalati in provincia di Varese, con <strong>aggiornamenti alla data del 31/12/2020</strong>.<br><br>Questa ricerca è stata effettuata attraverso la consultazione di numerose fonti bibliografiche, siti e piattaforme di associazioni ornitologiche e di birdwatching, con lo scopo di individuare tutte le osservazioni relative a presenza, nidificazione e svernamento, e conseguentemente assegnare i caratteri fenologici ad ogni singola specie, oltre ad alcuni altri campi o annotazioni di particolare rilevanza ornitologica.</p>",
         intro_excerpt: "Liste sistematiche delle specie osservate.",
         items: [
           {
@@ -306,53 +307,59 @@ const MOCK_TREE: PubNode[] = [
           },
         ],
       },
+      // Resoconti ornitologici
       {
-        slug: "racconti-ornitologici",
-        title: "Racconti ornitologici",
+        slug: "resoconti-ornitologici",
+        title: "Resoconti ornitologici",
         type: "pdf-list",
         intro_text:
-          "<p>Cronache e resoconti annuali delle attività di osservazione e degli avvistamenti più significativi.</p>",
-        intro_excerpt: "Cronache e resoconti annuali di osservazione.",
+          "<p>In questi Resoconti sono presenti le osservazioni ornitologiche provinciali di ogni anno, dal 2017 ad oggi, con le segnalazioni delle specie che hanno particolare rilevanza per rarità, presenza non usuale in riferimento al periodo o alla località dove è stata effettuata l'osservazione, interessante numero di individui osservati, particolarità relative alla nidificazione e allo svernamento.<br><br>Le segnalazioni sono raccolte con il contributo di numerosi osservatori e anche attraverso alcune ricerche effettuate dal Gruppo Insubrico di Ornitologia, e per la quasi totalità fanno riferimento ai dati inseriti nel portale <a href='https://www.ornitho.it/' class='specific-link'>Ornitho</a>. I dati presenti nei vari Resoconti sono poi utilizzati per mantenere aggiornata la &ldquo;Lista degli uccelli della provincia di Varese&rdquo;.</p>",
+        intro_excerpt: "Resoconti annuali di osservazione, dal 2017 ad oggi.",
         items: [
           {
             id: 40,
-            title: "Racconto Ornitologico 2017",
-            pdf_url: "/docs/racconti/2017.pdf",
+            title: "Resoconto Ornitologico 2017",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2017.pdf",
           },
           {
             id: 41,
-            title: "Racconto Ornitologico 2018",
-            pdf_url: "/docs/racconti/2018.pdf",
+            title: "Resoconto Ornitologico 2018",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2018.pdf",
           },
           {
             id: 42,
-            title: "Racconto Ornitologico 2019",
-            pdf_url: "/docs/racconti/2019.pdf",
+            title: "Resoconto Ornitologico 2019",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2019.pdf",
           },
           {
             id: 43,
-            title: "Racconto Ornitologico 2020",
-            pdf_url: "/docs/racconti/2020.pdf",
+            title: "Resoconto Ornitologico 2020",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2020.pdf",
           },
           {
             id: 44,
-            title: "Racconto Ornitologico 2021",
-            pdf_url: "/docs/racconti/2021.pdf",
+            title: "Resoconto Ornitologico 2021",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2021.pdf",
           },
           {
             id: 45,
-            title: "Racconto Ornitologico 2022",
-            pdf_url: "/docs/racconti/2022.pdf",
+            title: "Resoconto Ornitologico 2022",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2022.pdf",
           },
           {
             id: 46,
-            title: "Racconto Ornitologico 2023",
-            pdf_url: "/docs/racconti/2023.pdf",
+            title: "Resoconto Ornitologico 2023",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2023.pdf",
           },
           {
             id: 47,
-            title: "Racconto Ornitologico 2024",
-            pdf_url: "/docs/racconti/2024.pdf",
+            title: "Resoconto Ornitologico 2024",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2024.pdf",
+          },
+          {
+            id: 48,
+            title: "Resoconto Ornitologico 2025",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2025.pdf",
           },
         ],
       },

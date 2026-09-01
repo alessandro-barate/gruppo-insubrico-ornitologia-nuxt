@@ -31,6 +31,14 @@ const childCards = computed(() => data.value?.childCards ?? []);
 
 const basePath = computed(() => `/pubblicazioni/${segments.value.join("/")}`);
 
+// Classe e id specifici del nodo corrente, per stili/ancore mirati
+// (es. la pagina "racconti-ornitologici"). Derivati dallo slug del nodo:
+// classe → subsection--<slug>, id → <slug>.
+const nodeClass = computed(() =>
+  node.value ? `subsection--${node.value.slug}` : "",
+);
+const nodeId = computed(() => node.value?.slug ?? undefined);
+
 // Breadcrumb: le voci dopo la home. L'ultima è la pagina corrente.
 const crumbs = computed(() => buildCrumbs(segments.value));
 
@@ -118,7 +126,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <section v-if="node" class="subsection">
+  <section v-if="node" :id="nodeId" class="subsection" :class="nodeClass">
     <div class="subsection__intro">
       <!-- Breadcrumb: Pubblicazioni / …livelli intermedi… / pagina corrente -->
       <nav class="breadcrumb" aria-label="Percorso di navigazione">

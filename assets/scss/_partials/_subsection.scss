@@ -71,10 +71,29 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 5rem;
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+
+    @media (max-width: 768px) {
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      flex-direction: column;
+    }
+  }
+
+  // Eccezioni: BOL e Racconti ornitologici mostrano i PDF su 2 colonne
+  // in desktop (1 su mobile). Le altre liste PDF restano col flex sopra.
+  // Le classi modificatrici .subsection--<slug> sono generate da nodeClass
+  // nello slug delle Pubblicazioni.
+  &.subsection--bol &__pdf-list,
+  &.subsection--resoconti-ornitologici &__pdf-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   // Bibliografia testuale (es. Paper)
