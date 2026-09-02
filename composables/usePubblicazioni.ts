@@ -317,7 +317,8 @@ const MOCK_TREE: PubNode[] = [
         intro_text:
           "<p>In questi Resoconti sono presenti le osservazioni ornitologiche provinciali di ogni anno, dal 2017 ad oggi, con le segnalazioni delle specie che hanno particolare rilevanza per rarità, presenza non usuale in riferimento al periodo o alla località dove è stata effettuata l'osservazione, interessante numero di individui osservati, particolarità relative alla nidificazione e allo svernamento.<br><br>Le segnalazioni sono raccolte con il contributo di numerosi osservatori e anche attraverso alcune ricerche effettuate dal Gruppo Insubrico di Ornitologia, e per la quasi totalità fanno riferimento ai dati inseriti nel portale <a href='https://www.ornitho.it/' class='specific-link'>Ornitho</a>. I dati presenti nei vari Resoconti sono poi utilizzati per mantenere aggiornata la &ldquo;Lista degli uccelli della provincia di Varese&rdquo;.</p>",
         intro_excerpt: "Resoconti annuali di osservazione, dal 2017 ad oggi.",
-        image_path: "",
+        image_path:
+          "/images/pubblicazioni/liste/resoconti/smergo-maggiore.webp",
         items: [
           {
             id: 40,
