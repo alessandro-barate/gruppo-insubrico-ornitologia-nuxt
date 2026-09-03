@@ -1,0 +1,49 @@
+// ─────────────────────────────────────────────────────────
+// Stile condiviso per i link "tipizzati" e gli allegati
+// (PDF, Word, Excel, PowerPoint, link esterni) usati in più
+// sezioni del sito: Progetti, News, ecc.
+//
+// Solo ASPETTO: il markup e la scelta dell'icona restano a
+// carico di ogni pagina/componente. Basta applicare la classe
+// .typed-link al link e .typed-link__icon all'immagine-icona.
+//
+// Importato globalmente una volta sola in main.scss, quindi le
+// regole valgono in tutto il sito senza doverle ripetere.
+// ─────────────────────────────────────────────────────────
+
+.typed-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--color-border, #ddd);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--color-text, #333);
+  font-size: 0.9rem;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-accent, #2c6e49);
+    background: var(--color-surface-alt, #f7f7f7);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+
+  &__badge {
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.4rem;
+    border-radius: 4px;
+    color: #fff;
+  }
+}

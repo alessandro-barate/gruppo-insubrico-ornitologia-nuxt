@@ -49,9 +49,11 @@ const goToPage = (p) => {
 
         <section ref="listTop" class="news-list">
           <p class="news-list__intro">
-            Vuoi tenerti informato su quello che facciamo al G.I.O. e cosa
-            succede intorno a noi?<br />
-            Qui trovi tutte le ultime notizie che pubblichiamo.
+            In questa sezione sono raccolte, in ordine cronologico, le
+            <strong>notizie e gli aggiornamenti</strong> sulle attività del
+            G.I.O., Gruppo Insubrico di Ornitologia: eventi, progetti,
+            monitoraggi, iniziative, pubblicazioni e tutte le novità che
+            riguardano l'associazione e le sue attività sul territorio.
           </p>
 
           <!-- Loading -->
@@ -88,18 +90,21 @@ const goToPage = (p) => {
               aria-label="Paginazione news"
             >
               <button
-                class="pagination__btn"
+                class="pagination__arrow"
                 :disabled="page === 1"
                 @click="goToPage(page - 1)"
               >
-                ‹ Prec
+                <img
+                  src="/_nuxt/assets/images/scientific-dissemination/chevron-left.svg"
+                  alt="Freccia sinistra per navigare alla lista precedente delle news"
+                />
               </button>
 
               <button
                 v-for="p in totalPages"
                 :key="p"
                 :class="[
-                  'pagination__btn',
+                  'pagination__page',
                   { 'pagination__btn--active': p === page },
                 ]"
                 @click="goToPage(p)"
@@ -108,11 +113,14 @@ const goToPage = (p) => {
               </button>
 
               <button
-                class="pagination__btn"
+                class="pagination__arrow"
                 :disabled="page === totalPages"
                 @click="goToPage(page + 1)"
               >
-                Succ ›
+                <img
+                  src="/_nuxt/assets/images/scientific-dissemination/chevron-right.svg"
+                  alt="Freccia destra per navigare alla lista successiva delle news"
+                />
               </button>
             </nav>
           </template>
@@ -123,13 +131,15 @@ const goToPage = (p) => {
 </template>
 
 <style scoped lang="scss">
+@use "~/assets/scss/_partials/subsection" as *;
+
 .col {
   .title-section {
     position: relative;
     width: 100%;
     height: 700px;
     overflow: hidden;
-    margin-bottom: 3rem;
+    margin-bottom: 5rem;
 
     .overlay {
       height: 100%;
@@ -152,7 +162,7 @@ const goToPage = (p) => {
     padding-bottom: 17rem;
 
     &__intro {
-      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-size: 1.1rem;
       margin-bottom: 4rem;
       color: #333;
     }
@@ -205,51 +215,19 @@ const goToPage = (p) => {
   .news-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: 5rem;
 
     &__item {
       aspect-ratio: 5 / 3;
-      min-height: 400px;
+      min-height: 350px;
     }
   }
 
-  // Paginazione
   .pagination {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: 3rem;
+    margin-top: 5rem;
 
-    &__btn {
-      padding: 0.75rem 1.25rem;
-      font-size: 1rem;
-      font-weight: 500;
-      color: #333;
-      background-color: #f5f5f5;
-      border: 1px solid #000000;
-      border-radius: 8px;
-      cursor: pointer;
-      transition:
-        color 0.3s ease,
-        background-color 0.3s ease,
-        transform 0.25s ease;
-
-      &:hover:not(:disabled):not(.pagination__btn--active) {
-        transform: translateY(-2px);
-      }
-
-      &--active {
-        color: #ffffff;
-        background: linear-gradient(90deg, #002fff, #00e1ff);
-        border-color: transparent;
-      }
-
-      &:disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-      }
+    &__arrow img {
+      width: 10%;
     }
   }
 }

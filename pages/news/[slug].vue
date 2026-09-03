@@ -40,6 +40,16 @@ const formattedDate = computed(() => {
     year: "numeric",
   });
 });
+
+// Icona per tipo di allegato (stessi file usati nei Progetti/TypedLink).
+const ATTACHMENT_ICON = {
+  pdf: "/images/pdf-icon.png",
+  word: "/images/word-icon.png",
+  excel: "/images/excel-icon.png",
+  powerpoint: "/images/powerpoint-icon.png",
+  external: "/images/link-icon.png",
+};
+const iconFor = (type) => ATTACHMENT_ICON[type] ?? ATTACHMENT_ICON.pdf;
 </script>
 
 <template>
@@ -48,7 +58,7 @@ const formattedDate = computed(() => {
       <div class="col">
         <article v-if="article" class="news-detail">
           <!-- Header con immagine di copertina -->
-          <header
+          <div
             class="news-detail__hero"
             :style="{ backgroundImage: `url(${article.image})` }"
           >
@@ -65,44 +75,52 @@ const formattedDate = computed(() => {
                 {{ formattedDate }}
               </time>
             </div>
-          </header>
+          </div>
 
           <!-- Corpo della news -->
           <div class="news-detail__content">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+              <NuxtLink to="/news" class="breadcrumb__link">
+                <img
+                  src="/_nuxt/assets/images/scientific-dissemination/chevron-left.svg"
+                  alt="Bottone per tornare alla lista delle news"
+                />Torna alle news
+              </NuxtLink>
+            </nav>
             <p class="news-detail__excerpt">{{ article.excerpt }}</p>
             <div class="news-detail__body">{{ article.body }}</div>
 
-            <!-- Azioni: PDF e/o link esterno (possono coesistere) -->
+            <!-- Allegati: elenco di file (pdf, word, excel, powerpoint) -->
             <div
-              v-if="article.pdf || article.externalLink"
-              class="news-detail__actions"
+              v-if="article.attachments && article.attachments.length"
+              class="news-detail__attachments"
             >
-              <a
-                v-if="article.pdf"
-                :href="article.pdf"
-                class="news-detail__btn"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Scarica il documento allegato
-              </a>
-              <a
-                v-if="article.externalLink"
-                :href="article.externalLink"
-                class="news-detail__btn news-detail__btn--outline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Vai al sito
-              </a>
+              <h2 class="news-detail__attachments-title">Allegati</h2>
+              <ul class="news-detail__attachments-list">
+                <li
+                  v-for="(file, i) in article.attachments"
+                  :key="i"
+                  class="news-detail__attachment"
+                >
+                  <a
+                    :href="file.url"
+                    class="typed-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      :src="iconFor(file.type)"
+                      alt=""
+                      class="typed-link__icon"
+                    />
+                    <span class="typed-link__label">
+                      {{ file.label }}
+                    </span>
+                  </a>
+                </li>
+              </ul>
             </div>
-          </div>
-
-          <!-- Torna all'elenco -->
-          <div class="news-detail__footer">
-            <NuxtLink to="/news" class="news-detail__back">
-              ‹ Torna alle news
-            </NuxtLink>
           </div>
         </article>
       </div>
@@ -111,8 +129,12 @@ const formattedDate = computed(() => {
 </template>
 
 <style scoped lang="scss">
+@use "~/assets/scss/_partials/subsection" as *;
+@use "~/assets/scss/_partials/typed-link" as *;
+
 .col {
   .news-detail {
+    margin-bottom: 20rem;
     &__hero {
       position: relative;
       width: 100%;
@@ -173,8 +195,8 @@ const formattedDate = computed(() => {
     }
 
     &__body {
-      font-size: 1.1rem;
-      line-height: 1.8;
+      font-size: 1rem;
+      line-height: 1.7;
       color: #444;
       white-space: pre-line;
     }
@@ -186,25 +208,25 @@ const formattedDate = computed(() => {
       margin-top: 2.5rem;
     }
 
-    &__btn {
-      display: inline-block;
-      padding: 0.9rem 1.75rem;
-      font-weight: 500;
-      color: #fff;
-      background: linear-gradient(90deg, #002fff, #00e1ff);
-      border: 1px solid transparent;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: transform 0.25s ease;
+    &__attachments {
+      margin-top: 3.5rem;
+    }
 
-      &:hover {
-        transform: translateY(-2px);
-      }
+    &__attachments-title {
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
 
-      &--outline {
-        color: #002fff;
-        background: transparent;
-        border-color: #002fff;
+    &__attachments-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 0.75rem;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
       }
     }
 
@@ -212,17 +234,6 @@ const formattedDate = computed(() => {
       width: 90%;
       max-width: 800px;
       margin: 4rem auto 6rem;
-    }
-
-    &__back {
-      font-size: 1.05rem;
-      font-weight: 500;
-      color: #002fff;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 }

@@ -38,7 +38,7 @@ defineProps<{
   background-position: center;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   text-decoration: none;
-  color: #e0e0e0;
+  color: #ffffff;
   transition:
     transform 0.4s ease,
     box-shadow 0.4s ease;
