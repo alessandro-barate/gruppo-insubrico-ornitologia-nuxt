@@ -115,25 +115,24 @@ defineProps({
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: var(--accent-color);
+    background: linear-gradient(90deg, #ff8636, #f9a268);
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
     z-index: 3;
     text-decoration: none;
 
     span {
-      color: #fff;
+      color: #333;
       font-size: 1.75rem;
       font-weight: 300;
       line-height: 1;
     }
 
     &:hover {
-      background: color.adjust(#002fff, $lightness: -8%);
       transform: scale(1.1);
     }
   }

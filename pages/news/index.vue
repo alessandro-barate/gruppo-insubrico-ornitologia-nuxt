@@ -227,7 +227,7 @@ const goToPage = (p) => {
     margin-top: 5rem;
 
     &__arrow img {
-      width: 10%;
+      width: 12%;
     }
   }
 }

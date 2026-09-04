@@ -14,6 +14,13 @@ useHead({
   <div class="container">
     <div class="row">
       <div class="col">
+        <div class="form-title">
+          <h1>Form di contatto</h1>
+          <p>
+            Hai bisogno di contattarci? Scrivici una mail compilando il form
+            sottostante.
+          </p>
+        </div>
         <div class="form-container">
           <form action="" method="get">
             <div class="details-row">
@@ -56,6 +63,9 @@ useHead({
               />
             </div>
           </form>
+          <div class="bottom-text">
+            <p>*Campi obbligatori</p>
+          </div>
         </div>
       </div>
     </div>
@@ -64,38 +74,62 @@ useHead({
 <style scoped lang="scss">
 .container {
   width: 100%;
-  padding-bottom: 15rem;
+  padding-bottom: 10rem;
 
-  input,
-  textarea {
-    border: none;
-    border-bottom: 1px solid black;
-    background-color: transparent;
-  }
-
-  .form-container {
+  .col {
     width: 80%;
-    text-align: center;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-    color: red;
-    background-color: orange;
 
-    form {
-      width: 40%;
+    input,
+    textarea {
+      border: none;
+      border-bottom: 1px solid black;
+      background-color: transparent;
+    }
 
-      .details-row,
-      .email-row {
-        margin-bottom: 4rem;
+    .form-title {
+      margin-top: 4rem;
+      text-align: center;
+      margin-bottom: 2rem;
+
+      h1 {
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    .form-container {
+      text-align: center;
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+
+      form {
+        width: 50%;
+
+        .details-row,
+        .email-row {
+          margin-bottom: 6rem;
+        }
+
+        .details-row {
+          display: flex;
+
+          #name,
+          #surname {
+            width: 40%;
+          }
+        }
+
+        .email-row {
+          #mail {
+            width: 55%;
+          }
+        }
       }
 
-      .details-row {
-        display: flex;
-
-        #name,
-        #surname {
-          width: 48%;
-        }
+      .bottom-text {
+        width: 50%;
+        font-size: 0.9rem;
+        margin-top: 2rem;
+        text-align: start;
       }
     }
   }

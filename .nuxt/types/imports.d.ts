@@ -112,7 +112,7 @@ declare global {
   const useLazyAsyncData: typeof import('../../node_modules/nuxt/dist/app/composables/asyncData').useLazyAsyncData
   const useLazyFetch: typeof import('../../node_modules/nuxt/dist/app/composables/fetch').useLazyFetch
   const useLink: typeof import('vue-router').useLink
-  const useLinks: typeof import('../../composables/useSiteStore').useLinks
+  const useLinks: typeof import('../../composables/useLinks').useLinks
   const useLoadingIndicator: typeof import('../../node_modules/nuxt/dist/app/composables/loading-indicator').useLoadingIndicator
   const useMetaDescriptions: typeof import('../../composables/useSiteStore').useMetaDescriptions
   const useModel: typeof import('vue').useModel
@@ -193,6 +193,9 @@ declare global {
   // @ts-ignore
   export type { ItemLink, SubsectionItem, Subsection, SubsectionCardData } from '../../composables/useDivulgazione'
   import('../../composables/useDivulgazione')
+  // @ts-ignore
+  export type { LinkItem, LinkGroup, LinkSubsection, LinksByCategory } from '../../composables/useLinks'
+  import('../../composables/useLinks')
   // @ts-ignore
   export type { LinkKind, ProgettiNode, TypedLink, ContentBlock, Project, ProjectSection, NavCardData } from '../../composables/useProgetti'
   import('../../composables/useProgetti')
@@ -315,7 +318,7 @@ declare module 'vue' {
     readonly useLazyAsyncData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['useLazyAsyncData']>
     readonly useLazyFetch: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/fetch')['useLazyFetch']>
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
-    readonly useLinks: UnwrapRef<typeof import('../../composables/useSiteStore')['useLinks']>
+    readonly useLinks: UnwrapRef<typeof import('../../composables/useLinks')['useLinks']>
     readonly useLoadingIndicator: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/loading-indicator')['useLoadingIndicator']>
     readonly useMetaDescriptions: UnwrapRef<typeof import('../../composables/useSiteStore')['useMetaDescriptions']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>

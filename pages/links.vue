@@ -11,26 +11,27 @@ useHead({
 });
 
 // Import links dal composable
-const links = useLinks();
+const { data: links } = await useLinks();
 
 // Categoria attiva
 const activeCategory = ref<string>("ornithology");
 
-// Dati categorie con nomi e configurazione colonne
+// Dati categorie con nomi e allineamento
 const categories = {
-  ornithology: {
-    name: "Ornitologia",
-    columns: 2,
+  portali: {
+    name: "Portali di osservazioni e citizen science",
     centered: false,
   },
-  birdwatching: {
-    name: "Birdwatching",
-    columns: 1,
+  organizzazioni: {
+    name: "Organizzazioni internazionali e scientifiche",
     centered: true,
   },
-  nature: {
-    name: "Natura",
-    columns: 2,
+  reti: {
+    name: "Italia - reti, associazioni e gruppi regionali",
+    centered: true,
+  },
+  turismo: {
+    name: "Turismo naturalistico",
     centered: true,
   },
 };
@@ -40,27 +41,10 @@ const setCategory = (categoryKey: string) => {
   activeCategory.value = categoryKey;
 };
 
-// Divide array in chunks per le colonne
-const chunkArray = <T,>(array: T[], chunkSize: number): T[][] => {
-  const chunks: T[][] = [];
-  for (let i = 0; i < array.length; i += chunkSize) {
-    chunks.push(array.slice(i, i + chunkSize));
-  }
-  return chunks;
-};
-
-// Links della categoria divisi in colonne
-const getLinksColumns = (categoryKey: string) => {
-  const categoryLinks = links[categoryKey] || [];
-  const config = categories[categoryKey as keyof typeof categories];
-  const columns = config?.columns || 2;
-
-  if (columns === 1) {
-    return [categoryLinks];
-  }
-
-  const itemsPerColumn = Math.ceil(categoryLinks.length / columns);
-  return chunkArray(categoryLinks, itemsPerColumn);
+// Sottosezioni di una categoria: ognuna è resa come una colonna
+// (con il suo titolo) nel pannello.
+const getSubsections = (categoryKey: string) => {
+  return links.value?.[categoryKey as keyof typeof categories] || [];
 };
 
 onMounted(() => {
@@ -123,26 +107,43 @@ onMounted(() => {
                   class="links-columns"
                   :class="{ centered: category.centered }"
                 >
-                  <ul
-                    v-for="(column, colIndex) in getLinksColumns(key as string)"
-                    :key="colIndex"
-                    class="links-list"
+                  <div
+                    v-for="(subsection, subIndex) in getSubsections(
+                      key as string,
+                    )"
+                    :key="subIndex"
+                    class="links-subsection"
                   >
-                    <li
-                      v-for="(link, index) in column"
-                      :key="index"
-                      class="link-item"
+                    <h3 class="links-subsection__title">
+                      {{ subsection.title }}
+                    </h3>
+                    <div
+                      v-for="(group, groupIndex) in subsection.groups"
+                      :key="groupIndex"
+                      class="links-group"
                     >
-                      <a
-                        :href="link.href"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        @click.stop
-                      >
-                        {{ link.title }}
-                      </a>
-                    </li>
-                  </ul>
+                      <h4 class="links-group__title">{{ group.title }}</h4>
+                      <ul class="links-list">
+                        <li
+                          v-for="(link, index) in group.links"
+                          :key="index"
+                          class="link-item"
+                        >
+                          <a
+                            :href="link.href"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            @click.stop
+                          >
+                            {{ link.title }}
+                          </a>
+                          <span v-if="link.subtitle" class="link-subtitle">{{
+                            link.subtitle
+                          }}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -177,7 +178,7 @@ onMounted(() => {
                 >
                   <img
                     src="~/assets/images/links-socials/facebook.png"
-                    alt="Facebook logo e link"
+                    alt="Link alla pagina Facebook del G.I.O."
                   />
                 </a>
                 <h3>Aggiungigi su Facebook</h3>
@@ -193,7 +194,7 @@ onMounted(() => {
                 >
                   <img
                     src="~/assets/images/links-socials/instagram.svg"
-                    alt="Instagram logo e link"
+                    alt="Link alla pagina Instagram del G.I.O."
                   />
                 </a>
                 <h3>Seguici su Instagram</h3>
@@ -203,13 +204,13 @@ onMounted(() => {
 
               <!-- Newsletter -->
               <div class="newsletter">
-                <a href="">
+                <NuxtLink to="/form">
                   <img
                     src="~/assets/images/links-socials/newsletter.svg"
-                    alt="Newsletter e link"
+                    alt="Link alla pagina del form di contatto"
                   />
-                </a>
-                <h3>Iscriviti alla nostra newsletter</h3>
+                </NuxtLink>
+                <h3>Scrivici una mail</h3>
               </div>
             </div>
           </div>
@@ -373,6 +374,24 @@ onMounted(() => {
 
   &.centered {
     justify-content: center;
+  }
+}
+
+.links-subsection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__title {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
 }
 
