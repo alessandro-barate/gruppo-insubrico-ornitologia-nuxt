@@ -445,7 +445,7 @@ onUnmounted(() => {
                   <div class="card-hover bg-blue">
                     <img
                       src="~/assets/images/activities-section/arrow-right-white.svg"
-                      alt=""
+                      alt="Bottone che indirizza alla pagina dei Progetti di ricerca del G.I.O."
                     />
                     <p>progetti di ricerca</p>
                   </div>
@@ -461,7 +461,7 @@ onUnmounted(() => {
                   <div class="card-hover bg-blue">
                     <img
                       src="~/assets/images/activities-section/arrow-right-white.svg"
-                      alt=""
+                      alt="Bottone che indirizza alla pagina dei Divulgazione del G.I.O."
                     />
                     <p>divulgazione</p>
                   </div>
@@ -477,7 +477,7 @@ onUnmounted(() => {
                   <div class="card-hover bg-blue">
                     <img
                       src="~/assets/images/activities-section/arrow-right-white.svg"
-                      alt=""
+                      alt="Bottone che indirizza alla pagina delle Pubblicazioni del G.I.O."
                     />
                     <p>pubblicazioni scientifiche</p>
                   </div>

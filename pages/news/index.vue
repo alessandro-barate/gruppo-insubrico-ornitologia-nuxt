@@ -95,7 +95,7 @@ const goToPage = (p) => {
                 @click="goToPage(page - 1)"
               >
                 <img
-                  src="/_nuxt/assets/images/scientific-dissemination/chevron-left.svg"
+                  src="~/assets/images/scientific-dissemination/chevron-left.svg"
                   alt="Freccia sinistra per navigare alla lista precedente delle news"
                 />
               </button>
@@ -118,7 +118,7 @@ const goToPage = (p) => {
                 @click="goToPage(page + 1)"
               >
                 <img
-                  src="/_nuxt/assets/images/scientific-dissemination/chevron-right.svg"
+                  src="~/assets/images/scientific-dissemination/chevron-right.svg"
                   alt="Freccia destra per navigare alla lista successiva delle news"
                 />
               </button>

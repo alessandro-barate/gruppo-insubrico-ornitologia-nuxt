@@ -83,7 +83,7 @@ const iconFor = (type) => ATTACHMENT_ICON[type] ?? ATTACHMENT_ICON.pdf;
             <nav class="breadcrumb">
               <NuxtLink to="/news" class="breadcrumb__link">
                 <img
-                  src="/_nuxt/assets/images/scientific-dissemination/chevron-left.svg"
+                  src="~/assets/images/scientific-dissemination/chevron-left.svg"
                   alt="Bottone per tornare alla lista delle news"
                 />Torna alle news
               </NuxtLink>

@@ -132,8 +132,8 @@ useSeoMeta({
       <nav class="breadcrumb" aria-label="Percorso di navigazione">
         <NuxtLink to="/pubblicazioni" class="breadcrumb__link">
           <img
-            src="../../assets/images/scientific-dissemination/chevron-left.svg"
-            alt=""
+            src="~/assets/images/scientific-dissemination/chevron-left.svg"
+            alt="Freccia sinistra per navigare al menù precedente"
           />
           Pubblicazioni
         </NuxtLink>
@@ -259,7 +259,7 @@ useSeoMeta({
           @click="goToPage(currentPage - 1)"
         >
           <img
-            src="../../assets/images/scientific-dissemination/chevron-left.svg"
+            src="~/assets/images/scientific-dissemination/chevron-left.svg"
             alt="Freccia sinistra per navigare alla lista precedente dei contenuti"
           />
         </button>
@@ -280,7 +280,7 @@ useSeoMeta({
           @click="goToPage(currentPage + 1)"
         >
           <img
-            src="../../assets/images/scientific-dissemination/chevron-right.svg"
+            src="~/assets/images/scientific-dissemination/chevron-right.svg"
             alt="Freccia destra per navigare alla lista successiva dei contenuti"
           />
         </button>

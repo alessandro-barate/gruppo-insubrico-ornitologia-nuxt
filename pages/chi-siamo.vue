@@ -324,7 +324,7 @@ onMounted(() => {
                     <div class="card-hover bg-blue">
                       <img
                         src="~/assets/images/activities-section/arrow-right-white.svg"
-                        alt="Freccia rivolta a destra che permette di cliccare un bottone che apre la sezione che spiega come diventari soci del G.I.O."
+                        alt="Bottone che apre la sezione che spiega come diventari soci del G.I.O."
                       />
                       <p>scopri di più</p>
                     </div>

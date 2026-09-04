@@ -94,7 +94,7 @@ useSeoMeta({
         <NuxtLink to="/progetti" class="breadcrumb__link">
           <img
             src="../../assets/images/scientific-dissemination/chevron-left.svg"
-            alt=""
+            alt="Freccia sinistra per navigare alla lista successiva dei contenuti"
           />
           Progetti
         </NuxtLink>
@@ -191,8 +191,8 @@ useSeoMeta({
         @click="goToPage(currentPage - 1)"
       >
         <img
-          src="../../assets/images/scientific-dissemination/chevron-left.svg"
-          alt="Freccia sinistra per navigare alla lista precedente dei contenuti"
+          src="~/assets/images/scientific-dissemination/chevron-left.svg"
+          alt="Freccia sinistra per navigare al menù precedente"
         />
       </button>
       <button
@@ -212,7 +212,7 @@ useSeoMeta({
         @click="goToPage(currentPage + 1)"
       >
         <img
-          src="../../assets/images/scientific-dissemination/chevron-right.svg"
+          src="~/assets/images/scientific-dissemination/chevron-right.svg"
           alt="Freccia destra per navigare alla lista successiva dei contenuti"
         />
       </button>

@@ -1,1 +1,0 @@
-export { default } from "file:///C:/Users/utente/Desktop/Miei%20Progetti/Gruppo%20Insubrico%20Ornitologico/gruppo-insubrico-ornitologia-nuxt/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"

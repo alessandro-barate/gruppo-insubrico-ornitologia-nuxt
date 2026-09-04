@@ -35,8 +35,8 @@ useSeoMeta({
       <div class="subsection__back">
         <NuxtLink to="/divulgazione" class="subsection__link">
           <img
-            src="../../assets/images/scientific-dissemination/chevron-left.svg"
-            alt=""
+            src="~/assets/images/scientific-dissemination/chevron-left.svg"
+            alt="Bottone per tornare al menù precedente"
           />
           Divulgazione</NuxtLink
         >
@@ -62,7 +62,7 @@ useSeoMeta({
         @click="goToPage(currentPage - 1)"
       >
         <img
-          src="../../assets/images/scientific-dissemination/chevron-left.svg"
+          src="~/assets/images/scientific-dissemination/chevron-left.svg"
           alt="Freccia sinistra per navigare alla lista precedente dei contenuti"
         />
       </button>
@@ -85,7 +85,7 @@ useSeoMeta({
         @click="goToPage(currentPage + 1)"
       >
         <img
-          src="../../assets/images/scientific-dissemination/chevron-right.svg"
+          src="~/assets/images/scientific-dissemination/chevron-right.svg"
           alt="Freccia destra per navigare alla lista successiva dei contenuti"
         />
       </button>
