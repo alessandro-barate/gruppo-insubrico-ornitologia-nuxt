@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@parcel/watcher": "^2.5.4",
     "nuxt": "^3.14.0",
     "vue": "^3.5.0",
     "vue-router": "^4.4.0"
@@ -17,5 +18,9 @@
   "devDependencies": {
     "@types/node": "^26.1.2",
     "sass": "^1.80.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "@parcel/watcher@2.6.0": true
   }
 }
