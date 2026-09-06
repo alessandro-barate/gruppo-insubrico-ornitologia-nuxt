@@ -14,7 +14,7 @@ useHead({
 const { data: links } = await useLinks();
 
 // Categoria attiva
-const activeCategory = ref<string>("ornithology");
+const activeCategory = ref<string>("portali");
 
 // Dati categorie con nomi e allineamento
 const categories = {
@@ -112,7 +112,7 @@ onMounted(() => {
                       key as string,
                     )"
                     :key="subIndex"
-                    class="links-subsection"
+                    class="links-subsection d-flex"
                   >
                     <h3 class="links-subsection__title">
                       {{ subsection.title }}
@@ -263,16 +263,22 @@ onMounted(() => {
   transition: flex 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 
-  &.bg-ornithology {
-    background-image: url(../assets/images/links-socials/poiana.webp);
+  &.bg-portali {
+    margin-left: 0;
+    background-image: url(../assets/images/links-socials/nibbio-bruno.webp);
   }
 
-  &.bg-birdwatching {
-    background-image: url(../assets/images/links-socials/birdwatching.webp);
+  &.bg-organizzazioni {
+    background-image: url(../assets/images/links-socials/aquila-reale.webp);
   }
 
-  &.bg-nature {
-    background-image: url(../assets/images/links-socials/nature.webp);
+  &.bg-reti {
+    background-image: url(../assets/images/links-socials/ibis-eremita.webp);
+  }
+
+  &.bg-turismo {
+    margin-right: 0;
+    background-image: url(../assets/images/links-socials/nibbio-reale.webp);
   }
 
   &.active {
@@ -378,9 +384,21 @@ onMounted(() => {
 }
 
 .links-subsection {
-  display: flex;
-  flex-direction: column;
   gap: 1rem;
+  overflow: auto;
+  max-height: 500px;
+  margin-left: 1.5rem;
+  flex-direction: column;
+
+  .links-group {
+    margin-left: 0;
+    padding-top: 1rem;
+
+    .links-group__title {
+      color: white;
+      padding-bottom: 0.7rem;
+    }
+  }
 
   &__title {
     color: white;
@@ -393,29 +411,35 @@ onMounted(() => {
     padding-bottom: 0.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
-}
 
-.links-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+  .links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
-.link-item {
-  a {
-    color: white;
-    font-size: 1rem;
-    letter-spacing: 0.02em;
-    text-decoration: underline;
-    text-underline-offset: 0.2rem;
-    transition: all 0.3s ease;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+    .link-item {
+      margin-left: 0;
 
-    &:hover {
-      color: rgba(255, 140, 0, 0.9);
+      a {
+        color: white;
+        font-size: 1rem;
+        letter-spacing: 0.02em;
+        text-decoration: underline;
+        text-underline-offset: 0.2rem;
+        transition: all 0.3s ease;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+
+        &:hover {
+          color: rgba(255, 140, 0, 0.9);
+        }
+      }
+
+      .link-subtitle {
+        color: rgba(255, 255, 255, 0.705);
+      }
     }
   }
 }

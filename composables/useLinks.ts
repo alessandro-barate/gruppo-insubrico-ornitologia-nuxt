@@ -46,10 +46,31 @@ const MOCK_LINKS: LinksByCategory = {
         {
           links: [
             {
-              title: "Ornitho",
+              title: "Ornitho Italia",
               subtitle:
-                "Piattaforma italiana principale per inserimento osservazioni, atlanti, monitoraggi e validazione dati",
+                " - Principale piattaforma italiana per inserimento osservazioni, atlanti, monitoraggi e validazione dati",
               href: "https://www.ornitho.it/",
+            },
+            {
+              title: "Ornitho Svizzera",
+              subtitle: " - Equivalente svizzero di Ornitho Italia",
+              href: "https://www.ornitho.ch/",
+            },
+            {
+              title: "Euring",
+              subtitle:
+                " - Rete europea che coordina l'inanellamento scientifico degli uccelli",
+              href: "https://euring.org/",
+            },
+            {
+              title: "Xeno Canto",
+              subtitle: " - Archivio mondiale di canti e richiami di uccelli",
+              href: "https://xeno-canto.org/",
+            },
+            {
+              title: "Avibase",
+              subtitle: " - Database tassonomico e distributivo globale",
+              href: "https://avibase.bsc-eoc.org/avibase.jsp?lang=IT",
             },
           ],
         },
@@ -65,8 +86,53 @@ const MOCK_LINKS: LinksByCategory = {
             {
               title: "BirdLife",
               subtitle:
-                "Conservazione globale degli uccelli e Important Bird Areas",
+                " - Conservazione globale degli uccelli e Important Bird Areas",
               href: "https://www.birdlife.org/",
+            },
+            {
+              title: "BTO",
+              subtitle: " - Monitoraggi scientifici, atlanti e guide specie",
+              href: "https://www.bto.org/",
+            },
+            {
+              title: "EBCC",
+              subtitle: " - Coordinamento dei monitoraggi europei",
+              href: "https://www.ebcc.info/",
+            },
+            {
+              title: "RSPB",
+              subtitle:
+                " - La più grande organizzazione britannica per la protezione degli uccelli",
+              href: "https://www.rspb.org.uk/",
+            },
+            {
+              title: "Vogelwarte",
+              subtitle: " - La stazione ornitologica svizzera",
+              href: "https://www.vogelwarte.ch/de/",
+            },
+            {
+              title: "Ficedula",
+              subtitle:
+                " - Associazione ornitologica svizzera molto attiva nel monitoraggio",
+              href: "https://ficedula.ch/",
+            },
+            {
+              title: "NABU",
+              subtitle:
+                " - Importante organizzazione tedesca per natura e avifauna",
+              href: "https://www.nabu.de/",
+            },
+            {
+              title: "Ornitologia",
+              subtitle:
+                " - Una delle più importanti organizzazioni ornitologiche della Spagna e dell'Europa mediterranea",
+              href: "https://ornitologia.org/ca/",
+            },
+            {
+              title: "LPO",
+              subtitle:
+                " - Riferimento francese per bird conservation e monitoraggi",
+              href: "https://www.lpo.fr/",
             },
           ],
         },
@@ -81,9 +147,35 @@ const MOCK_LINKS: LinksByCategory = {
           title: "Coordinamento e conservazione",
           links: [
             {
-              title: "Centro Italiano Studi Ornitologici",
-              subtitle: "",
+              title: "CISO",
+              subtitle: " - Centro Italiano Studi Ornitologici",
               href: "https://ciso-coi.it/",
+            },
+            {
+              title: "LIPU",
+              subtitle:
+                " - Principale associazione italiana per tutela avifauna",
+              href: "https://www.lipu.it/",
+            },
+            {
+              title: "EBN Italia",
+              subtitle: " - Rete birdwatching nazionale",
+              href: "https://www.ebnitalia.it/",
+            },
+            {
+              title: "Birdin' Lombardia",
+              subtitle: " - Birdwatching Nord Italia",
+              href: "https://www.birdinlombardia.it/",
+            },
+            {
+              title: "WWF",
+              subtitle: " - Organizzazione ambientalista",
+              href: "https://www.wwf.it/",
+            },
+            {
+              title: "Lega Abolizione Caccia",
+              subtitle: " - Protezione della fauna",
+              href: "https://www.abolizionecaccia.it/",
             },
           ],
         },
@@ -94,6 +186,52 @@ const MOCK_LINKS: LinksByCategory = {
               title: "Gruppo Piemontese Studi Ornitologici",
               subtitle: "",
               href: "https://www.gpso.it/",
+            },
+            {
+              title: "C.R.O.S. Varenna",
+              subtitle: "",
+              href: "https://www.crosvarenna.it/",
+            },
+            {
+              title: "GOL - Gruppo Ornitologico Lombardo",
+              subtitle: "",
+              href: "https://gol-milano.it/",
+            },
+            {
+              title: "Scienze Naturali Verbano-Cusio-Ossola",
+              subtitle: "",
+              href: "https://www.scienzenaturalivco.org/",
+            },
+            {
+              title: "Cuneo Birding",
+              subtitle: "",
+              href: "http://www.cuneobirding.it/",
+            },
+            {
+              title: "Liguria Birding",
+              subtitle: "",
+              href: "https://www.liguriabirding.net/",
+            },
+            {
+              title: "AsOER ",
+              subtitle: " - Associazione di ornitologi dell'Emilia Romagna",
+              href: "https://www.asoer.org/",
+            },
+            {
+              title: "As.Fa.Ve.",
+              subtitle: " - Associazione di faunisti veneti",
+              href: "https://www.faunistiveneti.it/",
+            },
+            {
+              title: "ASTORE FVG",
+              subtitle:
+                " - Associazione Studi Ornitologici e Ricerche Ecologiche del Friuli Venezia Giulia",
+              href: "https://astorefvg.org/",
+            },
+            {
+              title: "GRA - Gruppo Ricerche Avifauna",
+              subtitle: "",
+              href: "https://www.grupporicercheavifauna.it/",
             },
           ],
         },
@@ -109,7 +247,7 @@ const MOCK_LINKS: LinksByCategory = {
           links: [
             {
               title: "Animal Trip",
-              subtitle: "Viaggi naturalistici e birdwatching",
+              subtitle: " - Viaggi naturalistici e birdwatching",
               href: "https://animal-trip.com/",
             },
           ],
