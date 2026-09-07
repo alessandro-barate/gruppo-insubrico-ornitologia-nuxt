@@ -121,8 +121,14 @@ onMounted(() => {
                       v-for="(group, groupIndex) in subsection.groups"
                       :key="groupIndex"
                       class="links-group"
+                      :class="{ 'links-group--reti': key === 'reti' }"
                     >
-                      <h4 class="links-group__title">{{ group.title }}</h4>
+                      <h4
+                        class="links-group__title"
+                        :class="{ 'links-group__title--reti': key === 'reti' }"
+                      >
+                        {{ group.title }}
+                      </h4>
                       <ul class="links-list">
                         <li
                           v-for="(link, index) in group.links"
@@ -221,6 +227,17 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
+.links-group__title--reti,
+.links-subsection__title {
+  color: white;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.links-group--reti {
+  width: 70%;
+}
+
 .row {
   .col {
     width: 100%;
@@ -385,6 +402,7 @@ onMounted(() => {
 
 .links-subsection {
   gap: 1rem;
+  width: 90%;
   overflow: auto;
   max-height: 500px;
   margin-left: 1.5rem;
@@ -394,22 +412,18 @@ onMounted(() => {
     margin-left: 0;
     padding-top: 1rem;
 
-    .links-group__title {
-      color: white;
-      padding-bottom: 0.7rem;
+    .links-group__title--reti {
+      margin-bottom: 1.5rem;
     }
   }
 
   &__title {
-    color: white;
     font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
     margin: 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   .links-list {

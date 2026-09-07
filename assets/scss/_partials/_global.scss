@@ -1,4 +1,39 @@
 /************
+SCROLLBAR STyles
+************/
+/* Firefox styles */
+:root {
+  scrollbar-color: #233162 rgba(0, 0, 0, 0.5);
+  scrollbar-width: thin;
+}
+
+/* Chrome, Safari, Opera and IE styles */
+::-webkit-scrollbar {
+  width: 10px; /* scrollbar verticale */
+  height: 10px; /* scrollbar orizzontale */
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+
+  &:hover {
+    background: #1a2549;
+  }
+}
+
+::-webkit-scrollbar-track {
+  color: green;
+}
+
+::-webkit-scrollbar-button {
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-corner {
+  border-radius: 6px;
+}
+
+/************
 GLOBAL FONT
 ************/
 html,
