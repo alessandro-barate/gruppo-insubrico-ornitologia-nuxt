@@ -214,7 +214,7 @@ const goToPage = (p) => {
 
   .news-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 5rem;
 
     &__item {
@@ -238,10 +238,15 @@ const goToPage = (p) => {
 @media (max-width: 992px) {
   .col {
     .news-grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1.25rem;
 
       &__item {
+        // Annulla aspect-ratio e min-height della regola base:
+        // altrimenti l'altezza (≥350px) imporrebbe una larghezza
+        // derivata che sfora il container su schermi stretti.
+        aspect-ratio: auto;
+        min-height: 0;
         height: 300px;
       }
     }
@@ -264,15 +269,18 @@ const goToPage = (p) => {
     }
 
     .news-list {
-      width: 95%;
+      width: 90%;
     }
 
     .news-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 1rem;
 
       &__item {
+        width: 100%;
+        min-height: 0;
         height: 250px;
+        aspect-ratio: 4/4;
       }
     }
   }

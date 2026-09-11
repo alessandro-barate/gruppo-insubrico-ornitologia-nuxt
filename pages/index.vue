@@ -884,7 +884,7 @@ onUnmounted(() => {
   }
 
   .square {
-    width: 80%;
+    width: 95%;
     padding: 4rem;
     font-size: 1.2rem;
     line-height: 1.7rem;
