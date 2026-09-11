@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, onMounted, onUnmounted } from "vue";
+import { computed, ref, onMounted, onUnmounted, nextTick } from "vue";
 // import carousel from "~/data/carousel";
 import Button from "~/components/shared/Button.vue";
 
@@ -85,15 +85,28 @@ const sliderItems = [
 // Numero di slide visibili in base alla viewport
 const slidesPerView = ref(3);
 
+// Riferimenti per misurare le larghezze reali dal DOM.
+// Lo scroll è calcolato in PIXEL (non in % approssimate), così gli
+// step sono esatti e l'ultima card si allinea al bordo destro.
+const sliderContainerRef = ref(null);
+const containerWidth = ref(0);
+const GAP_PX = 16; // 1rem su desktop/tablet (0.75rem = 12px su mobile)
+
+const measureContainer = () => {
+  if (sliderContainerRef.value) {
+    containerWidth.value = sliderContainerRef.value.clientWidth;
+  }
+};
+
 const updateSlidesPerView = () => {
   if (typeof window !== "undefined") {
-    if (window.innerWidth > 1024) {
-      slidesPerView.value = 3;
-    } else if (window.innerWidth > 576) {
+    if (window.innerWidth > 992) {
       slidesPerView.value = 2;
     } else {
       slidesPerView.value = 1;
     }
+    // Rimisura il container a ogni resize (la larghezza cambia)
+    nextTick(measureContainer);
   }
 };
 
@@ -115,22 +128,42 @@ const canGoNext = computed(
   () => sliderCurrentIndex.value < sliderItems.length - slidesPerView.value,
 );
 
-// Calcola il transform corretto in base alle card visibili
+// Larghezza esatta di una card, in PIXEL, calcolata dal container reale:
+// (container − gap complessivi tra le card visibili) / card visibili.
+// In px espliciti perché una % sul track (width:max-content) è ambigua.
+const cardStyle = computed(() => {
+  if (!containerWidth.value) return undefined;
+  const gap = slidesPerView.value === 1 ? 12 : GAP_PX;
+  const perView = slidesPerView.value;
+  const w = (containerWidth.value - gap * (perView - 1)) / perView;
+  return { width: `${w}px`, minWidth: `${w}px` };
+});
+
+// Calcola il transform in PIXEL, usando la STESSA larghezza-card
+// calcolata per lo stile (stessa base = niente disallineamenti).
+// Lo scroll non supera mai il massimo (track − container), così
+// all'ultimo step l'ultima card resta allineata al bordo destro.
 const sliderTransform = computed(() => {
-  // Desktop (3 cards): ogni step = 31% + 1rem gap
-  // Tablet (2 cards): ogni step = 48% + 1rem gap
-  // Mobile (1 card): ogni step = 100% + gap
-  const baseWidth =
-    slidesPerView.value === 3 ? 31 : slidesPerView.value === 2 ? 48 : 100;
-  const gapInRem = 1;
+  if (!containerWidth.value) return "translateX(0)";
+  const gap = slidesPerView.value === 1 ? 12 : GAP_PX;
+  const perView = slidesPerView.value;
+  const card = (containerWidth.value - gap * (perView - 1)) / perView;
+  const step = card + gap;
 
-  // Convertiamo rem in percentuale approssimativa (1rem ≈ 1.5%)
-  const gapPercent = gapInRem * 1.5;
+  const desired = sliderCurrentIndex.value * step;
 
-  return `translateX(-${sliderCurrentIndex.value * (baseWidth + gapPercent)}%)`;
+  // track = n card + (n−1) gap
+  const trackWidth = sliderItems.length * card + (sliderItems.length - 1) * gap;
+  const maxScroll = Math.max(0, trackWidth - containerWidth.value);
+
+  const offset = Math.min(desired, maxScroll);
+  return `translateX(-${offset}px)`;
 });
 
 const handleSlideHover = (index, event) => {
+  // In mobile (1 card) niente effetto hover: card statica.
+  if (slidesPerView.value === 1) return;
+
   hoveredSlide.value = index;
 
   // Determina la direzione da cui arriva il mouse
@@ -174,6 +207,7 @@ const currentBackgroundImage = computed(() => {
 onMounted(() => {
   // Update slides per view on mount and resize
   updateSlidesPerView();
+  nextTick(measureContainer);
   window.addEventListener("resize", updateSlidesPerView);
 
   const observer = new IntersectionObserver(
@@ -280,12 +314,13 @@ onUnmounted(() => {
             </button>
 
             <!-- Slider container -->
-            <div class="slider-container">
+            <div class="slider-container" ref="sliderContainerRef">
               <div class="slider-track" :style="{ transform: sliderTransform }">
                 <div
                   v-for="(slide, index) in sliderItems"
                   :key="index"
                   :class="['slider-item', { active: hoveredSlide === index }]"
+                  :style="cardStyle"
                   @mouseenter="handleSlideHover(index, $event)"
                   @mouseleave="hoveredSlide = null"
                 >
@@ -607,12 +642,14 @@ onUnmounted(() => {
   flex: 1;
   overflow: hidden;
   height: clamp(400px, 50vh, 600px);
+  display: flex;
+  align-items: center; // centra le card, lo scale cresce simmetricamente
 }
 
 .slider-track {
   display: flex;
   gap: 1rem;
-  height: 100%;
+  height: 88%; // meno del container: lo scale hover cresce nello spazio sopra/sotto
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   width: max-content; // Importante: permette al track di estendersi oltre il container */
 }
@@ -621,28 +658,32 @@ onUnmounted(() => {
   position: relative;
   border-radius: 1rem;
   overflow: hidden;
-  cursor: pointer;
   flex-shrink: 0;
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
-  // Desktop (>1024px): 3 card visibili su 4 totali
-  // Larghezza container ~1400px max, togliamo padding e frecce = ~1100px disponibili
-  // Diviso 3 card + gaps = base ~31% del container visibile
-  width: 31%;
-  min-width: 280px;
+  // La larghezza esatta arriva dallo stile inline (cardStyle, in px),
+  // calcolata dal container reale. Niente width/min-width qui, che
+  // falserebbero il calcolo (una % sul track max-content è ambigua).
+  transform-origin: center center;
+  z-index: 1;
 
+  // Espansione con scale(): la card cresce visivamente SENZA
+  // spostare le vicine (nessun salto). L'ultima card cresce verso
+  // sinistra (transform-origin a destra), le altre dal centro.
   &:hover {
-    width: 50%; // Card espansa al 50%
-
-    // Quando una card è in hover, le altre si restringono
-    & ~ .slider-item:not(:hover) {
-      width: 25%;
-    }
+    transform: scale(1.02);
+    z-index: 2; // sopra le vicine mentre è espansa
   }
 
-  // Quando un'altra card prima di questa è in hover
-  &:has(~ .slider-item:hover) {
-    width: 25%;
+  // Ultima card: origine a destra così l'espansione va verso sinistra
+  // e non viene tagliata dal bordo destro del container.
+  &:last-child {
+    transform-origin: right center;
+  }
+
+  // Prima card: origine a sinistra, cresce verso destra
+  &:first-child {
+    transform-origin: left center;
   }
 
   .slide-image {
@@ -1248,22 +1289,17 @@ onUnmounted(() => {
       height: 45px;
     }
 
-    // Tablet: 2 card visibili su 4 - sistema espansione
+    // Sotto 992px: 1 card visibile, piena e statica.
+    // La larghezza esatta è imposta via stile inline (px); qui
+    // annulliamo espansione ed effetti hover.
     .slider-item {
-      // Base: 2 card visibili = ~48% ciascuna
-      width: 48%;
-      min-width: 250px;
+      min-width: auto;
+      transform: none;
 
-      &:hover {
-        width: 65%; // Card espansa
-
-        & ~ .slider-item:not(:hover) {
-          width: 35%; // Altre compresse
-        }
-      }
-
-      &:has(~ .slider-item:hover) {
-        width: 35%;
+      &:hover,
+      &:has(~ .slider-item:hover),
+      & ~ .slider-item:not(:hover) {
+        transform: none;
       }
 
       .slide-overlay {
@@ -1373,7 +1409,7 @@ onUnmounted(() => {
 // ==========================================
 // MEDIA QUERIES - MOBILE
 // ==========================================
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .col {
     // Direction-aware slider - Mobile (1 card visible su 4)
     .direction-slider-section {
@@ -1398,31 +1434,32 @@ onUnmounted(() => {
       }
 
       .slider-item {
-        // Mobile: 1 card = 100% width, sempre uguale
-        width: 100%;
+        // Mobile: card sempre piena e statica.
+        // La larghezza esatta è imposta via stile inline (px); qui
+        // annulliamo ogni espansione, transizione ed effetto hover.
         min-width: auto;
-        transition: none; // Rimuovi animazioni
+        transition: none;
+        transform: none;
 
-        // Disabilita hover expansion su mobile
-        &:hover {
-          width: 100%;
-        }
-
-        // Disabilita tutte le animazioni di contrazione
-        &:has(~ .slider-item:hover) {
-          width: 100%;
+        // Nessuna espansione/contrazione al tocco o hover
+        &:hover,
+        &:has(~ .slider-item:hover),
+        & ~ .slider-item:not(:hover) {
+          transition: none;
+          transform: none;
         }
 
         .slide-image {
-          transition: none; // Rimuovi zoom immagine
+          transition: none; // niente zoom immagine
+          transform: none;
         }
 
         .slide-overlay {
           opacity: 1;
-          transition: none; // Rimuovi animazioni overlay
+          transition: none; // overlay sempre visibile, senza animazione
 
           .slide-content {
-            transform: none; // Rimuovi transform
+            transform: none;
             transition: none;
           }
 
