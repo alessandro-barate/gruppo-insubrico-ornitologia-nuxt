@@ -74,7 +74,7 @@ useHead({
   }
 
   .content-section {
-    width: 90%;
+    width: 95%;
     margin-bottom: 17rem;
 
     .main-description {
@@ -82,15 +82,15 @@ useHead({
       margin: 0 auto;
       padding-bottom: 5rem;
 
-      @media (max-width: 576px) {
-        width: 95%;
-      }
-
       &__intro {
         font-size: 1.1rem;
         margin-bottom: 4rem;
         color: #333;
         line-height: 1.75rem;
+
+        @media (max-width: 576px) {
+          width: 95%;
+        }
       }
     }
 

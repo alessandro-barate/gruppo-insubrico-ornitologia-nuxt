@@ -95,7 +95,7 @@ function handleContentClick(e: MouseEvent) {
     padding-bottom: 2rem;
 
     @media (max-width: 576px) {
-      width: 95%;
+      width: 90%;
     }
 
     h2 {

@@ -965,10 +965,30 @@ button {
       .paragraphs-container {
         width: 100%;
 
-        .first-paragraph {
+        .break-line {
           width: 90%;
         }
+
+        .first-paragraph,
+        .second-paragraph,
+        .second-paragraph-container {
+          width: 95%;
+          padding-left: 0;
+          padding-right: 0;
+        }
       }
+    }
+
+    .button-container {
+      &.panel-open {
+        right: 260px;
+      }
+    }
+
+    .right-container {
+      width: 60%;
+      height: 60%;
+      border-radius: 16px;
     }
 
     .team-container {
@@ -1141,6 +1161,13 @@ button {
 // ==========================================
 @media (max-width: 576px) {
   .col {
+    .article-container {
+      .right-container {
+        width: 270px;
+        height: 60%;
+      }
+    }
+
     .subscribe-section {
       .subscribe-container {
         width: 90%;

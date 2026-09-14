@@ -13,7 +13,9 @@ useHead({
 // Import links dal composable
 const { data: links } = await useLinks();
 
-// Categoria attiva
+// Categoria attiva. Parte sempre da "portali" così SSR e client
+// coincidono (niente hydration mismatch). Sotto i 577px la svuotiamo
+// in onMounted — dove window esiste ed è lato client.
 const activeCategory = ref<string>("portali");
 
 // Dati categorie con nomi e allineamento
@@ -36,9 +38,20 @@ const categories = {
   },
 };
 
-// Cambio categoria
+// Soglia mobile: sotto questa larghezza i pannelli fanno toggle e
+// nessuno resta aperto di default.
+const MOBILE_BREAKPOINT = 577;
+
+// Click su un pannello. In MOBILE fa da toggle: cliccare la categoria
+// già aperta la chiude (nessun pannello aperto). Su desktop apre e
+// basta (resta sempre un pannello aperto, come prima).
 const setCategory = (categoryKey: string) => {
-  activeCategory.value = categoryKey;
+  const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+  if (isMobile && activeCategory.value === categoryKey) {
+    activeCategory.value = ""; // richiudi il pannello già aperto
+  } else {
+    activeCategory.value = categoryKey;
+  }
 };
 
 // Sottosezioni di una categoria: ognuna è resa come una colonna
@@ -47,7 +60,27 @@ const getSubsections = (categoryKey: string) => {
   return links.value?.[categoryKey as keyof typeof categories] || [];
 };
 
+// Gestione soglia 577px: sotto nessuna tab aperta, sopra "portali".
+// Agiamo SOLO quando si attraversa la soglia, non a ogni resize, così
+// nel desktop l'utente resta libero di cambiare tab senza che il
+// ridimensionamento gliele sovrascriva.
+let wasMobile = false;
+
+const handleResize = () => {
+  const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+  if (isMobile === wasMobile) return; // nessun attraversamento: non toccare nulla
+  wasMobile = isMobile;
+  activeCategory.value = isMobile ? "" : "portali";
+};
+
 onMounted(() => {
+  // Stato iniziale della soglia + tab chiusa se si atterra sotto 577px.
+  wasMobile = window.innerWidth < MOBILE_BREAKPOINT;
+  if (wasMobile) {
+    activeCategory.value = "";
+  }
+  window.addEventListener("resize", handleResize);
+
   const observerLow = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -66,6 +99,10 @@ onMounted(() => {
 
   if (firstBox) observerLow.observe(firstBox);
   if (secondBox) observerLow.observe(secondBox);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
 });
 </script>
 
@@ -787,8 +824,9 @@ onMounted(() => {
   }
 
   .accordion-container {
+    display: block;
     width: 100%;
-    flex-direction: column;
+    // flex-direction: column;
     height: auto;
     min-height: unset;
     max-height: unset;
@@ -797,10 +835,19 @@ onMounted(() => {
   .accordion-panel {
     flex: 0 0 60px;
     min-height: 60px;
+    // In mobile il pannello cambia ALTEZZA (non larghezza): transizioniamo
+    // flex-basis + min/max-height così apertura e chiusura sono fluide.
+    transition:
+      flex 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      min-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 
     &.active {
-      flex: 0 0 auto;
-      min-height: 350px;
+      // Altezza FISSA del pannello aperto: la lista interna scorre,
+      // il pannello non cresce col contenuto.
+      flex: 0 0 400px;
+      min-height: 400px;
+      max-height: 400px;
     }
 
     &:not(.active):hover {
@@ -834,7 +881,17 @@ onMounted(() => {
     left: 15px;
     right: 15px;
     top: 70px;
+    bottom: 15px; // ancora il content in basso: definisce l'area scrollabile
     transform: none;
+    overflow-y: auto; // la lista scorre dentro il pannello a altezza fissa
+    -webkit-overflow-scrolling: touch; // scroll fluido su iOS
+  }
+
+  // In mobile scorre il .panel-content: le sottosezioni NON devono
+  // avere il loro scroll interno (eviterebbe lo scroll annidato).
+  .links-subsection {
+    overflow: visible;
+    max-height: none;
   }
 
   .links-columns {
