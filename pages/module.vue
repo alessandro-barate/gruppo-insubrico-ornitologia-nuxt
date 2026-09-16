@@ -1,4 +1,4 @@
-<script></script>
+<script setup></script>
 <template>
   <div class="container gradient-color-header">
     <div class="row">

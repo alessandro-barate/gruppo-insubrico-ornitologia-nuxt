@@ -1,4 +1,4 @@
-<script>
+<script setup>
 useSeoMeta({
   title: "Contattaci | Gruppo Insubrico di Ornitologia",
   description:
@@ -9,6 +9,43 @@ useSeoMeta({
 useHead({
   link: [{ rel: "canonical", href: "https://gruppoinsubrico.com/form" }],
 });
+
+const config = useRuntimeConfig();
+
+const form = reactive({
+  name: "",
+  surname: "",
+  mail: "",
+  message: "",
+});
+
+const loading = ref(false);
+const feedback = ref(null); // { type: 'success' | 'error', text: string }
+
+async function submitForm() {
+  loading.value = true;
+  feedback.value = null;
+
+  try {
+    await $fetch("/contact", {
+      baseURL: config.public.apiBase,
+      method: "POST",
+      body: form,
+    });
+
+    feedback.value = {
+      type: "success",
+      text: "Messaggio inviato con successo!",
+    };
+    form.name = form.surname = form.mail = form.message = "";
+  } catch (e) {
+    const msg =
+      e?.data?.message || "Si è verificato un errore. Riprova più tardi.";
+    feedback.value = { type: "error", text: msg };
+  } finally {
+    loading.value = false;
+  }
+}
 </script>
 <template>
   <div class="container">
@@ -22,7 +59,7 @@ useHead({
           </p>
         </div>
         <div class="form-container">
-          <form action="" method="get">
+          <form @submit.prevent="submitForm">
             <div class="details-row">
               <label for="name"></label>
               <input
@@ -44,24 +81,29 @@ useHead({
             <div class="email-row">
               <label for="mail"></label>
               <input
-                type="mail"
+                type="email"
                 name="mail"
                 id="mail"
-                placeholder="Mail*"
+                placeholder="Indirizzo mail*"
                 required
               />
             </div>
             <div class="message-row">
               <label for="message"></label>
               <textarea
-                type="text"
                 name="message"
                 id="message"
+                v-model="form.message"
                 rows="5"
                 cols="50"
                 placeholder="Scrivi qui il tuo messaggio*"
+                required
               />
             </div>
+            <button type="submit" :disabled="loading" class="static">
+              {{ loading ? "Invio in corso..." : "Invia" }}
+            </button>
+            <p v-if="feedback" :class="feedback.type">{{ feedback.text }}</p>
           </form>
           <div class="bottom-text">
             <p>*Campi obbligatori</p>
@@ -121,6 +163,21 @@ useHead({
         .email-row {
           #mail {
             width: 55%;
+          }
+        }
+
+        .static {
+          border: none;
+          color: #333;
+          cursor: pointer;
+          margin-top: 1.5rem;
+          border-radius: 50px;
+          padding: 0.5rem 1.5rem;
+          transition: all 0.4s ease-in-out;
+          background: linear-gradient(90deg, #ff8636, #f9a268);
+
+          &:hover {
+            transform: scale(1.05);
           }
         }
       }
