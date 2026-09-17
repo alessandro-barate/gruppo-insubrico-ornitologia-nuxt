@@ -281,7 +281,7 @@ onUnmounted(() => {
           <!-- Logo -->
           <div>
             <div class="fade-wrapper-2 logo-box">
-              <img src="../assets/images/logo/gio-cerchio.svg" alt="" />
+              <img src="/images/logo/gio-cerchio.svg" alt="" />
             </div>
           </div>
         </section>

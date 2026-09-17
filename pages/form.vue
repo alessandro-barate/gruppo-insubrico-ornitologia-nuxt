@@ -17,6 +17,7 @@ const form = reactive({
   surname: "",
   mail: "",
   message: "",
+  website: "", // Honeypot, deve restare vuoto, se pieno è bot
 });
 
 const loading = ref(false);
@@ -37,7 +38,7 @@ async function submitForm() {
       type: "success",
       text: "Messaggio inviato con successo!",
     };
-    form.name = form.surname = form.mail = form.message = "";
+    form.name = form.surname = form.mail = form.message = form.website = "";
   } catch (e) {
     const msg =
       e?.data?.message || "Si è verificato un errore. Riprova più tardi.";
@@ -66,6 +67,7 @@ async function submitForm() {
                 type="text"
                 name="name"
                 id="name"
+                v-model="form.name"
                 placeholder="Nome*"
                 required
               />
@@ -74,6 +76,7 @@ async function submitForm() {
                 type="text"
                 name="surname"
                 id="surname"
+                v-model="form.surname"
                 placeholder="Cognome*"
                 required
               />
@@ -84,6 +87,7 @@ async function submitForm() {
                 type="email"
                 name="mail"
                 id="mail"
+                v-model="form.mail"
                 placeholder="Indirizzo mail*"
                 required
               />
@@ -100,6 +104,16 @@ async function submitForm() {
                 required
               />
             </div>
+            <input
+              type="text"
+              name="website"
+              id="website"
+              v-model="form.website"
+              autocomplete="off"
+              tabindex="-1"
+              aria-hidden="true"
+              class="website-row"
+            />
             <button type="submit" :disabled="loading" class="static">
               {{ loading ? "Invio in corso..." : "Invia" }}
             </button>
@@ -166,11 +180,20 @@ async function submitForm() {
           }
         }
 
+        .website-row {
+          position: absolute;
+          left: -9999px;
+          width: 1px;
+          height: 1px;
+          opacity: 0;
+        }
+
         .static {
           border: none;
           color: #333;
           cursor: pointer;
           margin-top: 1.5rem;
+          margin-bottom: 1rem;
           border-radius: 50px;
           padding: 0.5rem 1.5rem;
           transition: all 0.4s ease-in-out;

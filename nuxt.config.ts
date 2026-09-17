@@ -37,7 +37,11 @@ export default defineNuxtConfig({
         },
       ],
       link: [
-        { rel: "icon", type: "image/png", href: "/gio-logo.webp" },
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "/images/logo/gio-logo.webp",
+        },
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
         {
           rel: "preconnect",
