@@ -1,8 +1,7 @@
 
-/// <reference path="nitro-layouts.d.ts" />
 /// <reference path="app.config.d.ts" />
 /// <reference path="runtime-config.d.ts" />
-/// <reference path="../../node_modules/@nuxt/nitro-server/dist/index.d.mts" />
+/// <reference types="/Users/alessandrobarate/Desktop/Miei Progetti/GIO - Gruppo Insubrico di Ornitologia/gruppo-insubrico-ornitologia-nuxt/node_modules/@nuxt/nitro-server/dist/index.mjs" />
 /// <reference path="nitro-middleware.d.ts" />
 /// <reference path="./schema.d.ts" />
 
@@ -29,7 +28,6 @@ declare module 'nitropack' {
     /** @deprecated Use `noScripts` instead */
     experimentalNoScripts?: boolean
     appMiddleware?: Record<string, boolean>
-    appLayout?: string | false
   }
   interface NitroRuntimeHooks {
     'dev:ssr-logs': (ctx: { logs: LogObject[], path: string }) => void | Promise<void>

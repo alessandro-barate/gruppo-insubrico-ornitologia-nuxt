@@ -158,6 +158,131 @@ useSeoMeta({
       <div v-if="node.header_image" class="main-image">
         <img :src="node.header_image" :alt="node.title" loading="lazy" />
       </div>
+
+      <!-- CONTENITORE (group): mostra le card dei figli -->
+      <div v-if="node.type === 'group'" class="subsection__grid">
+        <SharedNavCard
+          v-for="card in childCards"
+          :key="card.slug"
+          :to="`${basePath}/${card.slug}`"
+          :title="card.title"
+          :excerpt="card.intro_excerpt"
+          :image="card.image_path"
+        />
+      </div>
+
+      <!-- FOGLIA: mostra gli item secondo il tipo -->
+      <template v-else>
+        <div ref="listTop">
+          <!-- Dettaglio (es. singolo Quaderno): immagine + testo + prezzo + PDF -->
+          <article v-if="node.type === 'detail'" class="detail">
+            <img
+              v-if="node.image_path"
+              :src="node.image_path"
+              :alt="node.title"
+              class="detail__cover"
+            />
+            <div
+              v-if="node.body"
+              class="detail__body"
+              v-html="node.body"
+              @click="handleContentClick"
+            />
+            <p v-if="node.price" class="detail__price">
+              Donazione minima: <strong>{{ node.price }}</strong>
+            </p>
+            <a
+              v-if="node.pdf_url"
+              :href="node.pdf_url"
+              class="detail__pdf specific-link"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="/images/pdf-icon.png" alt="" class="detail__pdf-icon" />
+              Scarica il PDF
+            </a>
+          </article>
+
+          <!-- Cards: titolo + immagine + testo (es. Quaderni) -->
+          <div v-else-if="node.type === 'cards'" class="subsection__items">
+            <PubblicazioniCardItem
+              v-for="item in cardItems"
+              :key="item.id"
+              :item="item"
+            />
+          </div>
+
+          <!-- Lista PDF raggruppata per anno (es. BOL, Racconti) -->
+          <div
+            v-else-if="node.type === 'pdf-list'"
+            class="subsection__pdf-groups"
+          >
+            <div
+              v-for="group in pdfItemsByYear"
+              :key="group.year ?? 'no-year'"
+              class="pdf-year-group"
+            >
+              <p v-if="group.year" class="year-field">{{ group.year }}</p>
+              <ul class="subsection__pdf-list">
+                <PubblicazioniPdfItem
+                  v-for="item in group.items"
+                  :key="item.id"
+                  :item="item"
+                />
+              </ul>
+            </div>
+          </div>
+
+          <!-- Bibliografia: solo testo (es. Paper) -->
+          <ol
+            v-else-if="node.type === 'bibliography'"
+            class="subsection__biblio"
+          >
+            <PubblicazioniBiblioItem
+              v-for="item in biblioItems"
+              :key="item.id"
+              :item="item"
+            />
+          </ol>
+        </div>
+
+        <!-- Paginazione condivisa da tutte le foglie -->
+        <nav v-if="totalPages > 1" class="pagination" aria-label="Paginazione">
+          <button
+            class="pagination__arrow"
+            :disabled="currentPage === 1"
+            aria-label="Pagina precedente"
+            @click="goToPage(currentPage - 1)"
+          >
+            <img
+              src="~/assets/images/scientific-dissemination/chevron-left.svg"
+              alt="Freccia sinistra per navigare alla lista precedente dei contenuti"
+            />
+          </button>
+          <button
+            v-for="page in totalPages"
+            :key="page"
+            class="pagination__page"
+            :class="{ 'is-active': page === currentPage }"
+            :aria-current="page === currentPage ? 'page' : undefined"
+            @click="goToPage(page)"
+          >
+            {{ page }}
+          </button>
+          <button
+            class="pagination__arrow"
+            :disabled="currentPage === totalPages"
+            aria-label="Pagina successiva"
+            @click="goToPage(currentPage + 1)"
+          >
+            <img
+              src="~/assets/images/scientific-dissemination/chevron-right.svg"
+              alt="Freccia destra per navigare alla lista successiva dei contenuti"
+            />
+          </button>
+        </nav>
+      </template>
+
       <div
         v-if="node.intro_text"
         class="subsection__intro-text"
@@ -165,127 +290,6 @@ useSeoMeta({
         @click="handleContentClick"
       />
     </div>
-
-    <!-- CONTENITORE (group): mostra le card dei figli -->
-    <div v-if="node.type === 'group'" class="subsection__grid">
-      <SharedNavCard
-        v-for="card in childCards"
-        :key="card.slug"
-        :to="`${basePath}/${card.slug}`"
-        :title="card.title"
-        :excerpt="card.intro_excerpt"
-        :image="card.image_path"
-      />
-    </div>
-
-    <!-- FOGLIA: mostra gli item secondo il tipo -->
-    <template v-else>
-      <div ref="listTop">
-        <!-- Dettaglio (es. singolo Quaderno): immagine + testo + prezzo + PDF -->
-        <article v-if="node.type === 'detail'" class="detail">
-          <img
-            v-if="node.image_path"
-            :src="node.image_path"
-            :alt="node.title"
-            class="detail__cover"
-          />
-          <div
-            v-if="node.body"
-            class="detail__body"
-            v-html="node.body"
-            @click="handleContentClick"
-          />
-          <p v-if="node.price" class="detail__price">
-            Donazione minima: <strong>{{ node.price }}</strong>
-          </p>
-          <a
-            v-if="node.pdf_url"
-            :href="node.pdf_url"
-            class="detail__pdf specific-link"
-            target="_blank"
-            rel="noopener"
-          >
-            <img src="/images/pdf-icon.png" alt="" class="detail__pdf-icon" />
-            Scarica il PDF
-          </a>
-        </article>
-
-        <!-- Cards: titolo + immagine + testo (es. Quaderni) -->
-        <div v-else-if="node.type === 'cards'" class="subsection__items">
-          <PubblicazioniCardItem
-            v-for="item in cardItems"
-            :key="item.id"
-            :item="item"
-          />
-        </div>
-
-        <!-- Lista PDF raggruppata per anno (es. BOL, Racconti) -->
-        <div
-          v-else-if="node.type === 'pdf-list'"
-          class="subsection__pdf-groups"
-        >
-          <div
-            v-for="group in pdfItemsByYear"
-            :key="group.year ?? 'no-year'"
-            class="pdf-year-group"
-          >
-            <p v-if="group.year" class="year-field">{{ group.year }}</p>
-            <ul class="subsection__pdf-list">
-              <PubblicazioniPdfItem
-                v-for="item in group.items"
-                :key="item.id"
-                :item="item"
-              />
-            </ul>
-          </div>
-        </div>
-
-        <!-- Bibliografia: solo testo (es. Paper) -->
-        <ol v-else-if="node.type === 'bibliography'" class="subsection__biblio">
-          <PubblicazioniBiblioItem
-            v-for="item in biblioItems"
-            :key="item.id"
-            :item="item"
-          />
-        </ol>
-      </div>
-
-      <!-- Paginazione condivisa da tutte le foglie -->
-      <nav v-if="totalPages > 1" class="pagination" aria-label="Paginazione">
-        <button
-          class="pagination__arrow"
-          :disabled="currentPage === 1"
-          aria-label="Pagina precedente"
-          @click="goToPage(currentPage - 1)"
-        >
-          <img
-            src="~/assets/images/scientific-dissemination/chevron-left.svg"
-            alt="Freccia sinistra per navigare alla lista precedente dei contenuti"
-          />
-        </button>
-        <button
-          v-for="page in totalPages"
-          :key="page"
-          class="pagination__page"
-          :class="{ 'is-active': page === currentPage }"
-          :aria-current="page === currentPage ? 'page' : undefined"
-          @click="goToPage(page)"
-        >
-          {{ page }}
-        </button>
-        <button
-          class="pagination__arrow"
-          :disabled="currentPage === totalPages"
-          aria-label="Pagina successiva"
-          @click="goToPage(currentPage + 1)"
-        >
-          <img
-            src="~/assets/images/scientific-dissemination/chevron-right.svg"
-            alt="Freccia destra per navigare alla lista successiva dei contenuti"
-          />
-        </button>
-      </nav>
-    </template>
   </section>
 </template>
 
@@ -294,6 +298,10 @@ useSeoMeta({
 
 h1 {
   text-align: center;
+}
+
+.subsection__grid {
+  margin-bottom: 3rem;
 }
 
 .nav-card {
