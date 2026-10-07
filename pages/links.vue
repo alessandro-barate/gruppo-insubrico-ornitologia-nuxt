@@ -10,6 +10,8 @@ useHead({
   link: [{ rel: "canonical", href: "https://gruppoinsubrico.com/links" }],
 });
 
+import AdminPageContentsEditor from "~/components/admin/PageContentsEditor.vue";
+
 // Import links dal composable
 const { data: links } = await useLinks();
 
@@ -285,7 +287,7 @@ onUnmounted(() => {
 
     .title-container {
       width: 100%;
-      padding-top: 10rem;
+      padding-top: 4rem;
       text-align: center;
     }
   }

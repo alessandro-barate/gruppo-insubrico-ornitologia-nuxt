@@ -19,7 +19,9 @@ interface _GlobalComponents {
   HeaderComponent: typeof import("../../components/HeaderComponent.vue")['default']
   NewsCard: typeof import("../../components/NewsCard.vue")['default']
   NewsCarousel: typeof import("../../components/NewsCarousel.vue")['default']
+  AdminPageContentsEditor: typeof import("../../components/admin/PageContentsEditor.vue")['default']
   DivulgazioneItemCard: typeof import("../../components/divulgazione/ItemCard.vue")['default']
+  ProgettiGallery: typeof import("../../components/progetti/Gallery.vue")['default']
   ProgettiProjectCard: typeof import("../../components/progetti/ProjectCard.vue")['default']
   ProgettiTypedLink: typeof import("../../components/progetti/TypedLink.vue")['default']
   PubblicazioniBiblioItem: typeof import("../../components/pubblicazioni/BiblioItem.vue")['default']
@@ -55,7 +57,9 @@ interface _GlobalComponents {
   LazyHeaderComponent: LazyComponent<typeof import("../../components/HeaderComponent.vue")['default']>
   LazyNewsCard: LazyComponent<typeof import("../../components/NewsCard.vue")['default']>
   LazyNewsCarousel: LazyComponent<typeof import("../../components/NewsCarousel.vue")['default']>
+  LazyAdminPageContentsEditor: LazyComponent<typeof import("../../components/admin/PageContentsEditor.vue")['default']>
   LazyDivulgazioneItemCard: LazyComponent<typeof import("../../components/divulgazione/ItemCard.vue")['default']>
+  LazyProgettiGallery: LazyComponent<typeof import("../../components/progetti/Gallery.vue")['default']>
   LazyProgettiProjectCard: LazyComponent<typeof import("../../components/progetti/ProjectCard.vue")['default']>
   LazyProgettiTypedLink: LazyComponent<typeof import("../../components/progetti/TypedLink.vue")['default']>
   LazyPubblicazioniBiblioItem: LazyComponent<typeof import("../../components/pubblicazioni/BiblioItem.vue")['default']>

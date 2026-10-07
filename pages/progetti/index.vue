@@ -1,6 +1,8 @@
 <script setup lang="ts">
-const { getHome } = useProgetti();
-const { data: home } = await getHome();
+// Pagina Progetti: testo descrittivo + galleria di immagini.
+// Le schede delle ricerche sono state spostate in Pubblicazioni → Paper.
+const { getPage } = useProgetti();
+const { data: page } = await getPage();
 const router = useRouter();
 
 useSeoMeta({
@@ -17,6 +19,9 @@ useHead({
 function handleContentClick(e: MouseEvent) {
   const a = (e.target as HTMLElement).closest("a");
   if (!a) return;
+  // Rispetta i link da aprire in nuova scheda e ctrl/cmd-click
+  if (a.target === "_blank") return;
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
   const href = a.getAttribute("href");
   // solo link interni relativi
   if (href && href.startsWith("/")) {
@@ -37,26 +42,20 @@ function handleContentClick(e: MouseEvent) {
           </div>
         </section>
 
-        <!-- Sezione contenuti -->
+        <!-- Testo descrittivo -->
         <section>
           <div class="main-description">
             <h2>Progetti di Ricerca</h2>
             <p
               class="main-description__intro"
-              v-html="home?.intro_text"
+              v-html="page?.intro_text"
               @click="handleContentClick"
             ></p>
           </div>
 
-          <div class="cards-section">
-            <SharedNavCard
-              v-for="card in home?.cards"
-              :key="card.slug"
-              :to="`/progetti/${card.slug}`"
-              :title="card.title"
-              :excerpt="card.intro_excerpt"
-              :image="card.image_path"
-            />
+          <!-- Galleria immagini -->
+          <div v-if="page?.gallery?.length" class="gallery-section">
+            <ProgettiGallery :images="page.gallery" />
           </div>
         </section>
       </div>
@@ -84,7 +83,7 @@ function handleContentClick(e: MouseEvent) {
 
     .title {
       text-align: center;
-      padding-top: 10rem;
+      padding-top: 4rem;
     }
   }
 
@@ -111,11 +110,8 @@ function handleContentClick(e: MouseEvent) {
     }
   }
 
-  .cards-section {
+  .gallery-section {
     margin-bottom: 22rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
     width: 90%;
     max-width: 1400px;
     margin-left: auto;

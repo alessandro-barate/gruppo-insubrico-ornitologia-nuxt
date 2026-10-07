@@ -69,7 +69,7 @@ useHead({
 
     .title {
       text-align: center;
-      padding-top: 10rem;
+      padding-top: 4rem;
     }
   }
 

@@ -19,7 +19,9 @@ export const FooterComponent: typeof import("../components/FooterComponent.vue")
 export const HeaderComponent: typeof import("../components/HeaderComponent.vue")['default']
 export const NewsCard: typeof import("../components/NewsCard.vue")['default']
 export const NewsCarousel: typeof import("../components/NewsCarousel.vue")['default']
+export const AdminPageContentsEditor: typeof import("../components/admin/PageContentsEditor.vue")['default']
 export const DivulgazioneItemCard: typeof import("../components/divulgazione/ItemCard.vue")['default']
+export const ProgettiGallery: typeof import("../components/progetti/Gallery.vue")['default']
 export const ProgettiProjectCard: typeof import("../components/progetti/ProjectCard.vue")['default']
 export const ProgettiTypedLink: typeof import("../components/progetti/TypedLink.vue")['default']
 export const PubblicazioniBiblioItem: typeof import("../components/pubblicazioni/BiblioItem.vue")['default']
@@ -55,7 +57,9 @@ export const LazyFooterComponent: LazyComponent<typeof import("../components/Foo
 export const LazyHeaderComponent: LazyComponent<typeof import("../components/HeaderComponent.vue")['default']>
 export const LazyNewsCard: LazyComponent<typeof import("../components/NewsCard.vue")['default']>
 export const LazyNewsCarousel: LazyComponent<typeof import("../components/NewsCarousel.vue")['default']>
+export const LazyAdminPageContentsEditor: LazyComponent<typeof import("../components/admin/PageContentsEditor.vue")['default']>
 export const LazyDivulgazioneItemCard: LazyComponent<typeof import("../components/divulgazione/ItemCard.vue")['default']>
+export const LazyProgettiGallery: LazyComponent<typeof import("../components/progetti/Gallery.vue")['default']>
 export const LazyProgettiProjectCard: LazyComponent<typeof import("../components/progetti/ProjectCard.vue")['default']>
 export const LazyProgettiTypedLink: LazyComponent<typeof import("../components/progetti/TypedLink.vue")['default']>
 export const LazyPubblicazioniBiblioItem: LazyComponent<typeof import("../components/pubblicazioni/BiblioItem.vue")['default']>

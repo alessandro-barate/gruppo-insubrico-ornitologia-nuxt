@@ -1,4 +1,6 @@
 <script setup>
+import defaultHero from "~/assets/images/news/beccaccini.webp";
+
 useSeoMeta({
   title: "News | Gruppo Insubrico di Ornitologia",
   description:
@@ -10,6 +12,13 @@ useHead({
 
 const config = useRuntimeConfig();
 
+// Testi e immagine modificabili dal pannello (con default se vuoti)
+const { c } = await usePageContent("news");
+
+const heroStyle = computed(() => ({
+  backgroundImage: `url(${c("hero_image", defaultHero)})`,
+}));
+
 // Pagina corrente (reattiva: al cambio, useFetch rifà la chiamata).
 const page = ref(1);
 const perPage = 6;
@@ -17,7 +26,7 @@ const perPage = 6;
 // La server route restituisce già le news ordinate per data decrescente
 // (più recente prima) e paginate a 6. In dev colpisce il mock Nitro (/api/news);
 // in prod basterà cambiare API_BASE per puntare a Laravel.
-const { data, pending, error } = await useFetch("/news", {
+const { data, pending, error } = await useFetch("/pages/news", {
   baseURL: config.public.apiBase,
   query: { page, perPage },
 });
@@ -41,20 +50,22 @@ const goToPage = (p) => {
   <div class="container">
     <div class="row">
       <div class="col">
-        <section class="title-section jumbo-bg">
+        <section class="title-section jumbo-bg" :style="heroStyle">
           <div class="title uppercase">
-            <h1 id="news">news</h1>
+            <h1 id="news">{{ c("title", "news") }}</h1>
           </div>
         </section>
 
         <section ref="listTop" class="news-list">
-          <p class="news-list__intro">
-            In questa sezione sono raccolte, in ordine cronologico, le
-            <strong>notizie e gli aggiornamenti</strong> sulle attività del
-            G.I.O., Gruppo Insubrico di Ornitologia: eventi, progetti,
-            monitoraggi, iniziative, pubblicazioni e tutte le novità che
-            riguardano l'associazione e le sue attività sul territorio.
-          </p>
+          <div
+            class="news-list__intro"
+            v-html="
+              c(
+                'intro',
+                '<p>In questa sezione sono raccolte, in ordine cronologico, le <strong>notizie e gli aggiornamenti</strong> sulle attività del G.I.O., Gruppo Insubrico di Ornitologia: eventi, progetti, monitoraggi, iniziative, pubblicazioni e tutte le novità che riguardano l\'associazione e le sue attività sul territorio.</p>',
+              )
+            "
+          ></div>
 
           <!-- Loading -->
           <div v-if="pending" class="news-loading">
@@ -147,11 +158,14 @@ const goToPage = (p) => {
   }
 
   .jumbo-bg {
-    background: url(/assets/images/news/beccaccini.webp) bottom/cover no-repeat;
+    // L'immagine arriva da :style (pannello o default): qui solo posizionamento
+    background-position: bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
 
     .title {
       text-align: center;
-      padding-top: 10rem;
+      padding-top: 4rem;
     }
   }
 

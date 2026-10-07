@@ -661,7 +661,7 @@ const _inlineRuntimeConfig = {
     }
   },
   "public": {
-    "apiBase": "http://localhost:8000/api"
+    "apiBase": "/api"
   }
 };
 const envOptions = {
@@ -2830,14 +2830,14 @@ async function getIslandContext(event) {
 	};
 }
 
-const _lazy_BJPWlJ = () => Promise.resolve().then(function () { return _slug__get$1; });
-const _lazy_E8KS73 = () => Promise.resolve().then(function () { return index_get$1; });
+const _lazy_AvRPDn = () => Promise.resolve().then(function () { return _slug__get$1; });
+const _lazy_7PO19s = () => Promise.resolve().then(function () { return index_get$1; });
 const _lazy_EPsZSH = () => Promise.resolve().then(function () { return renderer; });
 
 const handlers = [
   { route: '', handler: _rlsLPl, lazy: false, middleware: true, method: undefined },
-  { route: '/api/news/:slug', handler: _lazy_BJPWlJ, lazy: true, middleware: false, method: "get" },
-  { route: '/api/news', handler: _lazy_E8KS73, lazy: true, middleware: false, method: "get" },
+  { route: '/api/pages/news/:slug', handler: _lazy_AvRPDn, lazy: true, middleware: false, method: "get" },
+  { route: '/api/pages/news', handler: _lazy_7PO19s, lazy: true, middleware: false, method: "get" },
   { route: '/__nuxt_error', handler: _lazy_EPsZSH, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: handler$1, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_EPsZSH, lazy: true, middleware: false, method: undefined }

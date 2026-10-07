@@ -99,6 +99,14 @@ const biblioItems = computed<BibliographyItem[]>(() => {
   return n.items.slice(pageRange.value.start, pageRange.value.end);
 });
 
+// ─── Ricerche (ex pagina Progetti) ──────────────────────
+// Mostrate sotto il contenuto dei nodi con `show_research` (Paper).
+const { getSections } = useRicerche();
+const { data: researchSections } = node.value?.show_research
+  ? await getSections()
+  : { data: ref<null>(null) };
+// ────────────────────────────────────────────────────────
+
 function handleContentClick(e: MouseEvent) {
   const a = (e.target as HTMLElement).closest("a");
   if (!a) return;
@@ -126,167 +134,197 @@ useSeoMeta({
 </script>
 
 <template>
-  <section v-if="node" :id="nodeId" class="subsection" :class="nodeClass">
-    <div class="subsection__intro">
-      <!-- Breadcrumb: Pubblicazioni / …livelli intermedi… / pagina corrente -->
-      <nav class="breadcrumb" aria-label="Percorso di navigazione">
-        <NuxtLink to="/pubblicazioni" class="breadcrumb__link">
-          <img
-            src="~/assets/images/scientific-dissemination/chevron-left.svg"
-            alt="Freccia sinistra per navigare al menù precedente"
-          />
-          Pubblicazioni
-        </NuxtLink>
-
-        <template v-for="(crumb, i) in crumbs" :key="crumb.to">
-          <span class="breadcrumb__sep" aria-hidden="true">/</span>
-          <!-- l'ultima voce è la pagina corrente: testo, non link -->
-          <NuxtLink
-            v-if="i < crumbs.length - 1"
-            :to="crumb.to"
-            class="breadcrumb__link"
-          >
-            {{ crumb.title }}
+  <!-- Wrapper: la pagina ha un solo elemento radice (transizioni) e il
+       blocco Ricerche può stare FUORI dal contenitore stretto .subsection -->
+  <div v-if="node" class="pub-page">
+    <section
+      :id="nodeId"
+      class="subsection"
+      :class="[
+        nodeClass,
+        { 'subsection--with-research': researchSections?.length },
+      ]"
+    >
+      <div class="subsection__intro">
+        <!-- Breadcrumb: Pubblicazioni / …livelli intermedi… / pagina corrente -->
+        <nav class="breadcrumb" aria-label="Percorso di navigazione">
+          <NuxtLink to="/pubblicazioni" class="breadcrumb__link">
+            <img
+              src="~/assets/images/scientific-dissemination/chevron-left.svg"
+              alt="Freccia sinistra per navigare al menù precedente"
+            />
+            Pubblicazioni
           </NuxtLink>
-          <span v-else class="breadcrumb__current" aria-current="page">
-            {{ crumb.title }}
-          </span>
-        </template>
-      </nav>
 
-      <h1>{{ node.title }}</h1>
-      <div v-if="node.header_image" class="main-image">
-        <img :src="node.header_image" :alt="node.title" loading="lazy" />
-      </div>
-      <div
-        v-if="node.intro_text"
-        class="subsection__intro-text"
-        v-html="node.intro_text"
-        @click="handleContentClick"
-      />
-    </div>
+          <template v-for="(crumb, i) in crumbs" :key="crumb.to">
+            <span class="breadcrumb__sep" aria-hidden="true">/</span>
+            <!-- l'ultima voce è la pagina corrente: testo, non link -->
+            <NuxtLink
+              v-if="i < crumbs.length - 1"
+              :to="crumb.to"
+              class="breadcrumb__link"
+            >
+              {{ crumb.title }}
+            </NuxtLink>
+            <span v-else class="breadcrumb__current" aria-current="page">
+              {{ crumb.title }}
+            </span>
+          </template>
+        </nav>
 
-    <!-- CONTENITORE (group): mostra le card dei figli -->
-    <div v-if="node.type === 'group'" class="subsection__grid">
-      <SharedNavCard
-        v-for="card in childCards"
-        :key="card.slug"
-        :to="`${basePath}/${card.slug}`"
-        :title="card.title"
-        :excerpt="card.intro_excerpt"
-        :image="card.image_path"
-      />
-    </div>
-
-    <!-- FOGLIA: mostra gli item secondo il tipo -->
-    <template v-else>
-      <div ref="listTop">
-        <!-- Dettaglio (es. singolo Quaderno): immagine + testo + prezzo + PDF -->
-        <article v-if="node.type === 'detail'" class="detail">
-          <img
-            v-if="node.image_path"
-            :src="node.image_path"
-            :alt="node.title"
-            class="detail__cover"
-          />
-          <div
-            v-if="node.body"
-            class="detail__body"
-            v-html="node.body"
-            @click="handleContentClick"
-          />
-          <p v-if="node.price" class="detail__price">
-            Donazione minima: <strong>{{ node.price }}</strong>
-          </p>
-          <a
-            v-if="node.pdf_url"
-            :href="node.pdf_url"
-            class="detail__pdf specific-link"
-            target="_blank"
-            rel="noopener"
-          >
-            <img src="/images/pdf-icon.png" alt="" class="detail__pdf-icon" />
-            Scarica il PDF
-          </a>
-        </article>
-
-        <!-- Cards: titolo + immagine + testo (es. Quaderni) -->
-        <div v-else-if="node.type === 'cards'" class="subsection__items">
-          <PubblicazioniCardItem
-            v-for="item in cardItems"
-            :key="item.id"
-            :item="item"
-          />
+        <h1>{{ node.title }}</h1>
+        <div v-if="node.header_image" class="main-image">
+          <img :src="node.header_image" :alt="node.title" loading="lazy" />
         </div>
-
-        <!-- Lista PDF raggruppata per anno (es. BOL, Racconti) -->
         <div
-          v-else-if="node.type === 'pdf-list'"
-          class="subsection__pdf-groups"
-        >
-          <div
-            v-for="group in pdfItemsByYear"
-            :key="group.year ?? 'no-year'"
-            class="pdf-year-group"
-          >
-            <p v-if="group.year" class="year-field">{{ group.year }}</p>
-            <ul class="subsection__pdf-list">
-              <PubblicazioniPdfItem
-                v-for="item in group.items"
-                :key="item.id"
-                :item="item"
-              />
-            </ul>
-          </div>
-        </div>
-
-        <!-- Bibliografia: solo testo (es. Paper) -->
-        <ol v-else-if="node.type === 'bibliography'" class="subsection__biblio">
-          <PubblicazioniBiblioItem
-            v-for="item in biblioItems"
-            :key="item.id"
-            :item="item"
-          />
-        </ol>
+          v-if="node.intro_text"
+          class="subsection__intro-text"
+          v-html="node.intro_text"
+          @click="handleContentClick"
+        />
       </div>
 
-      <!-- Paginazione condivisa da tutte le foglie -->
-      <nav v-if="totalPages > 1" class="pagination" aria-label="Paginazione">
-        <button
-          class="pagination__arrow"
-          :disabled="currentPage === 1"
-          aria-label="Pagina precedente"
-          @click="goToPage(currentPage - 1)"
-        >
-          <img
-            src="~/assets/images/scientific-dissemination/chevron-left.svg"
-            alt="Freccia sinistra per navigare alla lista precedente dei contenuti"
-          />
-        </button>
-        <button
-          v-for="page in totalPages"
-          :key="page"
-          class="pagination__page"
-          :class="{ 'is-active': page === currentPage }"
-          :aria-current="page === currentPage ? 'page' : undefined"
-          @click="goToPage(page)"
-        >
-          {{ page }}
-        </button>
-        <button
-          class="pagination__arrow"
-          :disabled="currentPage === totalPages"
-          aria-label="Pagina successiva"
-          @click="goToPage(currentPage + 1)"
-        >
-          <img
-            src="~/assets/images/scientific-dissemination/chevron-right.svg"
-            alt="Freccia destra per navigare alla lista successiva dei contenuti"
-          />
-        </button>
-      </nav>
-    </template>
-  </section>
+      <!-- CONTENITORE (group): mostra le card dei figli -->
+      <div v-if="node.type === 'group'" class="subsection__grid">
+        <SharedNavCard
+          v-for="card in childCards"
+          :key="card.slug"
+          :to="`${basePath}/${card.slug}`"
+          :title="card.title"
+          :excerpt="card.intro_excerpt"
+          :image="card.image_path"
+        />
+      </div>
+
+      <!-- FOGLIA: mostra gli item secondo il tipo -->
+      <template v-else>
+        <div ref="listTop">
+          <!-- Dettaglio (es. singolo Quaderno): immagine + testo + prezzo + PDF -->
+          <article v-if="node.type === 'detail'" class="detail">
+            <img
+              v-if="node.image_path"
+              :src="node.image_path"
+              :alt="node.title"
+              class="detail__cover"
+            />
+            <div
+              v-if="node.body"
+              class="detail__body"
+              v-html="node.body"
+              @click="handleContentClick"
+            />
+            <p v-if="node.price" class="detail__price">
+              Donazione minima: <strong>{{ node.price }}</strong>
+            </p>
+            <a
+              v-if="node.pdf_url"
+              :href="node.pdf_url"
+              class="detail__pdf specific-link"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="/images/pdf-icon.png" alt="" class="detail__pdf-icon" />
+              Scarica il PDF
+            </a>
+          </article>
+
+          <!-- Cards: titolo + immagine + testo (es. Quaderni) -->
+          <div v-else-if="node.type === 'cards'" class="subsection__items">
+            <PubblicazioniCardItem
+              v-for="item in cardItems"
+              :key="item.id"
+              :item="item"
+            />
+          </div>
+
+          <!-- Lista PDF raggruppata per anno (es. BOL, Racconti) -->
+          <div
+            v-else-if="node.type === 'pdf-list'"
+            class="subsection__pdf-groups"
+          >
+            <div
+              v-for="group in pdfItemsByYear"
+              :key="group.year ?? 'no-year'"
+              class="pdf-year-group"
+            >
+              <p v-if="group.year" class="year-field">{{ group.year }}</p>
+              <ul class="subsection__pdf-list">
+                <PubblicazioniPdfItem
+                  v-for="item in group.items"
+                  :key="item.id"
+                  :item="item"
+                />
+              </ul>
+            </div>
+          </div>
+
+          <!-- Bibliografia: solo testo (es. Paper) -->
+          <ol
+            v-else-if="node.type === 'bibliography'"
+            class="subsection__biblio"
+          >
+            <PubblicazioniBiblioItem
+              v-for="item in biblioItems"
+              :key="item.id"
+              :item="item"
+            />
+          </ol>
+        </div>
+
+        <!-- Paginazione condivisa da tutte le foglie -->
+        <nav v-if="totalPages > 1" class="pagination" aria-label="Paginazione">
+          <button
+            class="pagination__arrow"
+            :disabled="currentPage === 1"
+            aria-label="Pagina precedente"
+            @click="goToPage(currentPage - 1)"
+          >
+            <img
+              src="~/assets/images/scientific-dissemination/chevron-left.svg"
+              alt="Freccia sinistra per navigare alla lista precedente dei contenuti"
+            />
+          </button>
+          <button
+            v-for="page in totalPages"
+            :key="page"
+            class="pagination__page"
+            :class="{ 'is-active': page === currentPage }"
+            :aria-current="page === currentPage ? 'page' : undefined"
+            @click="goToPage(page)"
+          >
+            {{ page }}
+          </button>
+          <button
+            class="pagination__arrow"
+            :disabled="currentPage === totalPages"
+            aria-label="Pagina successiva"
+            @click="goToPage(currentPage + 1)"
+          >
+            <img
+              src="~/assets/images/scientific-dissemination/chevron-right.svg"
+              alt="Freccia destra per navigare alla lista successiva dei contenuti"
+            />
+          </button>
+        </nav>
+      </template>
+    </section>
+
+    <!-- RICERCHE: card delle sezioni (ex Progetti), sotto il contenuto.
+       Stessa griglia e stesse dimensioni delle card della pagina Pubblicazioni -->
+    <div v-if="researchSections?.length" class="research">
+      <h2 class="research__title">Progetti di ricerca</h2>
+      <div class="research__grid">
+        <SharedNavCard
+          v-for="card in researchSections"
+          :key="card.slug"
+          :to="`${basePath}/${card.slug}`"
+          :title="card.title"
+          :excerpt="card.intro_excerpt"
+          :image="card.image_path"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -307,6 +345,35 @@ h1 {
 
   img {
     width: 50%;
+  }
+}
+
+// Pagina con le ricerche sotto: lo spazio finale lo dà il blocco .research
+.subsection--with-research {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+// Stesse misure della griglia di pages/pubblicazioni/index.vue:
+// 95% della larghezza, colonne auto-fit da min 240px, card alte 220px
+.research {
+  width: 95%;
+  margin: 3rem auto 17rem;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  // annulla il min-height: 395px che questa pagina dà alle altre nav-card
+  .nav-card {
+    min-height: 220px;
   }
 }
 
