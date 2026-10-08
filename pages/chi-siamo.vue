@@ -103,16 +103,29 @@ const closeModal = () => {
 };
 
 onMounted(() => {
+  // Un blocco compare quando ne è visibile il 70%, oppure, se è più alto
+  // dello schermo (es. il fourth-block con lo storico del direttivo),
+  // quando occupa almeno metà dello schermo: con la sola soglia 0.7 un
+  // blocco più alto del viewport non raggiungerebbe mai il 70% visibile
+  // e resterebbe invisibile.
+  const thresholds = Array.from({ length: 21 }, (_, i) => i / 20); // 0, 0.05 … 1
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
+        const fillsHalfScreen =
+          entry.intersectionRect.height >= window.innerHeight * 0.5;
+
+        if (
+          entry.isIntersecting &&
+          (entry.intersectionRatio >= 0.7 || fillsHalfScreen)
+        ) {
           entry.target.classList.add("visible");
           observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.7 },
+    { threshold: thresholds },
   );
 
   // Elementi da osservare
@@ -153,10 +166,10 @@ onMounted(() => {
               >, grazie all&rsquo;&nbsp;ospitalit&agrave; offerta dal Curatore
               Gianluca Danini.
               <br />
-              Nel <strong>dicembre 2009</strong> il G.I.O., per volont&agrave;
-              di 9 soci fondatori, si costituisce come
-              <strong>Onlus</strong> presso il Registro di Varese, spostandosi
-              da Induno Olona a <strong>Clivio</strong>,
+              Per volontà di 9 soci fondatori l'
+              <strong>8 dicembre 2009</strong> l'associazione si costituisce
+              come <strong>Onlus</strong> presso il Registro di Varese,
+              spostandosi da Induno Olona a <strong>Clivio</strong>,
               nell&rsquo;&nbsp;edificio che diverr&agrave; la sede del nuovo
               Museo Civico di Storia Naturale di Clivio e Induno Olona.
             </p>
@@ -166,12 +179,6 @@ onMounted(() => {
             <!-- Second paragraph -->
             <div class="second-paragraph-container d-flex">
               <p class="second-paragraph">
-                Per il periodo 2010-2012 viene eletto il
-                <strong>primo Consiglio Direttivo</strong> con
-                <strong>Fabio Saporetti (Presidente)</strong>, Monica Carabella
-                (Vice-Presidente) e 3 Consiglieri: Paolo Casali (poi sostituito
-                da Andrea Vidolini), Silvio Colaone e Walter Guenzani.
-                <br />
                 Dal <strong>2022</strong> il G.I.O. &egrave; iscritto al
                 <strong>Runts</strong> come
                 <strong>Organizzazione di Volontariato (ODV)</strong> senza
@@ -217,6 +224,98 @@ onMounted(() => {
                 dell&rsquo;&nbsp;Insubria, le Comunit&agrave; Montane del
                 Verbano e del Piambello.
               </p>
+            </div>
+
+            <hr class="break-line" />
+
+            <!-- Fourth paragraph -->
+            <div
+              class="second-paragraph-container second-paragraph fourth-block"
+            >
+              <p class="last-paragraph">
+                Dal <strong>2025</strong> il direttivo è così composto.
+              </p>
+              <ul>
+                <li>Presidente: Milo Manica</li>
+                <li>Vice-presidenti: Daniela Casola e Fabio Saporetti</li>
+                <li>
+                  Organo di amministrazione: Ilaria Cervellin, Silvio Cova,
+                  Nicola Larroux, Jacopo Sacchet
+                </li>
+                <li>Tesoriera e segretaria amministrativa: Rosita Pigni</li>
+              </ul>
+              <br />
+              <p class="last-paragraph">Negli anni passati:</p>
+              <br />
+              <p class="last-paragraph"><strong>2022 - 2023 -2024</strong></p>
+              <ul>
+                <li>Presidente: Milo Manica</li>
+                <li>
+                  Vice-presidenti: Luca Giussani fino al febbraio 2024, Walter
+                  Guenzani
+                </li>
+                <li>
+                  Organo di amministrazione: Daniela Casola, Luca Giussani
+                  sostituito da Giulia Belloni nel febbraio 2024, Rosita Pigni,
+                  Fabio Saporetti
+                </li>
+                <li>Tesoriera e segretaria amministrativa: Rosita Pigni</li>
+              </ul>
+              <br />
+              <p class="last-paragraph"><strong>2019 - 2020 -2021</strong></p>
+              <ul>
+                <li>Presidente: Walter Guenzani</li>
+                <li>Vice-presidente: Milo Manica</li>
+                <li>
+                  Organo di amministrazione: Roberto Aletti, Monica Carabella,
+                  Fabio Saporetti, Alessandra Stocchetti
+                </li>
+                <li>Tesoriere: Colin Douglas Parnell</li>
+                <li>Segretaria amministrativa: Rosita Pigni</li>
+              </ul>
+              <br />
+              <p class="last-paragraph"><strong>2016 - 2017 -2018</strong></p>
+              <ul>
+                <li>Presidente: Monica Carabella</li>
+                <li>Vice-presidente: Fabio Saporetti</li>
+                <li>
+                  Consiglio direttivo: Roberto Aletti, Lorenzo Colombo, Walter
+                  Guenzani, Alessandro Madella sostituito da Michele Viganò nel
+                  febbraio 2018
+                </li>
+                <li>
+                  Tesoriere: Alessandro Madella sostituito da Colin Douglas
+                  Parnell
+                </li>
+                <li>Segretaria amministrativa: Rosita Pigni</li>
+              </ul>
+              <br />
+              <p class="last-paragraph"><strong>2013 - 2014 -2015</strong></p>
+              <ul>
+                <li>Presidente: Monica Carabella</li>
+                <li>Vice-presidente: Fabio Saporetti</li>
+                <li>
+                  Consiglio direttivo: Roberto Aletti, Walter Guenzani,
+                  Alessandro Madella, Andrea Vidolini
+                </li>
+                <li>Tesoriere: Alessandro Madella</li>
+                <li>Segretaria amministrativa: Rosita Pigni</li>
+              </ul>
+              <br />
+              <p class="last-paragraph"><strong>2010 - 2011 -2012</strong></p>
+              <p class="last-paragraph">Primo consiglio Direttivo:</p>
+              <ul>
+                <li>Presidente: Fabio Saporetti</li>
+                <li>Vice-presidente: Monica Carabella</li>
+                <li>
+                  Consiglio direttivo: Paolo Casali sostituito da Andrea
+                  Vidolini nel 2012, Silvio Colaone, Walter Guenzani
+                </li>
+                <li>
+                  Non esisteva la carica ufficiale di tesoriere e di segretario
+                  amministrativo
+                </li>
+              </ul>
             </div>
           </article>
 
@@ -504,6 +603,12 @@ button {
   cursor: pointer;
 }
 
+ul {
+  width: 70%;
+  list-style: disc;
+  margin-top: 1rem;
+}
+
 .first-paragraph,
 .second-paragraph,
 .bottom-paragraph {
@@ -584,7 +689,8 @@ button {
       margin-bottom: 4rem;
       padding: 4rem 2rem 0rem 2rem;
 
-      .second-paragraph {
+      .second-paragraph,
+      .last-paragraph {
         width: 70%;
       }
     }

@@ -238,22 +238,22 @@ const MOCK_TREE: PubNode[] = [
           {
             id: 521,
             image_path:
-              "/images/pubblicazioni/quaderni/quaderno-2/pagina-1.webp",
+              "/images/pubblicazioni/quaderni/quaderno-2/pagina-24.webp",
           },
           {
             id: 522,
             image_path:
-              "/images/pubblicazioni/quaderni/quaderno-2/pagina-2.webp",
+              "/images/pubblicazioni/quaderni/quaderno-2/pagina-25.webp",
           },
           {
             id: 523,
             image_path:
-              "/images/pubblicazioni/quaderni/quaderno-2/pagina-3.webp",
+              "/images/pubblicazioni/quaderni/quaderno-2/pagina-58.webp",
           },
           {
             id: 524,
             image_path:
-              "/images/pubblicazioni/quaderni/quaderno-2/pagina-4.webp",
+              "/images/pubblicazioni/quaderni/quaderno-2/pagina-59.webp",
           },
         ],
         price: "€ 8",
