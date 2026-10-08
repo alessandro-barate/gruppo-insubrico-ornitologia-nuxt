@@ -2830,14 +2830,16 @@ async function getIslandContext(event) {
 	};
 }
 
-const _lazy_AvRPDn = () => Promise.resolve().then(function () { return _slug__get$1; });
-const _lazy_7PO19s = () => Promise.resolve().then(function () { return index_get$1; });
+const _lazy_BJPWlJ = () => Promise.resolve().then(function () { return _slug__get$1; });
+const _lazy_E8KS73 = () => Promise.resolve().then(function () { return index_get$1; });
+const _lazy_UwTCfp = () => Promise.resolve().then(function () { return _page__get$1; });
 const _lazy_EPsZSH = () => Promise.resolve().then(function () { return renderer; });
 
 const handlers = [
   { route: '', handler: _rlsLPl, lazy: false, middleware: true, method: undefined },
-  { route: '/api/pages/news/:slug', handler: _lazy_AvRPDn, lazy: true, middleware: false, method: "get" },
-  { route: '/api/pages/news', handler: _lazy_7PO19s, lazy: true, middleware: false, method: "get" },
+  { route: '/api/news/:slug', handler: _lazy_BJPWlJ, lazy: true, middleware: false, method: "get" },
+  { route: '/api/news', handler: _lazy_E8KS73, lazy: true, middleware: false, method: "get" },
+  { route: '/api/pages/:page', handler: _lazy_UwTCfp, lazy: true, middleware: false, method: "get" },
   { route: '/__nuxt_error', handler: _lazy_EPsZSH, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: handler$1, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_EPsZSH, lazy: true, middleware: false, method: undefined }
@@ -3228,6 +3230,15 @@ const index_get = defineEventHandler((event) => {
 const index_get$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: index_get
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const _page__get = defineEventHandler(() => {
+  return {};
+});
+
+const _page__get$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: _page__get
 }, Symbol.toStringTag, { value: 'Module' }));
 
 function renderPayloadResponse(ssrContext) {

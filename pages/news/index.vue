@@ -26,7 +26,7 @@ const perPage = 6;
 // La server route restituisce già le news ordinate per data decrescente
 // (più recente prima) e paginate a 6. In dev colpisce il mock Nitro (/api/news);
 // in prod basterà cambiare API_BASE per puntare a Laravel.
-const { data, pending, error } = await useFetch("/pages/news", {
+const { data, pending, error } = await useFetch("/news", {
   baseURL: config.public.apiBase,
   query: { page, perPage },
 });
