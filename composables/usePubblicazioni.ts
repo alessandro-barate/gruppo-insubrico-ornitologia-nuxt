@@ -73,11 +73,22 @@ export interface GroupNode extends BaseNode {
 // Pagina di dettaglio (foglia navigabile): un singolo contenuto —
 // es. un Quaderno — con testo descrittivo e, opzionali, immagine di
 // copertina, PDF scaricabile e prezzo (donazione minima).
+// Pagina interna di un Quaderno (immagine caricata dal pannello).
+// L'ordine della lista è l'ordine di lettura: la pagina mostra le
+// immagini a coppie, "a libro aperto" (1-2, 3-4, …).
+export interface QuadernoPage {
+  id: number;
+  image_path: string;
+  alt?: string;
+}
+
 export interface DetailNode extends BaseNode {
   type: "detail";
   body: string; // HTML descrittivo
   pdf_url?: string;
   price?: string; // testo libero, es. "€ 18"
+  // Pagine interne mostrate sotto la copertina (facoltative)
+  inner_pages?: QuadernoPage[];
 }
 
 // L'unione discriminata: un nodo è UNA di queste cinque forme.
@@ -126,6 +137,28 @@ const MOCK_TREE: PubNode[] = [
         type: "detail",
         intro_excerpt: "I Rondoni.",
         image_path: "/images/pubblicazioni/quaderni/quaderno-5.webp",
+        inner_pages: [
+          {
+            id: 551,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-5/pagina-1.webp",
+          },
+          {
+            id: 552,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-5/pagina-2.webp",
+          },
+          {
+            id: 553,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-5/pagina-3.webp",
+          },
+          {
+            id: 554,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-5/pagina-4.webp",
+          },
+        ],
         price: "",
         pdf_url: "",
         body: "<p>Ricerche, monitoraggio e conservazione delle colonie in otto province prealpine di Lombardia e Piemonte.<br><br>Il <strong>Quaderno 5 &quot;Rondoni&quot;</strong>, il quinto volume della collana &quot;Quaderni del G.I.O.&quot;, che il Gruppo Insubrico di Ornitologia sta realizzando insieme a <strong>LIPU OdV, CROS Varenna</strong> e <strong>Novara BW</strong>, è dedicato alla ricerca sulle <strong>tre specie di rondoni nidificanti</strong> nell'Italia settentrionale e alla loro ecologia urbana, Rondone comune, Rondone maggiore e Rondone pallido. Il volume raccoglierà i risultati di studi scientifici, proporrà linee guida per la conservazione delle specie e sarà arricchito da illustrazioni originali.<br><br>Scritto in italiano con riassunti in inglese, riccamente illustrato, sarà <strong>disponibile a breve</strong> per l'acquisto.<br>È possibile segnalare il proprio interesse all'acquisto tramite <a href='https://docs.google.com/forms/d/e/1FAIpQLSeJJ0iu3IVJoexE7LN3Z9vgVoCaBaQ152Otal_DTP7OGj2XBQ/viewform' class='specific-link' target='_blank'>questo link</a>:.</p>",
@@ -136,6 +169,28 @@ const MOCK_TREE: PubNode[] = [
         type: "detail",
         intro_excerpt: "Gli uccelli del Lago Maggiore.",
         image_path: "/images/pubblicazioni/quaderni/quaderno-4.webp",
+        inner_pages: [
+          {
+            id: 541,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-4/pagina-1.webp",
+          },
+          {
+            id: 542,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-4/pagina-2.webp",
+          },
+          {
+            id: 543,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-4/pagina-3.webp",
+          },
+          {
+            id: 544,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-4/pagina-4.webp",
+          },
+        ],
         price: "€ 18",
         pdf_url: "",
         body: "<p>Da Sud a Nord: le zone umide, le specie acquatiche, le ricerche (256 pagine).<br><br>Il <strong>quarto volume del Gruppo Insubrico di Ornitologia</strong>, intitolato &quot;UCCELLI del Lago Maggiore&quot;, rappresenta un'opera corale dedicata all'avifauna dell'intero bacino del Verbano. Superando i confini amministrativi, il progetto ha visto la collaborazione tra il G.I.O., partner svizzeri come <strong>Ficedula</strong>, la <strong>Fondazione Bolle di Magadino</strong> e la <strong>Riserva della Foce della Maggia</strong> e per la sponda piemontese è stato coinvolto l'<strong>Ente di gestione delle aree protette del Ticino e del Lago Maggiore</strong>.<br><br>Il risultato è un prestigioso trattato di divulgazione scientifica di 256 pagine, arricchito dai dati condivisi dai birdwatcher sul <strong>portale Ornitho</strong> e impreziosito da 260 fotografie, mappe e grafici dettagliati.<br><br>Il libro esplora la <strong>storia naturale del lago</strong>, analizzando le <strong>rotte migratorie</strong> tra Mediterraneo ed Europa e monitorando le specie acquatiche attraverso trentasette anni di <strong>censimenti IWC</strong>. Oltre a fornire indicazioni pratiche per il birdwatching nelle zone umide lombarde, piemontesi e ticinesi, il testo approfondisce ricerche recenti su specie iconiche come lo Smergo maggiore e la Rondine. Un tributo fondamentale alla biodiversità del Lago Maggiore, reso possibile dal lavoro appassionato di venti autori.</p>",
@@ -146,6 +201,28 @@ const MOCK_TREE: PubNode[] = [
         type: "detail",
         intro_excerpt: "La storia naturale dei picchi.",
         image_path: "/images/pubblicazioni/quaderni/quaderno-3.webp",
+        inner_pages: [
+          {
+            id: 531,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-3/pagina-1.webp",
+          },
+          {
+            id: 532,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-3/pagina-2.webp",
+          },
+          {
+            id: 533,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-3/pagina-3.webp",
+          },
+          {
+            id: 534,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-3/pagina-4.webp",
+          },
+        ],
         price: "€ 15",
         pdf_url: "",
         body: "<p>in provincia di Varese (232 pagine)<br><br>Pubblicato nel dicembre 2018, il <strong>terzo Quaderno del G.I.O.</strong> conta 232 pagine dedicate all'affascinante <strong>mondo dei picidi</strong>. Il progetto, nato inizialmente per documentare una ricerca quinquennale sul Picchio nero in provincia di Varese, si è evoluto fino a includere tutte le cinque specie presenti sul territorio provinciale. L'opera offre una <strong>prospettiva multidisciplinare</strong>: dai capitoli sulla sistematica, anatomia e fisiologia, fino all'analisi delle vocalizzazioni supportata da innovativi sonogrammi consultabili online.<br><br>Un contributo fondamentale riguarda il ruolo dei picchi come preziosi indicatori biologici, fornendo linee guida per una <strong>gestione forestale</strong> attenta alla biodiversità. Ogni specie gode di un approfondimento su <strong>biologia, ecologia e conservazione</strong>, arricchito da oltre 150 fotografie, mappe e sintesi in inglese.<br><br>Realizzato grazie alla collaborazione gratuita di numerosi soci e amici, il volume ha beneficiato del sostegno economico della <strong>Fondazione Comunitaria del Varesotto</strong>, della <strong>Comunità Montana del Piambello</strong>, della <strong>Libera Associazione La Campagna di Germignaga</strong> e della sezione del <strong>Club Alpino Italiano di Luino</strong>.</p>",
@@ -157,6 +234,28 @@ const MOCK_TREE: PubNode[] = [
         type: "detail",
         intro_excerpt: "La check-list degli uccelli della provincia di Varese.",
         image_path: "/images/pubblicazioni/quaderni/quaderno-2.webp",
+        inner_pages: [
+          {
+            id: 521,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-2/pagina-1.webp",
+          },
+          {
+            id: 522,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-2/pagina-2.webp",
+          },
+          {
+            id: 523,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-2/pagina-3.webp",
+          },
+          {
+            id: 524,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-2/pagina-4.webp",
+          },
+        ],
         price: "€ 8",
         pdf_url: "",
         body: "<p>della PROVINCIA di VARESE (208 pagine).<br><br>Il <strong>Quaderno del G.I.O. n° 2/2015</strong>, intitolato &quot;Check-List degli UCCELLI della PROVINCIA di VARESE - Lista completa commentata e illustrata&quot; è stato curato da Roberto Aletti e Monica Carabella e si propone come un compendio corposo ma estremamente maneggevole, indispensabile per chiunque desideri approfondire la conoscenza del patrimonio naturale locale. Il manuale analizza dettagliatamente la distribuzione, la stagionalità e il grado di rarità delle <strong>327 specie documentate</strong> sul territorio varesino.<br><br>L'opera raccoglie informazioni originali che spaziano dai dati storici fino ai giorni nostri, con un aggiornamento scientifico al 31 dicembre 2013. In 208 pagine arricchite da oltre 100 fotografie di uccelli e habitat, il cuore del libro è rappresentato dalle <strong>schede informative</strong> per ogni singola specie.<br><br>Oltre alla lista sistematica, il ricco sommario offre <strong>approfondimenti</strong> su molteplici aspetti dell'ornitologia moderna, rendendo il volume un riferimento essenziale per la ricerca e la conservazione.</p>",
@@ -167,6 +266,28 @@ const MOCK_TREE: PubNode[] = [
         type: "detail",
         intro_excerpt: "Le specie acquatiche svernanti.",
         image_path: "/images/pubblicazioni/quaderni/quaderno-1.webp",
+        inner_pages: [
+          {
+            id: 511,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-1/pagina-12.webp",
+          },
+          {
+            id: 512,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-1/pagina-13.webp",
+          },
+          {
+            id: 513,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-1/pagina-62.webp",
+          },
+          {
+            id: 514,
+            image_path:
+              "/images/pubblicazioni/quaderni/quaderno-1/pagina-63.webp",
+          },
+        ],
         price: "€ 5",
         pdf_url: "",
         body: "<p>25 anni di dati in provincia di Varese (128 pagine).<br><br>Il primo <strong>Quaderno del G.I.O.</strong> è un manuale scientifico-divulgativo di 128 pagine dedicato all'avifauna acquatica della provincia di Varese, basato sui censimenti internazionali IWC effettuati tra il 1986 e il 2010.<br><br>Il volume ripercorre la storia dei rilevamenti in Europa e Italia, offrendo una panoramica degli specchi d'acqua locali. Il cuore dell'opera è l'analisi di <strong>48 specie</strong> (appartenenti a 10 famiglie, tra cui Anatidi, Ardeidi e Laridi), descritte attraverso schede dettagliate su distribuzione, conservazione e dati numerici invernali.<br><br>Grazie a grafici e fotografie, il testo documenta l'evoluzione delle popolazioni svernanti in <strong>venticinque anni</strong>, evidenziando gli effetti dei cambiamenti climatici, come l'aumento dello Smergo maggiore e dell'Airone cenerino.<br><br>Realizzato su carta riciclata, il progetto è stato sostenuto dalla <strong>Provincia di Varese</strong> e dalla <strong>LIPU</strong>, avvalendosi del contributo di numerosi fotografi naturalisti.</p>",

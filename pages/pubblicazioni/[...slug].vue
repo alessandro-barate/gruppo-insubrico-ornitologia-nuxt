@@ -5,6 +5,8 @@ import type {
   BibliographyItem,
 } from "~/composables/usePubblicazioni";
 
+import PubblicazioniBookSpreads from "~/components/pubblicazioni/BookSpreads.vue";
+
 const route = useRoute();
 const router = useRouter();
 
@@ -265,6 +267,12 @@ useSeoMeta({
                 :src="node.image_path"
                 :alt="node.title"
                 class="detail__cover"
+              />
+              <!-- Pagine interne "a libro aperto", gestite dal pannello -->
+              <PubblicazioniBookSpreads
+                v-if="node.inner_pages?.length"
+                :pages="node.inner_pages"
+                :title="node.title"
               />
               <div
                 v-if="node.body"
