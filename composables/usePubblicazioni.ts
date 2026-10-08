@@ -40,9 +40,6 @@ interface BaseNode {
   intro_excerpt?: string;
   header_image?: string;
   image_path?: string;
-  // true = sotto il contenuto del nodo vengono mostrate le card delle
-  // ricerche (ex pagina Progetti, vedi useRicerche.ts). Usato da Paper.
-  show_research?: boolean;
 }
 
 // Varianti: ogni `type` è legato al suo tipo di item (o a children)
@@ -54,6 +51,10 @@ export interface CardsNode extends BaseNode {
 export interface PdfListNode extends BaseNode {
   type: "pdf-list";
   items: PdfItem[];
+  // true → voci raggruppate con l'anno come intestazione (es. BOL).
+  // Assente/false → voci comunque ordinate per anno decrescente, ma
+  // mostrate in un'unica lista senza intestazioni (es. Resoconti).
+  group_by_year?: boolean;
 }
 
 export interface BibliographyNode extends BaseNode {
@@ -174,6 +175,7 @@ const MOCK_TREE: PubNode[] = [
     slug: "bol",
     title: "BOL",
     type: "pdf-list",
+    group_by_year: true,
     intro_text:
       "<p>Questa pubblicazione, esclusivamente online, nasce dall'incontro avvenuto nel settembre 2018 tra un numeroso gruppo di ornitologi e naturalisti lombardi, attivi da molti anni sul campo sia come volontari sia come professionisti.<br><br>Durante la riunione di settembre, organizzata presso il Museo Caffi di Bergamo grazie alla disponibilità del Direttore, dott. Marco Valle, sono state gettate le basi di questo progetto. L'idea è nata da una semplice considerazione: la necessità di disporre di un “bollettino” di facile consultazione, accessibile online a tutti gli interessati, capace di raccogliere contributi di carattere faunistico riferiti principalmente alla Lombardia, ma con uno sguardo esteso anche all'Italia settentrionale.<br>Il Bollettino si è proposto di accogliere quei lavori che difficilmente trovano spazio nelle riviste nazionali, generalmente orientate verso progetti di più ampio respiro.<br><br>Considerata l'enorme quantità di dati condivisi su piattaforme come Ornitho.it, è emersa con evidenza l'esigenza di elaborare e diffondere sintesi riguardanti aspetti quali la fenologia, la distribuzione geografica e la selezione dell'habitat delle specie, oltre alla necessità di aggiornare costantemente le conoscenze sull'avifauna legata alle aree protette: riserve naturali, parchi regionali, PLIS e, in particolare, la Rete Natura 2000.<br><br>Un elemento fondamentale di questa iniziativa è stato il tentativo di riunire, attorno a un progetto comune, i numerosi gruppi - per lo più amatoriali - attivi nelle diverse province lombarde, finora privi di un coordinamento diretto e di una rappresentanza condivisa. Su proposta di Pierandrea Brichetti, già durante l'incontro del settembre 2018 è stato costituito un primo coordinamento tra gruppi, composto da sei realtà provinciali. Tale struttura è stata aperta a tutti coloro che desideravano aderire, contribuendo attivamente al progetto. Ogni gruppo è stato rappresentato all'interno del Bollettino da un referente, incaricato di raccogliere materiale da pubblicare e di proporre eventuali attività di censimento o monitoraggio su scala regionale o pluriprovinciale.<br><br>Il Bollettino Ornitologico Lombardo è stato pubblicato sulla piattaforma Ornitho.it grazie al supporto di Roberto Lardelli e del Gruppo di Conduzione. Questa collaborazione ha consentito di ampliare la diffusione dei contenuti anche oltre il contesto regionale.<br>L'obiettivo principale della pubblicazione è stato contribuire all'ampliamento delle conoscenze in un periodo caratterizzato da profondi cambiamenti e crescenti minacce agli ecosistemi.<br><br>I contributi sono stati inviati esclusivamente in formato elettronico via e-mail alla redazione, che ne ha valutato la pubblicazione secondo l'ordine cronologico di ricezione. Sono stati presi in considerazione diversi tipi di lavori, tra cui: articoli scientifici, brevi note, report di monitoraggi e censimenti, presentazioni di tesi, reportage fotografici, notizie, revisioni, recensioni librarie, resoconti di campagne di inanellamento, checklist locali, proposte di studio e altri contributi, purché redatti in lingua italiana.</p>",
     intro_excerpt: "Il bollettino periodico delle osservazioni.",
@@ -265,7 +267,6 @@ const MOCK_TREE: PubNode[] = [
     slug: "paper",
     title: "Paper",
     type: "bibliography",
-    show_research: true, // ← sotto la bibliografia: le ricerche (ex Progetti)
     intro_text:
       "<p>Pubblicazioni scientifiche e articoli su riviste specializzate a cura dei soci del G.I.O.</p>",
     intro_excerpt: "Articoli scientifici e riferimenti bibliografici.",
@@ -308,6 +309,7 @@ const MOCK_TREE: PubNode[] = [
         items: [
           {
             id: 30,
+            year: 2020,
             title: "Lista uccelli Provincia di Varese 2020",
             pdf_url: "/docs/liste/lista-varese-2020.pdf",
           },
@@ -326,46 +328,55 @@ const MOCK_TREE: PubNode[] = [
         items: [
           {
             id: 40,
+            year: 2017,
             title: "Resoconto Ornitologico 2017",
             pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2017.pdf",
           },
           {
             id: 41,
+            year: 2018,
             title: "Resoconto Ornitologico 2018",
             pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2018.pdf",
           },
           {
             id: 42,
+            year: 2019,
             title: "Resoconto Ornitologico 2019",
             pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2019.pdf",
           },
           {
             id: 43,
+            year: 2020,
             title: "Resoconto Ornitologico 2020",
             pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2020.pdf",
           },
           {
             id: 44,
+            year: 2021,
             title: "Resoconto Ornitologico 2021",
             pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2021.pdf",
           },
           {
             id: 45,
+            year: 2022,
             title: "Resoconto Ornitologico 2022",
             pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2022.pdf",
           },
           {
             id: 46,
+            year: 2023,
             title: "Resoconto Ornitologico 2023",
             pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2023.pdf",
           },
           {
             id: 47,
+            year: 2024,
             title: "Resoconto Ornitologico 2024",
             pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2024.pdf",
           },
           {
             id: 48,
+            year: 2025,
             title: "Resoconto Ornitologico 2025",
             pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2025.pdf",
           },

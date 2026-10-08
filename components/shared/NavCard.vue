@@ -82,7 +82,7 @@ defineProps<{
 }
 
 .nav-card__body h2 {
-  font-size: 1.25rem;
+  font-size: 1.65rem;
   margin: 0;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }

@@ -34,7 +34,7 @@ export { useConditionalScroll } from '../composables/useConditionalScroll';
 export { useDivulgazione, ItemLink, SubsectionItem, Subsection, SubsectionCardData } from '../composables/useDivulgazione';
 export { useLinks, LinkItem, LinkGroup, LinkSubsection, LinksByCategory } from '../composables/useLinks';
 export { usePageContent } from '../composables/usePageContent';
-export { usePagination } from '../composables/usePagination';
+export { usePagination, groupPages } from '../composables/usePagination';
 export { useProgetti, GalleryImage, ProgettiPage } from '../composables/useProgetti';
 export { usePubblicazioni, CardItem, PdfItem, BibliographyItem, SubsectionType, CardsNode, PdfListNode, BibliographyNode, GroupNode, DetailNode, PubNode, PubCardData, Crumb } from '../composables/usePubblicazioni';
 export { RICERCHE_BASE_PATH, useRicerche, LinkKind, ProgettiNode, TypedLink, ContentBlock, Project, ProjectSection, NavCardData } from '../composables/useRicerche';

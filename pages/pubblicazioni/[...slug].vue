@@ -43,6 +43,76 @@ const nodeId = computed(() => node.value?.slug ?? undefined);
 const crumbs = computed(() => buildCrumbs(segments.value));
 
 // ─── Paginazione ────────────────────────────────────────
+const PER_PAGE = 4;
+
+type PdfYearGroup = { year: number | null; items: PdfItem[] };
+
+// Anno di una voce PDF: il campo `year` se presente, altrimenti il primo
+// anno a 4 cifre (19xx/20xx) trovato nel titolo, es. "Resoconto
+// Ornitologico 2023". Se non c'è nessuno dei due → null.
+function yearOf(item: PdfItem): number | null {
+  if (item.year != null) return Number(item.year);
+  const match = item.title?.match(/\b(19|20)\d{2}\b/);
+  return match ? Number(match[0]) : null;
+}
+
+// Lista PDF completa ordinata per anno decrescente, PRIMA della
+// paginazione: l'anno più recente apre la prima pagina e il più vecchio
+// chiude l'ultima. Le voci senza anno vanno in fondo. sort() è stabile:
+// a parità di anno resta l'ordine originale.
+const sortedPdfItems = computed<PdfItem[]>(() => {
+  const n = node.value;
+  if (!n || n.type !== "pdf-list") return [];
+  return [...n.items].sort((a, b) => {
+    const ya = yearOf(a);
+    const yb = yearOf(b);
+    if (ya === yb) return 0;
+    if (ya === null) return 1; // senza anno in fondo
+    if (yb === null) return -1;
+    return yb - ya; // anni decrescenti
+  });
+});
+
+// Intestazione con l'anno solo se il nodo ha `group_by_year` (es. BOL).
+// Negli altri casi (Resoconti, Lista uccelli) le voci restano ordinate
+// per anno ma vengono mostrate in un'unica lista senza intestazioni.
+const groupByYear = computed(() => {
+  const n = node.value;
+  return n?.type === "pdf-list" && n.group_by_year === true;
+});
+
+// Raggruppa la lista ordinata per anno. Le voci senza anno (o senza
+// raggruppamento) sono ognuna un gruppo a sé, così vengono paginate
+// normalmente invece di formare un unico blocco indivisibile.
+const pdfYearGroups = computed<PdfYearGroup[]>(() => {
+  const groups: PdfYearGroup[] = [];
+  for (const item of sortedPdfItems.value) {
+    const year = groupByYear.value ? yearOf(item) : null;
+    const last = groups[groups.length - 1];
+    if (year !== null && last && last.year === year) last.items.push(item);
+    else groups.push({ year, items: [item] });
+  }
+  return groups;
+});
+
+// Pagine costruite con anni interi: un anno non viene mai spezzato tra
+// due pagine (vedi groupPages in usePagination). Dentro ogni pagina le
+// voci senza anno consecutive vengono riunite in un solo gruppo, così
+// nel template restano un'unica lista senza intestazione.
+const pdfPages = computed<PdfYearGroup[][]>(() =>
+  groupPages(pdfYearGroups.value, PER_PAGE, (g) => g.items.length).map((page) =>
+    page.reduce<PdfYearGroup[]>((acc, group) => {
+      const last = acc[acc.length - 1];
+      if (group.year === null && last && last.year === null) {
+        last.items.push(...group.items);
+      } else {
+        acc.push({ year: group.year, items: [...group.items] });
+      }
+      return acc;
+    }, []),
+  ),
+);
+
 // Numero totale di item del nodo corrente (qualunque tipo)
 const itemCount = computed(() => {
   const n = node.value;
@@ -52,10 +122,17 @@ const itemCount = computed(() => {
 });
 
 // Logica condivisa in usePagination (stato, totalPages, pageRange,
-// goToPage con scroll condizionale, listTop).
+// goToPage con scroll condizionale, listTop). Per le liste PDF il
+// numero di pagine arriva da pdfPages tramite `pageCount`; per gli
+// altri tipi resta il calcolo standard item/perPage.
 const { currentPage, totalPages, pageRange, goToPage, listTop } = usePagination(
   itemCount,
-  { perPage: 4 },
+  {
+    perPage: PER_PAGE,
+    pageCount: computed(() =>
+      node.value?.type === "pdf-list" ? pdfPages.value.length : null,
+    ),
+  },
 );
 
 // Liste tipizzate: ognuna è valorizzata SOLO se il nodo è di quel tipo.
@@ -67,45 +144,16 @@ const cardItems = computed<CardItem[]>(() => {
   return n.items.slice(pageRange.value.start, pageRange.value.end);
 });
 
-const pdfItems = computed<PdfItem[]>(() => {
-  const n = node.value;
-  if (!n || n.type !== "pdf-list") return [];
-  return n.items.slice(pageRange.value.start, pageRange.value.end);
-});
-
-// Raggruppa gli item PDF della pagina corrente per anno.
-// Ogni gruppo ha una sola intestazione. Gli anni sono in ordine
-// decrescente; le voci senza anno finiscono in un gruppo con
-// `year: null`, reso in fondo e senza intestazione.
-const pdfItemsByYear = computed(() => {
-  const groups = new Map<number | null, PdfItem[]>();
-  for (const item of pdfItems.value) {
-    const key = item.year ?? null;
-    if (!groups.has(key)) groups.set(key, []);
-    groups.get(key)!.push(item);
-  }
-  return [...groups.entries()]
-    .map(([year, items]) => ({ year, items }))
-    .sort((a, b) => {
-      if (a.year === null) return 1; // senza anno in fondo
-      if (b.year === null) return -1;
-      return a.year - b.year; // anni decrescenti
-    });
-});
+// Gruppi della pagina corrente (currentPage parte da 1).
+const pdfItemsByYear = computed<PdfYearGroup[]>(
+  () => pdfPages.value[currentPage.value - 1] ?? [],
+);
 
 const biblioItems = computed<BibliographyItem[]>(() => {
   const n = node.value;
   if (!n || n.type !== "bibliography") return [];
   return n.items.slice(pageRange.value.start, pageRange.value.end);
 });
-
-// ─── Ricerche (ex pagina Progetti) ──────────────────────
-// Mostrate sotto il contenuto dei nodi con `show_research` (Paper).
-const { getSections } = useRicerche();
-const { data: researchSections } = node.value?.show_research
-  ? await getSections()
-  : { data: ref<null>(null) };
-// ────────────────────────────────────────────────────────
 
 function handleContentClick(e: MouseEvent) {
   const a = (e.target as HTMLElement).closest("a");
@@ -134,54 +182,37 @@ useSeoMeta({
 </script>
 
 <template>
-  <!-- Wrapper: la pagina ha un solo elemento radice (transizioni) e il
-       blocco Ricerche può stare FUORI dal contenitore stretto .subsection -->
-  <div v-if="node" class="pub-page">
-    <section
-      :id="nodeId"
-      class="subsection"
-      :class="[
-        nodeClass,
-        { 'subsection--with-research': researchSections?.length },
-      ]"
-    >
-      <div class="subsection__intro">
-        <!-- Breadcrumb: Pubblicazioni / …livelli intermedi… / pagina corrente -->
-        <nav class="breadcrumb" aria-label="Percorso di navigazione">
-          <NuxtLink to="/pubblicazioni" class="breadcrumb__link">
-            <img
-              src="~/assets/images/scientific-dissemination/chevron-left.svg"
-              alt="Freccia sinistra per navigare al menù precedente"
-            />
-            Pubblicazioni
+  <section v-if="node" :id="nodeId" class="subsection" :class="nodeClass">
+    <div class="subsection__intro">
+      <!-- Breadcrumb: Pubblicazioni / …livelli intermedi… / pagina corrente -->
+      <nav class="breadcrumb" aria-label="Percorso di navigazione">
+        <NuxtLink to="/pubblicazioni" class="breadcrumb__link">
+          <img
+            src="~/assets/images/scientific-dissemination/chevron-left.svg"
+            alt="Freccia sinistra per navigare al menù precedente"
+          />
+          Pubblicazioni
+        </NuxtLink>
+
+        <template v-for="(crumb, i) in crumbs" :key="crumb.to">
+          <span class="breadcrumb__sep" aria-hidden="true">/</span>
+          <!-- l'ultima voce è la pagina corrente: testo, non link -->
+          <NuxtLink
+            v-if="i < crumbs.length - 1"
+            :to="crumb.to"
+            class="breadcrumb__link"
+          >
+            {{ crumb.title }}
           </NuxtLink>
+          <span v-else class="breadcrumb__current" aria-current="page">
+            {{ crumb.title }}
+          </span>
+        </template>
+      </nav>
 
-          <template v-for="(crumb, i) in crumbs" :key="crumb.to">
-            <span class="breadcrumb__sep" aria-hidden="true">/</span>
-            <!-- l'ultima voce è la pagina corrente: testo, non link -->
-            <NuxtLink
-              v-if="i < crumbs.length - 1"
-              :to="crumb.to"
-              class="breadcrumb__link"
-            >
-              {{ crumb.title }}
-            </NuxtLink>
-            <span v-else class="breadcrumb__current" aria-current="page">
-              {{ crumb.title }}
-            </span>
-          </template>
-        </nav>
-
-        <h1>{{ node.title }}</h1>
-        <div v-if="node.header_image" class="main-image">
-          <img :src="node.header_image" :alt="node.title" loading="lazy" />
-        </div>
-        <div
-          v-if="node.intro_text"
-          class="subsection__intro-text"
-          v-html="node.intro_text"
-          @click="handleContentClick"
-        />
+      <h1>{{ node.title }}</h1>
+      <div v-if="node.header_image" class="main-image">
+        <img :src="node.header_image" :alt="node.title" loading="lazy" />
       </div>
 
       <!-- CONTENITORE (group): mostra le card dei figli -->
@@ -307,24 +338,15 @@ useSeoMeta({
           </button>
         </nav>
       </template>
-    </section>
 
-    <!-- RICERCHE: card delle sezioni (ex Progetti), sotto il contenuto.
-       Stessa griglia e stesse dimensioni delle card della pagina Pubblicazioni -->
-    <div v-if="researchSections?.length" class="research">
-      <h2 class="research__title">Progetti di ricerca</h2>
-      <div class="research__grid">
-        <SharedNavCard
-          v-for="card in researchSections"
-          :key="card.slug"
-          :to="`${basePath}/${card.slug}`"
-          :title="card.title"
-          :excerpt="card.intro_excerpt"
-          :image="card.image_path"
-        />
-      </div>
+      <div
+        v-if="node.intro_text"
+        class="subsection__intro-text"
+        v-html="node.intro_text"
+        @click="handleContentClick"
+      />
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped lang="scss">
@@ -332,6 +354,10 @@ useSeoMeta({
 
 h1 {
   text-align: center;
+}
+
+.subsection__grid {
+  margin-bottom: 3rem;
 }
 
 .nav-card {
@@ -345,35 +371,6 @@ h1 {
 
   img {
     width: 50%;
-  }
-}
-
-// Pagina con le ricerche sotto: lo spazio finale lo dà il blocco .research
-.subsection--with-research {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-// Stesse misure della griglia di pages/pubblicazioni/index.vue:
-// 95% della larghezza, colonne auto-fit da min 240px, card alte 220px
-.research {
-  width: 95%;
-  margin: 3rem auto 17rem;
-
-  &__title {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-  }
-
-  // annulla il min-height: 395px che questa pagina dà alle altre nav-card
-  .nav-card {
-    min-height: 220px;
   }
 }
 

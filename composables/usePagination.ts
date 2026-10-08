@@ -22,10 +22,27 @@ import { computed, ref, unref, type MaybeRef } from "vue";
 //
 // e nel template aggancia il ref al contenitore della lista:
 //   <div ref="listTop"> …item… </div>
+//
+// PAGINAZIONE PER GRUPPI (es. volumi per anno, news per mese)
+// Quando un gruppo non deve essere spezzato tra due pagine, le
+// pagine non hanno tutte `perPage` item. In quel caso:
+//   const pages = computed(() =>
+//     groupPages(groups.value, 4, (g) => g.items.length))
+//   const { currentPage, … } = usePagination(itemCount, {
+//     perPage: 4,
+//     pageCount: computed(() => pages.value.length),
+//   })
+//   const pageGroups = computed(() => pages.value[currentPage.value - 1] ?? [])
+// `pageCount` sostituisce il calcolo count/perPage; `pageRange` e
+// `paginate` non vanno usati per quella lista.
 // ─────────────────────────────────────────────────────────
 
 interface UsePaginationOptions {
   perPage?: number;
+  // Numero di pagine già calcolato (es. da groupPages). Se è un
+  // numero, ha la precedenza su count/perPage; se è null/undefined
+  // si torna al calcolo standard. Reattivo: ref, computed o valore.
+  pageCount?: MaybeRef<number | null | undefined>;
 }
 
 export function usePagination(
@@ -43,9 +60,11 @@ export function usePagination(
 
   const itemCount = computed(() => unref(count));
 
-  const totalPages = computed(() =>
-    Math.max(1, Math.ceil(itemCount.value / perPage)),
-  );
+  const totalPages = computed(() => {
+    const fixed = unref(options.pageCount);
+    if (typeof fixed === "number") return Math.max(1, fixed);
+    return Math.max(1, Math.ceil(itemCount.value / perPage));
+  });
 
   // Intervallo [start, end) della pagina corrente.
   const pageRange = computed(() => {
@@ -72,4 +91,31 @@ export function usePagination(
     goToPage,
     listTop,
   };
+}
+
+// Distribuisce una lista di gruppi in pagine SENZA spezzare i gruppi.
+// Riempie la pagina con gruppi interi finché il successivo ci sta nel
+// limite di `perPage` item; altrimenti passa alla pagina dopo. Un
+// gruppo più grande di `perPage` occupa da solo una pagina intera.
+// `size` dice quanti item contiene un gruppo.
+export function groupPages<G>(
+  groups: readonly G[],
+  perPage: number,
+  size: (group: G) => number,
+): G[][] {
+  const pages: G[][] = [];
+  let page: G[] = [];
+  let count = 0;
+  for (const group of groups) {
+    const n = size(group);
+    if (count > 0 && count + n > perPage) {
+      pages.push(page);
+      page = [];
+      count = 0;
+    }
+    page.push(group);
+    count += n;
+  }
+  if (page.length) pages.push(page);
+  return pages;
 }
