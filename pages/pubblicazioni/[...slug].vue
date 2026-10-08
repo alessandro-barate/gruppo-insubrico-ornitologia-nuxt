@@ -375,119 +375,131 @@ useSeoMeta({
           </nav>
         </template>
       </section>
+
+      <!-- RICERCHE: card delle sezioni (ex Progetti), sotto il contenuto.
+       Stessa griglia e stesse dimensioni delle card della pagina Pubblicazioni -->
+      <div v-if="researchSections?.length" class="research">
+        <h2 class="research__title">Progetti di ricerca</h2>
+        <div class="research__grid">
+          <SharedNavCard
+            v-for="card in researchSections"
+            :key="card.slug"
+            :to="`${basePath}/${card.slug}`"
+            :title="card.title"
+            :excerpt="card.intro_excerpt"
+            :image="card.image_path"
+          />
+        </div>
+      </div>
     </template>
-
-    <style scoped lang="scss">
-      @use "~/assets/scss/_partials/subsection" as *;
-
-      h1 {
-        text-align: center;
-      }
-
-      .subsection__grid {
-        margin-bottom: 3rem;
-      }
-
-      .nav-card {
-        min-height: 395px;
-      }
-
-      .main-image {
-        width: 100%;
-        margin-top: 3rem;
-        margin-bottom: 3rem;
-
-        img {
-          width: 50%;
-        }
-      }
-
-      // Pagina con le ricerche sotto: lo spazio finale lo dà il blocco .research
-      .subsection--with-research {
-        margin-bottom: 0;
-        padding-bottom: 0;
-      }
-
-      // Stesse misure della griglia di pages/pubblicazioni/index.vue:
-      // 95% della larghezza, colonne auto-fit da min 240px, card alte 220px
-      .research {
-        width: 95%;
-        margin: 3rem auto 17rem;
-
-        &__title {
-          text-align: center;
-          margin-bottom: 2rem;
-        }
-
-        &__grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-          gap: 1.5rem;
-        }
-
-        // annulla il min-height: 395px che questa pagina dà alle altre nav-card
-        .nav-card {
-          min-height: 220px;
-        }
-      }
-
-      .pdf-year-group {
-        width: 100%;
-        text-align: center;
-
-        .year-field {
-          font-size: 2rem;
-          margin-bottom: 1rem;
-        }
-      }
-
-      .detail {
-        max-width: 800px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-
-        &__cover {
-          width: 100%;
-          max-width: 360px;
-          height: auto;
-          border-radius: 0.5rem;
-          align-self: center;
-        }
-
-        &__body {
-          line-height: 1.7;
-          color: var(--color-text-muted, #333);
-        }
-
-        &__price {
-          font-size: 1.1rem;
-        }
-
-        &__pdf {
-          align-self: flex-start;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.6rem 1.2rem;
-          border: 1px solid currentColor;
-          border-radius: 0.4rem;
-          text-decoration: none;
-          transition: background 0.2s ease;
-
-          &:hover {
-            background: rgba(0, 0, 0, 0.05);
-          }
-        }
-
-        &__pdf-icon {
-          flex-shrink: 0;
-          width: 20px;
-          height: 20px;
-          object-fit: contain;
-        }
-      }
-    </style>
   </div>
 </template>
+
+<style scoped lang="scss">
+@use "~/assets/scss/_partials/subsection" as *;
+
+h1 {
+  text-align: center;
+}
+
+.nav-card {
+  min-height: 395px;
+}
+
+.main-image {
+  width: 100%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+
+  img {
+    width: 50%;
+  }
+}
+
+// Pagina con le ricerche sotto: lo spazio finale lo dà il blocco .research
+.subsection--with-research {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+// Stesse misure della griglia di pages/pubblicazioni/index.vue:
+// 95% della larghezza, colonne auto-fit da min 240px, card alte 220px
+.research {
+  width: 95%;
+  margin: 3rem auto 17rem;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  // annulla il min-height: 395px che questa pagina dà alle altre nav-card
+  .nav-card {
+    min-height: 220px;
+  }
+}
+
+.pdf-year-group {
+  width: 100%;
+  text-align: center;
+
+  .year-field {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.detail {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  &__cover {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    border-radius: 0.5rem;
+    align-self: center;
+  }
+
+  &__body {
+    line-height: 1.7;
+    color: var(--color-text-muted, #333);
+  }
+
+  &__price {
+    font-size: 1.1rem;
+  }
+
+  &__pdf {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid currentColor;
+    border-radius: 0.4rem;
+    text-decoration: none;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  &__pdf-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+}
+</style>
