@@ -393,7 +393,7 @@ onMounted(() => {
           <div class="team-image">
             <img
               src="~/assets/images/chi-siamo/gruppo-gio-2023.jpg"
-              alt="Foto di gruppo GIO 2023"
+              alt="Foto di gruppo del G.I.O. nel 2023."
             />
           </div>
         </section>
@@ -582,8 +582,8 @@ ul {
   // Button per aprire panel direttivo
   .button-container {
     position: absolute;
-    right: 0;
-    top: 35%;
+    right: 1%;
+    top: 20%;
     transform: translateY(-50%);
     z-index: 100;
     transition: right 0.4s ease;
@@ -643,15 +643,15 @@ ul {
   // Panel direttivo
   .right-container {
     position: absolute;
-    right: -400px;
+    right: -350px;
     top: 0;
     width: 380px;
-    height: 100%;
+    height: 40%;
     padding: 2rem;
     transition: right 0.4s ease;
     overflow-y: auto;
     z-index: 99;
-    border-radius: 5%;
+    border-radius: 10px;
 
     &.active {
       right: 0;
@@ -950,15 +950,20 @@ ul {
     }
 
     .button-container {
+      top: 16%;
+      right: 10px;
+
       &.panel-open {
-        right: 260px;
+        // right: 465px;
+        right: 59%;
       }
     }
 
     .right-container {
       width: 60%;
-      height: 60%;
-      border-radius: 16px;
+      height: 34%;
+      right: -57%;
+      border-radius: 10px;
     }
 
     .team-container {
@@ -1120,9 +1125,18 @@ ul {
 @media (max-width: 576px) {
   .col {
     .article-container {
+      .button-container {
+        height: 21%;
+      }
+
       .right-container {
         width: 270px;
-        height: 60%;
+        height: 18%;
+        right: -62%;
+
+        &.active {
+          right: 0;
+        }
       }
     }
 
@@ -1134,6 +1148,105 @@ ul {
           .details-container.tablet-mobile-only {
             width: 90%;
           }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .col {
+    .article-container {
+      .button-container {
+        right: 0;
+        height: 14%;
+
+        &.panel-open {
+          right: 82%;
+        }
+      }
+
+      .right-container {
+        right: -82%;
+        width: 260px;
+
+        &.active {
+          right: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 321px) and (max-width: 360px) {
+  .col {
+    .article-container {
+      .button-container {
+        right: 0;
+        height: 15%;
+
+        &.panel-open {
+          right: 70%;
+        }
+      }
+
+      .right-container {
+        right: -72%;
+        width: 260px;
+        height: 20%;
+
+        &.active {
+          right: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 361px) and (max-width: 375px) {
+  .col {
+    .article-container {
+      .button-container {
+        right: -1%;
+        height: 15%;
+
+        &.panel-open {
+          right: 71%;
+        }
+      }
+
+      .right-container {
+        right: -71%;
+        width: 260px;
+        height: 21%;
+
+        &.active {
+          right: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 376px) and (max-width: 393px) {
+  .col {
+    .article-container {
+      .button-container {
+        right: -1%;
+        height: 15%;
+
+        &.panel-open {
+          right: 71%;
+        }
+      }
+
+      .right-container {
+        right: -71%;
+        width: 260px;
+        height: 21%;
+
+        &.active {
+          right: 0;
         }
       }
     }

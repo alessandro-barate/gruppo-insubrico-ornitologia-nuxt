@@ -29,12 +29,12 @@
     <div class="iscrizione__cards">
       <img
         src="/images/chi-siamo/tessera-fronte.webp"
-        alt="Tessera socio del G.I.O., fronte"
+        alt="Tessera socio del G.I.O., fronte."
         loading="lazy"
       />
       <img
         src="/images/chi-siamo/tessera-retro.webp"
-        alt="Tessera socio del G.I.O., retro"
+        alt="Tessera socio del G.I.O., retro."
         loading="lazy"
       />
     </div>
@@ -57,7 +57,7 @@
     <div class="iscrizione__image">
       <img
         src="/images/chi-siamo/gruppo-1.webp"
-        alt="Soci del G.I.O. durante un'attività"
+        alt="Soci del G.I.O. in posa mentre tengono tra le braccia il terzo Quaderno del G.I.O."
         loading="lazy"
       />
     </div>
@@ -81,7 +81,7 @@
     <div class="iscrizione__image">
       <img
         src="/images/chi-siamo/gruppo-2.webp"
-        alt="Soci del G.I.O. durante una riunione"
+        alt="Soci del G.I.O. in posa davanti ad un tavolo con sopra dei vasi con fiori."
         loading="lazy"
       />
     </div>

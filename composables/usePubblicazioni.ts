@@ -386,10 +386,10 @@ const MOCK_TREE: PubNode[] = [
       },
     ],
   },
-  // Paper
+  // Altre Pubblicazioni
   {
-    slug: "paper",
-    title: "Paper",
+    slug: "altre-pubblicazioni",
+    title: "Altre Pubblicazioni",
     type: "bibliography",
     show_research: true, // ← sotto la bibliografia: le ricerche (ex Progetti)
     intro_text:
@@ -413,8 +413,8 @@ const MOCK_TREE: PubNode[] = [
   },
   // Liste
   {
-    slug: "liste",
-    title: "Liste",
+    slug: "uccelli-varese",
+    title: "Gli Uccelli della Provincia di Varese",
     type: "group",
     intro_text:
       "<p>Liste sistematiche e racconti ornitologici che documentano le osservazioni sul territorio nel corso degli anni.</p>",
@@ -423,8 +423,8 @@ const MOCK_TREE: PubNode[] = [
     children: [
       // Lista uccelli
       {
-        slug: "lista-uccelli",
-        title: "Lista uccelli",
+        slug: "check-list-provinciale",
+        title: "Check-list Provinciale",
         type: "pdf-list",
         intro_text:
           "<p>Questa pubblicazione rende disponibile un elenco documentato relativo a tutte le specie di uccelli osservati e segnalati in provincia di Varese, con <strong>aggiornamenti alla data del 31/12/2020</strong>.<br><br>Questa ricerca è stata effettuata attraverso la consultazione di numerose fonti bibliografiche, siti e piattaforme di associazioni ornitologiche e di birdwatching, con lo scopo di individuare tutte le osservazioni relative a presenza, nidificazione e svernamento, e conseguentemente assegnare i caratteri fenologici ad ogni singola specie, oltre ad alcuni altri campi o annotazioni di particolare rilevanza ornitologica.</p>",

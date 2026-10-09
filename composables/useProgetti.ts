@@ -18,7 +18,7 @@ export interface ProgettiPage {
 // TODO: sostituire con l'API Laravel (immagini gestite dal pannello).
 // Le immagini qui sotto sono segnaposto prese da quelle già presenti.
 const PROGETTI_INTRO =
-  "Il G.I.O. ha intrapreso <strong>progetti di ricerca</strong> nel campo dell'ornitologia fin dai suoi esordi. Il nostro atto costitutivo recita che: “la nostra associazione persegue come scopo prioritario <strong>lo studio e la conservazione dell'avifauna</strong>. Infatti è sempre stato nello spirito dei nostri soci <strong>fare ricerca sul territorio della provincia di Varese</strong> per individuare l'avifauna presente, lo <strong>stato di conservazione</strong> e i <strong>cambiamenti e le trasformazioni</strong> avvenuti nel tempo. I risultati delle ricerche riportate qui sotto sono consultabili alla pagina <a href='/pubblicazioni/paper' class='specific-link' target='_blank'>Paper</a>.";
+  "Il G.I.O. ha intrapreso <strong>progetti di ricerca</strong> nel campo dell'ornitologia fin dai suoi esordi. Il nostro atto costitutivo recita che: “la nostra associazione persegue come scopo prioritario <strong>lo studio e la conservazione dell'avifauna</strong>. Infatti è sempre stato nello spirito dei nostri soci <strong>fare ricerca sul territorio della provincia di Varese</strong> per individuare l'avifauna presente, lo <strong>stato di conservazione</strong> e i <strong>cambiamenti e le trasformazioni</strong> avvenuti nel tempo. I risultati delle ricerche sono consultabili alla pagina <a href='/pubblicazioni/altre-pubblicazioni' class='specific-link' target='_blank'>Altre Pubblicazioni</a>.";
 
 const GALLERY: GalleryImage[] = [
   { src: "/images/progetti/rondoni.webp", alt: "Rondoni in volo" },
