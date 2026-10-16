@@ -40,9 +40,6 @@ interface BaseNode {
   intro_excerpt?: string;
   header_image?: string;
   image_path?: string;
-  // true = sotto il contenuto del nodo vengono mostrate le card delle
-  // ricerche (ex pagina Progetti, vedi useRicerche.ts). Usato da Paper.
-  show_research?: boolean;
 }
 
 // Varianti: ogni `type` è legato al suo tipo di item (o a children)
@@ -391,7 +388,6 @@ const MOCK_TREE: PubNode[] = [
     slug: "altre-pubblicazioni",
     title: "Altre Pubblicazioni",
     type: "bibliography",
-    show_research: true, // ← sotto la bibliografia: le ricerche (ex Progetti)
     intro_text:
       "<p>Pubblicazioni scientifiche e articoli su riviste specializzate a cura dei soci del G.I.O.</p>",
     intro_excerpt: "Articoli scientifici e riferimenti bibliografici.",

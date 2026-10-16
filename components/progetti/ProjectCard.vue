@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Project } from "~/composables/useRicerche";
+import type { Project } from "~/composables/useProgetti";
 
 defineProps<{
   project: Project;

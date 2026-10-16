@@ -1,8 +1,14 @@
 <script setup lang="ts">
-// Pagina Progetti: testo descrittivo + galleria di immagini.
-// Le schede delle ricerche sono state spostate in Pubblicazioni → Paper.
-const { getPage } = useProgetti();
-const { data: page } = await getPage();
+// Pagina Progetti: testo descrittivo, card delle 4 sezioni di ricerca
+// (pagine in progetti/[section]/[[project]].vue) e galleria di immagini.
+// Tutti i dati arrivano da useProgetti.ts.
+import { PROGETTI_BASE_PATH } from "~/composables/useProgetti";
+
+const { getPage, getSections } = useProgetti();
+const [{ data: page }, { data: sections }] = await Promise.all([
+  getPage(),
+  getSections(),
+]);
 const router = useRouter();
 
 useSeoMeta({
@@ -21,7 +27,8 @@ function handleContentClick(e: MouseEvent) {
   if (!a) return;
   // Rispetta i link da aprire in nuova scheda e ctrl/cmd-click
   if (a.target === "_blank") return;
-  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0)
+    return;
   const href = a.getAttribute("href");
   // solo link interni relativi
   if (href && href.startsWith("/")) {
@@ -51,6 +58,18 @@ function handleContentClick(e: MouseEvent) {
               v-html="page?.intro_text"
               @click="handleContentClick"
             ></p>
+          </div>
+
+          <!-- Card delle sezioni di ricerca -->
+          <div v-if="sections?.length" class="research-grid">
+            <SharedNavCard
+              v-for="card in sections"
+              :key="card.slug"
+              :to="`${PROGETTI_BASE_PATH}/${card.slug}`"
+              :title="card.title"
+              :excerpt="card.intro_excerpt"
+              :image="card.image_path"
+            />
           </div>
 
           <!-- Galleria immagini -->
@@ -108,6 +127,15 @@ function handleContentClick(e: MouseEvent) {
       color: #333;
       line-height: 1.75rem;
     }
+  }
+
+  // Stessa griglia delle card di Pubblicazioni: colonne auto-fit da 240px
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    width: 95%;
+    margin: 0 auto 6rem;
   }
 
   .gallery-section {

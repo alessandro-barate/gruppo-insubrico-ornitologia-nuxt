@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TypedLink } from "~/composables/useRicerche";
+import type { TypedLink } from "~/composables/useProgetti";
 
 defineProps<{
   link: TypedLink;

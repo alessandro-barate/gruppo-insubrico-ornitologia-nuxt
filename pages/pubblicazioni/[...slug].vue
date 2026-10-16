@@ -157,14 +157,6 @@ const biblioItems = computed<BibliographyItem[]>(() => {
   return n.items.slice(pageRange.value.start, pageRange.value.end);
 });
 
-// ─── Ricerche (ex pagina Progetti) ──────────────────────
-// Mostrate sotto il contenuto dei nodi con `show_research` (Paper).
-const { getSections } = useRicerche();
-const { data: researchSections } = node.value?.show_research
-  ? await getSections()
-  : { data: ref<null>(null) };
-// ────────────────────────────────────────────────────────
-
 function handleContentClick(e: MouseEvent) {
   const a = (e.target as HTMLElement).closest("a");
   if (!a) return;
@@ -195,17 +187,9 @@ useSeoMeta({
   <div class="pub-page">
     <!-- Wrapper SEMPRE presente e senza commenti prima: la pagina deve avere
          un solo elemento radice, altrimenti la transizione di pagina
-         (mode out-in) si blocca e la pagina successiva resta vuota.
-         Il blocco Ricerche può così stare FUORI dal contenitore .subsection -->
+         (mode out-in) si blocca e la pagina successiva resta vuota. -->
     <template v-if="node">
-      <section
-        :id="nodeId"
-        class="subsection"
-        :class="[
-          nodeClass,
-          { 'subsection--with-research': researchSections?.length },
-        ]"
-      >
+      <section :id="nodeId" class="subsection" :class="nodeClass">
         <div class="subsection__intro">
           <!-- Breadcrumb: Pubblicazioni / …livelli intermedi… / pagina corrente -->
           <nav class="breadcrumb" aria-label="Percorso di navigazione">
@@ -383,22 +367,6 @@ useSeoMeta({
           </nav>
         </template>
       </section>
-
-      <!-- RICERCHE: card delle sezioni (ex Progetti), sotto il contenuto.
-       Stessa griglia e stesse dimensioni delle card della pagina Pubblicazioni -->
-      <div v-if="researchSections?.length" class="research">
-        <h2 class="research__title">Progetti di ricerca</h2>
-        <div class="research__grid">
-          <SharedNavCard
-            v-for="card in researchSections"
-            :key="card.slug"
-            :to="`${basePath}/${card.slug}`"
-            :title="card.title"
-            :excerpt="card.intro_excerpt"
-            :image="card.image_path"
-          />
-        </div>
-      </div>
     </template>
   </div>
 </template>
@@ -421,35 +389,6 @@ h1 {
 
   img {
     width: 50%;
-  }
-}
-
-// Pagina con le ricerche sotto: lo spazio finale lo dà il blocco .research
-.subsection--with-research {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-// Stesse misure della griglia di pages/pubblicazioni/index.vue:
-// 95% della larghezza, colonne auto-fit da min 240px, card alte 220px
-.research {
-  width: 95%;
-  margin: 3rem auto 17rem;
-
-  &__title {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-  }
-
-  // annulla il min-height: 395px che questa pagina dà alle altre nav-card
-  .nav-card {
-    min-height: 220px;
   }
 }
 
