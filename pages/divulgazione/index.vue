@@ -1,6 +1,9 @@
 <script setup lang="ts">
-const { getSubsections } = useDivulgazione();
-const { data: subsections } = await getSubsections();
+const { getPage, getSubsections } = useDivulgazione();
+const [{ data: page }, { data: subsections }] = await Promise.all([
+  getPage(),
+  getSubsections(),
+]);
 
 useSeoMeta({
   title: "Divulgazione | Gruppo Insubrico di Ornitologia",
@@ -30,28 +33,7 @@ useHead({
         <!-- Sezione contenuti -->
         <section>
           <div class="main-description">
-            <p class="main-description__intro">
-              La <strong>divulgazione</strong> &egrave; una delle
-              attivit&agrave; fondamentali del
-              <strong>Gruppo Insubrico di Ornitologia</strong> e rappresenta il
-              principale strumento per
-              <strong
-                >condividere conoscenze, promuovere la cultura
-                scientifica</strong
-              >
-              e <strong>sensibilizzare alla tutela dell'avifauna</strong>.
-              Attraverso
-              <strong
-                >corsi di ornitologia, serate divulgative, incontri e
-                convegni</strong
-              >, il <strong>G.I.O.</strong> favorisce il
-              <strong>dialogo tra ricercatori, appassionati e cittadini</strong
-              >. In questa sezione sono raccolte le
-              <strong>iniziative</strong> organizzate nel corso degli anni,
-              testimonianza dell'impegno della nostra associazione nella
-              <strong>formazione</strong>, nella <strong>ricerca</strong> e
-              nella <strong>diffusione della conoscenza ornitologica</strong>.
-            </p>
+            <p class="main-description__intro" v-html="page?.intro_text"></p>
           </div>
 
           <div class="cards-section">

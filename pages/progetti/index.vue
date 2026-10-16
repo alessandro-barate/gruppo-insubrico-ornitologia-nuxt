@@ -73,9 +73,9 @@ function handleContentClick(e: MouseEvent) {
           </div>
 
           <!-- Galleria immagini -->
-          <div v-if="page?.gallery?.length" class="gallery-section">
+          <!-- <div v-if="page?.gallery?.length" class="gallery-section">
             <ProgettiGallery :images="page.gallery" />
-          </div>
+          </div> -->
         </section>
       </div>
     </div>
@@ -135,7 +135,7 @@ function handleContentClick(e: MouseEvent) {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.5rem;
     width: 95%;
-    margin: 0 auto 6rem;
+    margin: 0 auto 14rem;
   }
 
   .gallery-section {

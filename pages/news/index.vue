@@ -173,7 +173,7 @@ const goToPage = (p) => {
     width: 90%;
     max-width: 1400px;
     margin: 0 auto;
-    padding-bottom: 17rem;
+    padding-bottom: 11rem;
 
     &__intro {
       font-size: 1.1rem;

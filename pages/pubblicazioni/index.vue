@@ -75,7 +75,7 @@ useHead({
 
   .content-section {
     width: 95%;
-    margin-bottom: 17rem;
+    margin-bottom: 14rem;
 
     .main-description {
       max-width: 1400px;

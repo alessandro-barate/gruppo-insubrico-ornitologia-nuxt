@@ -143,16 +143,16 @@ const SECTIONS: ProjectSection[] = [
     projects_are_navigable: true, // ← 3 livelli
   },
   // Altri lavori
-  {
-    slug: "altri-lavori",
-    title: "Altri Lavori",
-    intro_text:
-      "<p>Contributi, liste e materiali vari prodotti dai soci al di fuori dei progetti di ricerca principali.</p>",
-    intro_excerpt: "Contributi, liste e materiali vari.",
-    image_path: "/images/progetti/altri-lavori.webp",
-    has_projects: true,
-    projects_are_navigable: false, // ← 2 livelli, inline
-  },
+  // {
+  //   slug: "altri-lavori",
+  //   title: "Altri Lavori",
+  //   intro_text:
+  //     "<p>Contributi, liste e materiali vari prodotti dai soci al di fuori dei progetti di ricerca principali.</p>",
+  //   intro_excerpt: "Contributi, liste e materiali vari.",
+  //   image_path: "/images/progetti/altri-lavori.webp",
+  //   has_projects: true,
+  //   projects_are_navigable: false, // ← 2 livelli, inline
+  // },
 ];
 
 const PROJECTS: Project[] = [
