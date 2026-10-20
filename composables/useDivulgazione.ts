@@ -180,8 +180,9 @@ const MOCK_SUBSECTIONS: Record<string, Subsection> = {
     image_path: "/images/divulgazione/eventi.webp",
     items: [
       {
-        id: 3,
-        title: "Convegno annuale G.I.O. 2026",
+        id: 1,
+        title: "Giornata di Studio sull'Avifauna in Lombardia",
+        year: "2025",
         body: "<p>La giornata di studio annuale del Gruppo Insubrico di Ornitologia, con relatori nazionali e internazionali e sessioni dedicate alle ultime ricerche sul campo.</p>",
         image_path: "",
         links: [
@@ -189,7 +190,42 @@ const MOCK_SUBSECTIONS: Record<string, Subsection> = {
         ],
       },
       {
+        id: 2,
+        title: "Giornata mondiale degli uccelli migratori",
+        body: "<p>Un'uscita divulgativa aperta a tutti per celebrare la migrazione e osservare da vicino le specie di passaggio sul nostro territorio.</p>",
+        image_path: "",
+        links: [],
+      },
+      {
+        id: 3,
+        title: "Giornata mondiale degli uccelli migratori",
+        body: "<p>Un'uscita divulgativa aperta a tutti per celebrare la migrazione e osservare da vicino le specie di passaggio sul nostro territorio.</p>",
+        image_path: "",
+        links: [],
+      },
+      {
         id: 4,
+        title: "Giornata mondiale degli uccelli migratori",
+        body: "<p>Un'uscita divulgativa aperta a tutti per celebrare la migrazione e osservare da vicino le specie di passaggio sul nostro territorio.</p>",
+        image_path: "",
+        links: [],
+      },
+      {
+        id: 5,
+        title: "Giornata mondiale degli uccelli migratori",
+        body: "<p>Un'uscita divulgativa aperta a tutti per celebrare la migrazione e osservare da vicino le specie di passaggio sul nostro territorio.</p>",
+        image_path: "",
+        links: [],
+      },
+      {
+        id: 6,
+        title: "Giornata mondiale degli uccelli migratori",
+        body: "<p>Un'uscita divulgativa aperta a tutti per celebrare la migrazione e osservare da vicino le specie di passaggio sul nostro territorio.</p>",
+        image_path: "",
+        links: [],
+      },
+      {
+        id: 7,
         title: "Giornata mondiale degli uccelli migratori",
         body: "<p>Un'uscita divulgativa aperta a tutti per celebrare la migrazione e osservare da vicino le specie di passaggio sul nostro territorio.</p>",
         image_path: "",
