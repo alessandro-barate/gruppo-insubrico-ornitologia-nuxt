@@ -13,6 +13,8 @@ export interface DivulgazionePage {
   // gallery?: GalleryImage[];
 }
 
+// Un link ha senso solo se ha un indirizzo: label e url sono obbligatori.
+// È la lista `links` dell'item a essere facoltativa (vedi sotto).
 export interface ItemLink {
   label: string;
   url: string;
@@ -24,6 +26,7 @@ export interface SubsectionItem {
   year?: string;
   body?: string;
   image_path?: string;
+  // Facoltativo: nessun link, uno o più (aggiunti dagli admin dal pannello)
   links?: ItemLink[];
 }
 
@@ -81,51 +84,85 @@ const MOCK_SUBSECTIONS: Record<string, Subsection> = {
     items: [
       {
         id: 1,
-        title: "Corso base di Birdwatching",
+        title: "Corso base di Birdwatching Parco Pineta",
         year: "2013",
         body: "<p></p>",
-        image_path: "/images/divulgazione/corsi/2013.webp",
-        links: [
-          {
-            label: "",
-            url: "",
-          },
-        ],
+        image_path: "/images/divulgazione/corsi/2013/2013.webp",
       },
       {
         id: 2,
-        title: "Corso avanzato di birdwatching",
-        body: "<p>Approfondimento sul campo con uscite guidate ed esperti del settore, dedicato a chi ha già frequentato il corso base o possiede esperienza equivalente.</p>",
-        image_path: "",
-        links: [
-          { label: "Scopri di più", url: "https://example.com/avanzato" },
-        ],
+        title: "Corso base di Birdwatching CMVV",
+        year: "2014",
+        body: "<p></p>",
+        image_path: "/images/divulgazione/corsi/2014/21-03-2014.webp",
       },
       {
         id: 3,
-        title: "Corso avanzato di birdwatching",
-        body: "<p>Approfondimento sul campo con uscite guidate ed esperti del settore, dedicato a chi ha già frequentato il corso base o possiede esperienza equivalente.</p>",
-        image_path: "",
-        links: [
-          { label: "Scopri di più", url: "https://example.com/avanzato" },
-        ],
+        title: "Corso avanzato di birdwatching Parco Pineta",
+        year: "2014",
+        body: "<p></p>",
+        image_path: "/images/divulgazione/corsi/2014/15-09-2014.webp",
       },
       {
         id: 4,
-        title: "Corso avanzato di birdwatching",
-        body: "<p>Approfondimento sul campo con uscite guidate ed esperti del settore, dedicato a chi ha già frequentato il corso base o possiede esperienza equivalente.</p>",
-        image_path: "",
-        links: [
-          { label: "Scopri di più", url: "https://example.com/avanzato" },
-        ],
+        title: "Secondo corso di birdwatching CMVV",
+        year: "2015",
+        body: "<p></p>",
+        image_path: "/images/divulgazione/corsi/2015/10-04-2015.webp",
       },
       {
         id: 5,
-        title: "Corso avanzato di birdwatching",
-        body: "<p>Approfondimento sul campo con uscite guidate ed esperti del settore, dedicato a chi ha già frequentato il corso base o possiede esperienza equivalente.</p>",
-        image_path: "",
+        title: "Corso di birdwatching Parco Ticino",
+        year: "2016",
+        body: "<p></p>",
+        image_path: "/images/divulgazione/corsi/2016/18-03-2016.webp",
+      },
+      {
+        id: 6,
+        title: "Corso di birdwatching Parco Ticino",
+        year: "2017",
+        body: "<p></p>",
+        image_path: "/images/divulgazione/corsi/2017/28-04-2017.webp",
+      },
+      {
+        id: 7,
+        title: "Corso base di birdwatching Museo Clivio",
+        year: "2018",
+        body: "<p></p>",
+        image_path: "/images/divulgazione/corsi/2018/04-05-2018.webp",
+      },
+      {
+        id: 8,
+        title: "Secondo corso di birdwatching Museo Clivio",
+        year: "2019",
+        body: "<p></p>",
+        image_path: "/images/divulgazione/corsi/2019/12-04-2019.webp",
+      },
+      {
+        id: 9,
+        title: "Corso di birdwatching Campo dei Fiori",
+        year: "2019",
+        body: "<p></p>",
+        image_path: "/images/divulgazione/corsi/2019/08-11-2019.webp",
+      },
+      {
+        id: 10,
+        title: "Corso base di ornitologia Varese",
+        year: "2024",
+        body: "<p></p>",
+        image_path: "/images/divulgazione/corsi/2024/12-04-2024.webp",
+      },
+      {
+        id: 11,
+        title: "Corso di ornitologia CMVV",
+        year: "2025",
+        body: "<p></p>",
+        image_path: "/images/divulgazione/corsi/2025/14-03-2025.webp",
         links: [
-          { label: "Scopri di più", url: "https://example.com/avanzato" },
+          {
+            label: "Guarda il corso su YouTube",
+            url: "https://www.youtube.com/watch?v=lUy_kPZuwA8",
+          },
         ],
       },
     ],
@@ -133,12 +170,12 @@ const MOCK_SUBSECTIONS: Record<string, Subsection> = {
   // Eventi
   eventi: {
     slug: "eventi",
-    title: "Eventi",
-    title_parts: ["Eventi"],
+    title: "Eventi e Convegni",
+    title_parts: ["Eventi e", "Convegni"],
     aria_label:
-      "Bottone che porta alla pagina dove vengono elencati tutti gli eventi tenuti dal G.I.O.",
+      "Bottone che porta alla pagina dove vengono elencati tutti gli eventi e i convegni che hanno visto partecipare il G.I.O.",
     intro_text:
-      "<p>Organizziamo e partecipiamo a eventi e convegni dedicati all'ornitologia, occasioni di incontro e confronto tra appassionati, ricercatori e studiosi del settore.</p>",
+      "<h4>La Storia della Nostra Ricerca</h4><br><p>Gli appuntamenti e i momenti di confronto hanno da sempre segnato il percorso del <strong>Gruppo Insubrico di Ornitologia</strong>. Per la nostra associazione, la tutela dell'avifauna non si limita all'osservazione sul campo, ma si nutre costantemente di dibattito scientifico, riflessioni sulla conservazione e condivisione dei dati con esperti e appassionati.<br>In questa pagina è possibile ripercorrere le tappe fondamentali della nostra attività attraverso le <strong>locandine e le immagini degli eventi passati</strong>. Troverete testimonianze di momenti di grande rilievo scientifico, come la <strong>XXI edizione del Convegno Italiano di Ornitologia (CIO)</strong> tenutasi a Varese nel 2023, e la <strong>Giornata di Studio sull'Avifauna in Lombardia</strong>, organizzata per celebrare lo storico traguardo dei <strong>40 anni di censimenti IWC</strong>.<br>L'archivio include inoltre appuntamenti storici come gli <strong>Incontri Insubrici di Ornitologia</strong>, gli <strong>Incontri Lombardi</strong> e giornate tematiche come il <strong>CISO DAY</strong> dedicato al futuro delle zone umide. Ogni locandina rappresenta un tassello della cultura ornitologica che il G.I.O. promuove da decenni nel territorio insubrico e oltre, spesso in prestigiosa collaborazione con università ed enti di ricerca.<br>Vi invitiamo a sfogliare questa galleria per scoprire l'evoluzione di una realtà che, da oltre quarant'anni, lavora per trasformare la passione per gli uccelli in una solida base di conoscenza scientifica.</p>",
     intro_excerpt: "Incontri, giornate di studio e convegni.",
     image_path: "/images/divulgazione/eventi.webp",
     items: [

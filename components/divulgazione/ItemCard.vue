@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import type { SubsectionItem } from "~/composables/useDivulgazione";
 
-defineProps<{
+const props = defineProps<{
   item: SubsectionItem;
 }>();
+
+// Link da mostrare: `links` può mancare, essere vuoto o contenere voci
+// lasciate a metà dal pannello (senza url). Si tengono solo quelli con
+// un indirizzo; se nessuno è valido, il blocco dei link non compare.
+const visibleLinks = computed(() =>
+  (props.item.links ?? []).filter((link) => link.url?.trim()),
+);
 
 // ─── Locandina zoomata ───────────────────────────────
 // ref() per stato reattivo: con `let` Vue non si accorge
@@ -65,13 +72,13 @@ onBeforeUnmount(() => {
       <!-- body arriva come HTML sanitizzato dal backend -->
       <div class="item-card__body" v-html="item.body" />
 
-      <!-- <ul v-if="item.links.length" class="item-card__links">
-        <li v-for="link in item.links" :key="link.url">
+      <ul v-if="visibleLinks.length" class="item-card__links">
+        <li v-for="link in visibleLinks" :key="link.url">
           <a :href="link.url" target="_blank" rel="noopener noreferrer">
-            {{ link.label }}
+            {{ link.label || "Apri il link" }}
           </a>
         </li>
-      </ul> -->
+      </ul>
     </div>
 
     <!-- Locandina zoomata -->
@@ -173,7 +180,7 @@ onBeforeUnmount(() => {
   display: inline-block;
   padding: 0.5rem 1rem;
   border-radius: 6px;
-  background: var(--color-accent, #2c6e49);
+  background: var(--color-accent, #233162);
   color: #fff;
   text-decoration: none;
   font-size: 0.9rem;
