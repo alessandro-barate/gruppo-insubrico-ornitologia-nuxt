@@ -130,8 +130,9 @@ onBeforeUnmount(() => {
 
 .item-card__media {
   width: 80%;
-  border-radius: 8px;
   overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 1rem;
   background: var(--color-surface-alt, #eee);
 }
 
