@@ -318,74 +318,6 @@ onMounted(() => {
               </ul>
             </div>
           </article>
-
-          <!-- Button-container per panel -->
-          <div
-            class="button-container d-flex"
-            :class="{ 'panel-open': isPanelOpen }"
-          >
-            <div class="half-circle bg-blue">
-              <button @click="togglePanel" class="toggle-btn">
-                <div class="toggle-icon">
-                  <span
-                    class="bar bar1"
-                    :class="{ active: isPanelOpen }"
-                  ></span>
-                  <span
-                    class="bar bar2"
-                    :class="{ active: isPanelOpen }"
-                  ></span>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          <!-- List container (direttivo) -->
-          <div class="right-container bg-blue" :class="{ active: isPanelOpen }">
-            <div class="list-container">
-              <h2>Dal 2025 il direttivo è così composto</h2>
-              <div class="list">
-                <h4>Presidente</h4>
-                <ul>
-                  <li>Milo Manica</li>
-                </ul>
-              </div>
-
-              <div class="list">
-                <h4>Vice-Presidenti</h4>
-                <ul>
-                  <li>Daniela Casola</li>
-                  <li>Fabio Saporetti</li>
-                </ul>
-              </div>
-
-              <div class="list">
-                <h4>Consiglieri</h4>
-                <ul>
-                  <li>Ilaria Cervellin</li>
-                  <li>Silvio Cova</li>
-                  <li>Nicola Larroux</li>
-                  <li>Jacopo Sacchet</li>
-                </ul>
-              </div>
-
-              <div class="list">
-                <h4>Segretaria amministrativa e tesoreria</h4>
-                <ul>
-                  <li>Rosita Pigni</li>
-                </ul>
-              </div>
-
-              <div class="list">
-                <h4>Presidenti negli scorsi anni</h4>
-                <ul>
-                  <li>Fabio Saporetti</li>
-                  <li>Monia Carabella</li>
-                  <li>Walter Guenzani</li>
-                </ul>
-              </div>
-            </div>
-          </div>
         </section>
 
         <!-- Team image section -->
@@ -575,122 +507,6 @@ ul {
       .second-paragraph,
       .last-paragraph {
         width: 70%;
-      }
-    }
-  }
-
-  // Button per aprire panel direttivo
-  .button-container {
-    position: absolute;
-    right: 1%;
-    top: 20%;
-    transform: translateY(-50%);
-    z-index: 100;
-    transition: right 0.4s ease;
-
-    &.panel-open {
-      right: 380px;
-    }
-
-    .half-circle {
-      width: 50px;
-      height: 80px;
-      border-radius: 60px 0 0 60px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding-left: 3px;
-
-      .toggle-btn {
-        width: 30px;
-        height: 50px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .toggle-icon {
-          width: 18px;
-          height: 14px;
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          gap: 4px;
-
-          .bar {
-            width: 100%;
-            height: 2px;
-            background: white;
-            border-radius: 1px;
-            transition: all 0.3s ease;
-          }
-
-          .bar1.active {
-            transform: rotate(45deg) translateY(4px);
-          }
-
-          .bar2.active {
-            transform: rotate(-45deg) translateY(-4px);
-          }
-        }
-      }
-    }
-  }
-
-  // Panel direttivo
-  .right-container {
-    position: absolute;
-    right: -350px;
-    top: 0;
-    width: 380px;
-    height: 40%;
-    padding: 2rem;
-    transition: right 0.4s ease;
-    overflow-y: auto;
-    z-index: 99;
-    border-radius: 10px;
-
-    &.active {
-      right: 0;
-    }
-
-    .list-container {
-      h2 {
-        font-size: 1.4rem;
-        margin-bottom: 1.5rem;
-        color: white;
-        text-align: center;
-      }
-
-      .list {
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-
-        h4 {
-          font-size: 1.2rem;
-          color: rgba(255, 255, 255, 0.9);
-          margin-bottom: 0.5rem;
-        }
-
-        ul {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-
-          li {
-            color: white;
-            font-size: 1rem;
-            padding: 0.2rem 0;
-          }
-        }
-
-        &:last-child {
-          border-bottom: none;
-        }
       }
     }
   }
@@ -901,26 +717,6 @@ ul {
   }
 }
 
-// Scrollbar del panel
-.article-container {
-  .right-container::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  .right-container::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .right-container::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.5);
-    }
-  }
-}
-
 // Modal nascosto su desktop
 .modal-overlay {
   display: none;
@@ -947,23 +743,6 @@ ul {
           padding-right: 0;
         }
       }
-    }
-
-    .button-container {
-      top: 16%;
-      right: 10px;
-
-      &.panel-open {
-        // right: 465px;
-        right: 59%;
-      }
-    }
-
-    .right-container {
-      width: 60%;
-      height: 34%;
-      right: -57%;
-      border-radius: 10px;
     }
 
     .team-container {
@@ -1124,22 +903,6 @@ ul {
 // ==========================================
 @media (max-width: 576px) {
   .col {
-    .article-container {
-      .button-container {
-        height: 21%;
-      }
-
-      .right-container {
-        width: 270px;
-        height: 18%;
-        right: -62%;
-
-        &.active {
-          right: 0;
-        }
-      }
-    }
-
     .subscribe-section {
       .subscribe-container {
         width: 90%;
@@ -1148,105 +911,6 @@ ul {
           .details-container.tablet-mobile-only {
             width: 90%;
           }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 320px) {
-  .col {
-    .article-container {
-      .button-container {
-        right: 0;
-        height: 14%;
-
-        &.panel-open {
-          right: 82%;
-        }
-      }
-
-      .right-container {
-        right: -82%;
-        width: 260px;
-
-        &.active {
-          right: 0;
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: 321px) and (max-width: 360px) {
-  .col {
-    .article-container {
-      .button-container {
-        right: 0;
-        height: 15%;
-
-        &.panel-open {
-          right: 70%;
-        }
-      }
-
-      .right-container {
-        right: -72%;
-        width: 260px;
-        height: 20%;
-
-        &.active {
-          right: 0;
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: 361px) and (max-width: 375px) {
-  .col {
-    .article-container {
-      .button-container {
-        right: -1%;
-        height: 15%;
-
-        &.panel-open {
-          right: 71%;
-        }
-      }
-
-      .right-container {
-        right: -71%;
-        width: 260px;
-        height: 21%;
-
-        &.active {
-          right: 0;
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: 376px) and (max-width: 393px) {
-  .col {
-    .article-container {
-      .button-container {
-        right: -1%;
-        height: 15%;
-
-        &.panel-open {
-          right: 71%;
-        }
-      }
-
-      .right-container {
-        right: -71%;
-        width: 260px;
-        height: 21%;
-
-        &.active {
-          right: 0;
         }
       }
     }
