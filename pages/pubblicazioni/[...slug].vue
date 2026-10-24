@@ -6,6 +6,7 @@ import type {
 } from "~/composables/usePubblicazioni";
 
 import PubblicazioniBookSpreads from "~/components/pubblicazioni/BookSpreads.vue";
+import { RESULTS_BASE_PATH, RESULTS_SECTIONS } from "~/composables/useProgetti";
 
 const route = useRoute();
 const router = useRouter();
@@ -126,11 +127,13 @@ const itemCount = computed(() => {
 // Logica condivisa in usePagination (stato, totalPages, pageRange,
 // goToPage con scroll condizionale, listTop). Per le liste PDF il
 // numero di pagine arriva da pdfPages tramite `pageCount`; per gli
-// altri tipi resta il calcolo standard item/perPage.
+// altri tipi resta il calcolo standard item/perPage. Un nodo può
+// chiedere un numero diverso di voci con `items_per_page` (es. la
+// bibliografia di Altre Pubblicazioni, 10 per pagina).
 const { currentPage, totalPages, pageRange, goToPage, listTop } = usePagination(
   itemCount,
   {
-    perPage: PER_PAGE,
+    perPage: node.value?.items_per_page ?? PER_PAGE,
     pageCount: computed(() =>
       node.value?.type === "pdf-list" ? pdfPages.value.length : null,
     ),
@@ -156,6 +159,16 @@ const biblioItems = computed<BibliographyItem[]>(() => {
   if (!n || n.type !== "bibliography") return [];
   return n.items.slice(pageRange.value.start, pageRange.value.end);
 });
+
+// ─── Ricerche condivise con Progetti ────────────────────
+// Nei nodi con `show_research` (Altre Pubblicazioni) prima della lista
+// compaiono le card delle sezioni in RESULTS_SECTIONS. Le card portano a
+// /pubblicazioni/altre-pubblicazioni/<sezione>, dove si vedono solo i
+// PDF e i link ai risultati (vista "pubblicazioni" di ResearchView).
+const { getSections } = useProgetti();
+const { data: researchSections } = node.value?.show_research
+  ? await getSections(RESULTS_SECTIONS)
+  : { data: ref<null>(null) };
 
 function handleContentClick(e: MouseEvent) {
   const a = (e.target as HTMLElement).closest("a");
@@ -243,6 +256,18 @@ useSeoMeta({
 
         <!-- FOGLIA: mostra gli item secondo il tipo -->
         <template v-else>
+          <!-- Card delle ricerche condivise con Progetti (Altre Pubblicazioni) -->
+          <div v-if="researchSections?.length" class="research">
+            <SharedNavCard
+              v-for="card in researchSections"
+              :key="card.slug"
+              :to="`${RESULTS_BASE_PATH}/${card.slug}`"
+              :title="card.title"
+              :excerpt="card.intro_excerpt"
+              :image="card.image_path"
+            />
+          </div>
+
           <div ref="listTop">
             <!-- Dettaglio (es. singolo Quaderno): immagine + testo + prezzo + PDF -->
             <article v-if="node.type === 'detail'" class="detail">
@@ -314,16 +339,20 @@ useSeoMeta({
             </div>
 
             <!-- Bibliografia: solo testo (es. Paper) -->
-            <ol
+            <ul
               v-else-if="node.type === 'bibliography'"
               class="subsection__biblio"
+              id="other-biblio"
             >
+              <div class="second-title">
+                <h3>{{ node.second_intro_text }}</h3>
+              </div>
               <PubblicazioniBiblioItem
                 v-for="item in biblioItems"
                 :key="item.id"
                 :item="item"
               />
-            </ol>
+            </ul>
           </div>
 
           <!-- Paginazione condivisa da tutte le foglie -->
@@ -380,6 +409,35 @@ h1 {
 
 .nav-card {
   min-height: 395px;
+}
+
+#other-biblio {
+  margin-top: 6rem;
+  list-style-type: disc;
+
+  .second-title {
+    margin-bottom: 1rem;
+  }
+
+  li {
+    font-style: italic;
+  }
+}
+
+// Card delle ricerche: stessa griglia delle card di Pubblicazioni/Progetti
+// (colonne auto-fit da min 240px), prima della bibliografia
+.research {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  width: 95%;
+  max-width: 1000px;
+  margin: 0 auto 4rem;
+
+  // annulla il min-height: 395px che questa pagina dà alle altre nav-card
+  .nav-card {
+    min-height: 220px;
+  }
 }
 
 .main-image {

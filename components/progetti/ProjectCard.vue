@@ -1,9 +1,21 @@
 <script setup lang="ts">
-import type { Project } from "~/composables/useProgetti";
+import {
+  blocksFor,
+  type Project,
+  type ProjectPart,
+} from "~/composables/useProgetti";
 
-defineProps<{
-  project: Project;
-}>();
+// part: quale parte del progetto mostrare (vedi ProjectPart in
+// useProgetti.ts). Di default tutto, come prima.
+const props = withDefaults(
+  defineProps<{
+    project: Project;
+    part?: ProjectPart;
+  }>(),
+  { part: "all" },
+);
+
+const visibleBlocks = computed(() => blocksFor(props.project, props.part));
 </script>
 
 <template>
@@ -17,14 +29,14 @@ defineProps<{
 
       <!-- intro opzionale (HTML sanitizzato dal backend) -->
       <div
-        v-if="project.intro"
+        v-if="part !== 'results' && project.intro"
         class="project-card__intro"
         v-html="project.intro"
       />
 
       <!-- blocchi: ogni blocco è testo + i suoi link -->
       <div
-        v-for="(block, i) in project.blocks"
+        v-for="(block, i) in visibleBlocks"
         :key="i"
         class="project-card__block"
       >

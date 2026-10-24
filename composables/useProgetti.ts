@@ -16,6 +16,53 @@
 // Deve coincidere con la cartella pages/progetti/[section]/[[project]].vue
 export const PROGETTI_BASE_PATH = "/progetti";
 
+// ─── Progetti mostrati anche in Pubblicazioni → Altre Pubblicazioni ─
+// Alcune sezioni compaiono in due posti, con gli stessi progetti ma due
+// "viste" diverse dello stesso dato:
+//   - vista "progetti"      (/progetti/...): solo i testi che spiegano
+//                           il progetto (intro + testo dei blocchi)
+//   - vista "pubblicazioni" (/pubblicazioni/altre-pubblicazioni/...):
+//                           solo PDF e link ai risultati della ricerca
+// Un progetto si inserisce una volta sola: il testo va in Progetti, i link
+// in Altre Pubblicazioni. Le sezioni NON elencate qui (es. atlanti)
+// esistono solo in Progetti e lì mostrano tutto, testi e link.
+//
+// RESULTS_BASE_PATH deve coincidere con la cartella
+// pages/pubblicazioni/altre-pubblicazioni/[section]/[[project]].vue
+export const RESULTS_BASE_PATH = "/pubblicazioni/altre-pubblicazioni";
+export const RESULTS_SECTIONS = ["ricerca-in-corso", "ricerca-terminati"];
+
+export type ResearchView = "progetti" | "pubblicazioni";
+
+/** true se la sezione compare anche in Altre Pubblicazioni */
+export function isResultsSection(slug: string): boolean {
+  return RESULTS_SECTIONS.includes(slug);
+}
+
+// Quale parte di un progetto mostrare:
+//   "all"         → intro + tutti i blocchi (testo e link)
+//   "description" → intro + i blocchi SENZA link (la spiegazione)
+//   "results"     → i blocchi CON link (PDF, articoli) col loro testo,
+//                   che fa da didascalia ai link; niente intro
+// Regola per chi inserisce i contenuti: un blocco con link è un
+// "risultato" e va in Altre Pubblicazioni; uno solo testo è descrizione.
+export type ProjectPart = "all" | "description" | "results";
+
+export function projectPartFor(
+  view: ResearchView,
+  sectionSlug: string,
+): ProjectPart {
+  if (view === "pubblicazioni") return "results";
+  return isResultsSection(sectionSlug) ? "description" : "all";
+}
+
+export function blocksFor(project: Project, part: ProjectPart) {
+  if (part === "all") return project.blocks;
+  return project.blocks.filter((b) =>
+    part === "results" ? !!b.links?.length : !b.links?.length,
+  );
+}
+
 // Pagina /progetti: testo introduttivo + galleria
 export interface GalleryImage {
   src: string;
@@ -756,12 +803,19 @@ export function useProgetti() {
     );
   };
 
-  // Le card delle 4 sezioni (pagina /progetti, tra testo e galleria)
-  const getSections = () => {
-    // FUTURO: return useAsyncData('progetti-sections',
-    //   () => $fetch('/api/progetti/sections'))
-    return useAsyncData("progetti-sections", () =>
-      Promise.resolve(SECTIONS.map(sectionToCard)),
+  // Le card delle sezioni. Senza argomenti: tutte (pagina /progetti).
+  // Con `only`: solo quelle indicate, nell'ordine di SECTIONS
+  // (es. RESULTS_SECTIONS per Altre Pubblicazioni).
+  const getSections = (only?: string[]) => {
+    const key = `progetti-sections-${only?.join("-") ?? "all"}`;
+    // FUTURO: return useAsyncData(key,
+    //   () => $fetch('/api/progetti/sections', { query: { only } }))
+    return useAsyncData(key, () =>
+      Promise.resolve(
+        SECTIONS.filter((s) => !only || only.includes(s.slug)).map(
+          sectionToCard,
+        ),
+      ),
     );
   };
 

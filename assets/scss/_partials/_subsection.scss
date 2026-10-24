@@ -49,6 +49,10 @@
   &__intro-text {
     color: var(--color-text-muted, #333);
     line-height: 1.7;
+
+    h4 {
+      text-align: center;
+    }
   }
 
   // Layout item (lista verticale, es. card con immagine+testo)
