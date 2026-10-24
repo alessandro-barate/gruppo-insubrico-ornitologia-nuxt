@@ -56,9 +56,14 @@ export function projectPartFor(
   return isResultsSection(sectionSlug) ? "description" : "all";
 }
 
-export function blocksFor(project: Project, part: ProjectPart) {
-  if (part === "all") return project.blocks;
-  return project.blocks.filter((b) =>
+export function blocksFor(project: Project, part: ProjectPart): ContentBlock[] {
+  const blocks = (project.blocks ?? []).map((b) => ({
+    ...b,
+    links: b.links?.filter((l) => l.url?.trim()),
+  }));
+
+  if (part === "all") return blocks;
+  return blocks.filter((b) =>
     part === "results" ? !!b.links?.length : !b.links?.length,
   );
 }
@@ -99,7 +104,7 @@ export interface TypedLink {
 
 // Blocco del corpo di un progetto: testo + eventuali link propri.
 export interface ContentBlock {
-  text: string;
+  text?: string;
   links?: TypedLink[];
 }
 
@@ -110,6 +115,7 @@ export interface Project {
   title: string;
   image_path?: string;
   intro?: string;
+  results_intro?: string;
   blocks?: ContentBlock[];
   order?: number;
 }
@@ -213,23 +219,22 @@ const PROJECTS: Project[] = [
     image_path: "/images/progetti/in-corso/iwc.webp",
     intro:
       "<p>Il censimento internazionale degli uccelli acquatici è un progetto organizzato a livello continentale da Wetland International, in Italia è coordinato dall'ISPRA  (Istituto Superiore per la Protezione e la Ricerca Ambientale) mentre in Lombardia è curato dal Dipartimento di Biologia Animale dell'Università di Pavia.<br><br>Il G.I.O. ha compiuto il primo censimento degli uccelli acquatici svernanti in provincia di Varese nel 1986.<br>Questo censimento viene svolto nel mese di gennaio, quando le popolazioni dell'avifauna sono generalmente statiche sul territorio, con lo scopo di anticipare la migrazione pre-riproduttiva degli acquatici che stazionano in grandi stormi a latitudini più basse, al fine di:</p><ul class='specific-list'><li>stabilire annualmente la dimensione delle popolazioni presenti in gennaio</li><li>identificare le variazioni nella dimensione e nella distribuzione delle popolazioni</li><li>determinare l'importanza a livello internazionale e nazionale dei vari siti</li><li>contribuire agli sforzi internazionali per la conservazione degli uccelli acquatici e dei loro habitat</li></ul><p>Il principio cardine è la contemporaneità del censimento nelle varie aree geografiche, necessario per evitare conteggi multipli degli stessi individui.<br>In provincia di Varese Walter Guenzani (Socio G.I.O.) e Nicola Larroux (Consigliere G.I.O.) si occupano del coordinamento dei rilevatori e della trasmissione dei dati all'Università di Pavia che, a partire dal 2002, pubblica un resoconto annuale.<br><br>Le zone umide censite in provincia di Varese sono:<ul class='specific-list'><li>Lago Maggiore</li><li>Lago di Lugano</li><li>Lago di VBarese</li><li>Palude Brabbia con il coordinamento di LIPU</li><li>Lago di Monate</li><li>Lago di Comabbio</li><li>Il fiume Ticino tra Porto della Torre e Sesto Calende</li><li>Le vasche di laminazione di Lonate Pozzolo</li><li>Lago di Ganna</li><li>Lago di Ghirla</li></ul><p>Il Q1, il primo dei Quaderni del GIO è dedicato all'avifauna acquatica della provincia di Varese ed è basato sui censimenti internazionali IWC effettuati tra il 1986 e il 2010.<br><br>Nel 2025 il G.I.O. ha celebrato 40 anni di conteggio degli uccelli acquatici svernanti nelle zone umide della provincia di Varese, raccogliendo dati per un lungo periodo che testimoniano i grandi cambiamenti avvenuti.<br><br>La tabella seguente mostra le specie e il numero di individui censiti negli IWC della provincia di Varese dal 2011 al 2025.</p>",
+    results_intro:
+      "Qui si può consultare tutta la documentazione relativa al progetto IWC.",
     blocks: [
       {
         text: "",
         links: [
           {
-            kind: "excel",
-            label: "IWC totali al 2025",
-            url: "/documents/progetti/iwc/iwc-totali-al-2025.xls",
-          },
-          {
             kind: "pdf",
-            label: "15 anni di IWC",
+            label:
+              "2017. Due laghi, Verbano e Lario, a confronto. 15 anni di International Waterbird Census",
             url: "/documents/progetti/iwc/15-anni-di-iwc.pdf",
           },
           {
             kind: "pdf",
-            label: "20 anni di IWC",
+            label:
+              "2025. Trends of waterbirds wintering on the lakes of Lombardy: twenty years of International Waterbirds Census",
             url: "/documents/progetti/iwc/20-anni-di-iwc.pdf",
           },
         ],
@@ -245,113 +250,116 @@ const PROJECTS: Project[] = [
     image_path: "/images/progetti/in-corso/rondine.webp",
     intro:
       "<p>Il G.I.O., tramite i propri volontari, studia i Rondoni su alcuni filoni di ricerca che possiamo elencare come segue:</p><ul class='specific-list'><li>Monitoraggio delle colonie riproduttive: per mezzo del progetto <strong>&ldquo;Sulle ali dei rondoni&rdquo;</strong> sono state censite tra il 2021 e il 2025 le colonie urbane delle tre specie presenti. La ricerca è stata estesa ad altre province lombarde grazie alla collaborazione con le sezioni LIPU di Bergamo, Como e Varese e l'associazione CROS Varenna, oltre ai gruppi locali Amici dei Rondoni Cislaghesi e Gruppo Rondoni Como</li><li>Mappatura delle strutture per uccelli (torri e pareti colombaie, passeraie e rondonaie). L'indagine al 2026 è realizzata in provincia di Varese e in collaborazione con NovaraBW e Stefano Costa nelle province di Novara, Biella e Vercelli</li><li>Studio della fenologia e del successo riproduttivo nelle colonie di Rondone comune accessibili al nido. Il monitoraggio continuativo presso i nidi, cui si aggiunge l'inanellamento a scopo scientifico affiancato da altre tipologie di indagine, permette di indagare alcuni ambiti della biologia e dell'ecologia della specie</li></ul>",
+    results_intro:
+      "Qui si può consultare tutta la documentazione relativa al progetto Home Swift Home.",
     blocks: [
       {
-        text: "<p>Di seguito la documentazione relativa al progetto</p>",
         links: [
           {
             kind: "pdf",
-            label: "Passeraie, colombaie e rondonaie 2025",
-            url: "/documents/progetti/swift/passeraie-colombaie-rondonaie-2025.pdf",
+            label:
+              "2026. Demographic changes in three Common Swift colonies in the Lombardy region, Italy",
+            url: "/documents/progetti/swift/2026-demographic-change.pdf",
           },
           {
             kind: "pdf",
-            label: "Bollettino Ornitologico Lombardo Vol.4, N.2 - 2022",
-            url: "/documents/pubblicazioni/bol/2022/bol-v4-n2.pdf",
+            label: "2026. A new book about Swifts that breed in Italy",
+            url: "/documents/progetti/swift/2026-new-book.pdf",
           },
           {
             kind: "pdf",
-            label: "Bollettino Ornitologico Lombardo Vol.5, N.2 - 2023",
-            url: "/documents/pubblicazioni/bol/2023/bol-v5-n2.pdf",
+            label:
+              "2025. Phenology and nest site fidelity in three Swift towers in the Lombardy region",
+            url: "/documents/progetti/swift/2025-phenology.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2025. Passeraie, colombaie e rondonaie nelle province di Novara e Varese: mappa e monitoraggi per conservare storia e biodiversità",
+            url: "/documents/progetti/swift/2025-passeraie-colombaie-rondonaie.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2024. First deployment of IoT tracking devices on Common swift Apus apus: a pilot study",
+            url: "/documents/progetti/swift/2024-apus.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2024. Swift towers as open research lab: the experience of a network of nesting sites in NW Italy",
+            url: "/documents/progetti/swift/2024-swift-towers.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2024. Microfibers in the Diet of a Highly Aerial Bird, the Common Swift Apus apus",
+            url: "/documents/progetti/swift/2024-microfibers.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2024. Swift and sparrow towers in the provinces of Novara and Varese: census and evaluation for swift's conservation",
+            url: "/documents/progetti/swift/2024-towers.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2023. Swifts and the selection of urban habitats: a citizen science project to increase the ecological knowledge of the species in the Bergamo and Varese provinces",
+            url: "/documents/progetti/swift/2023-urban-habits.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2023. Swift and Sparrow towers in the Province of Varese: census, evaluation and use in the conservation and study of synanthropic species",
+            url: "/documents/progetti/swift/2023-towers-varese.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2023. Site and nest fidelity in the Common Swift (Apus apus)",
+            url: "/documents/progetti/swift/2023-site-nest.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2022. Which urban habitats are selected by Swifts? A citizen science program to answer the question in provinces of Varese and Bergamo, Italy",
+            url: "/documents/progetti/swift/2022-urban-habits.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2022. Birds towers and walls: three successful examples of rehabilitation in province of Varese, Italy",
+            url: "/documents/progetti/swift/2022-birds-towers.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2022. Breeding phenology, reproductive success and survival of Common Swift (Apus apus) from a Northern Italian colony",
+            url: "/documents/progetti/swift/2022-breeding-phenology.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2022. Passeraie e rondonaie in provincia di Varese: censimento, rivalutazione ed utilizzo per conservazione e studio delle specie sinantropiche",
+            url: "/documents/progetti/swift/2022-passeraie-rondonaie.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2022. Onset of primary moult in immature and breeding adult Common Swifts Apus apus",
+            url: "/documents/progetti/swift/2022-onset-moult.pdf",
+          },
+          {
+            kind: "pdf",
+            label:
+              "2019. Studio preliminare della fenologia e del successo riproduttivo in una colonia di rondone comune (Apus apus) a Jerago con Orago (VA)",
+            url: "/documents/progetti/swift/2019-fenologia.pdf",
           },
         ],
       },
       {
-        text: "<p>E qui i link agli articoli</p>",
-        links: [
-          {
-            kind: "external",
-            label: "Sulle Ali dei Rondoni",
-            url: "https://www.researchgate.net/publication/373841511_Swifts_and_the_selection_of_urban_habitats_a_citizen_science_project_to_increase_the_ecological_knowledge_of_the_species_in_the_Bergamo_and_Varese_provinces",
-          },
-          {
-            kind: "external",
-            label:
-              "Phenology and nest site fidelity in three Swift towers in the Lombardy region",
-            url: "https://www.researchgate.net/publication/395475808_Phenology_and_nest_site_fidelity_in_three_Swift_towers_in_the_Lombardy_region",
-          },
-          {
-            kind: "external",
-            label:
-              "First deployment of IoT tracking devices on Common swift Apus apus : a pilot study",
-            url: "https://www.researchgate.net/publication/385817712_First_deployment_of_IoT_tracking_devices_on_Common_swift_Apus_apus_a_pilot_study",
-          },
-          {
-            kind: "external",
-            label:
-              "Microfibers in the Diet of a Highly Aerial Bird, the Common Swift Apus apus",
-            url: "https://www.researchgate.net/publication/381117363_Microfibers_in_the_Diet_of_a_Highly_Aerial_Bird_the_Common_Swift_Apus_apus",
-          },
-          {
-            kind: "external",
-            label:
-              "Swift towers as open research lab: the experience of a network of nesting sites in NW Italy",
-            url: "https://www.researchgate.net/publication/381116378_Swift_towers_as_open_research_lab_the_experience_of_a_network_of_nesting_sites_in_NW_Italy",
-          },
-          {
-            kind: "external",
-            label:
-              "Swift and Sparrow towers in the provinces of Novara and Varese: census and evaluation for swifts' conservation",
-            url: "https://www.researchgate.net/publication/381116456_SWIFT_AND_SPARROW_TOWERS_IN_THE_PROVINCES_OF_NOVARA_AND_VARESE_CENSUS_AND_EVALUATION_FOR_SWIFTS%27_CONSERVATION",
-          },
-          {
-            kind: "external",
-            label:
-              "Swifts and the selection of urban habitats: a citizen science project to increase the ecological knowledge of the species in the Bergamo and Varese provinces",
-            url: "https://www.researchgate.net/publication/373841511_Swifts_and_the_selection_of_urban_habitats_a_citizen_science_project_to_increase_the_ecological_knowledge_of_the_species_in_the_Bergamo_and_Varese_provinces",
-          },
-          {
-            kind: "external",
-            label: "Site and nest fidelity in the Common swift (Apus apus)",
-            url: "https://www.researchgate.net/publication/373841356_Site_and_nest_fidelity_in_the_Common_swift_Apus_apus",
-          },
-          {
-            kind: "external",
-            label:
-              "Swift and Sparrow towers in the Province of Varese: census, evaluation and use in the conservation and study of synanthropic species",
-            url: "https://www.researchgate.net/publication/373841491_Swift_and_Sparrow_towers_in_the_Province_of_Varese_census_evaluation_and_use_in_the_conservation_and_study_of_synanthropic_species",
-          },
-          {
-            kind: "external",
-            label:
-              "Onset of primary moult in immature and breeding adult Common Swifts Apus apus",
-            url: "https://www.researchgate.net/publication/362902082_Onset_of_primary_moult_in_immature_and_breeding_adult_Common_Swifts_Apus_apus",
-          },
-          {
-            kind: "external",
-            label:
-              "Which urban habitats are selected by Swifts? A citizen science program to answer the question in provinces of Varese and Bergamo, Italy",
-            url: "https://www.researchgate.net/publication/361224473_Which_urban_habitats_are_selected_by_Swifts_A_citizen_science_program_to_answer_the_question_in_provinces_of_Varese_and_Bergamo_Italy",
-          },
-          {
-            kind: "external",
-            label:
-              "Birds tower and walls: three successful examples of rehabilitation in province of Varese, Italy",
-            url: "https://www.researchgate.net/publication/360933043_Birds_tower_and_walls_three_successful_examples_of_rehabilitation_in_province_of_Varese_Italy",
-          },
-          {
-            kind: "external",
-            label:
-              "Breeding phenology, reproductive success and survival of Common Swift (Apus apus) from a Northern Italian colony",
-            url: "https://www.researchgate.net/publication/359392735_Breeding_phenology_reproductive_success_and_survival_of_Common_Swift_Apus_apus_from_a_Northern_Italian_colony",
-          },
-          {
-            kind: "external",
-            label:
-              "Studio preliminare della fenologia e del successo riproduttivo in una colonia di rondone comune (Apus apus) a Jerago con Orago (VA)",
-            url: "https://www.researchgate.net/publication/336837067_Studio_preliminare_della_fenologia_e_del_successo_riproduttivo_in_una_colonia_di_rondone_comune_Apus_apus_a_Jerago_con_Orago_VA",
-          },
-        ],
+        links: [],
       },
     ],
   },

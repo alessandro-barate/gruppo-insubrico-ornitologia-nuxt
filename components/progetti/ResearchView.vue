@@ -72,6 +72,14 @@ const project = computed(() =>
   data.value?.kind === "project" ? data.value.project : null,
 );
 
+// Intro del progetto: la descrizione (intro) in Progetti,
+// il testo dei risultati (results_intro) in Altre Pubblicazioni
+const projectIntro = computed(() =>
+  part.value === "results"
+    ? project.value?.results_intro
+    : project.value?.intro,
+);
+
 // Blocchi del progetto da mostrare in questa vista
 const visibleBlocks = computed(() =>
   project.value ? blocksFor(project.value, part.value) : [],
@@ -128,9 +136,7 @@ useSeoMeta({
            Altre Pubblicazioni) / sezione [ / progetto ] -->
       <nav class="breadcrumb" aria-label="Percorso di navigazione">
         <template v-for="(crumb, i) in rootCrumbs" :key="crumb.to">
-          <span v-if="i > 0" class="breadcrumb__sep" aria-hidden="true"
-            >/</span
-          >
+          <span v-if="i > 0" class="breadcrumb__sep" aria-hidden="true">/</span>
           <NuxtLink :to="crumb.to" class="breadcrumb__link">
             <img
               v-if="i === 0"
@@ -167,9 +173,9 @@ useSeoMeta({
         v-html="section.intro_text"
       />
       <div
-        v-else-if="isProject && part !== 'results' && project?.intro"
+        v-else-if="isProject && projectIntro"
         class="subsection__intro-text"
-        v-html="project.intro"
+        v-html="projectIntro"
       />
     </div>
 
