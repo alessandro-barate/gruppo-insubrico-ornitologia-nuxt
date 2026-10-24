@@ -1,9 +1,8 @@
 <script setup lang="ts">
-// Sezioni e progetti nella pagina Progetti (vista "progetti": i testi).
+// Sezioni e progetti nella pagina Progetti.
 //   /progetti/<sezione>             → sezione
 //   /progetti/<sezione>/<progetto>  → progetto (sezioni navigabili)
-// Il contenuto è in components/progetti/ResearchView.vue, condiviso con
-// pubblicazioni/altre-pubblicazioni/[section]/[[project]].vue.
+// Il contenuto è in components/progetti/ResearchView.vue.
 import { PROGETTI_BASE_PATH } from "~/composables/useProgetti";
 
 const route = useRoute();
@@ -22,7 +21,6 @@ const rootCrumbs = [{ title: "Progetti", to: PROGETTI_BASE_PATH }];
   <ProgettiResearchView
     :key="segments.join('/')"
     :segments="segments"
-    view="progetti"
     :base-path="PROGETTI_BASE_PATH"
     :root-crumbs="rootCrumbs"
   />

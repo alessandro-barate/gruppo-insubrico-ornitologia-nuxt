@@ -16,56 +16,38 @@
 // Deve coincidere con la cartella pages/progetti/[section]/[[project]].vue
 export const PROGETTI_BASE_PATH = "/progetti";
 
-// ─── Progetti mostrati anche in Pubblicazioni → Altre Pubblicazioni ─
-// Alcune sezioni compaiono in due posti, con gli stessi progetti ma due
-// "viste" diverse dello stesso dato:
-//   - vista "progetti"      (/progetti/...): solo i testi che spiegano
-//                           il progetto (intro + testo dei blocchi)
-//   - vista "pubblicazioni" (/pubblicazioni/altre-pubblicazioni/...):
-//                           solo PDF e link ai risultati della ricerca
-// Un progetto si inserisce una volta sola: il testo va in Progetti, i link
-// in Altre Pubblicazioni. Le sezioni NON elencate qui (es. atlanti)
-// esistono solo in Progetti e lì mostrano tutto, testi e link.
-//
-// RESULTS_BASE_PATH deve coincidere con la cartella
-// pages/pubblicazioni/altre-pubblicazioni/[section]/[[project]].vue
-export const RESULTS_BASE_PATH = "/pubblicazioni/altre-pubblicazioni";
-export const RESULTS_SECTIONS = ["ricerca-in-corso", "ricerca-terminati"];
-
-export type ResearchView = "progetti" | "pubblicazioni";
-
-/** true se la sezione compare anche in Altre Pubblicazioni */
-export function isResultsSection(slug: string): boolean {
-  return RESULTS_SECTIONS.includes(slug);
-}
+// ─── Sezioni che in Progetti mostrano solo la descrizione ─
+// I risultati (PDF, articoli) delle ricerche in corso e terminate si
+// consultano in Pubblicazioni → Altre Pubblicazioni, dove hanno una loro
+// lista di cartelle indipendente (result_folders in usePubblicazioni.ts).
+// Per questo, in queste sezioni, la pagina Progetti mostra solo i testi:
+// intro + blocchi senza link. Le altre sezioni (es. atlanti) mostrano
+// tutto, testi e link.
+export const DESCRIPTION_ONLY_SECTIONS = [
+  "ricerca-in-corso",
+  "ricerca-terminati",
+];
 
 // Quale parte di un progetto mostrare:
 //   "all"         → intro + tutti i blocchi (testo e link)
-//   "description" → intro + i blocchi SENZA link (la spiegazione)
-//   "results"     → i blocchi CON link (PDF, articoli) col loro testo,
-//                   che fa da didascalia ai link; niente intro
-// Regola per chi inserisce i contenuti: un blocco con link è un
-// "risultato" e va in Altre Pubblicazioni; uno solo testo è descrizione.
-export type ProjectPart = "all" | "description" | "results";
+//   "description" → intro + i blocchi SENZA link
+export type ProjectPart = "all" | "description";
 
-export function projectPartFor(
-  view: ResearchView,
-  sectionSlug: string,
-): ProjectPart {
-  if (view === "pubblicazioni") return "results";
-  return isResultsSection(sectionSlug) ? "description" : "all";
+export function projectPartFor(sectionSlug: string): ProjectPart {
+  return DESCRIPTION_ONLY_SECTIONS.includes(sectionSlug)
+    ? "description"
+    : "all";
 }
 
 export function blocksFor(project: Project, part: ProjectPart): ContentBlock[] {
+  // Link senza indirizzo (segnaposto o lasciati a metà dal pannello) = nessun link
   const blocks = (project.blocks ?? []).map((b) => ({
     ...b,
     links: b.links?.filter((l) => l.url?.trim()),
   }));
 
   if (part === "all") return blocks;
-  return blocks.filter((b) =>
-    part === "results" ? !!b.links?.length : !b.links?.length,
-  );
+  return blocks.filter((b) => !b.links?.length);
 }
 
 // Pagina /progetti: testo introduttivo + galleria
@@ -115,7 +97,6 @@ export interface Project {
   title: string;
   image_path?: string;
   intro?: string;
-  results_intro?: string;
   blocks?: ContentBlock[];
   order?: number;
 }
@@ -219,8 +200,6 @@ const PROJECTS: Project[] = [
     image_path: "/images/progetti/in-corso/iwc.webp",
     intro:
       "<p>Il censimento internazionale degli uccelli acquatici è un progetto organizzato a livello continentale da Wetland International, in Italia è coordinato dall'ISPRA  (Istituto Superiore per la Protezione e la Ricerca Ambientale) mentre in Lombardia è curato dal Dipartimento di Biologia Animale dell'Università di Pavia.<br><br>Il G.I.O. ha compiuto il primo censimento degli uccelli acquatici svernanti in provincia di Varese nel 1986.<br>Questo censimento viene svolto nel mese di gennaio, quando le popolazioni dell'avifauna sono generalmente statiche sul territorio, con lo scopo di anticipare la migrazione pre-riproduttiva degli acquatici che stazionano in grandi stormi a latitudini più basse, al fine di:</p><ul class='specific-list'><li>stabilire annualmente la dimensione delle popolazioni presenti in gennaio</li><li>identificare le variazioni nella dimensione e nella distribuzione delle popolazioni</li><li>determinare l'importanza a livello internazionale e nazionale dei vari siti</li><li>contribuire agli sforzi internazionali per la conservazione degli uccelli acquatici e dei loro habitat</li></ul><p>Il principio cardine è la contemporaneità del censimento nelle varie aree geografiche, necessario per evitare conteggi multipli degli stessi individui.<br>In provincia di Varese Walter Guenzani (Socio G.I.O.) e Nicola Larroux (Consigliere G.I.O.) si occupano del coordinamento dei rilevatori e della trasmissione dei dati all'Università di Pavia che, a partire dal 2002, pubblica un resoconto annuale.<br><br>Le zone umide censite in provincia di Varese sono:<ul class='specific-list'><li>Lago Maggiore</li><li>Lago di Lugano</li><li>Lago di VBarese</li><li>Palude Brabbia con il coordinamento di LIPU</li><li>Lago di Monate</li><li>Lago di Comabbio</li><li>Il fiume Ticino tra Porto della Torre e Sesto Calende</li><li>Le vasche di laminazione di Lonate Pozzolo</li><li>Lago di Ganna</li><li>Lago di Ghirla</li></ul><p>Il Q1, il primo dei Quaderni del GIO è dedicato all'avifauna acquatica della provincia di Varese ed è basato sui censimenti internazionali IWC effettuati tra il 1986 e il 2010.<br><br>Nel 2025 il G.I.O. ha celebrato 40 anni di conteggio degli uccelli acquatici svernanti nelle zone umide della provincia di Varese, raccogliendo dati per un lungo periodo che testimoniano i grandi cambiamenti avvenuti.<br><br>La tabella seguente mostra le specie e il numero di individui censiti negli IWC della provincia di Varese dal 2011 al 2025.</p>",
-    results_intro:
-      "Qui si può consultare tutta la documentazione relativa al progetto IWC.",
     blocks: [
       {
         text: "",
@@ -250,8 +229,6 @@ const PROJECTS: Project[] = [
     image_path: "/images/progetti/in-corso/rondine.webp",
     intro:
       "<p>Il G.I.O., tramite i propri volontari, studia i Rondoni su alcuni filoni di ricerca che possiamo elencare come segue:</p><ul class='specific-list'><li>Monitoraggio delle colonie riproduttive: per mezzo del progetto <strong>&ldquo;Sulle ali dei rondoni&rdquo;</strong> sono state censite tra il 2021 e il 2025 le colonie urbane delle tre specie presenti. La ricerca è stata estesa ad altre province lombarde grazie alla collaborazione con le sezioni LIPU di Bergamo, Como e Varese e l'associazione CROS Varenna, oltre ai gruppi locali Amici dei Rondoni Cislaghesi e Gruppo Rondoni Como</li><li>Mappatura delle strutture per uccelli (torri e pareti colombaie, passeraie e rondonaie). L'indagine al 2026 è realizzata in provincia di Varese e in collaborazione con NovaraBW e Stefano Costa nelle province di Novara, Biella e Vercelli</li><li>Studio della fenologia e del successo riproduttivo nelle colonie di Rondone comune accessibili al nido. Il monitoraggio continuativo presso i nidi, cui si aggiunge l'inanellamento a scopo scientifico affiancato da altre tipologie di indagine, permette di indagare alcuni ambiti della biologia e dell'ecologia della specie</li></ul>",
-    results_intro:
-      "Qui si può consultare tutta la documentazione relativa al progetto Home Swift Home.",
     blocks: [
       {
         links: [
@@ -447,113 +424,6 @@ const PROJECTS: Project[] = [
             kind: "pdf",
             label: "",
             url: "",
-          },
-        ],
-      },
-    ],
-  },
-
-  // ── Ricerca terminati (inline) ────────────────────────
-  // Avifauna
-  {
-    id: 20,
-    section_slug: "ricerca-terminati",
-    slug: "avifauna-1999-2000",
-    title: "Avifauna zone umide provincia di Varese 1999-2000",
-    blocks: [
-      {
-        text: "",
-        links: [
-          {
-            kind: "pdf",
-            label: "PDF del progetto",
-            url: "/documents/progetti/avifauna-zone-umide-1999-2000.pdf",
-          },
-        ],
-      },
-    ],
-  },
-  // Bosco igrofilo
-  {
-    id: 21,
-    section_slug: "ricerca-terminati",
-    slug: "bosco-igrofilo-1999-2001",
-    title: "Comunità Ornitica Bosco Igrofilo Lago di Varese 1999-2001",
-    blocks: [
-      {
-        text: "",
-        links: [
-          {
-            kind: "pdf",
-            label: "PDF del progetto",
-            url: "/documents/progetti/monitoraggio-comunita-ornitica-bosco-igrofilo-1999-2001.pdf",
-          },
-          {
-            kind: "external",
-            label: "Link al sito",
-            url: "https://sisn.pagepress.org/rio/article/view/127/121",
-          },
-        ],
-      },
-    ],
-  },
-  // Smergo maggiore
-  {
-    id: 22,
-    section_slug: "ricerca-terminati",
-    slug: "smergo-maggiore-2000-2014",
-    title: "Smergo maggiore Lago Maggiore 2000-2014",
-    blocks: [
-      {
-        text: "",
-        links: [
-          {
-            kind: "pdf",
-            label: "PDF del progetto",
-            url: "/documents/progetti/spread-of-the-goosander-population-in-north-western-italy-2000-2014.pdf",
-          },
-          {
-            kind: "external",
-            label: "Link al sito",
-            url: "https://www.avocetta.org/articles/vol-nv-the-goosander-imergus-merganseri-breeding-population-expansion-and-trend-in-north-western-italy/",
-          },
-        ],
-      },
-    ],
-  },
-  // Avifauna brughiere
-  {
-    id: 23,
-    section_slug: "ricerca-terminati",
-    slug: "avifauna-brughiere-lombardia-2002",
-    title: "Avifauna nidificante brughiere Lombardia occidentale 2002",
-    blocks: [
-      {
-        text: "",
-        links: [
-          {
-            kind: "pdf",
-            label: "PDF del progetto",
-            url: "/documents/progetti/avifauna-brughiere-lombardia-occidentale-2002.pdf",
-          },
-        ],
-      },
-    ],
-  },
-  // Piciformes
-  {
-    id: 24,
-    section_slug: "ricerca-terminati",
-    slug: "piciformes-varese-2009",
-    title: "Piciformes provincia di Varese 2008-2009",
-    blocks: [
-      {
-        text: "",
-        links: [
-          {
-            kind: "external",
-            label: "Link al sito",
-            url: "https://gruppoinsubrico.com/progetti/rapporto-sui-piciformes-della-provincia-di-varese-dal-crollo-della-popolazione-del-torcicollo-all-espansione-territoriale-del-picchio-nero/",
           },
         ],
       },
@@ -813,7 +683,7 @@ export function useProgetti() {
 
   // Le card delle sezioni. Senza argomenti: tutte (pagina /progetti).
   // Con `only`: solo quelle indicate, nell'ordine di SECTIONS
-  // (es. RESULTS_SECTIONS per Altre Pubblicazioni).
+  // (non usato al momento, utile per mostrarne solo alcune).
   const getSections = (only?: string[]) => {
     const key = `progetti-sections-${only?.join("-") ?? "all"}`;
     // FUTURO: return useAsyncData(key,

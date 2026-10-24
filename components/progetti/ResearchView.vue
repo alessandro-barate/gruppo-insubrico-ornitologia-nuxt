@@ -1,18 +1,11 @@
 <script setup lang="ts">
-// Sezione o progetto di ricerca, mostrato in una delle due viste:
-//   view="progetti"      → /progetti/<sezione>[/<progetto>]
-//   view="pubblicazioni" → /pubblicazioni/altre-pubblicazioni/<sezione>[/<progetto>]
-// Stessi dati (useProgetti.ts), parti diverse di ogni progetto
-// (vedi ProjectPart in useProgetti.ts):
-//   - progetti: intro + blocchi di solo testo (la descrizione). Nelle
-//     sezioni che NON sono anche in Altre Pubblicazioni (es. atlanti)
-//     si vede tutto, link compresi.
-//   - pubblicazioni: solo i blocchi con link (PDF, articoli).
-import {
-  blocksFor,
-  projectPartFor,
-  type ResearchView,
-} from "~/composables/useProgetti";
+// Sezione o progetto di ricerca della pagina Progetti:
+//   /progetti/<sezione>             → sezione
+//   /progetti/<sezione>/<progetto>  → progetto (sezioni navigabili)
+// Nelle sezioni in DESCRIPTION_ONLY_SECTIONS (in corso, terminati) si
+// vedono solo i testi: i risultati sono in Altre Pubblicazioni. Nelle
+// altre (es. atlanti) si vede tutto, link compresi.
+import { blocksFor, projectPartFor } from "~/composables/useProgetti";
 
 interface Crumb {
   title: string;
@@ -22,24 +15,16 @@ interface Crumb {
 const props = defineProps<{
   // [sezione] oppure [sezione, progetto]
   segments: string[];
-  view: ResearchView;
   // percorso a cui si aggiungono gli slug (es. "/progetti")
   basePath: string;
   // voci del breadcrumb prima della sezione (la prima ha la freccia)
   rootCrumbs: Crumb[];
-  // se presente, sezioni consentite in questa vista (le altre → 404)
-  allowedSections?: string[];
 }>();
 
 const { getNode } = useProgetti();
 const { data } = await getNode(props.segments);
 
-const notAllowed =
-  !!data.value &&
-  !!props.allowedSections &&
-  !props.allowedSections.includes(data.value.section.slug);
-
-if (!data.value || notAllowed) {
+if (!data.value) {
   throw createError({
     statusCode: 404,
     statusMessage: "Pagina non trovata",
@@ -51,10 +36,8 @@ if (!data.value || notAllowed) {
 const isProject = computed(() => data.value?.kind === "project");
 const section = computed(() => data.value?.section ?? null);
 
-// Parte dei progetti da mostrare in questa vista (vedi commento in cima)
-const part = computed(() =>
-  projectPartFor(props.view, section.value?.slug ?? ""),
-);
+// Parte dei progetti da mostrare (vedi commento in cima)
+const part = computed(() => projectPartFor(section.value?.slug ?? ""));
 
 // Caso "section"
 const projects = computed(() =>
@@ -70,14 +53,6 @@ const isNavigable = computed(
 // Caso "project"
 const project = computed(() =>
   data.value?.kind === "project" ? data.value.project : null,
-);
-
-// Intro del progetto: la descrizione (intro) in Progetti,
-// il testo dei risultati (results_intro) in Altre Pubblicazioni
-const projectIntro = computed(() =>
-  part.value === "results"
-    ? project.value?.results_intro
-    : project.value?.intro,
 );
 
 // Blocchi del progetto da mostrare in questa vista
@@ -132,8 +107,7 @@ useSeoMeta({
 <template>
   <section v-if="section" class="subsection">
     <div class="subsection__intro">
-      <!-- Breadcrumb: radice (es. Progetti, oppure Pubblicazioni /
-           Altre Pubblicazioni) / sezione [ / progetto ] -->
+      <!-- Breadcrumb: Progetti / sezione [ / progetto ] -->
       <nav class="breadcrumb" aria-label="Percorso di navigazione">
         <template v-for="(crumb, i) in rootCrumbs" :key="crumb.to">
           <span v-if="i > 0" class="breadcrumb__sep" aria-hidden="true">/</span>
@@ -166,16 +140,16 @@ useSeoMeta({
 
       <h1>{{ currentTitle }}</h1>
 
-      <!-- intro: della sezione (sempre) o del progetto (non nei risultati) -->
+      <!-- intro: della sezione o del progetto -->
       <div
         v-if="!isProject && section.intro_text"
         class="subsection__intro-text"
         v-html="section.intro_text"
       />
       <div
-        v-else-if="isProject && projectIntro"
+        v-else-if="isProject && project?.intro"
         class="subsection__intro-text"
-        v-html="projectIntro"
+        v-html="project.intro"
       />
     </div>
 
@@ -198,9 +172,6 @@ useSeoMeta({
             </div>
           </div>
         </div>
-        <p v-else-if="view === 'pubblicazioni'" class="research-empty">
-          Al momento non ci sono pubblicazioni per questo progetto.
-        </p>
       </template>
 
       <!-- ═══ Sezione navigabile: card-bottone verso i progetti ═══ -->
@@ -288,12 +259,5 @@ h1 {
     gap: 0.6rem;
     margin-top: 0.6rem;
   }
-}
-
-// Messaggio quando la vista non ha nulla da mostrare per un progetto
-.research-empty {
-  text-align: center;
-  color: var(--color-text-muted, #555);
-  margin: 2rem 0 4rem;
 }
 </style>

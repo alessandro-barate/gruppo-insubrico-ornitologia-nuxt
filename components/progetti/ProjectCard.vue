@@ -16,10 +16,6 @@ const props = withDefaults(
 );
 
 const visibleBlocks = computed(() => blocksFor(props.project, props.part));
-
-const cardintro = computed(() =>
-  props.part === "results" ? props.project.results_intro : props.project.intro,
-);
 </script>
 
 <template>
@@ -32,7 +28,11 @@ const cardintro = computed(() =>
       <h3>{{ project.title }}</h3>
 
       <!-- intro opzionale (HTML sanitizzato dal backend) -->
-      <div v-if="cardintro" class="project-card__intro" v-html="cardintro" />
+      <div
+        v-if="project.intro"
+        class="project-card__intro"
+        v-html="project.intro"
+      />
 
       <!-- blocchi: ogni blocco è testo + i suoi link -->
       <div

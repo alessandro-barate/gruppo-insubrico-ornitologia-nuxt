@@ -6,7 +6,6 @@ import type {
 } from "~/composables/usePubblicazioni";
 
 import PubblicazioniBookSpreads from "~/components/pubblicazioni/BookSpreads.vue";
-import { RESULTS_BASE_PATH, RESULTS_SECTIONS } from "~/composables/useProgetti";
 
 const route = useRoute();
 const router = useRouter();
@@ -160,16 +159,6 @@ const biblioItems = computed<BibliographyItem[]>(() => {
   return n.items.slice(pageRange.value.start, pageRange.value.end);
 });
 
-// ─── Ricerche condivise con Progetti ────────────────────
-// Nei nodi con `show_research` (Altre Pubblicazioni) prima della lista
-// compaiono le card delle sezioni in RESULTS_SECTIONS. Le card portano a
-// /pubblicazioni/altre-pubblicazioni/<sezione>, dove si vedono solo i
-// PDF e i link ai risultati (vista "pubblicazioni" di ResearchView).
-const { getSections } = useProgetti();
-const { data: researchSections } = node.value?.show_research
-  ? await getSections(RESULTS_SECTIONS)
-  : { data: ref<null>(null) };
-
 function handleContentClick(e: MouseEvent) {
   const a = (e.target as HTMLElement).closest("a");
   if (!a) return;
@@ -256,17 +245,13 @@ useSeoMeta({
 
         <!-- FOGLIA: mostra gli item secondo il tipo -->
         <template v-else>
-          <!-- Card delle ricerche condivise con Progetti (Altre Pubblicazioni) -->
-          <div v-if="researchSections?.length" class="research">
-            <SharedNavCard
-              v-for="card in researchSections"
-              :key="card.slug"
-              :to="`${RESULTS_BASE_PATH}/${card.slug}`"
-              :title="card.title"
-              :excerpt="card.intro_excerpt"
-              :image="card.image_path"
-            />
-          </div>
+          <!-- Risultati delle ricerche: cartelle ad accordion, con
+               paginazione propria (15), sopra la bibliografia -->
+          <PubblicazioniResultFolders
+            v-if="node.type === 'bibliography' && node.result_folders?.length"
+            :folders="node.result_folders"
+            :title="node.results_title"
+          />
 
           <div ref="listTop">
             <!-- Dettaglio (es. singolo Quaderno): immagine + testo + prezzo + PDF -->
@@ -421,22 +406,6 @@ h1 {
 
   li {
     font-style: italic;
-  }
-}
-
-// Card delle ricerche: stessa griglia delle card di Pubblicazioni/Progetti
-// (colonne auto-fit da min 240px), prima della bibliografia
-.research {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-  width: 95%;
-  max-width: 1000px;
-  margin: 0 auto 4rem;
-
-  // annulla il min-height: 395px che questa pagina dà alle altre nav-card
-  .nav-card {
-    min-height: 220px;
   }
 }
 

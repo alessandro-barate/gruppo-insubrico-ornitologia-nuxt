@@ -5,6 +5,8 @@
 // controlli `node.type === 'cards'`, TypeScript sa già che
 // `node.items` è CardItem[]. Nessun cast necessario.
 
+import type { TypedLink } from "~/composables/useProgetti";
+
 // Tipi di item, uno per natura di sottosezione ───────────
 export interface CardItem {
   id: number;
@@ -25,6 +27,16 @@ export interface BibliographyItem {
   text: string;
 }
 
+// Cartella dei risultati di una ricerca (Altre Pubblicazioni): titolo,
+// anno facoltativo e i suoi file. È indipendente dai progetti di
+// useProgetti.ts: gli admin la gestiscono a parte (vedi ResultFolders.vue).
+export interface ResultFolder {
+  id: number;
+  year?: number; // per l'ordinamento: più recente → più vecchio
+  title: string;
+  files: TypedLink[]; // PDF, link esterni, Excel… (stesso tipo dei progetti)
+}
+
 export type SubsectionType =
   | "cards"
   | "pdf-list"
@@ -41,10 +53,6 @@ interface BaseNode {
   intro_excerpt?: string;
   header_image?: string;
   image_path?: string;
-  // true = prima del contenuto del nodo vengono mostrate le card delle
-  // sezioni di ricerca condivise con Progetti (RESULTS_SECTIONS in
-  // useProgetti.ts). Usato da Altre Pubblicazioni.
-  show_research?: boolean;
   // Voci per pagina della lista del nodo (default 4). Es. 10 per la
   // bibliografia di Altre Pubblicazioni.
   items_per_page?: number;
@@ -68,6 +76,10 @@ export interface PdfListNode extends BaseNode {
 export interface BibliographyNode extends BaseNode {
   type: "bibliography";
   items: BibliographyItem[];
+  // Facoltativo: cartelle dei risultati delle ricerche, mostrate come
+  // accordion sopra la bibliografia (Altre Pubblicazioni)
+  result_folders?: ResultFolder[];
+  results_title?: string; // titolo del blocco (default "Risultati delle ricerche")
 }
 
 export interface GroupNode extends BaseNode {
@@ -124,6 +136,225 @@ export interface Crumb {
 // La forma replica l'output atteso dalle API Resources Laravel.
 const PUBBLICAZIONI_INTRO =
   "Le pubblicazioni scientifiche del Gruppo Insubrico di Ornitologia raccolgono oltre vent'anni di attivit&agrave; scientifica e divulgativa, documentando ricerche, monitoraggi e studi dedicati all'avifauna. In questa sezione sono disponibili i <strong><em>Quaderni del G.I.O.</em></strong>, il <strong><em>BOL - Bollettino Ornitologico Lombardo</em></strong>, gli <strong><em>Uccelli della Provincia di Varese</em></strong> che comprende la <strong><em>Lista degli uccelli</em></strong> e il <strong><em>Resoconto ornitologico della provincia di Varese</em></strong>, oltre alla bibliografia dei lavori scientifici realizzati dai soci. Un patrimonio di conoscenze messo a disposizione di ricercatori, appassionati e di tutti gli interessati all'ornitologia.";
+
+// File di Home Swift Home (gli stessi PDF del progetto in useProgetti.ts)
+const HOME_SWIFT_HOME_FILES: TypedLink[] = [
+  {
+    kind: "pdf",
+    label:
+      "2026. Demographic changes in three Common Swift colonies in the Lombardy region, Italy",
+    url: "/documents/progetti/swift/2026-demographic-change.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2026. A new book about Swifts that breed in Italy",
+    url: "/documents/progetti/swift/2026-new-book.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2025. Phenology and nest site fidelity in three Swift towers in the Lombardy region",
+    url: "/documents/progetti/swift/2025-phenology.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2025. Passeraie, colombaie e rondonaie nelle province di Novara e Varese: mappa e monitoraggi per conservare storia e biodiversità",
+    url: "/documents/progetti/swift/2025-passeraie-colombaie-rondonaie.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2024. First deployment of IoT tracking devices on Common swift Apus apus: a pilot study",
+    url: "/documents/progetti/swift/2024-apus.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2024. Swift towers as open research lab: the experience of a network of nesting sites in NW Italy",
+    url: "/documents/progetti/swift/2024-swift-towers.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2024. Microfibers in the Diet of a Highly Aerial Bird, the Common Swift Apus apus",
+    url: "/documents/progetti/swift/2024-microfibers.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2024. Swift and sparrow towers in the provinces of Novara and Varese: census and evaluation for swift's conservation",
+    url: "/documents/progetti/swift/2024-towers.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2023. Swifts and the selection of urban habitats: a citizen science project to increase the ecological knowledge of the species in the Bergamo and Varese provinces",
+    url: "/documents/progetti/swift/2023-urban-habits.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2023. Swift and Sparrow towers in the Province of Varese: census, evaluation and use in the conservation and study of synanthropic species",
+    url: "/documents/progetti/swift/2023-towers-varese.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2023. Site and nest fidelity in the Common Swift (Apus apus)",
+    url: "/documents/progetti/swift/2023-site-nest.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2022. Which urban habitats are selected by Swifts? A citizen science program to answer the question in provinces of Varese and Bergamo, Italy",
+    url: "/documents/progetti/swift/2022-urban-habits.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2022. Birds towers and walls: three successful examples of rehabilitation in province of Varese, Italy",
+    url: "/documents/progetti/swift/2022-birds-towers.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2022. Breeding phenology, reproductive success and survival of Common Swift (Apus apus) from a Northern Italian colony",
+    url: "/documents/progetti/swift/2022-breeding-phenology.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2022. Passeraie e rondonaie in provincia di Varese: censimento, rivalutazione ed utilizzo per conservazione e studio delle specie sinantropiche",
+    url: "/documents/progetti/swift/2022-passeraie-rondonaie.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2022. Onset of primary moult in immature and breeding adult Common Swifts Apus apus",
+    url: "/documents/progetti/swift/2022-onset-moult.pdf",
+  },
+  {
+    kind: "pdf",
+    label:
+      "2019. Studio preliminare della fenologia e del successo riproduttivo in una colonia di rondone comune (Apus apus) a Jerago con Orago (VA)",
+    url: "/documents/progetti/swift/2019-fenologia.pdf",
+  },
+];
+
+// Cartelle dei risultati delle ricerche (Altre Pubblicazioni)
+const RESULT_FOLDERS: ResultFolder[] = [
+  {
+    id: 1,
+    year: 2013,
+    title:
+      "Boschi non gestiti e comunità ornitica: un caso di studio in…",
+    files: [],
+  },
+  {
+    id: 2,
+    year: 2021,
+    title: "Il Gufo reale Bubo bubo in provincia di Varese: dati storici e…",
+    files: [],
+  },
+  {
+    id: 3,
+    year: 2020,
+    title: "Roost di Nibbio bruno (Milvus migrans) in provincia di Varese: oss…",
+    files: [],
+  },
+  {
+    id: 4,
+    year: 2012,
+    title: "Censimento al playback di una popolazione di Civetta, Athene no…",
+    files: [],
+  },
+  {
+    id: 5,
+    year: 2023,
+    title:
+      "Primo tentativo di nidificazione di Nibbio reale (Milvus milvus) in…",
+    files: [],
+  },
+  {
+    id: 6,
+    year: 2018,
+    title:
+      "The Goosander Mergus merganser breeding population expansion and trend in North-Western Italy",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "Spread of the Goosander population in north-western Italy (2000-2014)",
+        url: "/documents/progetti/spread-of-the-goosander-population-in-north-western-italy-2000-2014.pdf",
+      },
+      {
+        kind: "external",
+        label: "Articolo su Avocetta",
+        url: "https://www.avocetta.org/articles/vol-nv-the-goosander-imergus-merganseri-breeding-population-expansion-and-trend-in-north-western-italy/",
+      },
+    ],
+  },
+  {
+    id: 7,
+    year: 2022,
+    title:
+      "Year-round multi-scale habitat selection by Crested Tit (Lophoph…",
+    files: [],
+  },
+  {
+    id: 8,
+    year: 2023,
+    title: "UI-VA: Birds in winter Varese 2018-2023",
+    files: [],
+  },
+  {
+    id: 9,
+    year: 2003,
+    title: "L'avifauna nidificante nelle brughiere della Lombardia occidentale",
+    files: [
+      {
+        kind: "pdf",
+        label: "L'avifauna nidificante nelle brughiere della Lombardia occidentale",
+        url: "/documents/progetti/avifauna-brughiere-lombardia-occidentale-2002.pdf",
+      },
+    ],
+  },
+  {
+    id: 10,
+    title: "Altre pubblicazioni",
+    files: [],
+  },
+  {
+    id: 11,
+    title: "IWC",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "2017. Due laghi, Verbano e Lario, a confronto. 15 anni di International Waterbird Census",
+        url: "/documents/progetti/iwc/15-anni-di-iwc.pdf",
+      },
+      {
+        kind: "pdf",
+        label:
+          "2025. Trends of waterbirds wintering on the lakes of Lombardy: twenty years of International Waterbirds Census",
+        url: "/documents/progetti/iwc/20-anni-di-iwc.pdf",
+      },
+      {
+        kind: "excel",
+        label: "IWC totali al 2025",
+        url: "/documents/progetti/iwc/iwc-totali-al-2025.xls",
+      },
+    ],
+  },
+  {
+    id: 12,
+    title: "Home Swift Home",
+    files: HOME_SWIFT_HOME_FILES,
+  },
+];
 
 const MOCK_TREE: PubNode[] = [
   // Quaderni
@@ -396,8 +627,13 @@ const MOCK_TREE: PubNode[] = [
     slug: "altre-pubblicazioni",
     title: "Altre Pubblicazioni",
     type: "bibliography",
-    show_research: true, // ← card "ricerca in corso" e "terminati"
     items_per_page: 10, // ← bibliografia lunga: 10 voci per pagina
+    results_title: "Risultati delle ricerche",
+    // Cartelle dei risultati (accordion sopra la bibliografia, 15 per
+    // pagina). Le cartelle senza file con un url NON vengono mostrate.
+    // TODO: completare i titoli (sono quelli troncati dello screenshot)
+    // e aggiungere i PDF di ogni cartella.
+    result_folders: RESULT_FOLDERS,
     intro_text:
       "<p>Qui è possibile consultare tutti i risultati delle nostre ricerche, sia quelle in corso sia quelle terminate.</p>",
     second_intro_text: "Bibliografia del G.I.O.",
