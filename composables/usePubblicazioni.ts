@@ -281,9 +281,38 @@ const RESULT_FOLDERS: ResultFolder[] = [
       },
     ],
   },
-  // Mosaici agricoli
+  // 2026 foce Tresa
   {
     id: 4,
+    year: 2026,
+    title: "La foce Tresa: un punto caldo della migrazione del lago Maggiore",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "2026. La foce Tresa: un punto caldo della migrazione del lago Maggiore",
+        url: "/documents/progetti/2026-foce-tresa.pdf",
+      },
+    ],
+  },
+  // 2024 avifauna lago di Varese
+  {
+    id: 5,
+    year: 2024,
+    title:
+      "L'avifauna acquatica della Zona di Protezione Speciale “Lago di Varese” (Lombardia)",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "2024. L'avifauna acquatica della Zona di Protezione Speciale “Lago di Varese” (Lombardia)",
+        url: "/documents/progetti/2024-lago-di-varese.pdf",
+      },
+    ],
+  },
+  // 2024 Mosaici agricoli
+  {
+    id: 6,
     year: 2024,
     title: "Mosaici agricoli",
     files: [
@@ -301,9 +330,9 @@ const RESULT_FOLDERS: ResultFolder[] = [
       },
     ],
   },
-  // Nidificazione Nibbio reale
+  // 2023 Nidificazione Nibbio reale
   {
-    id: 5,
+    id: 7,
     year: 2023,
     title:
       "Primo tentativo di nidificazione di Nibbio reale (Milvus milvus) in provincia di Varese",
@@ -311,14 +340,29 @@ const RESULT_FOLDERS: ResultFolder[] = [
       {
         kind: "pdf",
         label:
-          "Primo tentativo di nidificazione di Nibbio reale (Milvus milvus) in provincia di Varese",
+          "2023. Primo tentativo di nidificazione di Nibbio reale (Milvus milvus) in provincia di Varese",
         url: "/documents/progetti/2023-nibbio-reale.pdf",
       },
     ],
   },
-  // UI-VA
+  // 2023 from wintering to breeding
   {
-    id: 6,
+    id: 8,
+    year: 2023,
+    title:
+      "From wintering to breeding: the bird diversity of the SPA IT2010501 “Lago di Varese”",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "2023. From wintering to breeding: the bird diversity of the SPA IT2010501 “Lago di Varese”",
+        url: "/documents/progetti/2023-wintering-breeding.pdf",
+      },
+    ],
+  },
+  // 2023 UI-VA
+  {
+    id: 9,
     year: 2023,
     title: "UI-VA: Birds in winter Varese 2018-2023",
     files: [
@@ -331,7 +375,7 @@ const RESULT_FOLDERS: ResultFolder[] = [
   },
   // 2022 year round
   {
-    id: 7,
+    id: 10,
     year: 2022,
     title:
       "Year-round multi-scale habitat selection by Crested Tit (Lophophanes cristatus) in lowland mixed forests (northern Italy)",
@@ -344,9 +388,84 @@ const RESULT_FOLDERS: ResultFolder[] = [
       },
     ],
   },
+  // 2022 migrazione primaverile
+  {
+    id: 11,
+    year: 2022,
+    title:
+      "La migrazione primaverile del Nibbio bruno (Milvus migrans) in Lombardia in riferimento alla data di primo arrivo",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "2022. La migrazione primaverile del Nibbio bruno (Milvus migrans) in Lombardia in riferimento alla data di primo arrivo",
+        url: "/documents/progetti/2022-migrazione-primaverile.pdf",
+      },
+    ],
+  },
+  // 2022 steady turnover
+  {
+    id: 12,
+    year: 2022,
+    title:
+      "Steady turnover in a bird community in a periurban landscape in northern Italy: a look at the change in species richness over time",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "2022. Steady turnover in a bird community in a periurban landscape in northern Italy: a look at the change in species richness over time",
+        url: "/documents/progetti/2022-steady-turnover.pdf",
+      },
+    ],
+  },
+  // 2022 prima nidificazione Volpoca
+  {
+    id: 13,
+    year: 2022,
+    title:
+      "Prima nidificazione di Volpoca (Tadorna tadorna) in Lombardia: un caso accertato in provincia di Varese",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "2022. Prima nidificazione di Volpoca (Tadorna tadorna) in Lombardia: un caso accertato in provincia di Varese",
+        url: "/documents/progetti/2022-nidificazione-volpoca.pdf",
+      },
+    ],
+  },
+  // 2022 check-list uccelli Lombardia
+  {
+    id: 14,
+    year: 2022,
+    title:
+      "Check-list degli uccelli della Lombardia aggiornata al dicembre 2021",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "2022. Check-list degli uccelli della Lombardia aggiornata al dicembre 2021",
+        url: "/documents/progetti/2022-check-list-uccelli.pdf",
+      },
+    ],
+  },
+  // 2022 analisi avifauna Varese
+  {
+    id: 15,
+    year: 2022,
+    title:
+      "Analisi dell'avifauna nidificante in provincia di Varese al 31/12/2021",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "2022. Analisi dell'avifauna nidificante in provincia di Varese al 31/12/2021",
+        url: "/documents/progetti/2022-analisi-varese.pdf",
+      },
+    ],
+  },
   // 2021 avifauna urbana
   {
-    id: 8,
+    id: 16,
     year: 2021,
     title:
       "Avifauna urbana: un'esperienza positiva in un contesto negativo. Visti da casa nel 2020",
@@ -361,7 +480,7 @@ const RESULT_FOLDERS: ResultFolder[] = [
   },
   // 2021 Gufo Reale
   {
-    id: 9,
+    id: 17,
     year: 2021,
     title:
       "Il Gufo reale Bubo bubo in provincia di Varese: dati storici e ricerche recenti",
@@ -376,7 +495,7 @@ const RESULT_FOLDERS: ResultFolder[] = [
   },
   // 2020 nidificazione Colombella
   {
-    id: 10,
+    id: 18,
     year: 2020,
     title:
       "Nidificazione della Colombella (Columba oenas) in provincia di Varese",
@@ -391,7 +510,7 @@ const RESULT_FOLDERS: ResultFolder[] = [
   },
   // 2020 Nibbio bruno
   {
-    id: 11,
+    id: 19,
     year: 2020,
     title:
       "Roost di Nibbio bruno (Milvus migrans) in provincia di Varese: osservazioni preliminari (2019-2020), considerazioni e possibili sviluppi di indagine",
@@ -404,9 +523,62 @@ const RESULT_FOLDERS: ResultFolder[] = [
       },
     ],
   },
+  // 2020 Succiacapre
+  {
+    id: 20,
+    year: 2020,
+    title: "Il Succiacapre nella regione insubrica",
+    files: [
+      {
+        kind: "pdf",
+        label: "2020. Il Succiacapre nella regione insubrica",
+        url: "/documents/progetti/2020-succiacapre-insubria.pdf",
+      },
+    ],
+  },
+  // 2020 recensione Birds of Italy
+  {
+    id: 21,
+    year: 2020,
+    title: "Recensione The Birds of Italy",
+    files: [
+      {
+        kind: "pdf",
+        label: "2020. Recensione The Birds of Italy",
+        url: "/documents/progetti/2020-recensione-birds-of-italy.pdf",
+      },
+    ],
+  },
+  // 2020 i Limicoli
+  {
+    id: 22,
+    year: 2020,
+    title: "I limicoli (ordine Charadriiformes) della provincia di Varese",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "2020. I limicoli (ordine Charadriiformes) della provincia di Varese",
+        url: "/documents/progetti/2020-limicoli.pdf",
+      },
+    ],
+  },
+  // 2019 Limicoli fiume Tresa
+  {
+    id: 23,
+    year: 2019,
+    title: "I Limicoli della foce del fiume Tresa",
+    files: [
+      {
+        kind: "pdf",
+        label: "2019. I Limicoli della foce del fiume Tresa",
+        url: "/documents/progetti/2019-limicoli-fiume-tresa.pdf",
+      },
+    ],
+  },
   // ZPS Canneti Lago Maggiore
   {
-    id: 12,
+    id: 24,
     year: 2018,
     title: "ZPS Canneti Lago Maggiore",
     files: [
@@ -450,7 +622,7 @@ const RESULT_FOLDERS: ResultFolder[] = [
   },
   // 2018 Goosander
   {
-    id: 13,
+    id: 25,
     year: 2018,
     title:
       "The Goosander Mergus merganser breeding population expansion and trend in North-Western Italy",
@@ -463,9 +635,24 @@ const RESULT_FOLDERS: ResultFolder[] = [
       },
     ],
   },
+  // 2017 Goosander
+  {
+    id: 26,
+    year: 2017,
+    title:
+      "Il ruolo delle zone umide della Regione Lombardia durante la migrazione dei limicoli: un’analisi per il genere Tringa ricavata dal portale www.ornitho.it",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "2017. Il ruolo delle zone umide della Regione Lombardia durante la migrazione dei limicoli: un’analisi per il genere Tringa ricavata dal portale www.ornitho.it",
+        url: "/documents/progetti/2017-zone-umide-limicoli.pdf",
+      },
+    ],
+  },
   // 2016 Nest-side
   {
-    id: 14,
+    id: 27,
     year: 2016,
     title:
       "Nest-site characteristics and breeding biology of the Black Woodpecker in north-western Lombardy, Italy",
@@ -480,7 +667,7 @@ const RESULT_FOLDERS: ResultFolder[] = [
   },
   // 2014 Prima nidificazione assiolo
   {
-    id: 15,
+    id: 28,
     year: 2014,
     title:
       "Prima nidificazione accertata di assiolo Otus scops in provincia di Varese",
@@ -495,7 +682,7 @@ const RESULT_FOLDERS: ResultFolder[] = [
   },
   // 2013 Boschi non gestiti
   {
-    id: 16,
+    id: 29,
     year: 2013,
     title:
       "Boschi non gestiti e comunità ornitica: un caso di studio in provincia di Varese",
@@ -510,7 +697,7 @@ const RESULT_FOLDERS: ResultFolder[] = [
   },
   // 2012 Censimento al playback
   {
-    id: 17,
+    id: 30,
     year: 2012,
     title:
       "Censimento al playback di una popolazione di Civetta, Athene noctua, in provincia di Varese",
@@ -523,9 +710,24 @@ const RESULT_FOLDERS: ResultFolder[] = [
       },
     ],
   },
+  // 2012 i Passeriformi
+  {
+    id: 31,
+    year: 2012,
+    title:
+      "I Passeriformi (Passeriformes) degli ambienti aperti come indicatori della successione ecologica nel SIC Val Veddasca (Lombardia, Italia)",
+    files: [
+      {
+        kind: "pdf",
+        label:
+          "2012. I Passeriformi (Passeriformes) degli ambienti aperti come indicatori della successione ecologica nel SIC Val Veddasca (Lombardia, Italia)",
+        url: "/documents/progetti/2012-passeriformi.pdf",
+      },
+    ],
+  },
   // 2010 Falco pecchiaiolo
   {
-    id: 18,
+    id: 32,
     year: 2010,
     title:
       "Il monitoraggio del Falco pecchiaiolo, Pernis apivorus, e del Succiacapre, Caprimulgus europaeus, nel SIC IT2020007 “Pineta Pedemontana di Appiano Gentile VA - CO",
@@ -540,7 +742,7 @@ const RESULT_FOLDERS: ResultFolder[] = [
   },
   // 2004 Comunità ornitica
   {
-    id: 19,
+    id: 33,
     year: 2004,
     title:
       "La comunità ornitica delle formazioni forestali ad Alno-Ulmion e Salicion Albae: analisi di alcune aree-campione in provincia di Varese (Lombardia)",
@@ -555,7 +757,7 @@ const RESULT_FOLDERS: ResultFolder[] = [
   },
   // 2003 Avifauna nidificante nelle brughiere
   {
-    id: 20,
+    id: 34,
     year: 2003,
     title:
       "L'avifauna nidificante nelle brughiere della Lombardia occidentale.",
@@ -570,7 +772,7 @@ const RESULT_FOLDERS: ResultFolder[] = [
   },
   // 2001 Avifauna nidificante nelle zone umide
   {
-    id: 21,
+    id: 35,
     year: 2001,
     title:
       "L'avifauna nidificante nelle zone umide della provincia di Varese: status delle specie e grado di conservazione dei biotipi",
