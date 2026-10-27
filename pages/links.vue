@@ -213,6 +213,9 @@ onUnmounted(() => {
                 <h3 class="text-4">e iscriviti alla</h3>
                 <h2 class="text-5">newsletter</h2>
               </div>
+
+              <!-- Iscrizione newsletter (Mailchimp) -->
+              <NewsletterForm variant="panel" class="contacts-newsletter" />
             </div>
             <div class="socials-container">
               <!-- Facebook -->
@@ -609,6 +612,12 @@ onUnmounted(() => {
       .text-5 {
         margin-left: clamp(1.5rem, 4vw, 4rem);
       }
+
+      // Form della newsletter, allineato alla scritta "Newsletter"
+      .contacts-newsletter {
+        margin-top: 2rem;
+        margin-left: clamp(1.5rem, 4vw, 4rem);
+      }
     }
 
     .socials-container {
@@ -697,6 +706,10 @@ onUnmounted(() => {
         .text-4,
         .text-5 {
           margin-left: 0;
+        }
+
+        .contacts-newsletter {
+          margin: 2rem auto 0;
         }
       }
 

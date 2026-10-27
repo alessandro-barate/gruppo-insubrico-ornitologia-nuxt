@@ -1,25 +1,48 @@
 <script setup>
 const showPrivacy = ref(false);
 const showZoomedCard = ref(false);
+const showNewsletter = ref(false);
 
 // Modal controls
 const openZoomedCard = () => {
   showZoomedCard.value = true;
-  // Previene lo scroll della pagina quando la modal è aperta
-  document.body.style.overflow = "hidden";
 };
 
 const closeZoomedCard = () => {
   showZoomedCard.value = false;
-  // Ripristina lo scroll della pagina
-  document.body.style.overflow = "";
 };
+
+// Modale della newsletter: il link del footer la apre, il form è dentro
+const newsletterCard = ref(null);
+let newsletterOpener = null; // per ridare il focus al link alla chiusura
+
+const openNewsletter = (event) => {
+  newsletterOpener = event.currentTarget;
+  showNewsletter.value = true;
+};
+
+const closeNewsletter = () => {
+  showNewsletter.value = false;
+  newsletterOpener?.focus();
+};
+
+// Con una modale aperta la pagina sotto non scorre
+watch([showZoomedCard, showNewsletter], ([card, newsletter]) => {
+  document.body.style.overflow = card || newsletter ? "hidden" : "";
+});
+
+// All'apertura il cursore va subito nel campo email
+watch(showNewsletter, async (open) => {
+  if (!open) return;
+  await nextTick();
+  newsletterCard.value?.querySelector('input[type="email"]')?.focus();
+});
 
 // Gestione tasto ESC per chiudere la modal
 const handleEscKey = (event) => {
-  if (event.key === "Escape" && showZoomedCard.value) {
-    closeZoomedCard();
-  }
+  if (event.key !== "Escape") return;
+  if (showNewsletter.value) closeNewsletter();
+  else if (showZoomedCard.value) closeZoomedCard();
 };
 
 // Lifecycle hooks
@@ -55,6 +78,16 @@ onUnmounted(() => {
                   <h3 class="uppercase">contatti</h3>
                   <p>
                     <NuxtLink to="/form">Scrivici una mail</NuxtLink>
+                  </p>
+                  <p>
+                    <!-- Apre la modale con il form della newsletter -->
+                    <a
+                      href="#"
+                      role="button"
+                      aria-haspopup="dialog"
+                      @click.prevent="openNewsletter"
+                      >Iscriviti alla newsletter</a
+                    >
                   </p>
                   <p>
                     <a
@@ -119,6 +152,40 @@ onUnmounted(() => {
               pubbliche amministrazioni se l'importo totale annuo è pari o
               superiore a <strong>10.000 euro</strong>.
             </p>
+          </div>
+        </div>
+      </div>
+    </Transition>
+
+    <!-- Modale della newsletter -->
+    <Transition name="modal">
+      <div
+        v-if="showNewsletter"
+        class="modal-overlay"
+        @click="closeNewsletter"
+      >
+        <div
+          ref="newsletterCard"
+          class="zoomed-card zoomed-card--newsletter"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="newsletter-modal-title"
+          @click.stop
+        >
+          <button
+            class="close-button"
+            aria-label="Chiudi"
+            @click="closeNewsletter"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="card-content">
+            <h2 id="newsletter-modal-title">Newsletter</h2>
+            <p>
+              Ricevi via email le novità sulle attività, i corsi e le
+              pubblicazioni del G.I.O.
+            </p>
+            <NewsletterForm variant="modal" />
           </div>
         </div>
       </div>
@@ -341,6 +408,12 @@ footer {
   .zoomed-card {
     position: relative;
     background-color: #031a8c;
+
+    // Newsletter: più stretta, il form non ha bisogno di spazio
+    &--newsletter {
+      max-width: 480px;
+    }
+
     border: 2px solid #333;
     border-radius: 0.75rem;
     max-width: 600px;

@@ -186,15 +186,8 @@ onUnmounted(() => {
 
               <div class="menu-footer">
                 <div class="newsletter-section">
-                  <form @submit.prevent>
-                    <input
-                      type="email"
-                      placeholder="Iscriviti alla Newsletter"
-                    />
-                    <button type="submit" aria-label="Invia">
-                      <span>→</span>
-                    </button>
-                  </form>
+                  <!-- Iscrizione newsletter (Mailchimp) -->
+                  <NewsletterForm variant="menu" />
                 </div>
                 <div class="company-name">
                   <span>Gruppo Insubrico di Ornitologia</span>
@@ -471,40 +464,6 @@ onUnmounted(() => {
           padding-top: 1.5rem;
           padding-bottom: 1.5rem;
           border-top: 1px solid rgba(255, 255, 255, 0.1);
-
-          .newsletter-section form {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            padding-bottom: 0.5rem;
-
-            input {
-              background: transparent;
-              border: none;
-              color: rgba(255, 255, 255, 0.6);
-              font-size: 0.875rem;
-              width: 200px;
-              outline: none;
-
-              &::placeholder {
-                color: rgba(255, 255, 255, 0.6);
-              }
-            }
-
-            button {
-              background: transparent;
-              border: none;
-              color: rgba(255, 255, 255, 0.6);
-              cursor: pointer;
-              font-size: 1rem;
-              transition: color 0.3s ease;
-
-              &:hover {
-                color: #fff;
-              }
-            }
-          }
 
           .company-name span {
             color: rgba(255, 255, 255, 0.6);
@@ -814,11 +773,6 @@ onUnmounted(() => {
 
       .menu-footer {
         padding: 1rem 1.5rem;
-
-        .newsletter-section form input {
-          width: 150px;
-          font-size: 0.75rem;
-        }
 
         .social-links {
           gap: 1rem;
