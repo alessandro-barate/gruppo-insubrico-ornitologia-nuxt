@@ -735,3 +735,10 @@ export function useProgetti() {
 
   return { getPage, getSections, getNode };
 }
+
+// Dati mock esposti per la ricerca nel sito (server/api/search.get.ts).
+// TODO: rimuovere insieme ai mock quando il backend è pronto.
+export {
+  SECTIONS as PROGETTI_SECTIONS,
+  PROJECTS as PROGETTI_PROJECTS,
+};

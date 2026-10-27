@@ -54,6 +54,38 @@ function toggle(id: number) {
 watch(currentPage, () => {
   openId.value = null;
 });
+
+// ─── Apertura da link (#risultato-<id>) ─────────────────
+// Usato dalla ricerca nel sito: /pubblicazioni/altre-pubblicazioni#risultato-6
+// porta alla pagina giusta della lista, apre la cartella e ci scorre sopra.
+const route = useRoute();
+
+async function openFromHash(scroll: boolean) {
+  const id = Number(route.hash.match(/^#risultato-(\d+)$/)?.[1]);
+  if (!id) return;
+  const index = visibleFolders.value.findIndex((f) => f.id === id);
+  if (index === -1) return;
+
+  currentPage.value = Math.floor(index / props.perPage) + 1;
+  await nextTick(); // dopo il watch su currentPage, che chiude tutto
+  openId.value = id;
+
+  if (scroll) {
+    await nextTick();
+    document
+      .getElementById(`risultato-${id}`)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+// Arrivando sulla pagina: allo scroll ci pensa il router di Nuxt
+// (scrolla all'#ancora, che a questo punto esiste)
+onMounted(() => openFromHash(false));
+// Già sulla pagina (es. un altro risultato della ricerca): scrollo io
+watch(
+  () => route.hash,
+  () => openFromHash(true),
+);
 </script>
 
 <template>
@@ -63,6 +95,7 @@ watch(currentPage, () => {
     <ul ref="listTop" class="results__list">
       <li
         v-for="folder in pageFolders"
+        :id="`risultato-${folder.id}`"
         :key="folder.id"
         class="results__folder"
         :class="{ 'is-open': openId === folder.id }"
@@ -171,6 +204,8 @@ watch(currentPage, () => {
 
   &__folder {
     border-bottom: 1px solid rgba(35, 49, 98, 0.2);
+    // aperta da #risultato-<id>: resta sotto l'header fisso
+    scroll-margin-top: 90px;
   }
 
   &__heading {

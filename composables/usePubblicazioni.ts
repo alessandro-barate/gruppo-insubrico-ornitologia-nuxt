@@ -1535,3 +1535,7 @@ export function usePubblicazioni() {
 
   return { getHome, getNode, buildCrumbs };
 }
+
+// Dati mock esposti per la ricerca nel sito (server/api/search.get.ts).
+// TODO: rimuovere insieme ai mock quando il backend è pronto.
+export { MOCK_TREE as PUBBLICAZIONI_TREE };

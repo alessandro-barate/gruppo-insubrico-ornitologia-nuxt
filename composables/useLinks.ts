@@ -264,3 +264,7 @@ export function useLinks() {
     Promise.resolve(MOCK_LINKS),
   );
 }
+
+// Dati mock esposti per la ricerca nel sito (server/api/search.get.ts).
+// TODO: rimuovere insieme ai mock quando il backend è pronto.
+export { MOCK_LINKS as LINKS_DATA };

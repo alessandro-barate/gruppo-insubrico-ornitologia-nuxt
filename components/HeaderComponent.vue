@@ -61,30 +61,21 @@ const closeMenu = () => {
   isMenuOpen.value = false;
 };
 
-// Apri search bar
-const openSearchBar = (event: Event) => {
-  event.stopPropagation();
+// Apri la ricerca (overlay: components/search/SearchOverlay.vue).
+// Se il menu mobile è aperto, prima lo chiude.
+const openSearch = () => {
+  if (isMenuOpen.value) closeMenu();
   isSearchOpen.value = true;
-};
-
-// Chiudi search bar quando si clicca fuori
-const handleClickOutside = (event: Event) => {
-  const searchSection = document.querySelector(".search-bar-section");
-  if (searchSection && !searchSection.contains(event.target as Node)) {
-    isSearchOpen.value = false;
-  }
 };
 
 // Lifecycle
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
-  document.addEventListener("click", handleClickOutside);
   handleScroll();
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
-  document.removeEventListener("click", handleClickOutside);
 });
 </script>
 
@@ -223,26 +214,24 @@ onUnmounted(() => {
               </div>
             </div>
 
-            <!-- Search bar section -->
+            <!-- Search bar section: la lente apre l'overlay di ricerca -->
             <div class="search-bar-section">
               <div class="search-bar-box d-flex">
-                <button @click="openSearchBar">
+                <button
+                  type="button"
+                  aria-label="Cerca nel sito"
+                  aria-haspopup="dialog"
+                  :aria-expanded="isSearchOpen"
+                  @click="openSearch"
+                >
                   <img
                     src="~/assets/images/header-menu/magnifier-lens.png"
-                    alt="Ricerca"
+                    alt=""
                   />
                 </button>
               </div>
-              <div class="input-field" :class="{ visible: isSearchOpen }">
-                <form @submit.prevent>
-                  <input
-                    type="search"
-                    id="search-field"
-                    placeholder="Cerca nel sito"
-                  />
-                </form>
-              </div>
             </div>
+            <SearchOverlay v-model:open="isSearchOpen" />
           </nav>
         </div>
       </div>
@@ -665,26 +654,6 @@ onUnmounted(() => {
           }
         }
 
-        .input-field {
-          right: 0;
-          top: 100%;
-          display: none;
-          position: absolute;
-          padding-top: 1rem;
-
-          &.visible {
-            display: block;
-          }
-        }
-
-        input {
-          border: none;
-          padding: 0.5rem 1rem;
-          text-align: center;
-          border-radius: 0.4rem;
-          background-color: black;
-          color: rgba(255, 255, 255, 0.7);
-        }
       }
     }
   }
