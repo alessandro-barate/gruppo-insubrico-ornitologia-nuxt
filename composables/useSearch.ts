@@ -14,7 +14,6 @@ export type SearchResultType =
   | "news"
   | "progetto"
   | "pubblicazione"
-  | "risultato"
   | "bibliografia"
   | "divulgazione"
   | "link";
@@ -55,7 +54,6 @@ export const SEARCH_TYPE_ORDER: SearchResultType[] = [
   "news",
   "progetto",
   "pubblicazione",
-  "risultato",
   "bibliografia",
   "divulgazione",
   "link",

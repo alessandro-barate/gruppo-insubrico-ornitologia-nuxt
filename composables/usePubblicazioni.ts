@@ -5,8 +5,6 @@
 // controlli `node.type === 'cards'`, TypeScript sa già che
 // `node.items` è CardItem[]. Nessun cast necessario.
 
-import type { TypedLink } from "~/composables/useProgetti";
-
 // Tipi di item, uno per natura di sottosezione ───────────
 export interface CardItem {
   id: number;
@@ -25,16 +23,9 @@ export interface PdfItem {
 export interface BibliographyItem {
   id: number;
   text: string;
-}
-
-// Cartella dei risultati di una ricerca (Altre Pubblicazioni): titolo,
-// anno facoltativo e i suoi file. È indipendente dai progetti di
-// useProgetti.ts: gli admin la gestiscono a parte (vedi ResultFolders.vue).
-export interface ResultFolder {
-  id: number;
-  year?: number; // per l'ordinamento: più recente → più vecchio
-  title: string;
-  files: TypedLink[]; // PDF, link esterni, Excel… (stesso tipo dei progetti)
+  // Facoltativo: PDF della pubblicazione. Se c'è, il testo diventa un
+  // link che apre il PDF in una nuova scheda.
+  pdf_url?: string;
 }
 
 export type SubsectionType =
@@ -76,10 +67,6 @@ export interface PdfListNode extends BaseNode {
 export interface BibliographyNode extends BaseNode {
   type: "bibliography";
   items: BibliographyItem[];
-  // Facoltativo: cartelle dei risultati delle ricerche, mostrate come
-  // accordion sopra la bibliografia (Altre Pubblicazioni)
-  result_folders?: ResultFolder[];
-  results_title?: string; // titolo del blocco (default "Risultati delle ricerche")
 }
 
 export interface GroupNode extends BaseNode {
@@ -136,656 +123,6 @@ export interface Crumb {
 // La forma replica l'output atteso dalle API Resources Laravel.
 const PUBBLICAZIONI_INTRO =
   "Le pubblicazioni scientifiche del Gruppo Insubrico di Ornitologia raccolgono oltre vent'anni di attivit&agrave; scientifica e divulgativa, documentando ricerche, monitoraggi e studi dedicati all'avifauna. In questa sezione sono disponibili i <strong><em>Quaderni del G.I.O.</em></strong>, il <strong><em>BOL - Bollettino Ornitologico Lombardo</em></strong>, gli <strong><em>Uccelli della Provincia di Varese</em></strong> che comprende la <strong><em>Lista degli uccelli</em></strong> e il <strong><em>Resoconto ornitologico della provincia di Varese</em></strong>, oltre alla bibliografia dei lavori scientifici realizzati dai soci. Un patrimonio di conoscenze messo a disposizione di ricercatori, appassionati e di tutti gli interessati all'ornitologia.";
-
-// File di Home Swift Home (gli stessi PDF del progetto in useProgetti.ts)
-const HOME_SWIFT_HOME_FILES: TypedLink[] = [
-  {
-    kind: "pdf",
-    label:
-      "2026. Demographic changes in three Common Swift colonies in the Lombardy region, Italy",
-    url: "/documents/progetti/swift/2026-demographic-change.pdf",
-  },
-  {
-    kind: "pdf",
-    label: "2026. A new book about Swifts that breed in Italy",
-    url: "/documents/progetti/swift/2026-new-book.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2025. Phenology and nest site fidelity in three Swift towers in the Lombardy region",
-    url: "/documents/progetti/swift/2025-phenology.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2025. Passeraie, colombaie e rondonaie nelle province di Novara e Varese: mappa e monitoraggi per conservare storia e biodiversità",
-    url: "/documents/progetti/swift/2025-passeraie-colombaie-rondonaie.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2024. First deployment of IoT tracking devices on Common swift Apus apus: a pilot study",
-    url: "/documents/progetti/swift/2024-apus.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2024. Swift towers as open research lab: the experience of a network of nesting sites in NW Italy",
-    url: "/documents/progetti/swift/2024-swift-towers.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2024. Microfibers in the Diet of a Highly Aerial Bird, the Common Swift Apus apus",
-    url: "/documents/progetti/swift/2024-microfibers.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2024. Swift and sparrow towers in the provinces of Novara and Varese: census and evaluation for swift's conservation",
-    url: "/documents/progetti/swift/2024-towers.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2023. Swifts and the selection of urban habitats: a citizen science project to increase the ecological knowledge of the species in the Bergamo and Varese provinces",
-    url: "/documents/progetti/swift/2023-urban-habits.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2023. Swift and Sparrow towers in the Province of Varese: census, evaluation and use in the conservation and study of synanthropic species",
-    url: "/documents/progetti/swift/2023-towers-varese.pdf",
-  },
-  {
-    kind: "pdf",
-    label: "2023. Site and nest fidelity in the Common Swift (Apus apus)",
-    url: "/documents/progetti/swift/2023-site-nest.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2022. Which urban habitats are selected by Swifts? A citizen science program to answer the question in provinces of Varese and Bergamo, Italy",
-    url: "/documents/progetti/swift/2022-urban-habits.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2022. Birds towers and walls: three successful examples of rehabilitation in province of Varese, Italy",
-    url: "/documents/progetti/swift/2022-birds-towers.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2022. Breeding phenology, reproductive success and survival of Common Swift (Apus apus) from a Northern Italian colony",
-    url: "/documents/progetti/swift/2022-breeding-phenology.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2022. Passeraie e rondonaie in provincia di Varese: censimento, rivalutazione ed utilizzo per conservazione e studio delle specie sinantropiche",
-    url: "/documents/progetti/swift/2022-passeraie-rondonaie.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2022. Onset of primary moult in immature and breeding adult Common Swifts Apus apus",
-    url: "/documents/progetti/swift/2022-onset-moult.pdf",
-  },
-  {
-    kind: "pdf",
-    label:
-      "2019. Studio preliminare della fenologia e del successo riproduttivo in una colonia di rondone comune (Apus apus) a Jerago con Orago (VA)",
-    url: "/documents/progetti/swift/2019-fenologia.pdf",
-  },
-];
-
-// Cartelle dei risultati delle ricerche (Altre Pubblicazioni)
-const RESULT_FOLDERS: ResultFolder[] = [
-  // IWC
-  {
-    id: 1,
-    title: "IWC",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2025. Trends of waterbirds wintering on the lakes of Lombardy: twenty years of International Waterbirds Census",
-        url: "/documents/progetti/iwc/20-anni-di-iwc.pdf",
-      },
-      {
-        kind: "pdf",
-        label:
-          "2017. Due laghi, Verbano e Lario, a confronto. 15 anni di International Waterbird Census",
-        url: "/documents/progetti/iwc/15-anni-di-iwc.pdf",
-      },
-    ],
-  },
-  // Home Swift Home
-  {
-    id: 2,
-    title: "Home Swift Home",
-    files: HOME_SWIFT_HOME_FILES,
-  },
-  // Campi di Brebbia
-  {
-    id: 3,
-    title: "Campi di Brebbia",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2025. Campi di Brebbia (Varese, Italy): a crucial stopover and wintering site for birds",
-        url: "/documents/progetti/campi-di-brebbia/2025-campi-brebbia.pdf",
-      },
-    ],
-  },
-  // 2026 foce Tresa
-  {
-    id: 4,
-    year: 2026,
-    title: "La foce Tresa: un punto caldo della migrazione del lago Maggiore",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2026. La foce Tresa: un punto caldo della migrazione del lago Maggiore",
-        url: "/documents/progetti/2026-foce-tresa.pdf",
-      },
-    ],
-  },
-  // 2024 avifauna lago di Varese
-  {
-    id: 5,
-    year: 2024,
-    title:
-      "L'avifauna acquatica della Zona di Protezione Speciale “Lago di Varese” (Lombardia)",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2024. L'avifauna acquatica della Zona di Protezione Speciale “Lago di Varese” (Lombardia)",
-        url: "/documents/progetti/2024-lago-di-varese.pdf",
-      },
-    ],
-  },
-  // 2024 Mosaici agricoli
-  {
-    id: 6,
-    year: 2024,
-    title: "Mosaici agricoli",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2024. Il monitoraggio dell'avifauna degli agro-ecosistemi nella Lombardia nord-occidentale",
-        url: "/documents/progetti/2024-monitoraggio-avifauna.pdf",
-      },
-      {
-        kind: "pdf",
-        label:
-          "2023. What is the future for farmland birds in North-Western Lombardy?",
-        url: "/documents/progetti/2023-future-farmland.pdf",
-      },
-    ],
-  },
-  // 2023 Nidificazione Nibbio reale
-  {
-    id: 7,
-    year: 2023,
-    title:
-      "Primo tentativo di nidificazione di Nibbio reale (Milvus milvus) in provincia di Varese",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2023. Primo tentativo di nidificazione di Nibbio reale (Milvus milvus) in provincia di Varese",
-        url: "/documents/progetti/2023-nibbio-reale.pdf",
-      },
-    ],
-  },
-  // 2023 from wintering to breeding
-  {
-    id: 8,
-    year: 2023,
-    title:
-      "From wintering to breeding: the bird diversity of the SPA IT2010501 “Lago di Varese”",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2023. From wintering to breeding: the bird diversity of the SPA IT2010501 “Lago di Varese”",
-        url: "/documents/progetti/2023-wintering-breeding.pdf",
-      },
-    ],
-  },
-  // 2023 UI-VA
-  {
-    id: 9,
-    year: 2023,
-    title: "UI-VA: Birds in winter Varese 2018-2023",
-    files: [
-      {
-        kind: "pdf",
-        label: "2023. UI-VA: Birds in winter Varese 2018-2023",
-        url: "/documents/progetti/2023-uiva.pdf",
-      },
-    ],
-  },
-  // 2022 year round
-  {
-    id: 10,
-    year: 2022,
-    title:
-      "Year-round multi-scale habitat selection by Crested Tit (Lophophanes cristatus) in lowland mixed forests (northern Italy)",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2022. Year-round multi-scale habitat selection by Crested Tit (Lophophanes cristatus) in lowland mixed forests (northern Italy)",
-        url: "/documents/progetti/2022-year-round.pdf",
-      },
-    ],
-  },
-  // 2022 migrazione primaverile
-  {
-    id: 11,
-    year: 2022,
-    title:
-      "La migrazione primaverile del Nibbio bruno (Milvus migrans) in Lombardia in riferimento alla data di primo arrivo",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2022. La migrazione primaverile del Nibbio bruno (Milvus migrans) in Lombardia in riferimento alla data di primo arrivo",
-        url: "/documents/progetti/2022-migrazione-primaverile.pdf",
-      },
-    ],
-  },
-  // 2022 steady turnover
-  {
-    id: 12,
-    year: 2022,
-    title:
-      "Steady turnover in a bird community in a periurban landscape in northern Italy: a look at the change in species richness over time",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2022. Steady turnover in a bird community in a periurban landscape in northern Italy: a look at the change in species richness over time",
-        url: "/documents/progetti/2022-steady-turnover.pdf",
-      },
-    ],
-  },
-  // 2022 prima nidificazione Volpoca
-  {
-    id: 13,
-    year: 2022,
-    title:
-      "Prima nidificazione di Volpoca (Tadorna tadorna) in Lombardia: un caso accertato in provincia di Varese",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2022. Prima nidificazione di Volpoca (Tadorna tadorna) in Lombardia: un caso accertato in provincia di Varese",
-        url: "/documents/progetti/2022-nidificazione-volpoca.pdf",
-      },
-    ],
-  },
-  // 2022 check-list uccelli Lombardia
-  {
-    id: 14,
-    year: 2022,
-    title:
-      "Check-list degli uccelli della Lombardia aggiornata al dicembre 2021",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2022. Check-list degli uccelli della Lombardia aggiornata al dicembre 2021",
-        url: "/documents/progetti/2022-check-list-uccelli.pdf",
-      },
-    ],
-  },
-  // 2022 analisi avifauna Varese
-  {
-    id: 15,
-    year: 2022,
-    title:
-      "Analisi dell'avifauna nidificante in provincia di Varese al 31/12/2021",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2022. Analisi dell'avifauna nidificante in provincia di Varese al 31/12/2021",
-        url: "/documents/progetti/2022-analisi-varese.pdf",
-      },
-    ],
-  },
-  // 2021 avifauna urbana
-  {
-    id: 16,
-    year: 2021,
-    title:
-      "Avifauna urbana: un'esperienza positiva in un contesto negativo. Visti da casa nel 2020",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2021. Avifauna urbana: un'esperienza positiva in un contesto negativo. Visti da casa nel 2020",
-        url: "/documents/progetti/2021-avifauna-urbana.pdf",
-      },
-    ],
-  },
-  // 2021 Gufo Reale
-  {
-    id: 17,
-    year: 2021,
-    title:
-      "Il Gufo reale Bubo bubo in provincia di Varese: dati storici e ricerche recenti",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2021. Il Gufo reale Bubo bubo in provincia di Varese: dati storici e ricerche recenti",
-        url: "/documents/progetti/2021-gufo-reale.pdf",
-      },
-    ],
-  },
-  // 2020 nidificazione Colombella
-  {
-    id: 18,
-    year: 2020,
-    title:
-      "Nidificazione della Colombella (Columba oenas) in provincia di Varese",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2020. Nidificazione della Colombella (Columba oenas) in provincia di Varese",
-        url: "/documents/progetti/2020-nidificazione-colombella.pdf",
-      },
-    ],
-  },
-  // 2020 Nibbio bruno
-  {
-    id: 19,
-    year: 2020,
-    title:
-      "Roost di Nibbio bruno (Milvus migrans) in provincia di Varese: osservazioni preliminari (2019-2020), considerazioni e possibili sviluppi di indagine",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2020. Roost di Nibbio bruno (Milvus migrans) in provincia di Varese: osservazioni preliminari (2019-2020), considerazioni e possibili sviluppi di indagine",
-        url: "/documents/progetti/2020-nibbio-bruno.pdf",
-      },
-    ],
-  },
-  // 2020 Succiacapre
-  {
-    id: 20,
-    year: 2020,
-    title: "Il Succiacapre nella regione insubrica",
-    files: [
-      {
-        kind: "pdf",
-        label: "2020. Il Succiacapre nella regione insubrica",
-        url: "/documents/progetti/2020-succiacapre-insubria.pdf",
-      },
-    ],
-  },
-  // 2020 recensione Birds of Italy
-  {
-    id: 21,
-    year: 2020,
-    title: "Recensione The Birds of Italy",
-    files: [
-      {
-        kind: "pdf",
-        label: "2020. Recensione The Birds of Italy",
-        url: "/documents/progetti/2020-recensione-birds-of-italy.pdf",
-      },
-    ],
-  },
-  // 2020 i Limicoli
-  {
-    id: 22,
-    year: 2020,
-    title: "I limicoli (ordine Charadriiformes) della provincia di Varese",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2020. I limicoli (ordine Charadriiformes) della provincia di Varese",
-        url: "/documents/progetti/2020-limicoli.pdf",
-      },
-    ],
-  },
-  // 2019 Limicoli fiume Tresa
-  {
-    id: 23,
-    year: 2019,
-    title: "I Limicoli della foce del fiume Tresa",
-    files: [
-      {
-        kind: "pdf",
-        label: "2019. I Limicoli della foce del fiume Tresa",
-        url: "/documents/progetti/2019-limicoli-fiume-tresa.pdf",
-      },
-    ],
-  },
-  // ZPS Canneti Lago Maggiore
-  {
-    id: 24,
-    year: 2018,
-    title: "ZPS Canneti Lago Maggiore",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2018. L'avifauna acquatica della ZPS IT2010502 “Canneti del Lago Maggiore”. Risultati del monitoraggio 2015-2017",
-        url: "/documents/progetti/2018-avifauna-acquatica.pdf",
-      },
-      {
-        kind: "pdf",
-        label:
-          " 2017. Le specie allegato I (Direttiva Uccelli 2009/147/CEE) dell'avifauna acquatica ZPS IT2010502 “Canneti del Lago Maggiore“",
-        url: "/documents/progetti/2017-specie.pdf",
-      },
-      {
-        kind: "pdf",
-        label:
-          "2017. L'avifauna acquatica della ZPS IT2010502 “Canneti del Lago Maggiore”. Risultati del monitoraggio 2016",
-        url: "/documents/progetti/2017-monitoraggio-2016.pdf",
-      },
-      {
-        kind: "pdf",
-        label:
-          "2015. Avifauna acquatica ZPS IT2010502 “Canneti del Lago Maggiore”. Sintesi intermedia dei rilevamenti al 31-08-2015",
-        url: "/documents/progetti/2015-rilevamenti.pdf",
-      },
-      {
-        kind: "pdf",
-        label:
-          "2015. Risultati al 31-12-2014 del monitoraggio dell'avifauna nella ZPS IT2010502 “Canneti del Lago Maggiore”",
-        url: "/documents/progetti/2015-rilevamenti-2014.pdf",
-      },
-      {
-        kind: "pdf",
-        label:
-          "2014. Monitoraggio dell'avifauna nella ZPS IT2010502 “Canneti del Lago Maggiore”. Sintesi dei risultati al 31-12-2013",
-        url: "/documents/progetti/2014-risultati-2013.pdf",
-      },
-    ],
-  },
-  // 2018 Goosander
-  {
-    id: 25,
-    year: 2018,
-    title:
-      "The Goosander Mergus merganser breeding population expansion and trend in North-Western Italy",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2018. Spread of the Goosander population in north-western Italy (2000-2014)",
-        url: "/documents/progetti/2018-goosander.pdf",
-      },
-    ],
-  },
-  // 2017 Goosander
-  {
-    id: 26,
-    year: 2017,
-    title:
-      "Il ruolo delle zone umide della Regione Lombardia durante la migrazione dei limicoli: un’analisi per il genere Tringa ricavata dal portale www.ornitho.it",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2017. Il ruolo delle zone umide della Regione Lombardia durante la migrazione dei limicoli: un’analisi per il genere Tringa ricavata dal portale www.ornitho.it",
-        url: "/documents/progetti/2017-zone-umide-limicoli.pdf",
-      },
-    ],
-  },
-  // 2016 Nest-side
-  {
-    id: 27,
-    year: 2016,
-    title:
-      "Nest-site characteristics and breeding biology of the Black Woodpecker in north-western Lombardy, Italy",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2016. Nest-site characteristics and breeding biology of the Black Woodpecker in north-western Lombardy, Italy",
-        url: "/documents/progetti/2016-picchio-nero.pdf",
-      },
-    ],
-  },
-  // 2014 Prima nidificazione assiolo
-  {
-    id: 28,
-    year: 2014,
-    title:
-      "Prima nidificazione accertata di assiolo Otus scops in provincia di Varese",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2016. Nest-site characteristics and breeding biology of the Black Woodpecker in north-western Lombardy, Italy",
-        url: "/documents/progetti/2014-nidificazione-assiolo.pdf",
-      },
-    ],
-  },
-  // 2013 Boschi non gestiti
-  {
-    id: 29,
-    year: 2013,
-    title:
-      "Boschi non gestiti e comunità ornitica: un caso di studio in provincia di Varese",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2013. Boschi non gestiti e comunità ornitica: un caso di studio in provincia di Varese",
-        url: "/documents/progetti/2013-boschi-non-gestiti.pdf",
-      },
-    ],
-  },
-  // 2012 Censimento al playback
-  {
-    id: 30,
-    year: 2012,
-    title:
-      "Censimento al playback di una popolazione di Civetta, Athene noctua, in provincia di Varese",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2012. Censimento al playback di una popolazione di Civetta, Athene noctua, in provincia di Varese",
-        url: "/documents/progetti/2012-censimento-al-playback.pdf",
-      },
-    ],
-  },
-  // 2012 i Passeriformi
-  {
-    id: 31,
-    year: 2012,
-    title:
-      "I Passeriformi (Passeriformes) degli ambienti aperti come indicatori della successione ecologica nel SIC Val Veddasca (Lombardia, Italia)",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2012. I Passeriformi (Passeriformes) degli ambienti aperti come indicatori della successione ecologica nel SIC Val Veddasca (Lombardia, Italia)",
-        url: "/documents/progetti/2012-passeriformi.pdf",
-      },
-    ],
-  },
-  // 2010 Falco pecchiaiolo
-  {
-    id: 32,
-    year: 2010,
-    title:
-      "Il monitoraggio del Falco pecchiaiolo, Pernis apivorus, e del Succiacapre, Caprimulgus europaeus, nel SIC IT2020007 “Pineta Pedemontana di Appiano Gentile VA - CO",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2010. Il monitoraggio del Falco pecchiaiolo, Pernis apivorus, e del Succiacapre, Caprimulgus europaeus, nel SIC IT2020007 “Pineta Pedemontana di Appiano Gentile VA - CO",
-        url: "/documents/progetti/2010-falco-pecchiaiolo.pdf",
-      },
-    ],
-  },
-  // 2004 Comunità ornitica
-  {
-    id: 33,
-    year: 2004,
-    title:
-      "La comunità ornitica delle formazioni forestali ad Alno-Ulmion e Salicion Albae: analisi di alcune aree-campione in provincia di Varese (Lombardia)",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2004. La comunità ornitica delle formazioni forestali ad Alno-Ulmion e Salicion Albae: analisi di alcune aree-campione in provincia di Varese (Lombardia)",
-        url: "/documents/progetti/2004-comunita-ornitica.pdf",
-      },
-    ],
-  },
-  // 2003 Avifauna nidificante nelle brughiere
-  {
-    id: 34,
-    year: 2003,
-    title:
-      "L'avifauna nidificante nelle brughiere della Lombardia occidentale.",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2003. L'avifauna nidificante nelle brughiere della Lombardia occidentale.",
-        url: "/documents/progetti/2003-avifauna-brughiere-lombardia-occidentale.pdf",
-      },
-    ],
-  },
-  // 2001 Avifauna nidificante nelle zone umide
-  {
-    id: 35,
-    year: 2001,
-    title:
-      "L'avifauna nidificante nelle zone umide della provincia di Varese: status delle specie e grado di conservazione dei biotipi",
-    files: [
-      {
-        kind: "pdf",
-        label:
-          "2001. L'avifauna nidificante nelle zone umide della provincia di Varese: status delle specie e grado di conservazione dei biotipi",
-        url: "/documents/progetti/2001-avifauna-zone-umide.pdf",
-      },
-    ],
-  },
-];
 
 const MOCK_TREE: PubNode[] = [
   // Quaderni
@@ -1059,12 +396,6 @@ const MOCK_TREE: PubNode[] = [
     title: "Altre Pubblicazioni",
     type: "bibliography",
     items_per_page: 10, // ← bibliografia lunga: 10 voci per pagina
-    results_title: "Risultati delle ricerche",
-    // Cartelle dei risultati (accordion sopra la bibliografia, 15 per
-    // pagina). Le cartelle senza file con un url NON vengono mostrate.
-    // TODO: completare i titoli (sono quelli troncati dello screenshot)
-    // e aggiungere i PDF di ogni cartella.
-    result_folders: RESULT_FOLDERS,
     intro_text:
       "<p>Qui è possibile consultare tutti i risultati delle nostre ricerche, sia quelle in corso sia quelle terminate.</p>",
     second_intro_text: "Bibliografia del G.I.O.",
@@ -1074,26 +405,32 @@ const MOCK_TREE: PubNode[] = [
       {
         id: 20,
         text: "Alberti P., Carabella M., Colaone S., Danini G., Saporetti F., Scandolara C., 2003. L'avifauna nidificante nelle brughiere della Lombardia occidentale. RIO, 72 (2): 269-271.",
+        pdf_url: "/documents/progetti/2003-avifauna-brughiere-lombardia-occidentale.pdf",
       },
       {
         id: 21,
         text: "Aletti R., 2018. Avifauna insubrica. Osservazioni ornitologiche di particolare interesse effettuate in provincia di Varese nell’anno 2017. Relazione tecnica.",
+        pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2017.pdf",
       },
       {
         id: 22,
         text: "Aletti R., 2019. Resoconto ornitologico provincia di Varese anno 2018. Osservazioni ornitologiche di particolare interesse effettuate in provincia di Varese nell'anno 2018. Relazione tecnica.",
+        pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2018.pdf",
       },
       {
         id: 23,
         text: "Aletti R., Saporetti F., 2020. I limicoli (ordine Charadriiformes) della provincia di Varese. B.O.L. Vol. 2 - n. 2 - 2020 (71-118).",
+        pdf_url: "/documents/progetti/2020-limicoli.pdf",
       },
       {
         id: 24,
         text: "Aletti R., 2020. Resoconto ornitologico provincia di Varese anno III. Osservazioni ornitologiche di particolare interesse effettuate in provincia di Varese nell'anno 2019. Relazione tecnica.",
+        pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2019.pdf",
       },
       {
         id: 25,
         text: "Aletti R., 2021. Resoconto ornitologico provincia di Varese anno IV. Osservazioni ornitologiche di particolare interesse effettuate in provincia di Varese nell'anno 2020. Relazione tecnica.",
+        pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2020.pdf",
       },
       {
         id: 26,
@@ -1102,246 +439,307 @@ const MOCK_TREE: PubNode[] = [
       {
         id: 27,
         text: "Aletti R., 2022. Analisi dell'avifauna nidificante in provincia di Varese al 31/12/2021. B.O.L. Vol. 4 - n. 2 - 2022 (94-107).",
+        pdf_url: "/documents/progetti/2022-analisi-varese.pdf",
       },
       {
         id: 28,
         text: "Aletti R., Brichetti P., Gargioni A., Grattini N., 2022. Check-list degli uccelli della Lombardia aggiornata al dicembre 2021. B.O.L. Vol. 4 - n. 1 - 2022 (3-32).",
+        pdf_url: "/documents/progetti/2022-check-list-uccelli.pdf",
       },
       {
         id: 29,
         text: "Aletti R., Saporetti F., Taverna G., 2022. Prima nidificazione di Volpoca (Tadorna tadorna) in Lombardia: un caso accertato in provincia di Varese. B.O.L. Vol. 4 - n. 2 - 2022 (121-124).",
+        pdf_url: "/documents/progetti/2022-nidificazione-volpoca.pdf",
       },
       {
         id: 211,
         text: "Aletti R., 2022. Resoconto ornitologico provincia di Varese anno V. Osservazioni ornitologiche di particolare interesse effettuate in provincia di Varese nell'anno 2021. Relazione tecnica.",
+        pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2021.pdf",
       },
       {
         id: 212,
         text: "Aletti R., Carabella M., Saporetti F., Guenzani W., 2023. UI-VA: Birds in winter Varese 2018-2023. Poster XXI Convegno Italiano di Ornitologia. Varese 05-09 settembre 2023.",
+        pdf_url: "/documents/progetti/2023-uiva.pdf",
       },
       {
         id: 213,
         text: "Aletti R., 2023. Resoconto ornitologico provincia di Varese anno VI. Osservazioni ornitologiche di particolare interesse effettuate in provincia di Varese nell'anno 2022. Relazione tecnica.",
+        pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2022.pdf",
       },
       {
         id: 214,
         text: "Aletti R., 2024. Resoconto ornitologico provincia di Varese anno VII. Osservazioni ornitologiche di particolare interesse effettuate in provincia di Varese nell'anno 2023. Relazione tecnica.",
+        pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2023.pdf",
       },
       {
         id: 215,
         text: "Aletti R., Giussani L., Saporetti F., 2025. Resoconto ornitologico provincia di Varese anno VIII. Osservazioni ornitologiche di particolare interesse effettuate in provincia di Varese nell'anno 2024. Relazione tecnica.",
+        pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2024.pdf",
       },
       {
         id: 216,
         text: "Aletti R., Giussani L., Saporetti F., 2026. Resoconto ornitologico provincia di Varese anno IX. Osservazioni ornitologiche di particolare interesse effettuate in provincia di Varese nell'anno 2025. Relazione tecnica.",
+        pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2025.pdf",
       },
       {
         id: 217,
         text: "Barattieri M., Saporetti F., Gianatti G., Viganò E., 2023. What is the future for farmland birds in North-Western Lombardy? Poster XXI Convegno Italiano di Ornitologia. Varese 05-09 settembre 2023.",
+        pdf_url: "/documents/progetti/2023-future-farmland.pdf",
       },
       {
         id: 218,
         text: "Berlusconi A., Martinoli A., Wauters L. A., Tesoro G., Martini S., Clerici E., Guenzani G., Pozzi G., Rubolini D., Morganti M., Martinoli A., 2022. Year-round multi-scale habitat selection by Crested Tit (Lophophanes cristatus) in lowland mixed forests (northern Italy). Avian Research Vol. 13 pp. 7.",
+        pdf_url: "/documents/progetti/2022-year-round.pdf",
       },
       {
         id: 219,
         text: "Boano G., Casola D., Cucco M., Ferri M., Micheloni P., Manica M., Pellegrino I., 2022. Onset of primary moult in immature and breeding adult Common Swifts Apus apus. Ringing & Migration pp. 7.",
+        pdf_url: "/documents/progetti/swift/2022-onset-moult.pdf",
       },
       {
         id: 220,
         text: "Bordignon L., Carabella M., Guenzani W., Guerrini M., Grattini N., Lardelli R., Pedrini P., Piotti G., Pistono C., Saporetti F., Sighele M., Tosi A., Viganò E., Volcan G., 2018. The Goosander Mergus merganser breeding population expansion and trend in north-western Italy. Avocetta - Volume 42 pp. 8.",
+        pdf_url: "/documents/progetti/2018-goosander.pdf",
       },
       {
         id: 221,
         text: "Carabella M., 2020. Recensione The Birds of Italy, Pierandrea Brichetti & Giancarlo Fracasso. B.O.L. Vol. 2 - n. 2 - 2020 (173-178).",
+        pdf_url: "/documents/progetti/2020-recensione-birds-of-italy.pdf",
       },
       {
         id: 222,
         text: "Carabella M., Pianezza F., D'Orazio L., Saporetti F., Vaghi M., 2023. Primo tentativo di nidificazione di Nibbio reale (Milvus milvus) in provincia di Varese. B.O.L. Vol. 5 - n. 1 - 2023 (32-38).",
+        pdf_url: "/documents/progetti/2023-nibbio-reale.pdf",
       },
       {
         id: 223,
         text: "Casola D., Manica M., Morganti M., 2023. Site and nest fidelity in the Common Swift (Apus apus). Poster XXI Convegno Italiano di Ornitologia. Varese 05-09 settembre 2023.",
+        pdf_url: "/documents/progetti/swift/2023-site-nest.pdf",
       },
       {
         id: 224,
         text: "Casola D., Colombo L., Stocchetti A., Manica M., 2022. Passeraie e rondonaie in provincia di Varese: censimento, rivalutazione ed utilizzo per conservazione e studio delle specie sinantropiche. B.O.L. vol. 4 - n. 2 - 2022 (125-152).",
+        pdf_url: "/documents/progetti/swift/2022-passeraie-rondonaie.pdf",
       },
       {
         id: 225,
         text: "Casola D., Colombo L., Stocchetti A., Papale G., Manica M., 2023. Swift and Sparrow towers in the Province of Varese: census, evaluation and use in the conservation and study of synanthropic species. Poster XXI Convegno Italiano di Ornitologia. Varese 05-09 settembre 2023.",
+        pdf_url: "/documents/progetti/swift/2023-towers-varese.pdf",
       },
       {
         id: 226,
         text: "Colaone S., Fanchin B., Giusto A., Guenzani W., Saporetti F., Zarbo T., 2012. Censimento al playback di una popolazione di Civetta, Athene noctua, in provincia di Varese. RIO, 80 (2): 79-85.",
+        pdf_url: "/documents/progetti/2012-censimento-al-playback.pdf",
       },
       {
         id: 227,
         text: "Colombo L., Manica M., Giussani L., 2020. Roost di Nibbio bruno (Milvus migrans) in provincia di Varese: osservazioni preliminari (2019-2020), considerazioni e possibili sviluppi di indagine. B.O.L. Vol. 2 - n. 2 - 2020 (139-154).",
+        pdf_url: "/documents/progetti/2020-nibbio-bruno.pdf",
       },
       {
         id: 228,
         text: "Colombo L., Bressan P., Manica M., Aletti R., Guenzani W., Giussani L., 2021. Il Gufo reale Bubo bubo in provincia di Varese: dati storici e ricerche recenti. B.O.L. Vol. 3 - n. 2 - 2021 (86-100).",
+        pdf_url: "/documents/progetti/2021-gufo-reale.pdf",
       },
       {
         id: 229,
         text: "Colombo L., Casola D., Stocchetti A., Ricci M., Rigamonti E., Manica M., 2024. Swift and sparrow towers in the provinces of Novara and Varese: census and evaluation for swift's conservation. Poster 7th International Swift Conference. Trieste 29-31 maggio 2024.",
+        pdf_url: "/documents/progetti/swift/2024-towers.pdf",
       },
       {
         id: 230,
         text: "Costanzo A., Ambrosini R., Manica M., Casola D., Polidori C., Gianotti V., Conterosito E., Roncoli M., Parolini M., De Felice B., 2024. Microfibers in the Diet of a Highly Aerial Bird, the Common Swift Apus apus. Toxics 12, 408 pp. 11.",
+        pdf_url: "/documents/progetti/swift/2024-microfibers.pdf",
       },
       {
         id: 231,
         text: "Gagliardi A., Preatoni D., Saporetti F., Tosi G., 2013. Boschi non gestiti e comunità ornitica: un caso di studio in provincia di Varese. RIO, 82 (1-2): 125-127.",
+        pdf_url: "/documents/progetti/2013-boschi-non-gestiti.pdf",
       },
       {
         id: 232,
         text: "Grattini N., Aletti R., Carabella M., Guenzani W., Longoni V., Saporetti F., 2025. Trends of waterbirds wintering on the lakes of Lombardy: twenty years of International Waterbirds Census. Poster XXII Convegno Italiano di Ornitologia. Lecce 08-12 settembre 2025.",
+        pdf_url: "/documents/progetti/iwc/20-anni-di-iwc.pdf",
       },
       {
         id: 233,
         text: "Guenzani W., Aletti R., Giussani L., 2020. Nidificazione della Colombella (Columba oenas) in provincia di Varese. B.O.L. Vol. 2 - n. 2 - 2020 (135-138).",
+        pdf_url: "/documents/progetti/2020-nidificazione-colombella.pdf",
       },
       {
         id: 234,
         text: "Manica M., Morganti M., Casola D., Bazzarelli M., Bogliani G., 2019. Studio preliminare della fenologia e del successo riproduttivo in una colonia di rondone comune (Apus apus) a Jerago con Orago (VA). Poster XX Convegno Italiano di Ornitologia. Napoli 26-29 settembre 2019.",
+        pdf_url: "/documents/progetti/swift/2019-fenologia.pdf",
       },
       {
         id: 235,
         text: "Manica M., Casola D., Stocchetti A., Bazzarelli M., Biganzoli D., Morganti M., 2022. Breeding phenology, reproductive success and survival of Common Swift (Apus apus) from a Northern Italian colony. Poster XXIII EOU Conference. Gießen Germany 14-18 marzo 2022.",
+        pdf_url: "/documents/progetti/swift/2022-breeding-phenology.pdf",
       },
       {
         id: 236,
         text: "Manica M., Casola D., Colombo L., Stocchetti A., Cavallaro C., Villa S., Morganti M., Parnell A., 2022. Birds towers and walls: three successful examples of rehabilitation in province of Varese, Italy. Poster 6th International Swift Conference. Segovia Spain 25-27 maggio 2022.",
+        pdf_url: "/documents/progetti/swift/2022-birds-towers.pdf",
       },
       {
         id: 237,
         text: "Manica M., Nembrini S., Casola D., Stocchetti A., Colombo L., Parnell A., Bazzarelli M., Zulian G., Iadanza C., Milani R., Ambrosini R., Cavallaro C., Guenzani W., Villa S., 2022. Which urban habitats are selected by Swifts? A citizen science program to answer the question in provinces of Varese and Bergamo, Italy. Presentation 6th International Swift Conference. Segovia Spain 25-27 maggio 2022.",
+        pdf_url: "/documents/progetti/swift/2022-urban-habits.pdf",
       },
       {
         id: 238,
         text: "Manica M., Nembrini S., Casola D., Stocchetti A., Colombo L., Parnell A., Bazzarelli M., Zulian G., Iadanza C., Milani R., Ambrosini R., 2023. Swifts and the selection of urban habitats: a citizen science project to increase the ecological knowledge of the species in the Bergamo and Varese provinces. Poster XXI Convegno Italiano di Ornitologia. Varese 05-09 settembre 2023.",
+        pdf_url: "/documents/progetti/swift/2023-urban-habits.pdf",
       },
       {
         id: 239,
         text: "Manica M., Casola D., Colombo L., Stocchetti Al., Wild T., Witte K., Fiedler W., Wikelski M., Papale G., Iadanza C., Cervellin I., Figus E., Morganti M., 2024. Swift towers as open research lab: the experience of a network of nesting sites in NW Italy. Poster 7th International Swift Conference. Trieste 29-31 maggio 2024.",
+        pdf_url: "/documents/progetti/swift/2024-swift-towers.pdf",
       },
       {
         id: 240,
         text: "Manica M., Casola D., Nembrini S., Pirotta G., Ricci M., Morganti M., 2026. A new book about Swifts that breed in Italy. Poster 8th International Swift Conference. Co. Mayo Ireland 27-29 maggio 2026.",
+        pdf_url: "/documents/progetti/swift/2026-new-book.pdf",
       },
       {
         id: 241,
         text: "Morganti M., Manica M., Casola D., Colombo L., Stocchetti A., Fiedler W., Wikelski M., Witte K., Wild T., 2024. First deployment of IoT tracking devices on Common swift Apus apus: a pilot study. Avocetta, Vol. 48 pp. 13.",
+        pdf_url: "/documents/progetti/swift/2024-apus.pdf",
       },
       {
-        id: 229,
+        id: 268,
         text: "Ravasi A., Guenzani W., 2014. Prima nidificazione accertata di assiolo Otus scops in provincia di Varese. RIO, 84 (1): 53-55.",
+        pdf_url: "/documents/progetti/2014-nidificazione-assiolo.pdf",
       },
       {
         id: 242,
         text: "Ricci M., Rigamonti E., Casola D., Colombo L., Stocchetti A., Papale G., Morganti M., Manica M., 2025. Passeraie, colombaie e rondonaie nelle province di Novara e Varese: mappa e monitoraggi per conservare storia e biodiversità. Picus 51 (99-100): 3-12.",
+        pdf_url: "/documents/progetti/swift/2025-passeraie-colombaie-rondonaie.pdf",
       },
       {
         id: 243,
         text: "Sacchet J., Giussani L., Berlusconi A., 2025. Campi di Brebbia (Varese, Italy): a crucial stopover and wintering site for birds. Poster XXII Convegno Italiano di Ornitologia. Lecce 08-12 settembre 2025.",
+        pdf_url: "/documents/progetti/campi-di-brebbia/2025-campi-brebbia.pdf",
       },
       {
         id: 244,
         text: "Saporetti F., 2001. L'avifauna nidificante nelle zone umide della provincia di Varese: status delle specie e grado di conservazione dei biotipi. Bollettino della Società ticinese di scienze naturali 89, 2001 (1-2), pp. 41-50.",
+        pdf_url: "/documents/progetti/2001-avifauna-zone-umide.pdf",
       },
       {
         id: 245,
         text: "Saporetti F., Guenzani W., 2004. La comunità ornitica delle formazioni forestali ad Alno-Ulmion e Salicion Albae: analisi di alcune aree-campione in provincia di Varese (Lombardia). Bollettino della Società ticinese di scienze naturali 92, 2004 (1-2), pp. 109-118.",
+        pdf_url: "/documents/progetti/2004-comunita-ornitica.pdf",
       },
       {
         id: 246,
         text: "Saporetti F., 2010. Il monitoraggio del Falco pecchiaiolo, Pernis apivorus, e del Succiacapre, Caprimulgus europaeus, nel SIC IT2020007 “Pineta Pedemontana di Appiano Gentile VA - CO. Relazione tecnica.",
+        pdf_url: "/documents/progetti/2010-falco-pecchiaiolo.pdf",
       },
       {
         id: 247,
         text: "Saporetti F., 2012. I Passeriformi (Passeriformes) degli ambienti aperti come indicatori della successione ecologica nel SIC Val Veddasca (Lombardia, Italia). Bollettino della Società ticinese di scienze naturali 100, pp. 79-88.",
+        pdf_url: "/documents/progetti/2012-passeriformi.pdf",
       },
       {
         id: 248,
         text: "Saporetti F. , 2014. Monitoraggio dell'avifauna nella ZPS IT2010502 “Canneti del Lago Maggiore”. Sintesi dei risultati al 31-12-2013. Relazione tecnica.",
+        pdf_url: "/documents/progetti/2014-risultati-2013.pdf",
       },
       {
         id: 249,
         text: "Saporetti F., 2015. Risultati al 31-12-2014 del monitoraggio dell'avifauna nella ZPS IT2010502 “Canneti del Lago Maggiore”. Relazione tecnica.",
+        pdf_url: "/documents/progetti/2015-rilevamenti-2014.pdf",
       },
       {
         id: 250,
         text: "Saporetti F., 2015. Avifauna acquatica ZPS IT2010502 “Canneti del Lago Maggiore”. Sintesi intermedia dei rilevamenti al 31-08-2015. Relazione tecnica.",
+        pdf_url: "/documents/progetti/2015-rilevamenti.pdf",
       },
       {
         id: 251,
         text: "Saporetti F., Colaone S., Guenzani W., Zarbo T., 2016. Nest-site characteristics and breeding biology of the Black Woodpecker in north-western Lombardy, Italy. RIO, 86 (1): 39-48.",
+        pdf_url: "/documents/progetti/2016-picchio-nero.pdf",
       },
       {
         id: 252,
         text: "Saporetti F., 2017. L'avifauna acquatica della ZPS IT2010502 “Canneti del Lago Maggiore”. Risultati del monitoraggio 2016. Relazione tecnica.",
+        pdf_url: "/documents/progetti/2017-monitoraggio-2016.pdf",
       },
       {
         id: 253,
         text: "Saporetti F., Aletti R., Carabella M., Guenzani W., 2017. Le specie allegato I (Direttiva Uccelli 2009/147/CEE) dell'avifauna acquatica ZPS IT2010502 “Canneti del Lago Maggiore“. Poster XIX Convegno Italiano di Ornitologia. Torino 27 settembre - 01 ottobre 2017.",
+        pdf_url: "/documents/progetti/2017-specie.pdf",
       },
       {
         id: 254,
         text: "Saporetti F., Guenzani W., 2017. Due laghi, Verbano e Lario, a confronto. 15 anni di International Waterbird Census. Poster XIX Convegno Italiano di Ornitologia. Torino 27 settembre - 01 ottobre 2017.",
+        pdf_url: "/documents/progetti/iwc/15-anni-di-iwc.pdf",
       },
       {
         id: 255,
         text: "Saporetti F., 2017. Il ruolo delle zone umide della Regione Lombardia durante la migrazione dei limicoli: un'analisi per il genere Tringa ricavata dal portale www.ornitho.it. RIO, 87, (2): 15-28.",
+        pdf_url: "/documents/progetti/2017-zone-umide-limicoli.pdf",
       },
       {
         id: 256,
         text: "Saporetti F., 2018. L'avifauna acquatica della ZPS IT2010502 “Canneti del Lago Maggiore”. Risultati del monitoraggio 2015-2017. Relazione tecnica.",
+        pdf_url: "/documents/progetti/2018-avifauna-acquatica.pdf",
       },
       {
         id: 257,
         text: "Saporetti F., 2019. I Limicoli della foce del fiume Tresa. Relazione tecnica.",
+        pdf_url: "/documents/progetti/2019-limicoli-fiume-tresa.pdf",
       },
       {
         id: 258,
         text: "Saporetti F., Casale F., 2020. Il Succiacapre nella regione insubrica. Ficedula 53: 16-20.",
+        pdf_url: "/documents/progetti/2020-succiacapre-insubria.pdf",
       },
       {
         id: 259,
         text: "Saporetti F., Carabella M., Castiglioni A., Colombo L., Dall’Osto D., Guenzani W., Larroux N., Zarbo T., Berlusconi A., 2021. Avifauna urbana: un'esperienza positiva in un contesto negativo. Visti da casa nel 2020. B.O.L. Vol. 3 - n. 1 - 2021 (41-55).",
+        pdf_url: "/documents/progetti/2021-avifauna-urbana.pdf",
       },
       {
         id: 260,
         text: "Saporetti F., 2022. Steady turnover in a bird community in a periurban landscape in northern Italy: a look at the change in species richness over time. RIO, 92, (2): 39-48.",
+        pdf_url: "/documents/progetti/2022-steady-turnover.pdf",
       },
       {
         id: 261,
         text: "Saporetti F., Gargioni A., Grattini N., 2022. La migrazione primaverile del Nibbio bruno (Milvus migrans) in Lombardia in riferimento alla data di primo arrivo. B.O.L. Vol. 4 - n. 1 - 2022 (68-76).",
+        pdf_url: "/documents/progetti/2022-migrazione-primaverile.pdf",
       },
       {
         id: 262,
         text: "Saporetti F., Aletti R., 2023. From wintering to breeding: the bird diversity of the SPA IT2010501 “Lago di Varese”. Presentazione XXI Convegno Italiano di Ornitologia. Varese 05-09 settembre 2023.",
+        pdf_url: "/documents/progetti/2023-wintering-breeding.pdf",
       },
       {
         id: 263,
         text: "Saporetti F., Aletti R., 2024. L'avifauna acquatica della Zona di Protezione Speciale “Lago di Varese” (Lombardia). B.O.L. Vol. 6 - n. 2 - 2024 (4-76).",
+        pdf_url: "/documents/progetti/2024-lago-di-varese.pdf",
       },
       {
         id: 264,
         text: "Saporetti F., Barattieri M., Gianatti G., Viganò E., 2024. Il monitoraggio dell'avifauna degli agro-ecosistemi nella Lombardia nord-occidentale. B.O.L. Vol. 6 - n. 1 - 2024 (22-59).",
+        pdf_url: "/documents/progetti/2024-monitoraggio-avifauna.pdf",
       },
       {
         id: 265,
         text: "Saporetti F., 2026. La foce Tresa: un punto caldo della migrazione del lago Maggiore. Relazione tecnica.",
+        pdf_url: "/documents/progetti/2026-foce-tresa.pdf",
       },
       {
         id: 266,
         text: "Zanchin E., Belloni G., Sacchet J., Bonvissuto N., Berlusconi A., Manica M., Casola D., 2025. Phenology and nest site fidelity in three Swift towers in the Lombardy region. Poster XXII Convegno Italiano di Ornitologia. Lecce 08-12 settembre 2025.",
+        pdf_url: "/documents/progetti/swift/2025-phenology.pdf",
       },
       {
         id: 267,
         text: "Zanchin E., 2026. Demographic changes in three Common Swift colonies in the Lombardy region, Italy. Presentation 8th International Swift Conference. Co. Mayo Ireland 27-29 maggio 2026.",
+        pdf_url: "/documents/progetti/swift/2026-demographic-change.pdf",
       },
     ],
   },

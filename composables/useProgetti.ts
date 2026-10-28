@@ -18,8 +18,8 @@ export const PROGETTI_BASE_PATH = "/progetti";
 
 // ─── Sezioni che in Progetti mostrano solo la descrizione ─
 // I risultati (PDF, articoli) delle ricerche in corso e terminate si
-// consultano in Pubblicazioni → Altre Pubblicazioni, dove hanno una loro
-// lista di cartelle indipendente (result_folders in usePubblicazioni.ts).
+// consultano in Pubblicazioni → Altre Pubblicazioni, nella bibliografia
+// (ogni voce apre il suo PDF, vedi usePubblicazioni.ts).
 // Per questo, in queste sezioni, la pagina Progetti mostra solo i testi:
 // intro + blocchi senza link. Le altre sezioni (es. atlanti) mostrano
 // tutto, testi e link.

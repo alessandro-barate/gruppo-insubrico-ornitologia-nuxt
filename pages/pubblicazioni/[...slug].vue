@@ -245,14 +245,6 @@ useSeoMeta({
 
         <!-- FOGLIA: mostra gli item secondo il tipo -->
         <template v-else>
-          <!-- Risultati delle ricerche: cartelle ad accordion, con
-               paginazione propria (15), sopra la bibliografia -->
-          <PubblicazioniResultFolders
-            v-if="node.type === 'bibliography' && node.result_folders?.length"
-            :folders="node.result_folders"
-            :title="node.results_title"
-          />
-
           <div ref="listTop">
             <!-- Dettaglio (es. singolo Quaderno): immagine + testo + prezzo + PDF -->
             <article v-if="node.type === 'detail'" class="detail">
@@ -323,7 +315,7 @@ useSeoMeta({
               </div>
             </div>
 
-            <!-- Bibliografia: solo testo (es. Paper) -->
+            <!-- Bibliografia: ogni voce con un PDF è un link che lo apre -->
             <ul
               v-else-if="node.type === 'bibliography'"
               class="subsection__biblio"

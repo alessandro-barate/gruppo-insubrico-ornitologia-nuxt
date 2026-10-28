@@ -28,7 +28,6 @@ export const TYPE_LABELS: Record<SearchResultType, string> = {
   news: "News",
   progetto: "Progetti",
   pubblicazione: "Pubblicazioni",
-  risultato: "Risultati delle ricerche",
   bibliografia: "Bibliografia",
   divulgazione: "Divulgazione",
   link: "Link utili",
@@ -271,41 +270,12 @@ function collectPubblicazioni(
             text: "",
             context,
             year: Number.isFinite(year) ? year : undefined,
-            url: path,
-            target: "page",
+            // con il PDF il risultato apre il PDF, come nella pagina
+            url: item.pdf_url?.trim() || path,
+            target: item.pdf_url?.trim() ? fileTarget(item.pdf_url) : "page",
           });
         }
 
-        // Cartelle dei risultati: la cartella apre la pagina con
-        // l'accordion già aperto (#risultato-<id>); i file aprono il file.
-        for (const folder of node.result_folders ?? []) {
-          const files = folder.files.filter((f) => f.url?.trim());
-          if (!files.length) continue; // nascosta anche nella pagina
-
-          docs.push({
-            id: `pub-${path}-folder-${folder.id}`,
-            type: "risultato",
-            title: folder.title,
-            text: files.map((f) => f.label).join(" "),
-            context: `${context} › ${node.results_title ?? TYPE_LABELS.risultato}`,
-            year: folder.year,
-            url: `${path}#risultato-${folder.id}`,
-            target: "page",
-          });
-
-          files.forEach((file, i) => {
-            docs.push({
-              id: `pub-${path}-folder-${folder.id}-file-${i}`,
-              type: "risultato",
-              title: file.label,
-              text: "",
-              context: `${TYPE_LABELS.risultato} › ${folder.title}`,
-              year: folder.year,
-              url: file.url,
-              target: fileTarget(file.url),
-            });
-          });
-        }
         break;
     }
   }
