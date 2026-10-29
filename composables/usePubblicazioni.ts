@@ -397,7 +397,7 @@ const MOCK_TREE: PubNode[] = [
     type: "bibliography",
     items_per_page: 10, // ← bibliografia lunga: 10 voci per pagina
     intro_text:
-      "<p>Qui è possibile consultare tutti i risultati delle nostre ricerche, sia quelle in corso sia quelle terminate.</p>",
+      "<p>Qui è possibile consultare tutti i risultati delle nostre ricerche.</p>",
     second_intro_text: "Bibliografia del G.I.O.",
     intro_excerpt: "Articoli scientifici e riferimenti bibliografici.",
     image_path: "/images/pubblicazioni/paper/porciglione.webp",

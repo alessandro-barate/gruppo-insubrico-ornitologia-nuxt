@@ -389,7 +389,7 @@ h1 {
 }
 
 #other-biblio {
-  margin-top: 6rem;
+  margin-top: 4rem;
   list-style-type: disc;
 
   .second-title {

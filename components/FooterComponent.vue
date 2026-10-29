@@ -159,11 +159,7 @@ onUnmounted(() => {
 
     <!-- Modale della newsletter -->
     <Transition name="modal">
-      <div
-        v-if="showNewsletter"
-        class="modal-overlay"
-        @click="closeNewsletter"
-      >
+      <div v-if="showNewsletter" class="modal-overlay" @click="closeNewsletter">
         <div
           ref="newsletterCard"
           class="zoomed-card zoomed-card--newsletter"
@@ -407,7 +403,7 @@ footer {
 
   .zoomed-card {
     position: relative;
-    background-color: #031a8c;
+    background-color: #233162;
 
     // Newsletter: più stretta, il form non ha bisogno di spazio
     &--newsletter {

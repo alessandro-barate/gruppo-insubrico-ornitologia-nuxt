@@ -14,7 +14,7 @@
     </div>
   </div>
 </template>
-<style>
+<style scoped lang="scss">
 .row {
   margin: 0 auto;
 }

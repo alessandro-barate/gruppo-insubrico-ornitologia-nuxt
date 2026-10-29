@@ -9,7 +9,8 @@ const MAX_RESULTS = 200;
 
 useSeoMeta({
   title: "Cerca nel sito | Gruppo Insubrico di Ornitologia",
-  description: "Cerca tra pubblicazioni, progetti, news, corsi ed eventi del G.I.O.",
+  description:
+    "Cerca tra pubblicazioni, progetti, news, corsi ed eventi del G.I.O.",
 });
 // I risultati di ricerca non vanno indicizzati dai motori di ricerca
 useHead({ meta: [{ name: "robots", content: "noindex, follow" }] });
@@ -51,7 +52,9 @@ const { data, pending, error } = await useFetch<SearchResponse>("/search", {
 });
 
 const tooShort = computed(() => q.value.length < SEARCH_MIN_LENGTH);
-const results = computed(() => (tooShort.value ? [] : (data.value?.data ?? [])));
+const results = computed(() =>
+  tooShort.value ? [] : (data.value?.data ?? []),
+);
 
 // ─── Filtro per sezione ─────────────────────────────────
 const activeType = ref<SearchResultType | "all">("all");
@@ -121,9 +124,12 @@ watch(activeType, () => {
             Si è verificato un errore durante la ricerca. Riprova tra poco.
           </p>
 
-          <p v-else-if="!pending && results.length === 0" class="search-page__message">
-            Nessun risultato per <strong>“{{ q }}”</strong>. Prova con
-            un'altra parola o controlla come è scritta.
+          <p
+            v-else-if="!pending && results.length === 0"
+            class="search-page__message"
+          >
+            Nessun risultato per <strong>“{{ q }}”</strong>. Prova con un'altra
+            parola o controlla come è scritta.
           </p>
 
           <template v-else>
@@ -131,7 +137,11 @@ watch(activeType, () => {
               <template v-if="pending">Ricerca in corso…</template>
               <template v-else>
                 {{ data?.total ?? results.length }}
-                {{ (data?.total ?? results.length) === 1 ? "risultato" : "risultati" }}
+                {{
+                  (data?.total ?? results.length) === 1
+                    ? "risultato"
+                    : "risultati"
+                }}
                 per <strong>“{{ q }}”</strong>
                 <template v-if="(data?.total ?? 0) > results.length">
                   (mostrati i primi {{ results.length }})
@@ -231,7 +241,7 @@ $blue: #233162;
   width: 90%;
   max-width: 900px;
   margin: 0 auto;
-  padding: 4rem 0 8rem;
+  padding: 4rem 0 13rem;
 
   &__title {
     text-align: center;

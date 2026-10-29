@@ -61,6 +61,7 @@ async function submitForm() {
         </div>
         <div class="form-container">
           <form @submit.prevent="submitForm">
+            <!-- Campi nome e cognome -->
             <div class="details-row">
               <label for="name"></label>
               <input
@@ -81,6 +82,9 @@ async function submitForm() {
                 required
               />
             </div>
+            <!-- END campi nome e cognome -->
+
+            <!-- Campo email -->
             <div class="email-row">
               <label for="mail"></label>
               <input
@@ -92,6 +96,9 @@ async function submitForm() {
                 required
               />
             </div>
+            <!-- END campo email -->
+
+            <!-- Campo corpo del messaggio -->
             <div class="message-row">
               <label for="message"></label>
               <textarea
@@ -104,6 +111,9 @@ async function submitForm() {
                 required
               />
             </div>
+            <!-- END campo corpo del messaggio -->
+
+            <!-- Campo input -->
             <input
               type="text"
               name="website"
@@ -114,9 +124,14 @@ async function submitForm() {
               aria-hidden="true"
               class="website-row"
             />
+            <!-- END campo input -->
+
+            <!-- Bottone submit -->
             <button type="submit" :disabled="loading" class="static">
               {{ loading ? "Invio in corso..." : "Invia" }}
             </button>
+            <!-- END bottone submit -->
+
             <p v-if="feedback" :class="feedback.type">{{ feedback.text }}</p>
           </form>
           <div class="bottom-text">

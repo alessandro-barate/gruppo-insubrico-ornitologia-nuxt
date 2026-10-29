@@ -119,7 +119,7 @@ onUnmounted(() => {
           </div>
         </section>
 
-        <!-- Horizontal Accordion -->
+        <!-- Accordion orizzontale -->
         <section class="accordion-section">
           <div class="accordion-container">
             <div
@@ -194,6 +194,7 @@ onUnmounted(() => {
             </div>
           </div>
         </section>
+        <!-- END accordion orizzontale -->
       </div>
 
       <!-- Contacts section -->
@@ -201,22 +202,27 @@ onUnmounted(() => {
         <section class="contacts-container">
           <div class="contacts-box d-flex">
             <div class="contacts-text uppercase">
+              <!-- First box -->
               <div class="first-box">
                 <h3 class="text-1">resta sempre aggiornato!</h3>
                 <h3 class="text-2">seguici sui nostri</h3>
                 <h2 class="text-3">social</h2>
               </div>
+              <!-- END First box -->
 
               <hr />
 
+              <!-- Second box -->
               <div class="second-box">
                 <h3 class="text-4">e iscriviti alla</h3>
                 <h2 class="text-5">newsletter</h2>
+                <!-- Iscrizione newsletter (Mailchimp) -->
+                <NewsletterForm variant="panel" class="contacts-newsletter" />
               </div>
-
-              <!-- Iscrizione newsletter (Mailchimp) -->
-              <NewsletterForm variant="panel" class="contacts-newsletter" />
+              <!-- END Second box -->
             </div>
+
+            <!-- Socials container -->
             <div class="socials-container">
               <!-- Facebook -->
               <div class="facebook">
@@ -261,9 +267,11 @@ onUnmounted(() => {
                 <h3>Scrivici una mail</h3>
               </div>
             </div>
+            <!-- END socials container -->
           </div>
         </section>
       </div>
+      <!-- END contacts section -->
     </div>
   </div>
 </template>
@@ -305,7 +313,7 @@ onUnmounted(() => {
   display: flex;
   width: 85%;
   margin: 0 auto;
-  height: 70vh;
+  height: 80vh;
   min-height: 500px;
   max-height: 800px;
   border-radius: 1rem;
@@ -410,8 +418,8 @@ onUnmounted(() => {
 .panel-separator {
   position: absolute;
   right: 0;
-  top: 5%;
-  bottom: 5%;
+  top: 0;
+  bottom: 0;
   width: 1px;
   background: rgba(255, 255, 255, 0.3);
   z-index: 5;
