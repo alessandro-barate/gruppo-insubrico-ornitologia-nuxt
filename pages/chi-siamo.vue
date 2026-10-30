@@ -13,6 +13,18 @@ useHead({
   link: [{ rel: "canonical", href: "https://gruppoinsubrico.com/chi-siamo" }],
 });
 
+// Testi e immagini modificabili dal pannello (Testi delle pagine → Chi siamo).
+// I testi qui sotto sono gli originali, usati finché il campo è vuoto.
+import teamDefault from "~/assets/images/chi-siamo/gruppo-gio-2023.jpg";
+const { c, inline, bg } = await usePageContent("chi-siamo");
+
+const DEFAULTS = {
+  history_1: "<strong>Il Gruppo Insubrico di Ornitologia (G.I.O.)</strong> si forma nel <strong>1999</strong> per iniziativa di Piero Alberti, Walter Guenzani e Fabio Saporetti presso il <strong>Civico Museo Insubrico di Storia Naturale di Induno Olona</strong>, grazie all&rsquo;&nbsp;ospitalit&agrave; offerta dal Curatore Gianluca Danini. <br /> Per volontà di 9 soci fondatori l' <strong>8 dicembre 2009</strong> l'associazione si costituisce come <strong>Onlus</strong> presso il Registro di Varese, spostandosi da Induno Olona a <strong>Clivio</strong>, nell&rsquo;&nbsp;edificio che diverr&agrave; la sede del nuovo Museo Civico di Storia Naturale di Clivio e Induno Olona.",
+  history_2: "Dal <strong>2022</strong> il G.I.O. &egrave; iscritto al <strong>Runts</strong> come <strong>Organizzazione di Volontariato (ODV)</strong> senza scopo di lucro. Dopo <strong>oltre 20 anni di attivit&agrave;</strong> conta <strong>pi&ugrave; di 80 soci</strong> ed &egrave; <strong>l&rsquo;&nbsp;associazione di riferimento per l&rsquo;&nbsp;ornitologia dell&rsquo;&nbsp;area varesina</strong> e ha tuttora <strong>sede ufficiale</strong> presso il <strong>Civico Museo Insubrico di Storia Naturale di Clivio e Induno Olona</strong>.",
+  history_3: "Scopo principale dell&rsquo;&nbsp;associazione &egrave; quello di <strong>promuovere l&rsquo;&nbsp;indagine ornitologica</strong> a livello provinciale ed insubrico, unitamente ad <strong>attivit&agrave; di divulgazione</strong> con l&rsquo;&nbsp;organizzazione di <strong>conferenze, corsi didattici e convegni</strong>. Si occupa di <strong>censimenti, monitoraggi, studi ecologici, pubblicazioni scientifiche e divulgative</strong> sull&rsquo;&nbsp;avifauna e <strong>collabora regolarmente con enti pubblici e privati e istituzioni territoriali</strong>, tra cui la Provincia di Varese, l&rsquo;&nbsp;Universit&agrave; degli Studi dell&rsquo;&nbsp;Insubria, le Comunit&agrave; Montane del Verbano e del Piambello.",
+  board: "<p class=\"last-paragraph\"> Dal <strong>2025</strong> il direttivo è così composto. </p> <ul> <li>Presidente: Milo Manica</li> <li>Vice-presidenti: Daniela Casola e Fabio Saporetti</li> <li> Organo di amministrazione: Ilaria Cervellin, Silvio Cova, Nicola Larroux, Jacopo Sacchet </li> <li>Tesoriera e segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class=\"last-paragraph\">Negli anni passati:</p> <br /> <p class=\"last-paragraph\"><strong>2022 - 2023 -2024</strong></p> <ul> <li>Presidente: Milo Manica</li> <li> Vice-presidenti: Luca Giussani fino al febbraio 2024, Walter Guenzani </li> <li> Organo di amministrazione: Daniela Casola, Luca Giussani sostituito da Giulia Belloni nel febbraio 2024, Rosita Pigni, Fabio Saporetti </li> <li>Tesoriera e segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class=\"last-paragraph\"><strong>2019 - 2020 -2021</strong></p> <ul> <li>Presidente: Walter Guenzani</li> <li>Vice-presidente: Milo Manica</li> <li> Organo di amministrazione: Roberto Aletti, Monica Carabella, Fabio Saporetti, Alessandra Stocchetti </li> <li>Tesoriere: Colin Douglas Parnell</li> <li>Segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class=\"last-paragraph\"><strong>2016 - 2017 -2018</strong></p> <ul> <li>Presidente: Monica Carabella</li> <li>Vice-presidente: Fabio Saporetti</li> <li> Consiglio direttivo: Roberto Aletti, Lorenzo Colombo, Walter Guenzani, Alessandro Madella sostituito da Michele Viganò nel febbraio 2018 </li> <li> Tesoriere: Alessandro Madella sostituito da Colin Douglas Parnell </li> <li>Segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class=\"last-paragraph\"><strong>2013 - 2014 -2015</strong></p> <ul> <li>Presidente: Monica Carabella</li> <li>Vice-presidente: Fabio Saporetti</li> <li> Consiglio direttivo: Roberto Aletti, Walter Guenzani, Alessandro Madella, Andrea Vidolini </li> <li>Tesoriere: Alessandro Madella</li> <li>Segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class=\"last-paragraph\"><strong>2010 - 2011 -2012</strong></p> <p class=\"last-paragraph\">Primo consiglio Direttivo:</p> <ul> <li>Presidente: Fabio Saporetti</li> <li>Vice-presidente: Monica Carabella</li> <li> Consiglio direttivo: Paolo Casali sostituito da Andrea Vidolini nel 2012, Silvio Colaone, Walter Guenzani </li> <li> Non esisteva la carica ufficiale di tesoriere e di segretario amministrativo </li> </ul>",
+};
+
 // Stato
 const activeSection = ref("");
 const isPanelOpen = ref(false);
@@ -145,9 +157,9 @@ onMounted(() => {
     <div class="row">
       <div class="col">
         <!-- Jumbo -->
-        <section class="title-section jumbo-bg">
+        <section class="title-section jumbo-bg" :style="bg('hero_image')">
           <div class="title uppercase">
-            <h1 id="about-us">chi siamo</h1>
+            <h1 id="about-us">{{ c("title", "chi siamo") }}</h1>
           </div>
         </section>
 
@@ -156,74 +168,20 @@ onMounted(() => {
           <!-- Article section -->
           <article class="paragraphs-container">
             <!-- First paragraph -->
-            <p class="first-paragraph">
-              <strong>Il Gruppo Insubrico di Ornitologia (G.I.O.)</strong> si
-              forma nel <strong>1999</strong> per iniziativa di Piero Alberti,
-              Walter Guenzani e Fabio Saporetti presso il
-              <strong
-                >Civico Museo Insubrico di Storia Naturale di Induno
-                Olona</strong
-              >, grazie all&rsquo;&nbsp;ospitalit&agrave; offerta dal Curatore
-              Gianluca Danini.
-              <br />
-              Per volontà di 9 soci fondatori l'
-              <strong>8 dicembre 2009</strong> l'associazione si costituisce
-              come <strong>Onlus</strong> presso il Registro di Varese,
-              spostandosi da Induno Olona a <strong>Clivio</strong>,
-              nell&rsquo;&nbsp;edificio che diverr&agrave; la sede del nuovo
-              Museo Civico di Storia Naturale di Clivio e Induno Olona.
-            </p>
+            <p class="first-paragraph" v-html="inline('history_1', DEFAULTS.history_1)"></p>
 
             <hr class="break-line" />
 
             <!-- Second paragraph -->
             <div class="second-paragraph-container d-flex">
-              <p class="second-paragraph">
-                Dal <strong>2022</strong> il G.I.O. &egrave; iscritto al
-                <strong>Runts</strong> come
-                <strong>Organizzazione di Volontariato (ODV)</strong> senza
-                scopo di lucro. Dopo
-                <strong>oltre 20 anni di attivit&agrave;</strong> conta
-                <strong>pi&ugrave; di 80 soci</strong> ed &egrave;
-                <strong
-                  >l&rsquo;&nbsp;associazione di riferimento per
-                  l&rsquo;&nbsp;ornitologia dell&rsquo;&nbsp;area
-                  varesina</strong
-                >
-                e ha tuttora <strong>sede ufficiale</strong> presso il
-                <strong
-                  >Civico Museo Insubrico di Storia Naturale di Clivio e Induno
-                  Olona</strong
-                >.
-              </p>
+              <p class="second-paragraph" v-html="inline('history_2', DEFAULTS.history_2)"></p>
             </div>
 
             <hr class="break-line" />
 
             <!-- Third paragraph -->
             <div class="second-paragraph-container d-flex">
-              <p class="second-paragraph">
-                Scopo principale dell&rsquo;&nbsp;associazione &egrave; quello
-                di
-                <strong>promuovere l&rsquo;&nbsp;indagine ornitologica</strong>
-                a livello provinciale ed insubrico, unitamente ad
-                <strong>attivit&agrave; di divulgazione</strong> con
-                l&rsquo;&nbsp;organizzazione di
-                <strong>conferenze, corsi didattici e convegni</strong>. Si
-                occupa di
-                <strong
-                  >censimenti, monitoraggi, studi ecologici, pubblicazioni
-                  scientifiche e divulgative</strong
-                >
-                sull&rsquo;&nbsp;avifauna e
-                <strong
-                  >collabora regolarmente con enti pubblici e privati e
-                  istituzioni territoriali</strong
-                >, tra cui la Provincia di Varese,
-                l&rsquo;&nbsp;Universit&agrave; degli Studi
-                dell&rsquo;&nbsp;Insubria, le Comunit&agrave; Montane del
-                Verbano e del Piambello.
-              </p>
+              <p class="second-paragraph" v-html="inline('history_3', DEFAULTS.history_3)"></p>
             </div>
 
             <hr class="break-line" />
@@ -231,92 +189,8 @@ onMounted(() => {
             <!-- Fourth paragraph -->
             <div
               class="second-paragraph-container second-paragraph fourth-block"
-            >
-              <p class="last-paragraph">
-                Dal <strong>2025</strong> il direttivo è così composto.
-              </p>
-              <ul>
-                <li>Presidente: Milo Manica</li>
-                <li>Vice-presidenti: Daniela Casola e Fabio Saporetti</li>
-                <li>
-                  Organo di amministrazione: Ilaria Cervellin, Silvio Cova,
-                  Nicola Larroux, Jacopo Sacchet
-                </li>
-                <li>Tesoriera e segretaria amministrativa: Rosita Pigni</li>
-              </ul>
-              <br />
-              <p class="last-paragraph">Negli anni passati:</p>
-              <br />
-              <p class="last-paragraph"><strong>2022 - 2023 -2024</strong></p>
-              <ul>
-                <li>Presidente: Milo Manica</li>
-                <li>
-                  Vice-presidenti: Luca Giussani fino al febbraio 2024, Walter
-                  Guenzani
-                </li>
-                <li>
-                  Organo di amministrazione: Daniela Casola, Luca Giussani
-                  sostituito da Giulia Belloni nel febbraio 2024, Rosita Pigni,
-                  Fabio Saporetti
-                </li>
-                <li>Tesoriera e segretaria amministrativa: Rosita Pigni</li>
-              </ul>
-              <br />
-              <p class="last-paragraph"><strong>2019 - 2020 -2021</strong></p>
-              <ul>
-                <li>Presidente: Walter Guenzani</li>
-                <li>Vice-presidente: Milo Manica</li>
-                <li>
-                  Organo di amministrazione: Roberto Aletti, Monica Carabella,
-                  Fabio Saporetti, Alessandra Stocchetti
-                </li>
-                <li>Tesoriere: Colin Douglas Parnell</li>
-                <li>Segretaria amministrativa: Rosita Pigni</li>
-              </ul>
-              <br />
-              <p class="last-paragraph"><strong>2016 - 2017 -2018</strong></p>
-              <ul>
-                <li>Presidente: Monica Carabella</li>
-                <li>Vice-presidente: Fabio Saporetti</li>
-                <li>
-                  Consiglio direttivo: Roberto Aletti, Lorenzo Colombo, Walter
-                  Guenzani, Alessandro Madella sostituito da Michele Viganò nel
-                  febbraio 2018
-                </li>
-                <li>
-                  Tesoriere: Alessandro Madella sostituito da Colin Douglas
-                  Parnell
-                </li>
-                <li>Segretaria amministrativa: Rosita Pigni</li>
-              </ul>
-              <br />
-              <p class="last-paragraph"><strong>2013 - 2014 -2015</strong></p>
-              <ul>
-                <li>Presidente: Monica Carabella</li>
-                <li>Vice-presidente: Fabio Saporetti</li>
-                <li>
-                  Consiglio direttivo: Roberto Aletti, Walter Guenzani,
-                  Alessandro Madella, Andrea Vidolini
-                </li>
-                <li>Tesoriere: Alessandro Madella</li>
-                <li>Segretaria amministrativa: Rosita Pigni</li>
-              </ul>
-              <br />
-              <p class="last-paragraph"><strong>2010 - 2011 -2012</strong></p>
-              <p class="last-paragraph">Primo consiglio Direttivo:</p>
-              <ul>
-                <li>Presidente: Fabio Saporetti</li>
-                <li>Vice-presidente: Monica Carabella</li>
-                <li>
-                  Consiglio direttivo: Paolo Casali sostituito da Andrea
-                  Vidolini nel 2012, Silvio Colaone, Walter Guenzani
-                </li>
-                <li>
-                  Non esisteva la carica ufficiale di tesoriere e di segretario
-                  amministrativo
-                </li>
-              </ul>
-            </div>
+              v-html="c('board', DEFAULTS.board)"
+            ></div>
           </article>
         </section>
 
@@ -324,8 +198,8 @@ onMounted(() => {
         <section class="team-container">
           <div class="team-image">
             <img
-              src="~/assets/images/chi-siamo/gruppo-gio-2023.jpg"
-              alt="Foto di gruppo del G.I.O. nel 2023."
+              :src="c('team_image', teamDefault)"
+              :alt="c('team_image_alt', 'Foto di gruppo del G.I.O. nel 2023.')"
             />
           </div>
         </section>
@@ -333,6 +207,7 @@ onMounted(() => {
         <!-- Subscribe section -->
         <section
           class="subscribe-section"
+          :style="bg('join_background', 'linear-gradient(90deg, #233162, #233162b6)')"
           :class="{
             'has-content': activeSection !== '',
             'content-year': activeSection === 'year',
@@ -347,6 +222,7 @@ onMounted(() => {
                   <div
                     class="activity-card card-1 d-flex uppercase"
                     :class="{ highlight: activeSection === 'year' }"
+                    :style="bg('join_card_image')"
                     @click="toggleSection('year')"
                   >
                     <div class="card-default d-flex">
@@ -383,6 +259,7 @@ onMounted(() => {
                 <div class="selection-bar">
                   <div
                     class="activity-card card-1 d-flex uppercase"
+                    :style="bg('join_card_image')"
                     @click="displayModal('year')"
                   >
                     <div class="card-default d-flex">
@@ -418,10 +295,29 @@ button {
   cursor: pointer;
 }
 
-ul {
+ul,
+.fourth-block :deep(ul) {
   width: 70%;
   list-style: disc;
   margin-top: 1rem;
+}
+
+// Il direttivo arriva da v-html (pannello o default): stili con :deep.
+// Si usano i tag (p, ul) e non le classi, che l'editor del pannello toglie.
+.fourth-block > :deep(p) {
+  width: 70%;
+}
+// L'editor del pannello mette il testo delle voci in <li><p>…</p></li>
+.fourth-block :deep(li > p) {
+  margin: 0;
+}
+// Il backend aggiunge agli elenchi la classe globale .specific-list
+// (margine sotto): qui gli elenchi restano come nel testo originale
+.fourth-block :deep(ul) {
+  margin-bottom: 0;
+}
+.fourth-block :deep(ul + p) {
+  margin-top: 1.5rem;
 }
 
 .first-paragraph,

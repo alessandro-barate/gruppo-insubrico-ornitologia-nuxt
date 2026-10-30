@@ -10,10 +10,11 @@ useHead({
   link: [{ rel: "canonical", href: "https://gruppoinsubrico.com/links" }],
 });
 
-import AdminPageContentsEditor from "~/components/admin/PageContentsEditor.vue";
-
 // Import links dal composable
 const { data: links } = await useLinks();
+
+// Titolo e immagini modificabili dal pannello: Testi delle pagine
+const { c, bg } = await usePageContent("links");
 
 // Categoria attiva. Parte sempre da "portali" così SSR e client
 // coincidono (niente hydration mismatch). Sotto i 577px la svuotiamo
@@ -111,11 +112,11 @@ onUnmounted(() => {
 <template>
   <div class="container">
     <div class="row">
-      <div class="col">
+      <div class="col" :style="bg('hero_image')">
         <!-- Title -->
         <section>
           <div class="title-container">
-            <h1 id="links" class="uppercase">social e link utili</h1>
+            <h1 id="links" class="uppercase">{{ c("title", "social e link utili") }}</h1>
           </div>
         </section>
 
@@ -127,6 +128,7 @@ onUnmounted(() => {
               :key="key"
               class="accordion-panel"
               :class="[`bg-${key}`, { active: activeCategory === key }]"
+              :style="bg(`panel_${key}_image`)"
               @click="setCategory(key as string)"
             >
               <!-- Overlay scuro -->
@@ -199,7 +201,15 @@ onUnmounted(() => {
 
       <!-- Contacts section -->
       <div class="col-2">
-        <section class="contacts-container">
+        <section
+          class="contacts-container"
+          :style="
+            bg(
+              'social_image',
+              'linear-gradient(90deg, rgba(0, 119, 255, 0.85), rgba(233, 233, 233, 0.85))',
+            )
+          "
+        >
           <div class="contacts-box d-flex">
             <div class="contacts-text uppercase">
               <!-- First box -->

@@ -11,6 +11,9 @@ const [{ data: page }, { data: sections }] = await Promise.all([
 ]);
 const router = useRouter();
 
+// Testata (immagine e titolo) modificabile dal pannello: Testi delle pagine
+const { c, bg } = await usePageContent("progetti");
+
 useSeoMeta({
   title: "Progetti | Gruppo Insubrico di Ornitologia",
   description:
@@ -43,9 +46,9 @@ function handleContentClick(e: MouseEvent) {
     <div class="row">
       <div class="col">
         <!-- Hero Section (specifica per questa pagina) -->
-        <section class="title-section jumbo-bg">
+        <section class="title-section jumbo-bg" :style="bg('hero_image')">
           <div class="title uppercase">
-            <h1 id="projects">progetti</h1>
+            <h1 id="projects">{{ c("title", "progetti") }}</h1>
           </div>
         </section>
 

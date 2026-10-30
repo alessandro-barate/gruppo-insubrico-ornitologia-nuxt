@@ -1,4 +1,7 @@
 <script setup>
+// Immagine di sfondo modificabile dal pannello (Testi delle pagine → Tutto il sito)
+const { bg } = await usePageContent("sito");
+
 const showPrivacy = ref(false);
 const showZoomedCard = ref(false);
 const showNewsletter = ref(false);
@@ -61,7 +64,7 @@ onUnmounted(() => {
   <footer>
     <div class="container">
       <div class="row">
-        <div class="col">
+        <div class="col" :style="bg('footer_image')">
           <div class="main-container">
             <!-- Details section -->
             <div class="details-container">

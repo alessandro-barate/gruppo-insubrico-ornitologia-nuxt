@@ -23,32 +23,30 @@ useHead({
   link: [{ rel: "canonical", href: "https://gruppoinsubrico.com/" }],
 });
 
+// Testi e immagini modificabili dal pannello (Testi delle pagine → Home).
+// Il secondo argomento di c() / inline() è il testo originale del sito,
+// usato finché il campo nel pannello è vuoto.
+const { c, inline, bg } = await usePageContent("home");
+
+// Immagini della copertina a rotazione
+const heroDefaults = [nibbio, nibbio2, nibbio3, nibbio4];
+const heroImages = computed(() =>
+  heroDefaults.map((img, i) => c(`hero_${i + 1}`, img)),
+);
+
 // Slider logic (solo se hasSlider = true)
 const currentIndex = ref(0);
 let slideInterval = null;
-let slides = [
-  {
-    image: nibbio,
-  },
-  {
-    image: nibbio2,
-  },
-  {
-    image: nibbio3,
-  },
-  {
-    image: nibbio4,
-  },
-];
+const slides = computed(() => heroImages.value.map((image) => ({ image })));
 
 // Direction-aware slider
 const hoveredSlide = ref(null);
 const slideDirection = ref("from-bottom");
 const sliderCurrentIndex = ref(0);
 
-const sliderItems = [
+// Testi originali delle card (default se il campo del pannello è vuoto)
+const sliderDefaults = [
   {
-    image: nibbio,
     title: "Non lasciare traccia in natura",
     description:
       "Passa nella natura con <strong>rispetto: osserva, impara, non lasciare traccia</strong>.",
@@ -56,7 +54,6 @@ const sliderItems = [
     quote: "",
   },
   {
-    image: nibbio2,
     title: "Restare curiosi come da bambini",
     description:
       "La <strong>curiosità</strong> nasce da bambini: custodiamola per continuare a <strong>scoprire la natura</strong>.",
@@ -65,7 +62,6 @@ const sliderItems = [
       "<strong>&laquo;Ciò che spinge tutti alla ricerca è la curiosità. È una cosa che nasce da bambini ed è bene tenersela da adulti, anzi direi anche a settant'anni, come faccio io...&raquo;</strong>",
   },
   {
-    image: nibbio3,
     title: "Osservare la natura dal quotidiano",
     description:
       "La natura è ovunque: <strong>impariamo a osservarla</strong>, a partire dal <strong>balcone di casa</strong>.",
@@ -73,13 +69,36 @@ const sliderItems = [
     quote: "",
   },
   {
-    image: nibbio4,
     title: "Oltre l'osservazione",
     description:
       "<strong>Conoscere per proteggere: ricerca e divulgazione</strong> per la <strong>tutela dell'avifauna insubrica</strong>.",
     text: "",
     quote: "",
   },
+];
+
+// Card N: campi card_N_title, card_N_description, card_N_text,
+// card_N_quote, card_N_image. Senza un'immagine propria, la card usa
+// la stessa immagine N della copertina.
+const sliderItems = computed(() =>
+  sliderDefaults.map((d, i) => {
+    const n = i + 1;
+    return {
+      image: c(`card_${n}_image`, heroImages.value[i]),
+      title: c(`card_${n}_title`, d.title),
+      description: inline(`card_${n}_description`, d.description),
+      text: c(`card_${n}_text`, d.text),
+      quote: inline(`card_${n}_quote`, d.quote),
+    };
+  }),
+);
+
+// Testo di presentazione (4 paragrafi): testi originali
+const missionDefaults = [
+  "Il Gruppo Insubrico di Ornitologia si ispira ai principi dell&rsquo;&nbsp;<strong>educazione ambientale</strong> e della <strong>promozione della cultura naturalistica</strong> tra i cittadini e persegue, nell&rsquo;&nbsp;ambito territoriale locale come scopo prioritario <strong>lo studio e la salvaguardia dell&rsquo;&nbsp;avifauna</strong>, nonch&eacute; la <strong>gestione e la valorizzazione di aree di interesse naturalistico</strong>.",
+  "Osservare un uccello in volo significa raccontare una storia di natura, territorio e <strong>biodiversit&agrave;</strong>. La nostra associazione mobilita una <strong>rete dinamica di cittadini, appassionati e ricercatori</strong>, uniti dal desiderio di comprendere a fondo le <strong>specie locali</strong> e i loro <strong>ecosistemi</strong>. Attraverso <strong>progetti mirati sul campo e divulgazione scientifica</strong>, lavoriamo quotidianamente per <strong>tutelare la biodiversit&agrave;</strong> e rinsaldare il legame profondo tra comunit&agrave; e territorio.",
+  "Crediamo che <strong>conoscere la natura sia il primo passo per proteggerla</strong>. Il sodalizio investe risorse ed energie nel <strong>monitoraggio scientifico</strong>, trasformando i dati raccolti in <strong>efficaci strumenti di conservazione</strong> e in preziosi elementi a disposizione delle autorit&agrave; competenti per una <strong>gestione consapevole del territorio</strong>, utili a pianificare <strong>interventi mirati di tutela ambientale</strong>. Questa sinergia tra <strong>ricerca e sensibilizzazione</strong> permette di salvaguardare concretamente l&rsquo;&nbsp;<strong>avifauna selvatica</strong>, valorizzando il patrimonio ecologico circostante.",
+  "<strong>Studiare, conoscere, proteggere</strong>. Sosteniamo un modello di <strong>sviluppo sostenibile</strong> in cui la <strong>cittadinanza attiva</strong> diventa <strong>custode consapevole del paesaggio</strong>, garantendo un futuro alle ricchezze biologiche della nostra regione.",
 ];
 
 // Numero di slide visibili in base alla viewport
@@ -111,7 +130,7 @@ const updateSlidesPerView = () => {
 };
 
 const nextSliderSlide = () => {
-  const maxIndex = sliderItems.length - slidesPerView.value;
+  const maxIndex = sliderItems.value.length - slidesPerView.value;
   if (sliderCurrentIndex.value < maxIndex) {
     sliderCurrentIndex.value++;
   }
@@ -125,7 +144,8 @@ const prevSliderSlide = () => {
 
 const canGoPrev = computed(() => sliderCurrentIndex.value > 0);
 const canGoNext = computed(
-  () => sliderCurrentIndex.value < sliderItems.length - slidesPerView.value,
+  () =>
+    sliderCurrentIndex.value < sliderItems.value.length - slidesPerView.value,
 );
 
 // Larghezza esatta di una card, in PIXEL, calcolata dal container reale:
@@ -153,7 +173,8 @@ const sliderTransform = computed(() => {
   const desired = sliderCurrentIndex.value * step;
 
   // track = n card + (n−1) gap
-  const trackWidth = sliderItems.length * card + (sliderItems.length - 1) * gap;
+  const count = sliderItems.value.length;
+  const trackWidth = count * card + (count - 1) * gap;
   const maxScroll = Math.max(0, trackWidth - containerWidth.value);
 
   const offset = Math.min(desired, maxScroll);
@@ -189,15 +210,15 @@ const handleSlideHover = (index, event) => {
 };
 
 const nextSlide = () => {
-  if (slides && slides.length > 0) {
-    currentIndex.value = (currentIndex.value + 1) % slides.length;
+  if (slides.value.length > 0) {
+    currentIndex.value = (currentIndex.value + 1) % slides.value.length;
   }
 };
 
 // Computed property per il background dinamico
 const currentBackgroundImage = computed(() => {
-  if (slides && slides.length > 0) {
-    const imagePath = slides[currentIndex.value].image;
+  if (slides.value.length > 0) {
+    const imagePath = slides.value[currentIndex.value].image;
     return `url(${imagePath})`;
   }
   return `url(${nibbio})`;
@@ -257,7 +278,7 @@ onMounted(() => {
   if (secondLine) observerLow.observe(secondLine);
   if (thirdLine) observerLow.observe(thirdLine);
 
-  if (slides && slides.length > 1) {
+  if (slides.value.length > 1) {
     slideInterval = setInterval(nextSlide, 4000);
   }
 });
@@ -366,68 +387,19 @@ onUnmounted(() => {
 
         <section class="mission-section">
           <div class="square">
-            <p class="first-paragraph">
-              Il Gruppo Insubrico di Ornitologia si ispira ai principi
-              dell&rsquo;&nbsp;<strong>educazione ambientale</strong> e della
-              <strong>promozione della cultura naturalistica</strong> tra i
-              cittadini e persegue, nell&rsquo;&nbsp;ambito territoriale locale
-              come scopo prioritario
-              <strong
-                >lo studio e la salvaguardia dell&rsquo;&nbsp;avifauna</strong
-              >, nonch&eacute; la
-              <strong
-                >gestione e la valorizzazione di aree di interesse
-                naturalistico</strong
-              >.
-            </p>
+            <p class="first-paragraph" v-html="inline('mission_1', missionDefaults[0])"></p>
 
             <hr class="first-line" />
 
-            <p class="second-paragraph">
-              Osservare un uccello in volo significa raccontare una storia di
-              natura, territorio e <strong>biodiversit&agrave;</strong>. La
-              nostra associazione mobilita una
-              <strong
-                >rete dinamica di cittadini, appassionati e ricercatori</strong
-              >, uniti dal desiderio di comprendere a fondo le
-              <strong>specie locali</strong> e i loro
-              <strong>ecosistemi</strong>. Attraverso
-              <strong
-                >progetti mirati sul campo e divulgazione scientifica</strong
-              >, lavoriamo quotidianamente per
-              <strong>tutelare la biodiversit&agrave;</strong> e rinsaldare il
-              legame profondo tra comunit&agrave; e territorio.
-            </p>
+            <p class="second-paragraph" v-html="inline('mission_2', missionDefaults[1])"></p>
 
             <hr class="second-line" />
 
-            <p class="third-paragraph">
-              Crediamo che
-              <strong
-                >conoscere la natura sia il primo passo per proteggerla</strong
-              >. Il sodalizio investe risorse ed energie nel
-              <strong>monitoraggio scientifico</strong>, trasformando i dati
-              raccolti in <strong>efficaci strumenti di conservazione</strong> e
-              in preziosi elementi a disposizione delle autorit&agrave;
-              competenti per una
-              <strong>gestione consapevole del territorio</strong>, utili a
-              pianificare
-              <strong>interventi mirati di tutela ambientale</strong>. Questa
-              sinergia tra <strong>ricerca e sensibilizzazione</strong> permette
-              di salvaguardare concretamente l&rsquo;&nbsp;<strong
-                >avifauna selvatica</strong
-              >, valorizzando il patrimonio ecologico circostante.
-            </p>
+            <p class="third-paragraph" v-html="inline('mission_3', missionDefaults[2])"></p>
 
             <hr class="third-line" />
 
-            <p class="fourth-paragraph">
-              <strong>Studiare, conoscere, proteggere</strong>. Sosteniamo un
-              modello di <strong>sviluppo sostenibile</strong> in cui la
-              <strong>cittadinanza attiva</strong> diventa
-              <strong>custode consapevole del paesaggio</strong>, garantendo un
-              futuro alle ricchezze biologiche della nostra regione.
-            </p>
+            <p class="fourth-paragraph" v-html="inline('mission_4', missionDefaults[3])"></p>
             <div class="button-container">
               <Button
                 to="/chi-siamo"
@@ -469,11 +441,18 @@ onUnmounted(() => {
 
         <!-- Activities section -->
         <section class="activities-section">
-          <div class="activities-container news-container d-flex">
+          <div
+            class="activities-container news-container d-flex"
+            :style="bg('activities_image')"
+          >
             <!-- Grid section -->
             <div class="activities-box">
               <div class="activities-list d-grid uppercase">
-                <NuxtLink to="/progetti" class="activity-card card-1 d-flex">
+                <NuxtLink
+                  to="/progetti"
+                  class="activity-card card-1 d-flex"
+                  :style="bg('activity_projects_image')"
+                >
                   <div class="card-default d-flex">
                     <span class="bg-blue">progetti di ricerca</span>
                   </div>
@@ -489,6 +468,7 @@ onUnmounted(() => {
                 <NuxtLink
                   to="/divulgazione"
                   class="activity-card card-3 d-flex"
+                  :style="bg('activity_outreach_image')"
                 >
                   <div class="card-default d-flex">
                     <span class="bg-blue">divulgazione</span>
@@ -505,6 +485,7 @@ onUnmounted(() => {
                 <NuxtLink
                   to="/pubblicazioni"
                   class="activity-card card-5 d-flex"
+                  :style="bg('activity_publications_image')"
                 >
                   <div class="card-default d-flex">
                     <span class="bg-blue">pubblicazioni scientifiche</span>

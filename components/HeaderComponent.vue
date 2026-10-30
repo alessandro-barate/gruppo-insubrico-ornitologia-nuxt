@@ -1,4 +1,7 @@
 <script setup lang="ts">
+// Immagine del menu modificabile dal pannello (Testi delle pagine → Tutto il sito)
+const { bg } = await usePageContent("sito");
+
 // Refs per gestire lo stato
 const isMenuOpen = ref(false);
 const isSearchOpen = ref(false);
@@ -126,7 +129,7 @@ onUnmounted(() => {
             </div>
 
             <!-- List page (fullscreen menu mobile) -->
-            <div class="list-page">
+            <div class="list-page" :style="bg('menu_image')">
               <div class="menu-logo">
                 <span>G I O</span>
               </div>

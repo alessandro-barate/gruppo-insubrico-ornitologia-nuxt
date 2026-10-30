@@ -5,6 +5,9 @@ const [{ data: page }, { data: subsections }] = await Promise.all([
   getSubsections(),
 ]);
 
+// Testata (immagine e titolo) modificabile dal pannello: Testi delle pagine
+const { c, bg } = await usePageContent("divulgazione");
+
 useSeoMeta({
   title: "Divulgazione | Gruppo Insubrico di Ornitologia",
   description:
@@ -24,9 +27,9 @@ useHead({
     <div class="row">
       <div class="col">
         <!-- Hero Section (specifica per questa pagina) -->
-        <section class="title-section jumbo-bg">
+        <section class="title-section jumbo-bg" :style="bg('hero_image')">
           <div class="title uppercase">
-            <h1 id="scientific-dissemination">divulgazione</h1>
+            <h1 id="scientific-dissemination">{{ c("title", "divulgazione") }}</h1>
           </div>
         </section>
 

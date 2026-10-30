@@ -2,6 +2,9 @@
 const { getHome } = usePubblicazioni();
 const { data } = await getHome();
 
+// Testata (immagine e titolo) modificabile dal pannello: Testi delle pagine
+const { c, bg } = await usePageContent("pubblicazioni");
+
 useSeoMeta({
   title: "Pubblicazioni | Gruppo Insubrico di Ornitologia",
   description:
@@ -21,9 +24,9 @@ useHead({
     <div class="row">
       <div class="col">
         <!-- Hero Section (specifica per questa pagina) -->
-        <section class="title-section jumbo-bg">
+        <section class="title-section jumbo-bg" :style="bg('hero_image')">
           <div class="title uppercase">
-            <h1 id="publications">pubblicazioni</h1>
+            <h1 id="publications">{{ c("title", "pubblicazioni") }}</h1>
           </div>
         </section>
 
