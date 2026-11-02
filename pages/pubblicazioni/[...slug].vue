@@ -17,7 +17,7 @@ const segments = computed(() => {
   return Array.isArray(raw) ? raw : [raw].filter(Boolean);
 });
 
-const { getNode, buildCrumbs } = usePubblicazioni();
+const { getNode } = usePubblicazioni();
 const { data } = await getNode(segments.value);
 
 if (!data.value) {
@@ -41,8 +41,8 @@ const nodeClass = computed(() =>
 );
 const nodeId = computed(() => node.value?.slug ?? undefined);
 
-// Breadcrumb: le voci dopo la home. L'ultima è la pagina corrente.
-const crumbs = computed(() => buildCrumbs(segments.value));
+// Breadcrumb: le voci dopo la home (dal backend). L'ultima è la pagina corrente.
+const crumbs = computed(() => data.value?.crumbs ?? []);
 
 // ─── Paginazione ────────────────────────────────────────
 const PER_PAGE = 4;

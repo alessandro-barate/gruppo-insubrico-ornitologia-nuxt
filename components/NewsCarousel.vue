@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import carouselData from "~/data/carousel.js";
 
 // Props
 const props = defineProps({
@@ -10,8 +9,17 @@ const props = defineProps({
   },
 });
 
+// Le ultime news dal backend (pannello → Contenuti → News), dalla più
+// recente. Ogni card porta alla pagina della news (pulsante "+").
+const CAROUSEL_SIZE = 10;
+const { data: newsData } = await useApiData("news-carousel", "/news", {
+  query: { perPage: CAROUSEL_SIZE },
+});
+
 // State
-const slides = ref(carouselData);
+const slides = computed(() =>
+  (newsData.value?.data ?? []).map((n) => ({ ...n, link: `/news/${n.slug}` })),
+);
 const isPaused = ref(false);
 const isDragging = ref(false);
 const track = ref(null);

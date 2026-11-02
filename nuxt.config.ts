@@ -1,15 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  // Abilita SSR per generazione statica
+  // SSR: ogni pagina viene generata dal server (Vercel) a ogni richiesta,
+  // leggendo i dati aggiornati da Laravel. Così ciò che gli admin salvano
+  // nel pannello compare subito sul sito, senza rifare il deploy.
+  // (Prima le pagine erano pre-generate al momento del build:
+  //  con i contenuti nel pannello sarebbero rimaste ferme all'ultimo deploy.)
   ssr: true,
-
-  // Configurazione Nitro per SSG
-  nitro: {
-    prerender: {
-      crawlLinks: true,
-      routes: ["/"],
-    },
-  },
 
   // Head globale (sostituisce index.html)
   app: {
@@ -91,6 +87,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
+      // Indirizzo delle API Laravel, es. https://api.gruppoinsubrico.com/api
+      // In locale: .env → NUXT_PUBLIC_API_BASE=http://127.0.0.1:8000/api
+      // Su Vercel: Settings → Environment Variables → NUXT_PUBLIC_API_BASE
       apiBase: process.env.NUXT_PUBLIC_API_BASE,
     },
   },

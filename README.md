@@ -1,125 +1,59 @@
 # GIO - Gruppo Insubrico di Ornitologia (Nuxt 3)
 
-Migrazione del sito GIO da Vue 3 + Vite a Nuxt 3 per SSG (Static Site Generation) e SEO ottimizzata.
+Sito del Gruppo Insubrico di Ornitologia. Tutti i contenuti (news, pubblicazioni,
+progetti, divulgazione, link, testi e immagini delle pagine) arrivano dal backend
+Laravel (`gruppo-insubrico-ornitologia-laravel`) e si gestiscono dal pannello
+Filament (`/admin` del backend).
 
 ## Requisiti
 
 - Node.js 18+
-- npm o pnpm
+- Il backend Laravel avviato (in locale: `php artisan serve`, porta 8000)
 
-## Installazione
+## Configurazione
+
+Il frontend legge le API all'indirizzo `NUXT_PUBLIC_API_BASE`:
 
 ```bash
-npm install
+# .env (sviluppo)
+NUXT_PUBLIC_API_BASE=http://127.0.0.1:8000/api
 ```
+
+Nel `.env` del backend, `CORS_ALLOWED_ORIGINS` deve contenere l'indirizzo del
+frontend (in locale `http://localhost:3000`).
 
 ## Sviluppo
 
 ```bash
+npm install
 npm run dev
 ```
 
-Il sito sarà disponibile su `http://localhost:3000`
+Il sito è su `http://localhost:3000`. Senza il backend acceso le pagine danno errore:
+non ci sono più dati di prova nel frontend.
 
-## Build per produzione (SSG)
+## Produzione (Vercel)
 
-```bash
-npm run generate
-```
+Il sito gira in **SSR**: ogni pagina è generata a ogni richiesta con i dati aggiornati
+del backend, così le modifiche fatte nel pannello compaiono subito, senza nuovo deploy.
 
-I file statici verranno generati in `.output/public/`
+- Vercel → Settings → Environment Variables:
+  `NUXT_PUBLIC_API_BASE=https://<dominio del backend>/api`
+- Build: `npm run build` (impostazione predefinita di Vercel per Nuxt).
+- Non usare `npm run generate`: un sito statico mostrerebbe i contenuti fermi
+  all'ultimo deploy.
 
-## Preview della build
+## Dove arrivano i dati
 
-```bash
-npm run preview
-```
-
-## Struttura del progetto
-
-```
-gio-nuxt/
-├── pages/                    # Pagine (routing automatico)
-│   ├── index.vue             # Homepage (/)
-│   ├── chi-siamo.vue         # Chi Siamo (/chi-siamo)
-│   ├── news.vue              # News (/news)
-│   ├── links.vue             # Links (/links)
-│   ├── socials.vue           # Social (/socials)
-│   ├── progetti/             # Sezione Progetti
-│   │   ├── index.vue         # /progetti
-│   │   ├── iwc.vue           # /progetti/iwc
-│   │   ├── rondoni.vue       # /progetti/rondoni
-│   │   └── zps.vue           # /progetti/zps
-│   ├── pubblicazioni/        # Sezione Pubblicazioni
-│   │   ├── index.vue         # /pubblicazioni
-│   │   ├── bol.vue           # /pubblicazioni/bol
-│   │   ├── quaderni.vue      # /pubblicazioni/quaderni
-│   │   └── resoconto-ornitologico.vue
-│   └── divulgazione/         # Sezione Divulgazione
-│       ├── index.vue         # /divulgazione
-│       ├── convegni.vue      # /divulgazione/convegni
-│       ├── corsi.vue         # /divulgazione/corsi
-│       ├── eventi.vue        # /divulgazione/eventi
-│       └── rassegna-stampa.vue
-├── layouts/
-│   └── default.vue           # Layout principale
-├── components/               # Componenti (auto-importati)
-│   ├── HeaderComponent.vue
-│   ├── FooterComponent.vue
-│   └── CookieBanner.vue
-├── composables/              # Composables (auto-importati)
-│   └── useSiteStore.ts       # Store e configurazioni
-├── assets/
-│   └── scss/
-│       ├── main.scss         # Entry point SCSS
-│       └── _partials/        # Partials SCSS
-├── public/                   # File statici
-│   ├── gio-logo.png          # Favicon
-│   └── documents/            # PDF e documenti
-└── nuxt.config.ts            # Configurazione Nuxt
-```
-
-## Migrazione da Vue Router
-
-| Vue Router | Nuxt 3 |
-|------------|--------|
-| `<router-link :to="{ name: 'X' }">` | `<NuxtLink to="/path">` |
-| `<router-view>` | `<slot />` (in layout) |
-| `src/router/index.js` | Rimosso (routing automatico) |
-| `beforeEach` guard | `middleware/` o `useSeoMeta()` |
-
-## SEO
-
-Ogni pagina gestisce i propri meta tag con:
-
-```vue
-<script setup>
-useSeoMeta({
-  title: 'Titolo Pagina | GIO',
-  description: 'Descrizione...',
-  ogTitle: 'Titolo per Open Graph',
-})
-
-useHead({
-  link: [
-    { rel: 'canonical', href: 'https://gruppoinsubrico.com/path' }
-  ]
-})
-</script>
-```
-
-## Prossimi passi
-
-1. **Copiare gli stili completi** dalle pagine Vue originali
-2. **Copiare le immagini** in `assets/images/`
-3. **Collegare il backend Laravel** per contenuti dinamici
-4. **Testare la generazione statica** con `npm run generate`
-
-## Deploy
-
-Per il deploy su hosting statico (Netlify, Vercel, ecc.):
-
-```bash
-npm run generate
-# Upload della cartella .output/public/
-```
+| Composable / pagina | API Laravel |
+|---|---|
+| `useApi.ts` → `useApiData()` | helper comune (404 → `null`) |
+| `usePageContent.ts` | `GET /pages/{pagina}` (testi e immagini delle pagine) |
+| `pages/news/*`, `NewsCarousel.vue` | `GET /news`, `GET /news/{slug}` |
+| `usePubblicazioni.ts` | `GET /pubblicazioni`, `GET /pubblicazioni/{path}` |
+| `useProgetti.ts` | `GET /progetti`, `/progetti/sections`, `/progetti/{sezione}/{progetto?}` |
+| `useDivulgazione.ts` | `GET /divulgazione`, `/divulgazione/subsections`, `/divulgazione/{slug}` |
+| `useLinks.ts` | `GET /links` |
+| `useSearch.ts`, `pages/cerca.vue` | `GET /search?q=` |
+| `pages/form.vue` | `POST /contact` |
+| `useNewsletter.ts` | `POST /newsletter/subscribe` (Mailchimp) |
