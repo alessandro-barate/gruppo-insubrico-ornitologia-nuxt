@@ -50,6 +50,9 @@ const ATTACHMENT_ICON = {
   external: "/images/link-icon.png",
 };
 const iconFor = (type) => ATTACHMENT_ICON[type] ?? ATTACHMENT_ICON.pdf;
+
+// Il link «News» del breadcrumb riporta alla pagina dell'elenco da cui si arriva
+const backTo = useBackLink();
 </script>
 
 <template>
@@ -81,7 +84,7 @@ const iconFor = (type) => ATTACHMENT_ICON[type] ?? ATTACHMENT_ICON.pdf;
           <div class="news-detail__content">
             <!-- Breadcrumb -->
             <nav class="breadcrumb">
-              <NuxtLink to="/news" class="breadcrumb__link">
+              <NuxtLink :to="backTo('/news')" class="breadcrumb__link">
                 <img
                   src="~/assets/images/scientific-dissemination/chevron-left.svg"
                   alt="Bottone per tornare alla lista delle news"

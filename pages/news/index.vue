@@ -19,8 +19,14 @@ const heroStyle = computed(() => ({
   backgroundImage: `url(${c("hero_image", defaultHero)})`,
 }));
 
-// Pagina corrente (reattiva: al cambio, useFetch rifà la chiamata).
-const page = ref(1);
+// Pagina corrente, letta dall'URL (?pagina=2): tornando indietro da una
+// news si ritrova la stessa pagina. Al cambio, useFetch rifà la chiamata.
+const route = useRoute();
+const router = useRouter();
+const page = computed(() => {
+  const n = Number.parseInt(String(route.query.pagina ?? ""), 10);
+  return Number.isFinite(n) && n >= 1 ? n : 1;
+});
 const perPage = 6;
 
 // La server route restituisce già le news ordinate per data decrescente
@@ -41,7 +47,9 @@ const { listTop, scrollIfNeeded } = useConditionalScroll();
 
 const goToPage = (p) => {
   if (p < 1 || p > totalPages.value) return;
-  page.value = p;
+  router.replace({
+    query: { ...route.query, pagina: p > 1 ? String(p) : undefined },
+  });
   scrollIfNeeded();
 };
 </script>

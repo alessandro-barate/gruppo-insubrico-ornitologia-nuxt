@@ -43,6 +43,8 @@ const nodeId = computed(() => node.value?.slug ?? undefined);
 
 // Breadcrumb: le voci dopo la home (dal backend). L'ultima è la pagina corrente.
 const crumbs = computed(() => data.value?.crumbs ?? []);
+// Link del breadcrumb che riportano alla pagina della lista da cui si arriva
+const backTo = useBackLink();
 
 // ─── Paginazione ────────────────────────────────────────
 const PER_PAGE = 4;
@@ -208,7 +210,7 @@ useSeoMeta({
               <!-- l'ultima voce è la pagina corrente: testo, non link -->
               <NuxtLink
                 v-if="i < crumbs.length - 1"
-                :to="crumb.to"
+                :to="backTo(crumb.to)"
                 class="breadcrumb__link"
               >
                 {{ crumb.title }}
