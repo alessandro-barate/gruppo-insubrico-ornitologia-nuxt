@@ -1,4 +1,4 @@
-import { computed, ref, unref, type MaybeRef } from "vue";
+import { computed, onMounted, ref, unref, watch, type MaybeRef } from "vue";
 
 // ─────────────────────────────────────────────────────────
 // Paginazione condivisa da tutte le sezioni del sito
@@ -35,6 +35,14 @@ import { computed, ref, unref, type MaybeRef } from "vue";
 //   const pageGroups = computed(() => pages.value[currentPage.value - 1] ?? [])
 // `pageCount` sostituisce il calcolo count/perPage; `pageRange` e
 // `paginate` non vanno usati per quella lista.
+//
+// PAGINA NELL'URL
+// La pagina corrente sta nell'indirizzo come ?pagina=2 (la prima pagina
+// non lo aggiunge). Così, aprendo un elemento della pagina 2 e tornando
+// indietro (tasto del browser o link del breadcrumb, vedi useBackLink),
+// si ritrova la pagina 2 e non la prima. Il cambio pagina sostituisce
+// l'indirizzo senza aggiungere voci alla cronologia e senza scroll.
+// Per disattivarlo: usePagination(count, { query: false }).
 // ─────────────────────────────────────────────────────────
 
 interface UsePaginationOptions {
@@ -43,6 +51,16 @@ interface UsePaginationOptions {
   // numero, ha la precedenza su count/perPage; se è null/undefined
   // si torna al calcolo standard. Reattivo: ref, computed o valore.
   pageCount?: MaybeRef<number | null | undefined>;
+  // Nome del parametro dell'URL con la pagina corrente ("pagina" se
+  // omesso); false = la pagina non va nell'URL.
+  query?: string | false;
+}
+
+// Numero di pagina valido da un parametro dell'URL (o null)
+function pageFromQuery(value: unknown): number | null {
+  const raw = Array.isArray(value) ? value[0] : value;
+  const n = Number.parseInt(String(raw ?? ""), 10);
+  return Number.isFinite(n) && n >= 1 ? n : null;
 }
 
 export function usePagination(
@@ -51,8 +69,15 @@ export function usePagination(
   options: UsePaginationOptions = {},
 ) {
   const perPage = options.perPage ?? 4;
+  const queryKey = options.query === undefined ? "pagina" : options.query;
 
-  const currentPage = ref(1);
+  const route = useRoute();
+  const router = useRouter();
+
+  // Si parte dalla pagina scritta nell'URL, se c'è
+  const currentPage = ref(
+    (queryKey && pageFromQuery(route.query[queryKey])) || 1,
+  );
 
   // Scroll condizionale condiviso: espone listTop (da agganciare al
   // contenitore della lista) e scrollIfNeeded().
@@ -75,6 +100,52 @@ export function usePagination(
   // Affetta una lista qualsiasi sulla pagina corrente.
   function paginate<T>(list: readonly T[]): T[] {
     return list.slice(pageRange.value.start, pageRange.value.end);
+  }
+
+  // Una pagina oltre l'ultima (URL vecchio, elementi eliminati dal
+  // pannello…) diventa l'ultima
+  watch(
+    totalPages,
+    (total) => {
+      if (currentPage.value > total) currentPage.value = total;
+    },
+    { immediate: true },
+  );
+
+  if (queryKey) {
+    // Solo finché si resta su questa pagina: uscendo, la route cambia
+    // prima che il componente venga smontato e non va toccata
+    const path = route.path;
+
+    // pagina → URL (anche quando una pagina rimette currentPage a 1)
+    watch(currentPage, (page) => {
+      if (route.path !== path) return;
+      if (pageFromQuery(route.query[queryKey]) === (page > 1 ? page : null))
+        return;
+      router.replace({
+        query: { ...route.query, [queryKey]: page > 1 ? String(page) : undefined },
+      });
+    });
+    // Nel browser, se l'URL indicava una pagina che non esiste
+    // (es. ?pagina=99), lo si corregge con quella mostrata davvero
+    onMounted(() => {
+      const shown = currentPage.value > 1 ? currentPage.value : null;
+      if (route.path === path && pageFromQuery(route.query[queryKey]) !== shown) {
+        router.replace({
+          query: { ...route.query, [queryKey]: shown ? String(shown) : undefined },
+        });
+      }
+    });
+
+    // URL → pagina (avanti/indietro del browser sulla stessa lista)
+    watch(
+      () => route.query[queryKey],
+      (value) => {
+        if (route.path !== path) return;
+        const page = Math.min(pageFromQuery(value) ?? 1, totalPages.value);
+        if (page !== currentPage.value) currentPage.value = page;
+      },
+    );
   }
 
   function goToPage(page: number) {

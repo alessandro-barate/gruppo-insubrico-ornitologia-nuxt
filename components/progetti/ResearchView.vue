@@ -22,6 +22,8 @@ const props = defineProps<{
 }>();
 
 const { getNode } = useProgetti();
+// Link del breadcrumb che riportano alla pagina della lista da cui si arriva
+const backTo = useBackLink();
 const { data } = await getNode(props.segments);
 
 if (!data.value) {
@@ -111,7 +113,7 @@ useSeoMeta({
       <nav class="breadcrumb" aria-label="Percorso di navigazione">
         <template v-for="(crumb, i) in rootCrumbs" :key="crumb.to">
           <span v-if="i > 0" class="breadcrumb__sep" aria-hidden="true">/</span>
-          <NuxtLink :to="crumb.to" class="breadcrumb__link">
+          <NuxtLink :to="backTo(crumb.to)" class="breadcrumb__link">
             <img
               v-if="i === 0"
               src="~/assets/images/scientific-dissemination/chevron-left.svg"
@@ -123,7 +125,11 @@ useSeoMeta({
 
         <span class="breadcrumb__sep" aria-hidden="true">/</span>
         <!-- se siamo su un progetto, la sezione è un link intermedio -->
-        <NuxtLink v-if="isProject" :to="sectionPath" class="breadcrumb__link">
+        <NuxtLink
+          v-if="isProject"
+          :to="backTo(sectionPath)"
+          class="breadcrumb__link"
+        >
           {{ section.title }}
         </NuxtLink>
         <span v-else class="breadcrumb__current" aria-current="page">
