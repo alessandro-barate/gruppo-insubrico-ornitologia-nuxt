@@ -14,14 +14,30 @@ if (!subsection.value) {
   });
 }
 
+// Sottosezioni mostrate dalla più recente alla più vecchia (es. le
+// locandine dei Corsi). Le altre restano nell'ordine del pannello.
+const NEWEST_FIRST = ["corsi-ornitologia"];
+
+// Ordine per anno decrescente. Prima inverto la lista, così a parità
+// di anno viene prima la voce inserita/ordinata dopo nel pannello (la
+// più recente); sort() è stabile e mantiene quell'ordine. Le voci
+// senza anno vanno in fondo.
+const items = computed(() => {
+  const list = subsection.value?.items ?? [];
+  if (!NEWEST_FIRST.includes(slug)) return list;
+  return [...list]
+    .reverse()
+    .sort((a, b) => (Number(b.year) || 0) - (Number(a.year) || 0));
+});
+
 // Paginazione (logica condivisa in usePagination)
-const itemCount = computed(() => subsection.value?.items.length ?? 0);
+const itemCount = computed(() => items.value.length);
 const { currentPage, totalPages, paginate, goToPage, listTop } = usePagination(
   itemCount,
   { perPage: 4 },
 );
 
-const paginatedItems = computed(() => paginate(subsection.value?.items ?? []));
+const paginatedItems = computed(() => paginate(items.value));
 
 useSeoMeta({
   title: () => subsection.value?.title,

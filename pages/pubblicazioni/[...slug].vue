@@ -17,7 +17,7 @@ const segments = computed(() => {
   return Array.isArray(raw) ? raw : [raw].filter(Boolean);
 });
 
-const { getNode, buildCrumbs } = usePubblicazioni();
+const { getNode } = usePubblicazioni();
 const { data } = await getNode(segments.value);
 
 if (!data.value) {
@@ -41,8 +41,28 @@ const nodeClass = computed(() =>
 );
 const nodeId = computed(() => node.value?.slug ?? undefined);
 
-// Breadcrumb: le voci dopo la home. L'ultima è la pagina corrente.
-const crumbs = computed(() => buildCrumbs(segments.value));
+// Titolo grande della pagina. Nella bibliografia (Altre Pubblicazioni)
+// si usa il "Titolo sopra la lista" del pannello, es. "Bibliografia
+// del G.I.O."; se è vuoto resta il titolo della sezione.
+const pageTitle = computed(() => {
+  const n = node.value;
+  if (n?.type === "bibliography" && n.second_intro_text?.trim()) {
+    return n.second_intro_text;
+  }
+  return n?.title ?? "";
+});
+
+// Contenitori (group) in cui le card dei figli vanno SOPRA al testo
+// descrittivo invece che sotto (es. Quaderni: prima le copertine).
+const GRID_BEFORE_INTRO = ["quaderni"];
+const gridBeforeIntro = computed(
+  () =>
+    node.value?.type === "group" &&
+    GRID_BEFORE_INTRO.includes(node.value.slug),
+);
+
+// Breadcrumb: le voci dopo la home (dal backend). L'ultima è la pagina corrente.
+const crumbs = computed(() => data.value?.crumbs ?? []);
 // Link del breadcrumb che riportano alla pagina della lista da cui si arriva
 const backTo = useBackLink();
 
@@ -221,12 +241,12 @@ useSeoMeta({
             </template>
           </nav>
 
-          <h1>{{ node.title }}</h1>
+          <h1>{{ pageTitle }}</h1>
           <div v-if="node.header_image" class="main-image">
             <img :src="node.header_image" :alt="node.title" loading="lazy" />
           </div>
           <div
-            v-if="node.intro_text"
+            v-if="node.intro_text && !gridBeforeIntro"
             class="subsection__intro-text"
             v-html="node.intro_text"
             @click="handleContentClick"
@@ -323,9 +343,6 @@ useSeoMeta({
               class="subsection__biblio"
               id="other-biblio"
             >
-              <div class="second-title">
-                <h3>{{ node.second_intro_text }}</h3>
-              </div>
               <PubblicazioniBiblioItem
                 v-for="item in biblioItems"
                 :key="item.id"
@@ -374,6 +391,14 @@ useSeoMeta({
             </button>
           </nav>
         </template>
+
+        <!-- Testo descrittivo sotto le card (vedi GRID_BEFORE_INTRO) -->
+        <div
+          v-if="gridBeforeIntro && node.intro_text"
+          class="subsection__intro-text subsection__intro-text--after"
+          v-html="node.intro_text"
+          @click="handleContentClick"
+        />
       </section>
     </template>
   </div>
@@ -390,13 +415,14 @@ h1 {
   min-height: 395px;
 }
 
+// Testo descrittivo spostato sotto le card (vedi GRID_BEFORE_INTRO)
+.subsection__intro-text--after {
+  margin-top: 3rem;
+}
+
 #other-biblio {
   margin-top: 4rem;
   list-style-type: disc;
-
-  .second-title {
-    margin-bottom: 1rem;
-  }
 
   li {
     font-style: italic;

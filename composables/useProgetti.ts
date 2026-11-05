@@ -30,7 +30,7 @@ export const DESCRIPTION_ONLY_SECTIONS = [
 
 // Quale parte di un progetto mostrare:
 //   "all"         → intro + tutti i blocchi (testo e link)
-//   "description" → intro + i blocchi SENZA link
+//   "description" → intro + i blocchi con link
 export type ProjectPart = "all" | "description";
 
 export function projectPartFor(sectionSlug: string): ProjectPart {
@@ -47,7 +47,13 @@ export function blocksFor(project: Project, part: ProjectPart): ContentBlock[] {
   }));
 
   if (part === "all") return blocks;
-  return blocks.filter((b) => !b.links?.length);
+  // Solo descrizione: i blocchi senza link restano; quelli con link
+  // restano solo se almeno un link è da mostrare, e con quei soli link
+  return blocks.flatMap((b) => {
+    if (!b.links?.length) return [b];
+    const shown = b.links.filter((l) => l.show_on_page);
+    return shown.length ? [{ ...b, links: shown }] : [];
+  });
 }
 
 // Pagina /progetti: testo introduttivo + galleria
@@ -82,6 +88,8 @@ export interface TypedLink {
   kind: LinkKind;
   label: string;
   url: string;
+  // Dal pannello: mostra il link anche nelle sezioni "solo descrizione"
+  show_on_page?: boolean;
 }
 
 // Blocco del corpo di un progetto: testo + eventuali link propri.
@@ -199,22 +207,17 @@ const PROJECTS: Project[] = [
     title: "IWC — International Waterbird Census in provincia di Varese",
     image_path: "/images/progetti/in-corso/iwc.webp",
     intro:
-      "<p>Il censimento internazionale degli uccelli acquatici è un progetto organizzato a livello continentale da Wetland International, in Italia è coordinato dall'ISPRA  (Istituto Superiore per la Protezione e la Ricerca Ambientale) mentre in Lombardia è curato dal Dipartimento di Biologia Animale dell'Università di Pavia.<br><br>Il G.I.O. ha compiuto il primo censimento degli uccelli acquatici svernanti in provincia di Varese nel 1986.<br>Questo censimento viene svolto nel mese di gennaio, quando le popolazioni dell'avifauna sono generalmente statiche sul territorio, con lo scopo di anticipare la migrazione pre-riproduttiva degli acquatici che stazionano in grandi stormi a latitudini più basse, al fine di:</p><ul class='specific-list'><li>stabilire annualmente la dimensione delle popolazioni presenti in gennaio</li><li>identificare le variazioni nella dimensione e nella distribuzione delle popolazioni</li><li>determinare l'importanza a livello internazionale e nazionale dei vari siti</li><li>contribuire agli sforzi internazionali per la conservazione degli uccelli acquatici e dei loro habitat</li></ul><p>Il principio cardine è la contemporaneità del censimento nelle varie aree geografiche, necessario per evitare conteggi multipli degli stessi individui.<br>In provincia di Varese Walter Guenzani (Socio G.I.O.) e Nicola Larroux (Consigliere G.I.O.) si occupano del coordinamento dei rilevatori e della trasmissione dei dati all'Università di Pavia che, a partire dal 2002, pubblica un resoconto annuale.<br><br>Le zone umide censite in provincia di Varese sono:<ul class='specific-list'><li>Lago Maggiore</li><li>Lago di Lugano</li><li>Lago di VBarese</li><li>Palude Brabbia con il coordinamento di LIPU</li><li>Lago di Monate</li><li>Lago di Comabbio</li><li>Il fiume Ticino tra Porto della Torre e Sesto Calende</li><li>Le vasche di laminazione di Lonate Pozzolo</li><li>Lago di Ganna</li><li>Lago di Ghirla</li></ul><p>Il Q1, il primo dei Quaderni del GIO è dedicato all'avifauna acquatica della provincia di Varese ed è basato sui censimenti internazionali IWC effettuati tra il 1986 e il 2010.<br><br>Nel 2025 il G.I.O. ha celebrato 40 anni di conteggio degli uccelli acquatici svernanti nelle zone umide della provincia di Varese, raccogliendo dati per un lungo periodo che testimoniano i grandi cambiamenti avvenuti.<br><br>I risultati sono consultabili alla pagina <a href='/pubblicazioni/altre-pubblicazioni' class='specific-link'>Altre Pubblicazioni</a>.</p>",
+      "<p>Il censimento internazionale degli uccelli acquatici è un progetto organizzato a livello continentale da Wetland International, in Italia è coordinato dall'ISPRA  (Istituto Superiore per la Protezione e la Ricerca Ambientale) mentre in Lombardia è curato dal Dipartimento di Biologia Animale dell'Università di Pavia.<br><br>Il G.I.O. ha compiuto il primo censimento degli uccelli acquatici svernanti in provincia di Varese nel 1986.<br>Questo censimento viene svolto nel mese di gennaio, quando le popolazioni dell'avifauna sono generalmente statiche sul territorio, con lo scopo di anticipare la migrazione pre-riproduttiva degli acquatici che stazionano in grandi stormi a latitudini più basse, al fine di:</p><ul class='specific-list'><li>stabilire annualmente la dimensione delle popolazioni presenti in gennaio</li><li>identificare le variazioni nella dimensione e nella distribuzione delle popolazioni</li><li>determinare l'importanza a livello internazionale e nazionale dei vari siti</li><li>contribuire agli sforzi internazionali per la conservazione degli uccelli acquatici e dei loro habitat</li></ul><p>Il principio cardine è la contemporaneità del censimento nelle varie aree geografiche, necessario per evitare conteggi multipli degli stessi individui.<br>In provincia di Varese Walter Guenzani (Socio G.I.O.) e Nicola Larroux (Consigliere G.I.O.) si occupano del coordinamento dei rilevatori e della trasmissione dei dati all'Università di Pavia che, a partire dal 2002, pubblica un resoconto annuale.<br><br>Le zone umide censite in provincia di Varese sono:<ul class='specific-list'><li>Lago Maggiore</li><li>Lago di Lugano</li><li>Lago di VBarese</li><li>Palude Brabbia con il coordinamento di LIPU</li><li>Lago di Monate</li><li>Lago di Comabbio</li><li>Il fiume Ticino tra Porto della Torre e Sesto Calende</li><li>Le vasche di laminazione di Lonate Pozzolo</li><li>Lago di Ganna</li><li>Lago di Ghirla</li></ul><p>Il Q1, il primo dei Quaderni del GIO è dedicato all'avifauna acquatica della provincia di Varese ed è basato sui censimenti internazionali IWC effettuati tra il 1986 e il 2010.<br><br>Nel 2025 il G.I.O. ha celebrato 40 anni di conteggio degli uccelli acquatici svernanti nelle zone umide della provincia di Varese, raccogliendo dati per un lungo periodo che testimoniano i grandi cambiamenti avvenuti.<br><br>La tabella seguente mostra le specie e il numero di individui censiti negli IWC della provincia di Varese dal 2011 al 2025.</p>",
     blocks: [
       {
         text: "",
         links: [
           {
-            kind: "pdf",
+            kind: "excel",
             label:
-              "2017. Due laghi, Verbano e Lario, a confronto. 15 anni di International Waterbird Census",
-            url: "/documents/progetti/iwc/15-anni-di-iwc.pdf",
-          },
-          {
-            kind: "pdf",
-            label:
-              "2025. Trends of waterbirds wintering on the lakes of Lombardy: twenty years of International Waterbirds Census",
-            url: "/documents/progetti/iwc/20-anni-di-iwc.pdf",
+              "IWC totali al 2025",
+            url: "/documents/progetti/iwc/iwc-totali-al-2025.xls",
+            show_on_page: true,
           },
         ],
       },
@@ -459,29 +462,8 @@ const PROJECTS: Project[] = [
       "<p>In ordine cronologico l'ultimo a cui il G.I.O. sta lavorando è il nuovo Atlante dell'Avifauna Nidificante, denominato Atlante degli Uccelli Nidificanti in Provincia di Varese, che farà il punto della situazione 20 anni dopo l'inizio della precedente indagine, l'Atlante Ornitologico Georeferenziato della Provincia di Varese. Uccelli Nidificanti 2003-2005 (Gagliardi et al., 2007), iniziata nel 2003.<br><br>Risulta evidente la necessità di disporre di nuove e più dettagliate informazioni sulla distribuzione, consistenza e status delle specie, per meglio definire la caratterizzazione faunistica del territorio con dati realmente aggiornati, che possano tenere conto dei rapidi mutamenti sull'uso del suolo e climatici che impattano in primo luogo sulla biodiversità.Il progetto si appoggerà alla piattaforma <a href='https://www.ornitho.it/' class='specific-link' target='_blank'>Ornitho</a>, anche attraverso l'app NaturaList, permettendo di facilitare la raccolta e la gestione dei dati.<br><br>Obiettivo finale del progetto è quello di rendere disponibili i dati raccolti, in forma cartacea e su supporto elettronico, per un utilizzo sia in termini scientifici sia gestionali da parte degli enti a vario titolo coinvolti nella conservazione e gestione della fauna e dell'ambiente. Il progetto avrà indicativamente durata triennale, dal 2024 al 2026, con un eventuale quarto anno di rilevamento dedicato a un gruppo di specie che rivestono particolare importanza (conservazionistica o distributiva) a livello provinciale, oppure che sono di difficile contattabilità con i metodi di rilevamento standard diurni o, ancora, perché coloniali. Il periodo delle indagini di campo sarà centrato principalmente sulla stagione riproduttiva primaverile/estiva, spaziando per alcune specie al di fuori di questo periodo.<br><br>La distribuzione delle specie sarà restituita su una griglia cartografica di 5x5 km (le Particelle, Figura 1), con griglia chilometrica UTM coincidente con la Carta Tecnica Regionale 1:10.000 della Regione Lombardia. Altre elaborazioni, per le preferenze ambientali delle specie, saranno ricavate dalle caratteristiche topografiche e dagli habitat dei relativi chilometri quadrati indagati (“celle UTM”), compatibilmente con i risultati raccolti.Per motivi pratici e di continuità, che dal 2009 ci permettono di caricare e analizzare i dati delle osservazioni personali e delle ricerche ornitologiche con grande efficienza, per partecipare a questo progetto i rilevatori dovranno essere iscritti alla piattaforma <a href='https://www.ornitho.it/' class='specific-link' target='_blank'>Ornitho</a>.<br><br>Punto importante di un progetto Atlante è quello di esaminare tutti gli ambienti presenti in provincia, dai boschi alle aree urbanizzate, dai coltivi alle zone umide, soprattutto al di fuori delle aree comunemente esplorate.</p>",
     blocks: [
       {
-        text: "<p>Documentazione e materiali del progetto</p>",
-        links: [
-          {
-            kind: "pdf",
-            label: "Presentazione dell'Atlante",
-            url: "/documents/progetti/atlante/descrizione-atlante-uccelli-nidificanti-varese-2024-2026.pdf",
-          },
-          {
-            kind: "pdf",
-            label: "Rapporto Atlante 2024",
-            url: "/documents/progetti/atlante/2024/rapporto-atlante-2024.pdf",
-          },
-          {
-            kind: "pdf",
-            label: "Rapporto Atlante 2024-2025",
-            url: "/documents/progetti/atlante/2024-2025/atlante-varese-2024-2025.pdf",
-          },
-          {
-            kind: "pdf",
-            label: "Rapporto Atlante 2025",
-            url: "/documents/progetti/atlante/2025/atlante-varese-2025.pdf",
-          },
-        ],
+        text: "",
+        links: [],
       },
     ],
   },

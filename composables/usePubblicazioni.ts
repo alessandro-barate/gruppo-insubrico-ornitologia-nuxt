@@ -397,7 +397,7 @@ const MOCK_TREE: PubNode[] = [
     type: "bibliography",
     items_per_page: 10, // ← bibliografia lunga: 10 voci per pagina
     intro_text:
-      "<p>Qui è possibile consultare tutti i risultati delle nostre ricerche.</p>",
+      "<p>In questa pagina sono raccolti i <strong>contributi scientifici</strong> realizzati dalla nostra associazione pubblicati su <strong>riviste di rilievo</strong> e presentati in diverse <strong>occasioni congressuali</strong>.</p>",
     second_intro_text: "Bibliografia del G.I.O.",
     intro_excerpt: "Articoli scientifici e riferimenti bibliografici.",
     image_path: "/images/pubblicazioni/paper/porciglione.webp",
@@ -435,6 +435,7 @@ const MOCK_TREE: PubNode[] = [
       {
         id: 26,
         text: "Aletti R., 2021. Lista degli uccelli della provincia di Varese aggiornata al 2020. Relazione tecnica.",
+        pdf_url: "/documents/progetti/2021-lista-uccelli-varese.pdf",
       },
       {
         id: 27,
@@ -749,7 +750,7 @@ const MOCK_TREE: PubNode[] = [
     title: "Gli Uccelli della Provincia di Varese",
     type: "group",
     intro_text:
-      "<p>Liste sistematiche e racconti ornitologici che documentano le osservazioni sul territorio nel corso degli anni.</p>",
+      "<p>In questa sezione è pubblicata la <strong>Check-list provinciale</strong>, l’elenco documentato di tutte le specie osservate (aggiornato al <strong>31/12/2020</strong>), e i <strong>Resoconti ornitologici annuali</strong>, che raccolgono le osservazioni più significative di ogni anno.</p>",
     intro_excerpt: "Liste sistematiche e racconti ornitologici.",
     image_path: "/images/pubblicazioni/liste/voltapietre.webp",
     children: [
@@ -763,14 +764,7 @@ const MOCK_TREE: PubNode[] = [
         intro_excerpt: "Liste sistematiche delle specie osservate.",
         image_path:
           "/images/pubblicazioni/liste/lista-uccelli/picchio-muraiolo.webp",
-        items: [
-          {
-            id: 30,
-            year: 2020,
-            title: "Lista uccelli Provincia di Varese 2020",
-            pdf_url: "/docs/liste/lista-varese-2020.pdf",
-          },
-        ],
+        items: [],
       },
       // Resoconti ornitologici
       {
