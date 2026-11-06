@@ -116,7 +116,9 @@ onUnmounted(() => {
         <!-- Title -->
         <section>
           <div class="title-container">
-            <h1 id="links" class="uppercase">{{ c("title", "social e link utili") }}</h1>
+            <h1 id="links" class="uppercase">
+              {{ c("title", "social e link utili") }}
+            </h1>
           </div>
         </section>
 
@@ -304,7 +306,7 @@ onUnmounted(() => {
     padding-bottom: 12rem;
     background-position: center;
     background-size: cover;
-    background-image: url(../assets/images/links-socials/gheppio.jpg);
+    // background-image: url(../assets/images/links-socials/gheppio.jpg);
 
     .title-container {
       width: 100%;
@@ -540,14 +542,7 @@ onUnmounted(() => {
     left: 0;
     width: 100%;
     height: 150px;
-    background: linear-gradient(
-      90deg,
-      #a8d5f4 0%,
-      #acd9f8 20%,
-      #b0ddfc 45%,
-      #b2dffe 73%,
-      #b6def8 100%
-    );
+    background: linear-gradient(90deg, #ebf2fc);
     clip-path: polygon(0% 0%, 100% 0, 0% 100%);
 
     @media (max-width: 576px) {

@@ -30,7 +30,9 @@ export const DESCRIPTION_ONLY_SECTIONS = [
 
 // Quale parte di un progetto mostrare:
 //   "all"         → intro + tutti i blocchi (testo e link)
-//   "description" → intro + i blocchi SENZA link
+//   "description" → intro + i blocchi senza link, più i link che dal
+//                   pannello hanno "Mostra nella pagina del progetto"
+//                   (show_on_page) con il testo del loro blocco
 export type ProjectPart = "all" | "description";
 
 export function projectPartFor(sectionSlug: string): ProjectPart {
@@ -47,7 +49,13 @@ export function blocksFor(project: Project, part: ProjectPart): ContentBlock[] {
   }));
 
   if (part === "all") return blocks;
-  return blocks.filter((b) => !b.links?.length);
+  // Solo descrizione: i blocchi senza link restano; quelli con link
+  // restano solo se almeno un link è da mostrare, e con quei soli link
+  return blocks.flatMap((b) => {
+    if (!b.links?.length) return [b];
+    const shown = b.links.filter((l) => l.show_on_page);
+    return shown.length ? [{ ...b, links: shown }] : [];
+  });
 }
 
 // Pagina /progetti: testo introduttivo + galleria
@@ -82,6 +90,8 @@ export interface TypedLink {
   kind: LinkKind;
   label: string;
   url: string;
+  // Dal pannello: mostra il link anche nelle sezioni "solo descrizione"
+  show_on_page?: boolean;
 }
 
 // Blocco del corpo di un progetto: testo + eventuali link propri.
