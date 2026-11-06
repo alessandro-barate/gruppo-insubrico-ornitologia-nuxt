@@ -17,7 +17,7 @@ const segments = computed(() => {
   return Array.isArray(raw) ? raw : [raw].filter(Boolean);
 });
 
-const { getNode } = usePubblicazioni();
+const { getNode, buildCrumbs } = usePubblicazioni();
 const { data } = await getNode(segments.value);
 
 if (!data.value) {
@@ -57,12 +57,11 @@ const pageTitle = computed(() => {
 const GRID_BEFORE_INTRO = ["quaderni"];
 const gridBeforeIntro = computed(
   () =>
-    node.value?.type === "group" &&
-    GRID_BEFORE_INTRO.includes(node.value.slug),
+    node.value?.type === "group" && GRID_BEFORE_INTRO.includes(node.value.slug),
 );
 
-// Breadcrumb: le voci dopo la home (dal backend). L'ultima è la pagina corrente.
-const crumbs = computed(() => data.value?.crumbs ?? []);
+// Breadcrumb: le voci dopo la home. L'ultima è la pagina corrente.
+const crumbs = computed(() => buildCrumbs(segments.value));
 // Link del breadcrumb che riportano alla pagina della lista da cui si arriva
 const backTo = useBackLink();
 
