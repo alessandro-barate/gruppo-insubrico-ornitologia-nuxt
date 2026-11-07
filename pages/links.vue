@@ -344,20 +344,20 @@ onUnmounted(() => {
 
   &.bg-portali {
     margin-left: 0;
-    background-image: url(../assets/images/links-socials/nibbio-bruno.webp);
+    // background-image: url(../assets/images/links-socials/nibbio-bruno.webp);
   }
 
   &.bg-organizzazioni {
-    background-image: url(../assets/images/links-socials/aquila-reale.webp);
+    // background-image: url(../assets/images/links-socials/aquila-reale.webp);
   }
 
   &.bg-reti {
-    background-image: url(../assets/images/links-socials/ibis-eremita.webp);
+    //background-image: url(../assets/images/links-socials/ibis-eremita.webp);
   }
 
   &.bg-turismo {
     margin-right: 0;
-    background-image: url(../assets/images/links-socials/nibbio-reale.webp);
+    // background-image: url(../assets/images/links-socials/nibbio-reale.webp);
   }
 
   &.active {
@@ -367,9 +367,9 @@ onUnmounted(() => {
     .panel-overlay {
       background: linear-gradient(
         90deg,
-        rgb(0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.4) 30%,
-        rgba(0, 0, 0, 0.7) 100%
+        rgb(35, 49, 98) 0%,
+        rgba(35, 49, 98, 0.4) 30%,
+        rgba(35, 49, 98) 100%
       );
     }
 
@@ -396,7 +396,7 @@ onUnmounted(() => {
 .panel-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: #233162;
   transition: background 0.4s ease;
   z-index: 1;
 }
@@ -433,7 +433,7 @@ onUnmounted(() => {
   top: 0;
   bottom: 0;
   width: 1px;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.6);
   z-index: 5;
 }
 
