@@ -158,22 +158,22 @@ const MOCK_TREE: PubNode[] = [
           {
             id: 541,
             image_path:
-              "/images/pubblicazioni/quaderni/quaderno-4/pagina-1.webp",
+              "/images/pubblicazioni/quaderni/quaderno-4/pagina-70.webp",
           },
           {
             id: 542,
             image_path:
-              "/images/pubblicazioni/quaderni/quaderno-4/pagina-2.webp",
+              "/images/pubblicazioni/quaderni/quaderno-4/pagina-71.webp",
           },
           {
             id: 543,
             image_path:
-              "/images/pubblicazioni/quaderni/quaderno-4/pagina-3.webp",
+              "/images/pubblicazioni/quaderni/quaderno-4/pagina-178.webp",
           },
           {
             id: 544,
             image_path:
-              "/images/pubblicazioni/quaderni/quaderno-4/pagina-4.webp",
+              "/images/pubblicazioni/quaderni/quaderno-4/pagina-179.webp",
           },
         ],
         price: "€ 18",
@@ -191,22 +191,22 @@ const MOCK_TREE: PubNode[] = [
           {
             id: 531,
             image_path:
-              "/images/pubblicazioni/quaderni/quaderno-3/pagina-1.webp",
+              "/images/pubblicazioni/quaderni/quaderno-3/pagina-80.webp",
           },
           {
             id: 532,
             image_path:
-              "/images/pubblicazioni/quaderni/quaderno-3/pagina-2.webp",
+              "/images/pubblicazioni/quaderni/quaderno-3/pagina-81.webp",
           },
           {
             id: 533,
             image_path:
-              "/images/pubblicazioni/quaderni/quaderno-3/pagina-3.webp",
+              "/images/pubblicazioni/quaderni/quaderno-3/pagina-162.webp",
           },
           {
             id: 534,
             image_path:
-              "/images/pubblicazioni/quaderni/quaderno-3/pagina-4.webp",
+              "/images/pubblicazioni/quaderni/quaderno-3/pagina-163.webp",
           },
         ],
         price: "€ 15",
@@ -389,7 +389,8 @@ const MOCK_TREE: PubNode[] = [
       {
         id: 20,
         text: "Alberti P., Carabella M., Colaone S., Danini G., Saporetti F., Scandolara C., 2003. L'avifauna nidificante nelle brughiere della Lombardia occidentale. RIO, 72 (2): 269-271.",
-        pdf_url: "/documents/progetti/2003-avifauna-brughiere-lombardia-occidentale.pdf",
+        pdf_url:
+          "/documents/progetti/2003-avifauna-brughiere-lombardia-occidentale.pdf",
       },
       {
         id: 21,
@@ -599,7 +600,8 @@ const MOCK_TREE: PubNode[] = [
       {
         id: 242,
         text: "Ricci M., Rigamonti E., Casola D., Colombo L., Stocchetti A., Papale G., Morganti M., Manica M., 2025. Passeraie, colombaie e rondonaie nelle province di Novara e Varese: mappa e monitoraggi per conservare storia e biodiversità. Picus 51 (99-100): 3-12.",
-        pdf_url: "/documents/progetti/swift/2025-passeraie-colombaie-rondonaie.pdf",
+        pdf_url:
+          "/documents/progetti/swift/2025-passeraie-colombaie-rondonaie.pdf",
       },
       {
         id: 243,
