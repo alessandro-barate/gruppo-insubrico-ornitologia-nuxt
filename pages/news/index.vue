@@ -1,5 +1,6 @@
 <script setup>
 import defaultHero from "~/assets/images/news/beccaccini.webp";
+import defaultEmptyImage from "~/assets/images/links-socials/nature.webp";
 
 useSeoMeta({
   title: "News | Gruppo Insubrico di Ornitologia",
@@ -17,6 +18,13 @@ const { c } = await usePageContent("news");
 
 const heroStyle = computed(() => ({
   backgroundImage: `url(${c("hero_image", defaultHero)})`,
+}));
+
+// Nessuna news pubblicata: al posto della griglia un'immagine con una
+// scritta (entrambe modificabili dal pannello). Alla prima news pubblicata
+// sparisce da sola e torna la griglia con la paginazione.
+const emptyStyle = computed(() => ({
+  backgroundImage: `url(${c("empty_image", defaultEmptyImage)})`,
 }));
 
 // Pagina corrente, letta dall'URL (?pagina=2): tornando indietro da una
@@ -86,9 +94,16 @@ const goToPage = (p) => {
             <p>Si è verificato un errore nel caricamento delle news.</p>
           </div>
 
-          <!-- Nessuna news -->
-          <div v-else-if="newsList.length === 0" class="news-empty">
-            <p>Al momento non ci sono news pubblicate.</p>
+          <!-- Nessuna news pubblicata: immagine con scritta -->
+          <div
+            v-else-if="total === 0"
+            class="news-placeholder"
+            :style="emptyStyle"
+            role="status"
+          >
+            <p class="news-placeholder__text">
+              {{ c("empty_text", "Stiamo aggiornando le nostre news") }}
+            </p>
           </div>
 
           <!-- Griglia news + paginazione -->
@@ -234,6 +249,43 @@ const goToPage = (p) => {
     }
   }
 
+  // Nessuna news pubblicata: immagine di sfondo con la scritta al centro
+  .news-placeholder {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+    padding: 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    // Velo scuro: la scritta resta leggibile su qualsiasi foto
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    &__text {
+      position: relative; // sopra il velo
+      margin: 0;
+      max-width: 800px;
+      text-align: center;
+      color: #fff;
+      font-size: clamp(1.5rem, 3.5vw, 2.6rem);
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+    }
+  }
+
   .news-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -292,6 +344,10 @@ const goToPage = (p) => {
 
     .news-list {
       width: 90%;
+    }
+
+    .news-placeholder {
+      min-height: 320px;
     }
 
     .news-grid {
