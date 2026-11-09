@@ -53,7 +53,8 @@ const isNavigable = computed(
 );
 
 // Sezioni in cui le card dei progetti stanno sempre una sotto l'altra,
-// su qualsiasi schermo (come già su mobile). Le altre restano a griglia.
+// su qualsiasi schermo (come già su mobile), tutte nella stessa pagina
+// senza paginazione. Le altre restano a griglia e paginate.
 const STACKED_SECTIONS = ["ricerca-in-corso"];
 const isStacked = computed(() =>
   STACKED_SECTIONS.includes(section.value?.slug ?? ""),
@@ -85,6 +86,8 @@ const sectionPath = computed(
 // - progetto → i blocchi visibili del progetto
 const paginatedSource = computed(() => {
   if (isProject.value) return visibleBlocks.value;
+  // Sezioni "una sotto l'altra": tutte le card, senza paginazione
+  if (isNavigable.value && isStacked.value) return [];
   if (isNavigable.value) return projectCards.value;
   return projects.value;
 });
@@ -96,7 +99,9 @@ const { currentPage, totalPages, pageRange, goToPage, listTop } = usePagination(
 );
 
 const paginatedProjectCards = computed(() =>
-  projectCards.value.slice(pageRange.value.start, pageRange.value.end),
+  isStacked.value
+    ? projectCards.value
+    : projectCards.value.slice(pageRange.value.start, pageRange.value.end),
 );
 const paginatedProjects = computed(() =>
   projects.value.slice(pageRange.value.start, pageRange.value.end),
