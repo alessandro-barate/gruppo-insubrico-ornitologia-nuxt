@@ -214,8 +214,7 @@ const PROJECTS: Project[] = [
         links: [
           {
             kind: "excel",
-            label:
-              "IWC totali al 2025",
+            label: "IWC totali al 2025",
             url: "/documents/progetti/iwc/iwc-totali-al-2025.xls",
             show_on_page: true,
           },
@@ -231,7 +230,7 @@ const PROJECTS: Project[] = [
     title: "Home Swift Home",
     image_path: "/images/progetti/in-corso/rondine.webp",
     intro:
-      "<p>Il G.I.O., tramite i propri volontari, studia i Rondoni su alcuni filoni di ricerca che possiamo elencare come segue:</p><ul class='specific-list'><li>Monitoraggio delle colonie riproduttive: per mezzo del progetto <strong>&ldquo;Sulle ali dei rondoni&rdquo;</strong> sono state censite tra il 2021 e il 2025 le colonie urbane delle tre specie presenti. La ricerca è stata estesa ad altre province lombarde grazie alla collaborazione con le sezioni LIPU di Bergamo, Como e Varese e l'associazione CROS Varenna, oltre ai gruppi locali Amici dei Rondoni Cislaghesi e Gruppo Rondoni Como</li><li>Mappatura delle strutture per uccelli (torri e pareti colombaie, passeraie e rondonaie). L'indagine al 2026 è realizzata in provincia di Varese e in collaborazione con NovaraBW e Stefano Costa nelle province di Novara, Biella e Vercelli</li><li>Studio della fenologia e del successo riproduttivo nelle colonie di Rondone comune accessibili al nido. Il monitoraggio continuativo presso i nidi, cui si aggiunge l'inanellamento a scopo scientifico affiancato da altre tipologie di indagine, permette di indagare alcuni ambiti della biologia e dell'ecologia della specie</li></ul><br>I risultati sono consultabili alla pagina <a href='/pubblicazioni/altre-pubblicazioni' class='specific-link'>Altre Pubblicazioni</a>.",
+      "<p>Il G.I.O., tramite i propri volontari, studia i Rondoni su alcuni filoni di ricerca che possiamo elencare come segue:</p><ul class='specific-list'><li>Monitoraggio delle colonie riproduttive: per mezzo del progetto <strong>&ldquo;Sulle ali dei rondoni&rdquo;</strong> sono state censite tra il 2021 e il 2025 le colonie urbane delle tre specie presenti. La ricerca è stata estesa ad altre province lombarde grazie alla collaborazione con le sezioni LIPU di Bergamo, Como e Varese e l'associazione CROS Varenna, oltre ai gruppi locali Amici dei Rondoni Cislaghesi e Gruppo Rondoni Como</li><li>Mappatura delle strutture per uccelli (torri e pareti colombaie, passeraie e rondonaie). L'indagine al 2026 è realizzata in provincia di Varese e in collaborazione con NovaraBW e Stefano Costa nelle province di Novara, Biella e Vercelli</li><li>Studio della fenologia e del successo riproduttivo nelle colonie di Rondone comune accessibili al nido. Il monitoraggio continuativo presso i nidi, cui si aggiunge l'inanellamento a scopo scientifico affiancato da altre tipologie di indagine, permette di indagare alcuni ambiti della biologia e dell'ecologia della specie</li></ul>",
     blocks: [
       {
         links: [
@@ -351,7 +350,7 @@ const PROJECTS: Project[] = [
     title: "Campi di Brebbia",
     image_path: "/images/progetti/in-corso/campi-brebbia.webp",
     intro:
-      "<p>I &ldquo;Campi di Brebbia&rdquo; sono un'area agricolo-forestale di circa 0,88 km2 posta tra i comuni di Brebbia e Travedona-Monate in provincia di Varese. Nonostante la loro ridotta superficie, i Campi rappresentano un importante sito di stop-over per l'avifauna in migrazione nella provincia di Varese, con un totale di 177 specie di uccelli osservate tra il 2017 e il 2024, molte delle quali rare e/o di elevato interesse conservazionistico. Tra queste figurano specie in declino tipiche degli agroecosistemi, come l'Allodola (Alauda arvensis), la Cutrettola (Motacilla flava) e l'Averla Piccola (Lanius collurio).<br><br>Il G.I.O. ha analizzato la comunità ornitica dell'area mediante una ricerca mirata svolta tra 2024 e 2025 mediante metodi standardizzati, che ha permesso di segnalare due specie mai osservate nel sito: Pendolino (Remiz pendulinus) e Folaga (Fulica atra) e di quantificare i flussi migratori e le relazioni che questi hanno con le colture presenti.<br><br>I risultati della ricerca sono stati divulgati sotto forma di poster al XXII Convegno di Italiano di Ornitologia a Lecce a settembre 2025; verranno utilizzati anche come base per futuri interventi di valorizzazione ecologica dell'area in accordo con le aziende agricole che la utilizzano e le amministrazioni dei comuni coinvolti.<br><br>I risultati sono consultabili alla pagina <a href='/pubblicazioni/altre-pubblicazioni' class='specific-link'>Altre Pubblicazioni</a>.</p>",
+      "<p>I &ldquo;Campi di Brebbia&rdquo; sono un'area agricolo-forestale di circa 0,88 km2 posta tra i comuni di Brebbia e Travedona-Monate in provincia di Varese. Nonostante la loro ridotta superficie, i Campi rappresentano un importante sito di stop-over per l'avifauna in migrazione nella provincia di Varese, con un totale di 177 specie di uccelli osservate tra il 2017 e il 2024, molte delle quali rare e/o di elevato interesse conservazionistico. Tra queste figurano specie in declino tipiche degli agroecosistemi, come l'Allodola (Alauda arvensis), la Cutrettola (Motacilla flava) e l'Averla Piccola (Lanius collurio).<br><br>Il G.I.O. ha analizzato la comunità ornitica dell'area mediante una ricerca mirata svolta tra 2024 e 2025 mediante metodi standardizzati, che ha permesso di segnalare due specie mai osservate nel sito: Pendolino (Remiz pendulinus) e Folaga (Fulica atra) e di quantificare i flussi migratori e le relazioni che questi hanno con le colture presenti.<br><br>I risultati della ricerca sono stati divulgati sotto forma di poster al XXII Convegno di Italiano di Ornitologia a Lecce a settembre 2025; verranno utilizzati anche come base per futuri interventi di valorizzazione ecologica dell'area in accordo con le aziende agricole che la utilizzano e le amministrazioni dei comuni coinvolti.</p>",
     blocks: [
       {
         text: "<p>Qui il link all'articolo</p>",
@@ -374,7 +373,7 @@ const PROJECTS: Project[] = [
     title: "Monitoraggio del Succiacapre",
     image_path: "/images/progetti/succiacapre.webp",
     intro:
-      "<p>Sta seguendo il progetto Silvio Cova per la sua tesi di laurea, supportato da Walter Guenzani. In collaborazione con Alessandro Berlusconi (Università di Milano) e il Parco del Campo dei Fiori (collaborazione di Elisa Scancarello e le GEV del Parco).<br><br>I risultati sono consultabili alla pagina <a href='/pubblicazioni/altre-pubblicazioni' class='specific-link'>Altre Pubblicazioni</a>.</p>",
+      "<p>Sta seguendo il progetto Silvio Cova per la sua tesi di laurea, supportato da Walter Guenzani. In collaborazione con Alessandro Berlusconi (Università di Milano) e il Parco del Campo dei Fiori (collaborazione di Elisa Scancarello e le GEV del Parco).</p>",
     blocks: [
       {
         text: "<p>Di seguito la documentazione relativa al progetto</p>",
@@ -396,7 +395,7 @@ const PROJECTS: Project[] = [
     title: "Migrazione notturna in Palude Brabbia",
     image_path: "/images/progetti/in-corso/migrazione-notturna.webp",
     intro:
-      "<h4>Attività di monitoraggio della migrazione notturna dell'avifauna tramite approccio bioacustico.</h4><br><p>A partire dal <strong>2021</strong> la <strong>Riserva Naturale Palude Brabbia</strong> ha avviato una campagna di monitoraggio acustico della migrazione notturna dell'avifauna grazie ad un dispositivo programmabile di registrazione automatica (Song Meter Mini 2AA). La ricerca, svolta sia durante il periodo migratorio pre-riproduttivo (primavera) che post-riproduttivo (autunno), si basa su un metodo standardizzato che prevede registrazioni acustiche durante le 3 ore dopo il tramonto e le 3 ore prima dell'alba, ovvero nelle fasce orarie di maggiore rilevabilità ed abbondanza del <strong>passo migratorio</strong>.<br>Le registrazioni vengono successivamente esaminate con un approccio acustico-grafico mediante <strong>analisi dei sonogrammi</strong>, attribuendo, ove possibile, i versi registrati a determinate specie, distinguendo quelli emessi da individui in evidente sorvolo (fly-overs) da quelli associati ad individui non in sorvolo.<br>Questo studio ha sinora permesso di aggiornare la <strong>lista delle specie</strong> rilevate presso la Riserva, di raccogliere dati sulle variazioni annuali fenologiche e di abbondanza numerica, nonché di aggiornare la <strong>fenologia</strong> di diverse specie ritenute in passato rare o accidentali a livello provinciale, ma in realtà di passo annuale nell'area di studio (es. Occhione, Piviere tortolino, etc.), così come una visione inedita dell'abbondanza numerica di altre specie migratrici (es. Tarabusino).<br><br>I risultati sono consultabili alla pagina <a href='/pubblicazioni/altre-pubblicazioni' class='specific-link'>Altre Pubblicazioni</a>.</p>",
+      "<h4>Attività di monitoraggio della migrazione notturna dell'avifauna tramite approccio bioacustico.</h4><br><p>A partire dal <strong>2021</strong> la <strong>Riserva Naturale Palude Brabbia</strong> ha avviato una campagna di monitoraggio acustico della migrazione notturna dell'avifauna grazie ad un dispositivo programmabile di registrazione automatica (Song Meter Mini 2AA). La ricerca, svolta sia durante il periodo migratorio pre-riproduttivo (primavera) che post-riproduttivo (autunno), si basa su un metodo standardizzato che prevede registrazioni acustiche durante le 3 ore dopo il tramonto e le 3 ore prima dell'alba, ovvero nelle fasce orarie di maggiore rilevabilità ed abbondanza del <strong>passo migratorio</strong>.<br>Le registrazioni vengono successivamente esaminate con un approccio acustico-grafico mediante <strong>analisi dei sonogrammi</strong>, attribuendo, ove possibile, i versi registrati a determinate specie, distinguendo quelli emessi da individui in evidente sorvolo (fly-overs) da quelli associati ad individui non in sorvolo.<br>Questo studio ha sinora permesso di aggiornare la <strong>lista delle specie</strong> rilevate presso la Riserva, di raccogliere dati sulle variazioni annuali fenologiche e di abbondanza numerica, nonché di aggiornare la <strong>fenologia</strong> di diverse specie ritenute in passato rare o accidentali a livello provinciale, ma in realtà di passo annuale nell'area di studio (es. Occhione, Piviere tortolino, etc.), così come una visione inedita dell'abbondanza numerica di altre specie migratrici (es. Tarabusino).</p>",
     blocks: [
       {
         text: "",
@@ -418,7 +417,7 @@ const PROJECTS: Project[] = [
     title: "Garzaia di Monvalle",
     image_path: "/images/progetti/garzaie.webp",
     intro:
-      "<p>Dal 2016 il G.I.O. partecipa con alcuni soci  al monitoraggio di alcune garzaie provinciali, contribuendo alla raccolta dati per Garzaie d'Italia, un progetto scientifico di lungo periodo che consiste nel contare e studiare le colonie di aironi e altri uccelli acquatici in Italia per comprendere l'andamento delle popolazioni di uccelli nel tempo, capire lo stato di salute degli ecosistemi umidi e sostenere azioni di conservazione e tutela della biodiversità.<br><br>I risultati sono consultabili alla pagina <a href='/pubblicazioni/altre-pubblicazioni' class='specific-link'>Altre Pubblicazioni</a>.</p>",
+      "<p>Dal 2016 il G.I.O. partecipa con alcuni soci  al monitoraggio di alcune garzaie provinciali, contribuendo alla raccolta dati per Garzaie d'Italia, un progetto scientifico di lungo periodo che consiste nel contare e studiare le colonie di aironi e altri uccelli acquatici in Italia per comprendere l'andamento delle popolazioni di uccelli nel tempo, capire lo stato di salute degli ecosistemi umidi e sostenere azioni di conservazione e tutela della biodiversità.</p>",
     blocks: [
       {
         text: "",
@@ -720,7 +719,4 @@ export function useProgetti() {
 
 // Dati mock esposti per la ricerca nel sito (server/api/search.get.ts).
 // TODO: rimuovere insieme ai mock quando il backend è pronto.
-export {
-  SECTIONS as PROGETTI_SECTIONS,
-  PROJECTS as PROGETTI_PROJECTS,
-};
+export { SECTIONS as PROGETTI_SECTIONS, PROJECTS as PROGETTI_PROJECTS };
