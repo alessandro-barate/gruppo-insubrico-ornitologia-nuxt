@@ -52,6 +52,13 @@ const isNavigable = computed(
   () => section.value?.projects_are_navigable === true,
 );
 
+// Sezioni in cui le card dei progetti stanno sempre una sotto l'altra,
+// su qualsiasi schermo (come già su mobile). Le altre restano a griglia.
+const STACKED_SECTIONS = ["ricerca-in-corso"];
+const isStacked = computed(() =>
+  STACKED_SECTIONS.includes(section.value?.slug ?? ""),
+);
+
 // Caso "project"
 const project = computed(() =>
   data.value?.kind === "project" ? data.value.project : null,
@@ -182,7 +189,10 @@ useSeoMeta({
 
       <!-- ═══ Sezione navigabile: card-bottone verso i progetti ═══ -->
       <template v-else-if="isNavigable">
-        <div class="subsection__grid">
+        <div
+          class="subsection__grid"
+          :class="{ 'subsection__grid--stacked': isStacked }"
+        >
           <SharedNavCard
             v-for="card in paginatedProjectCards"
             :key="card.slug"
@@ -250,6 +260,11 @@ useSeoMeta({
 
 h1 {
   text-align: center;
+}
+
+// Card una sotto l'altra anche su desktop (vedi STACKED_SECTIONS)
+.subsection__grid--stacked {
+  grid-template-columns: 1fr;
 }
 
 .project-block {
