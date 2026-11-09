@@ -893,7 +893,7 @@ onUnmounted(() => {
   .tab-text {
     writing-mode: horizontal-tb;
     transform: none;
-    font-size: 0.85rem;
+    font-size: 0.6rem;
   }
 
   .panel-separator {
