@@ -272,6 +272,7 @@ onBeforeUnmount(() => {
 /* Stack su mobile */
 @media (max-width: 640px) {
   .item-card {
+    width: 90%;
     grid-template-columns: 1fr;
   }
 
