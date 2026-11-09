@@ -435,6 +435,10 @@ h1 {
 
   img {
     width: 50%;
+
+    @media (max-width: 767px) {
+      width: 80%;
+    }
   }
 }
 
