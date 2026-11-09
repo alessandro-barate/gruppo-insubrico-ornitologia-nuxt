@@ -270,6 +270,8 @@ h1 {
 // Card una sotto l'altra anche su desktop (vedi STACKED_SECTIONS)
 .subsection__grid--stacked {
   grid-template-columns: 1fr;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 .project-block {
