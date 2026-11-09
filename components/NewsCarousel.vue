@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import defaultEmptyImage from "~/assets/images/links-socials/nature.webp";
+import carouselData from "~/data/carousel.js";
 
 // Props
 const props = defineProps({
@@ -10,24 +10,8 @@ const props = defineProps({
   },
 });
 
-// Le ultime news dal backend (pannello → Contenuti → News), dalla più
-// recente. Ogni card porta alla pagina della news (pulsante "+").
-const CAROUSEL_SIZE = 10;
-const { data: newsData } = await useApiData("news-carousel", "/news", {
-  query: { perPage: CAROUSEL_SIZE },
-});
-
-// Nessuna news pubblicata: la stessa immagine con scritta della pagina
-// News (pannello → Testi delle pagine → News), al posto del carosello.
-const { c } = await usePageContent("news");
-const emptyStyle = computed(() => ({
-  backgroundImage: `url(${c("empty_image", defaultEmptyImage)})`,
-}));
-
 // State
-const slides = computed(() =>
-  (newsData.value?.data ?? []).map((n) => ({ ...n, link: `/news/${n.slug}` })),
-);
+const slides = ref(carouselData);
 const isPaused = ref(false);
 const isDragging = ref(false);
 const track = ref(null);
@@ -143,20 +127,7 @@ const goTo = (index) => {
 </script>
 
 <template>
-  <!-- Nessuna news pubblicata: immagine con scritta -->
   <div
-    v-if="slides.length === 0"
-    class="news-carousel-empty"
-    :style="emptyStyle"
-    role="status"
-  >
-    <p class="news-carousel-empty__text">
-      {{ c("empty_text", "Stiamo aggiornando le nostre news") }}
-    </p>
-  </div>
-
-  <div
-    v-else
     class="news-carousel"
     @mouseenter="pauseScroll"
     @mouseleave="resumeScroll"
@@ -309,54 +280,6 @@ const goTo = (index) => {
 </template>
 
 <style lang="scss" scoped>
-// Nessuna news pubblicata: stessa resa della pagina News
-.news-carousel-empty {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 90%;
-  max-width: 1400px;
-  min-height: 420px;
-  margin: 0 auto;
-  padding: 2rem;
-  border-radius: 16px;
-  overflow: hidden;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  // Velo scuro: la scritta resta leggibile su qualsiasi foto
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.35);
-  }
-
-  &__text {
-    position: relative; // sopra il velo
-    margin: 0;
-    max-width: 800px;
-    text-align: center;
-    color: #fff;
-    font-size: clamp(1.5rem, 3.5vw, 2.6rem);
-    font-weight: 600;
-    line-height: 1.25;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
-  }
-
-  @media (max-width: 992px) {
-    min-height: 380px;
-  }
-
-  @media (max-width: 576px) {
-    min-height: 320px;
-  }
-}
-
 .news-carousel {
   --slide-width: 500px;
   --slide-gap: 24px;
