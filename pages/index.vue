@@ -1,13 +1,7 @@
 <script setup>
-import { computed, ref, onMounted, onUnmounted, nextTick } from "vue";
+import { computed, ref, watch, onMounted, onUnmounted, nextTick } from "vue";
 // import carousel from "~/data/carousel";
 import Button from "~/components/shared/Button.vue";
-
-// Importa le immagini per il carousel
-import nibbio from "~/assets/images/jumbo-home/nibbio.webp";
-import nibbio2 from "~/assets/images/jumbo-home/nibbio-2.webp";
-import nibbio3 from "~/assets/images/jumbo-home/nibbio-3.webp";
-import nibbio4 from "~/assets/images/jumbo-home/nibbio-4.webp";
 
 // SEO per la homepage
 useSeoMeta({
@@ -29,7 +23,43 @@ useHead({
 const { c, inline, bg } = await usePageContent("home");
 
 // Immagini della copertina a rotazione
-const heroDefaults = [nibbio, nibbio2, nibbio3, nibbio4];
+const heroDefaults = [
+  "/images/home/slider/nibbio.webp",
+  "/images/home/slider/nibbio-2.webp",
+  "/images/home/slider/nibbio-3.webp",
+  "/images/home/slider/nibbio-4.webp",
+];
+
+// Sfondi delle card di solo testo (fino a 992px), uno per card:
+// posizione 1 = card di testo della card 1, e così via.
+const heroDefaultsTestSlide = [
+  "/images/home/slider/cielo-alberi.webp",
+  "/images/home/slider/cielo-tramonto.webp",
+  "/images/home/slider/cielo-tramonto-rosa.webp",
+  "/images/home/slider/cielo-tramonto-arancio.webp",
+];
+
+// Versioni per mobile (fino a 768px) delle immagini predefinite, nella
+// stessa posizione di heroDefaults; null = si usa quella desktop.
+// Valgono solo finché la foto non viene sostituita dal pannello.
+const heroMobileDefaults = [
+  null,
+  null,
+  "/images/home/slider/nibbio-3-mobile.webp",
+  null,
+];
+
+// Stile con la foto desktop e quella mobile: la sceglie il CSS
+// (var(--bg) / var(--bg-mobile)), così il browser scarica solo quella
+// che serve e non c'è nessun cambio di immagine dopo il caricamento.
+const bgVars = (desktop, mobile) => ({
+  "--bg": `url(${desktop})`,
+  "--bg-mobile": `url(${mobile || desktop})`,
+});
+
+// Versione mobile della foto i, se è ancora quella predefinita
+const mobileFor = (image, i) =>
+  image === heroDefaults[i] ? heroMobileDefaults[i] : null;
 const heroImages = computed(() =>
   heroDefaults.map((img, i) => c(`hero_${i + 1}`, img)),
 );
@@ -37,7 +67,12 @@ const heroImages = computed(() =>
 // Slider logic (solo se hasSlider = true)
 const currentIndex = ref(0);
 let slideInterval = null;
-const slides = computed(() => heroImages.value.map((image) => ({ image })));
+const slides = computed(() =>
+  heroImages.value.map((image, i) => ({
+    image,
+    imageMobile: mobileFor(image, i),
+  })),
+);
 
 // Direction-aware slider
 const hoveredSlide = ref(null);
@@ -85,6 +120,7 @@ const sliderItems = computed(() =>
     const n = i + 1;
     return {
       image: c(`card_${n}_image`, heroImages.value[i]),
+      imageMobile: mobileFor(c(`card_${n}_image`, heroImages.value[i]), i),
       title: c(`card_${n}_title`, d.title),
       description: inline(`card_${n}_description`, d.description),
       text: c(`card_${n}_text`, d.text),
@@ -92,6 +128,28 @@ const sliderItems = computed(() =>
     };
   }),
 );
+
+// Card mostrate dallo slider.
+// - Desktop (> 992px, 2 card visibili): le 4 card con foto e testo che
+//   compare al passaggio del mouse.
+// - Fino a 992px (1 card visibile): 8 card, ognuna divisa in due: le
+//   dispari (1, 3, 5, 7) solo con la foto, le pari (2, 4, 6, 8) solo
+//   con il testo su sfondo color cielo.
+const isSplitSlider = computed(() => slidesPerView.value === 1);
+const sliderCards = computed(() => {
+  if (!isSplitSlider.value) {
+    return sliderItems.value.map((item) => ({ kind: "full", ...item }));
+  }
+  return sliderItems.value.flatMap((item, i) => [
+    {
+      kind: "image",
+      image: item.image,
+      imageMobile: item.imageMobile,
+      title: item.title,
+    },
+    { kind: "text", ...item, textBg: heroDefaultsTestSlide[i] },
+  ]);
+});
 
 // Testo di presentazione (4 paragrafi): testi originali
 const missionDefaults = [
@@ -110,6 +168,11 @@ const slidesPerView = ref(3);
 const sliderContainerRef = ref(null);
 const containerWidth = ref(0);
 const GAP_PX = 16; // 1rem su desktop/tablet (0.75rem = 12px su mobile)
+
+// Fino a 992px: carosello a swipe. La card corrente occupa questa
+// frazione della larghezza e le vicine "spuntano" ai lati.
+const SWIPE_CARD_RATIO = 0.72;
+const SWIPE_GAP_PX = 12;
 
 const measureContainer = () => {
   if (sliderContainerRef.value) {
@@ -130,7 +193,7 @@ const updateSlidesPerView = () => {
 };
 
 const nextSliderSlide = () => {
-  const maxIndex = sliderItems.value.length - slidesPerView.value;
+  const maxIndex = sliderCards.value.length - slidesPerView.value;
   if (sliderCurrentIndex.value < maxIndex) {
     sliderCurrentIndex.value++;
   }
@@ -145,14 +208,29 @@ const prevSliderSlide = () => {
 const canGoPrev = computed(() => sliderCurrentIndex.value > 0);
 const canGoNext = computed(
   () =>
-    sliderCurrentIndex.value < sliderItems.value.length - slidesPerView.value,
+    sliderCurrentIndex.value < sliderCards.value.length - slidesPerView.value,
 );
+
+// Cambiando viewport il numero di card cambia (4 ↔ 8): resto sulla
+// stessa card (foto e testo della card N sono le posizioni 2N-2 e 2N-1)
+// e non oltre l'ultima posizione possibile.
+watch(isSplitSlider, (split, wasSplit) => {
+  if (split === wasSplit) return;
+  const i = sliderCurrentIndex.value;
+  const next = split ? i * 2 : Math.floor(i / 2);
+  const max = Math.max(0, sliderCards.value.length - slidesPerView.value);
+  sliderCurrentIndex.value = Math.min(next, max);
+});
 
 // Larghezza esatta di una card, in PIXEL, calcolata dal container reale:
 // (container − gap complessivi tra le card visibili) / card visibili.
 // In px espliciti perché una % sul track (width:max-content) è ambigua.
 const cardStyle = computed(() => {
   if (!containerWidth.value) return undefined;
+  if (isSplitSlider.value) {
+    const w = containerWidth.value * SWIPE_CARD_RATIO;
+    return { width: `${w}px`, minWidth: `${w}px` };
+  }
   const gap = slidesPerView.value === 1 ? 12 : GAP_PX;
   const perView = slidesPerView.value;
   const w = (containerWidth.value - gap * (perView - 1)) / perView;
@@ -164,6 +242,8 @@ const cardStyle = computed(() => {
 // Lo scroll non supera mai il massimo (track − container), così
 // all'ultimo step l'ultima card resta allineata al bordo destro.
 const sliderTransform = computed(() => {
+  // Fino a 992px lo scorrimento è nativo (swipe), niente transform
+  if (isSplitSlider.value) return "none";
   if (!containerWidth.value) return "translateX(0)";
   const gap = slidesPerView.value === 1 ? 12 : GAP_PX;
   const perView = slidesPerView.value;
@@ -173,13 +253,52 @@ const sliderTransform = computed(() => {
   const desired = sliderCurrentIndex.value * step;
 
   // track = n card + (n−1) gap
-  const count = sliderItems.value.length;
+  const count = sliderCards.value.length;
   const trackWidth = count * card + (count - 1) * gap;
   const maxScroll = Math.max(0, trackWidth - containerWidth.value);
 
   const offset = Math.min(desired, maxScroll);
   return `translateX(-${offset}px)`;
 });
+
+// ─── Swipe (fino a 992px) ───────────────────────────────
+// Spazio prima della prima card e dopo l'ultima, così anche quelle
+// possono stare al centro dello schermo.
+const swipeTrackStyle = computed(() => {
+  if (!isSplitSlider.value || !containerWidth.value) return undefined;
+  const side = (containerWidth.value * (1 - SWIPE_CARD_RATIO)) / 2;
+  return { paddingLeft: `${side}px`, paddingRight: `${side}px` };
+});
+
+const swipeStep = () => containerWidth.value * SWIPE_CARD_RATIO + SWIPE_GAP_PX;
+
+// La card al centro diventa quella corrente (piena, le altre più piccole)
+let swipeFrame = null;
+const onSliderScroll = () => {
+  if (!isSplitSlider.value || swipeFrame) return;
+  swipeFrame = requestAnimationFrame(() => {
+    swipeFrame = null;
+    const el = sliderContainerRef.value;
+    if (!el || !containerWidth.value) return;
+    const i = Math.round(el.scrollLeft / swipeStep());
+    sliderCurrentIndex.value = Math.max(
+      0,
+      Math.min(i, sliderCards.value.length - 1),
+    );
+  });
+};
+
+// Entrando nel carosello a swipe (es. rotazione del tablet) porto in
+// vista la card corrente; tornando su desktop azzero lo scroll nativo.
+watch(isSplitSlider, (split) => {
+  nextTick(() => {
+    measureContainer();
+    const el = sliderContainerRef.value;
+    if (!el) return;
+    el.scrollLeft = split ? sliderCurrentIndex.value * swipeStep() : 0;
+  });
+});
+// ────────────────────────────────────────────────────────
 
 const handleSlideHover = (index, event) => {
   // In mobile (1 card) niente effetto hover: card statica.
@@ -216,12 +335,9 @@ const nextSlide = () => {
 };
 
 // Computed property per il background dinamico
-const currentBackgroundImage = computed(() => {
-  if (slides.value.length > 0) {
-    const imagePath = slides.value[currentIndex.value].image;
-    return `url(${imagePath})`;
-  }
-  return `url(${nibbio})`;
+const currentBackgroundStyle = computed(() => {
+  const slide = slides.value[currentIndex.value] ?? slides.value[0];
+  return bgVars(slide.image, slide.imageMobile);
 });
 
 // IntersectionObserver per animazioni scroll
@@ -311,7 +427,7 @@ onUnmounted(() => {
         <section
           id="home-title"
           class="jumbo-bg"
-          :style="{ backgroundImage: currentBackgroundImage }"
+          :style="currentBackgroundStyle"
         ></section>
 
         <!-- Direction-aware slider -->
@@ -335,21 +451,76 @@ onUnmounted(() => {
             </button>
 
             <!-- Slider container -->
-            <div class="slider-container" ref="sliderContainerRef">
-              <div class="slider-track" :style="{ transform: sliderTransform }">
+            <div
+              class="slider-container"
+              ref="sliderContainerRef"
+              @scroll.passive="onSliderScroll"
+            >
+              <div
+                class="slider-track"
+                :style="[{ transform: sliderTransform }, swipeTrackStyle]"
+              >
                 <div
-                  v-for="(slide, index) in sliderItems"
-                  :key="index"
-                  :class="['slider-item', { active: hoveredSlide === index }]"
+                  v-for="(slide, index) in sliderCards"
+                  :key="`${slide.kind}-${index}`"
+                  :class="[
+                    'slider-item',
+                    `slider-item--${slide.kind}`,
+                    {
+                      active: hoveredSlide === index,
+                      'is-current':
+                        isSplitSlider && index === sliderCurrentIndex,
+                      'is-prev': isSplitSlider && index < sliderCurrentIndex,
+                      'is-next': isSplitSlider && index > sliderCurrentIndex,
+                    },
+                  ]"
                   :style="cardStyle"
                   @mouseenter="handleSlideHover(index, $event)"
                   @mouseleave="hoveredSlide = null"
                 >
+                  <!-- Fino a 992px, card pari: solo testo su sfondo cielo -->
                   <div
+                    v-if="slide.kind === 'text'"
+                    class="slide-text"
+                    :style="
+                      slide.textBg
+                        ? { '--text-bg': `url(${slide.textBg})` }
+                        : undefined
+                    "
+                  >
+                    <h3 class="slide-text__title uppercase">
+                      {{ slide.title }}
+                    </h3>
+                    <p
+                      class="slide-text__description"
+                      v-html="slide.description"
+                    ></p>
+                    <p v-if="slide.text" class="slide-text__description">
+                      {{ slide.text }}
+                    </p>
+                    <p
+                      v-if="slide.quote"
+                      class="slide-text__description"
+                      v-html="slide.quote"
+                    ></p>
+                  </div>
+
+                  <!-- Foto: sempre su desktop, card dispari fino a 992px -->
+                  <div
+                    v-else
                     class="slide-image"
-                    :style="{ backgroundImage: `url(${slide.image})` }"
+                    role="img"
+                    :aria-label="
+                      slide.kind === 'image' ? slide.title : undefined
+                    "
+                    :style="bgVars(slide.image, slide.imageMobile)"
                   ></div>
-                  <div :class="['slide-overlay', slideDirection]">
+
+                  <!-- Testo sopra la foto: solo su desktop -->
+                  <div
+                    v-if="slide.kind === 'full'"
+                    :class="['slide-overlay', slideDirection]"
+                  >
                     <div class="slide-content">
                       <h3 class="slide-title uppercase">{{ slide.title }}</h3>
                       <p
@@ -387,19 +558,31 @@ onUnmounted(() => {
 
         <section class="mission-section">
           <div class="square">
-            <p class="first-paragraph" v-html="inline('mission_1', missionDefaults[0])"></p>
+            <p
+              class="first-paragraph"
+              v-html="inline('mission_1', missionDefaults[0])"
+            ></p>
 
             <hr class="first-line" />
 
-            <p class="second-paragraph" v-html="inline('mission_2', missionDefaults[1])"></p>
+            <p
+              class="second-paragraph"
+              v-html="inline('mission_2', missionDefaults[1])"
+            ></p>
 
             <hr class="second-line" />
 
-            <p class="third-paragraph" v-html="inline('mission_3', missionDefaults[2])"></p>
+            <p
+              class="third-paragraph"
+              v-html="inline('mission_3', missionDefaults[2])"
+            ></p>
 
             <hr class="third-line" />
 
-            <p class="fourth-paragraph" v-html="inline('mission_4', missionDefaults[3])"></p>
+            <p
+              class="fourth-paragraph"
+              v-html="inline('mission_4', missionDefaults[3])"
+            ></p>
             <div class="button-container">
               <Button
                 to="/chi-siamo"
@@ -529,6 +712,7 @@ onUnmounted(() => {
 // Jumbo section
 .col {
   .jumbo-bg {
+    background-image: var(--bg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -673,9 +857,43 @@ onUnmounted(() => {
     left: 0;
     width: 100%;
     height: 100%;
+    background-image: var(--bg);
     background-size: cover;
     background-position: center;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // Card di solo testo (fino a 992px): sfondo color cielo
+  .slide-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    // Sfondo della card (heroDefaultsTestSlide). Sotto c'è cielo-alberi
+    // come riserva: si vede se l'immagine della card manca o non si carica.
+    background-image:
+      var(--text-bg, none), url("/images/home/slider/cielo-alberi.webp");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    overflow-y: auto; // testi lunghi: scorrono dentro la card
+
+    &__title {
+      font-size: clamp(1.2rem, 4.5vw, 1.8rem);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin: 0;
+      margin-bottom: 1rem;
+    }
+
+    &__description {
+      font-size: clamp(0.9rem, 2.8vw, 1.05rem);
+      line-height: 1.5;
+      margin: 0;
+    }
   }
 
   &:hover .slide-image {
@@ -1265,9 +1483,37 @@ onUnmounted(() => {
       height: clamp(350px, 40vh, 500px);
     }
 
+    // Una card alla volta, senza ingrandimento al passaggio del mouse:
+    // il track occupa tutta l'altezza, così card con foto e card di
+    // testo sono alte uguali (quanto lo slider)
+    .slider-track {
+      height: 100%;
+      gap: 12px; // = SWIPE_GAP_PX nello script
+      transition: none;
+    }
+
+    // Carosello a swipe: niente frecce, le card arrivano fino ai bordi
+    // dello schermo e le vicine spuntano ai lati
+    .slider-wrapper {
+      gap: 0;
+      padding: 0;
+    }
+
     .slider-nav {
-      width: 45px;
-      height: 45px;
+      display: none;
+    }
+
+    .slider-container {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; // niente barra di scorrimento
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     // Sotto 992px: 1 card visibile, piena e statica.
@@ -1275,12 +1521,44 @@ onUnmounted(() => {
     // annulliamo espansione ed effetti hover.
     .slider-item {
       min-width: auto;
-      transform: none;
+      scroll-snap-align: center;
+      scroll-snap-stop: always; // uno swipe = una card
+      transform: scale(0.88); // le vicine, più piccole
+      opacity: 0.85;
+      transition:
+        transform 0.35s ease,
+        transform-origin 0.35s ease,
+        opacity 0.35s ease;
 
-      &:hover,
-      &:has(~ .slider-item:hover),
-      & ~ .slider-item:not(:hover) {
+      // Rimpicciolimento dal centro, anche per la prima e l'ultima card
+      &,
+      &:first-child,
+      &:last-child {
+        transform-origin: center center;
+      }
+
+      // Nessun ingrandimento al passaggio del mouse (è un effetto desktop)
+      &:hover {
+        transform: scale(0.88);
+      }
+
+      // Card laterali leggermente inclinate in prospettiva: ruotano
+      // attorno al bordo vicino alla card centrale (che resta al suo
+      // posto), mentre il lato esterno viene verso chi guarda
+      &.is-prev {
+        transform-origin: right center;
+        transform: perspective(700px) rotateY(20deg) scale(0.88);
+      }
+
+      &.is-next {
+        transform-origin: left center;
+        transform: perspective(700px) rotateY(-20deg) scale(0.88);
+      }
+
+      &.is-current,
+      &.is-current:hover {
         transform: none;
+        opacity: 1;
       }
 
       .slide-overlay {
@@ -1391,27 +1669,19 @@ onUnmounted(() => {
 // MEDIA QUERIES - MOBILE
 // ==========================================
 @media (max-width: 768px) {
+  // Foto in versione mobile (vedi heroMobileDefaults)
+  .col .jumbo-bg,
+  .slider-item .slide-image {
+    background-image: var(--bg-mobile);
+  }
+
   .col {
     // Direction-aware slider - Mobile (1 card visible su 4)
     .direction-slider-section {
       padding: clamp(1.5rem, 4vw, 3rem) 0;
 
-      .slider-wrapper {
-        gap: 0.75rem;
-        padding: 0 1rem;
-      }
-
-      .slider-nav {
-        width: 40px;
-        height: 40px;
-      }
-
       .slider-container {
-        height: 300px;
-      }
-
-      .slider-track {
-        gap: 0.75rem;
+        height: 500px;
       }
 
       .slider-item {
@@ -1419,20 +1689,26 @@ onUnmounted(() => {
         // La larghezza esatta è imposta via stile inline (px); qui
         // annulliamo ogni espansione, transizione ed effetto hover.
         min-width: auto;
-        transition: none;
-        transform: none;
-
-        // Nessuna espansione/contrazione al tocco o hover
-        &:hover,
-        &:has(~ .slider-item:hover),
-        & ~ .slider-item:not(:hover) {
-          transition: none;
-          transform: none;
-        }
 
         .slide-image {
           transition: none; // niente zoom immagine
           transform: none;
+        }
+
+        // Card di solo testo: più compatta, così anche i testi lunghi
+        // (es. la citazione della card 2) stanno nella card
+        .slide-text {
+          gap: 0.5rem;
+          padding: 1rem 1.25rem;
+
+          &__title {
+            font-size: clamp(1.05rem, 4.5vw, 1.3rem);
+          }
+
+          &__description {
+            font-size: clamp(0.8rem, 3.4vw, 0.9rem);
+            line-height: 1.4;
+          }
         }
 
         .slide-overlay {
