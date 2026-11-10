@@ -31,7 +31,7 @@ defineProps<{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 220px;
+  min-height: 280px;
   overflow: hidden;
   border-radius: 12px;
   background-size: cover;
