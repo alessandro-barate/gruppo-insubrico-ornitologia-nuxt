@@ -67,8 +67,13 @@ useHead({
   }
 
   .jumbo-bg {
-    background: url(/assets/images/publications/fistioni-turchi.webp) center/
-      cover no-repeat;
+    background: url(/images/pubblicazioni/fistioni-turchi.webp) center/ cover
+      no-repeat;
+
+    @media (max-width: 768px) {
+      background: url(/images/pubblicazioni/fistioni-turchi-mobile.webp) center/
+        cover no-repeat;
+    }
 
     .title {
       text-align: center;
