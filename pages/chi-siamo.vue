@@ -315,12 +315,20 @@ ul,
   width: 70%;
   list-style: disc;
   margin-top: 1rem;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 }
 
 // Il direttivo arriva da v-html (pannello o default): stili con :deep.
 // Si usano i tag (p, ul) e non le classi, che l'editor del pannello toglie.
 .fourth-block > :deep(p) {
   width: 70%;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 }
 // L'editor del pannello mette il testo delle voci in <li><p>…</p></li>
 .fourth-block :deep(li > p) {
@@ -453,6 +461,7 @@ ul,
 
     img {
       width: 60%;
+      border-radius: 0.5rem;
     }
   }
 }
@@ -509,7 +518,7 @@ ul,
   .details-container.desktop-only {
     width: 100%;
     margin: 0 auto;
-    padding-top: 5rem;
+    padding-top: 3rem;
 
     .selection-bar {
       display: flex;
@@ -683,7 +692,7 @@ ul,
 
     .subscribe-section {
       min-height: auto;
-      padding-bottom: 8rem;
+      padding-bottom: 16rem;
 
       .subscribe-container {
         .subscribe-box {
@@ -720,7 +729,7 @@ ul,
                 container-type: inline-size;
                 background-size: cover;
                 background-position: center;
-                background-image: url(../assets/images/activities-section/grid-1.webp);
+                background-image: url(/images/chi-siamo/diventare-soci.webp);
 
                 .card-default {
                   position: absolute;
