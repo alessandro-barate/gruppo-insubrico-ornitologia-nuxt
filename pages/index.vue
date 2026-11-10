@@ -44,9 +44,9 @@ const heroDefaultsTestSlide = [
 // Valgono solo finché la foto non viene sostituita dal pannello.
 const heroMobileDefaults = [
   null,
-  null,
+  "/images/home/slider/nibbio-2-mobile.webp",
   "/images/home/slider/nibbio-3-mobile.webp",
-  null,
+  "/images/home/slider/nibbio-4-mobile.webp",
 ];
 
 // Stile con la foto desktop e quella mobile: la sceglie il CSS
@@ -1278,7 +1278,11 @@ onUnmounted(() => {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-image: url(/images/home/activities-section/parallax-image.webp);
+  background-image: url(/images/home/activities-section/zigolo-parallax-image.webp);
+
+  @media (max-width: 768px) {
+    background-image: url(/images/home/activities-section/zigolo-parallax-image-mobile.webp);
+  }
 
   hr {
     height: clamp(100px, 20vw, 210px);
