@@ -14,18 +14,18 @@ useHead({
 const config = useRuntimeConfig();
 
 // Testi e immagine modificabili dal pannello (con default se vuoti)
-const { c } = await usePageContent("news");
+const { c, m } = await usePageContent("news");
 
-const heroStyle = computed(() => ({
-  backgroundImage: `url(${c("hero_image", defaultHero)})`,
-}));
+const heroStyle = computed(() =>
+  bgStyle(c("hero_image", defaultHero), m("hero_image")),
+);
 
 // Nessuna news pubblicata: al posto della griglia un'immagine con una
 // scritta (entrambe modificabili dal pannello). Alla prima news pubblicata
 // sparisce da sola e torna la griglia con la paginazione.
-const emptyStyle = computed(() => ({
-  backgroundImage: `url(${c("empty_image", defaultEmptyImage)})`,
-}));
+const emptyStyle = computed(() =>
+  bgStyle(c("empty_image", defaultEmptyImage), m("empty_image")),
+);
 
 // Pagina corrente, letta dall'URL (?pagina=2): tornando indietro da una
 // news si ritrova la stessa pagina. Al cambio, useFetch rifà la chiamata.

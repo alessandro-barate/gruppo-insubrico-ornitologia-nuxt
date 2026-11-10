@@ -63,7 +63,7 @@ const backTo = useBackLink();
           <!-- Header con immagine di copertina -->
           <div
             class="news-detail__hero"
-            :style="{ backgroundImage: `url(${article.image})` }"
+            :style="bgStyle(article.image, article.image_mobile)"
           >
             <div class="news-detail__hero-overlay">
               <span v-if="article.category" class="news-detail__category">

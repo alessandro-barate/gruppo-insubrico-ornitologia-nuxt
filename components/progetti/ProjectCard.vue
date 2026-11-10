@@ -21,7 +21,14 @@ const visibleBlocks = computed(() => blocksFor(props.project, props.part));
 <template>
   <article class="project-card">
     <div v-if="project.image_path" class="project-card__media">
-      <img :src="project.image_path" :alt="project.title" loading="lazy" />
+      <picture>
+        <source
+          v-if="project.image_path_mobile"
+          media="(max-width: 768px)"
+          :srcset="project.image_path_mobile"
+        />
+        <img :src="project.image_path" :alt="project.title" loading="lazy" />
+      </picture>
     </div>
 
     <div class="project-card__content">

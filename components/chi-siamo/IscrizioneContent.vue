@@ -6,7 +6,7 @@
 // Testi e immagini sono modificabili dal pannello (Testi delle pagine →
 // Chi siamo, campi "Diventa socio › …"). I testi qui sotto sono gli
 // originali, usati finché il campo del pannello è vuoto.
-const { c, inline } = await usePageContent("chi-siamo");
+const { c, m, inline } = await usePageContent("chi-siamo");
 const router = useRouter();
 
 const DEFAULTS = {
@@ -50,62 +50,97 @@ function handleLinkClick(e: MouseEvent) {
     </h3>
     <p v-html="para('join_intro', true)"></p>
     <div class="iscrizione__cards">
-      <img
-        :src="c('join_card_front', '/images/chi-siamo/tessera-fronte.webp')"
-        alt="Tessera socio del G.I.O., fronte."
-        loading="lazy"
-      />
-      <img
-        :src="c('join_card_back', '/images/chi-siamo/tessera-retro.webp')"
-        alt="Tessera socio del G.I.O., retro."
-        loading="lazy"
-      />
+      <picture>
+        <source
+          v-if="m('join_card_front')"
+          media="(max-width: 768px)"
+          :srcset="m('join_card_front')"
+        />
+        <img
+          :src="c('join_card_front', '/images/chi-siamo/tessera-fronte.webp')"
+          alt="Tessera socio del G.I.O., fronte."
+          loading="lazy"
+        />
+      </picture>
+      <picture>
+        <source
+          v-if="m('join_card_back')"
+          media="(max-width: 768px)"
+          :srcset="m('join_card_back')"
+        />
+        <img
+          :src="c('join_card_back', '/images/chi-siamo/tessera-retro.webp')"
+          alt="Tessera socio del G.I.O., retro."
+          loading="lazy"
+        />
+      </picture>
     </div>
     <h3>{{ c("annual_title", "iscrizione annuale") }}</h3>
     <p v-html="para('annual_text', true)"></p>
     <div class="iscrizione__image">
-      <img
-        :src="c('annual_image', '/images/chi-siamo/direttivo/gruppo-1.webp')"
-        :alt="
-          c(
-            'annual_image_alt',
-            'Soci del G.I.O. in posa mentre tengono tra le braccia il terzo Quaderno del G.I.O.',
-          )
-        "
-        loading="lazy"
-      />
+      <picture>
+        <source
+          v-if="m('annual_image')"
+          media="(max-width: 768px)"
+          :srcset="m('annual_image')"
+        />
+        <img
+          :src="c('annual_image', '/images/chi-siamo/direttivo/gruppo-1.webp')"
+          :alt="
+            c(
+              'annual_image_alt',
+              'Soci del G.I.O. in posa mentre tengono tra le braccia il terzo Quaderno del G.I.O.',
+            )
+          "
+          loading="lazy"
+        />
+      </picture>
     </div>
     <br /><br />
     <h3>{{ c("meetings_title", "riunioni mensili") }}</h3>
     <p v-html="para('meetings_text', true)"></p>
     <div class="iscrizione__image">
-      <img
-        :src="c('meetings_image', '/images/chi-siamo/direttivo/gruppo-2.webp')"
-        :alt="
-          c(
-            'meetings_image_alt',
-            'Soci del G.I.O. in posa davanti ad un tavolo con sopra dei vasi con fiori.',
-          )
-        "
-        loading="lazy"
-      />
+      <picture>
+        <source
+          v-if="m('meetings_image')"
+          media="(max-width: 768px)"
+          :srcset="m('meetings_image')"
+        />
+        <img
+          :src="c('meetings_image', '/images/chi-siamo/direttivo/gruppo-2.webp')"
+          :alt="
+            c(
+              'meetings_image_alt',
+              'Soci del G.I.O. in posa davanti ad un tavolo con sopra dei vasi con fiori.',
+            )
+          "
+          loading="lazy"
+        />
+      </picture>
     </div>
     <br /><br />
     <h3>{{ c("comms_title", "comunicazioni tra i soci") }}</h3>
     <p v-html="para('comms_text', true)"></p>
     <div class="iscrizione__image">
-      <img
-        :src="
-          c('comms_image', '/images/chi-siamo/direttivo/XXII-cio-lecce.webp')
-        "
-        :alt="
-          c(
-            'comms_image_alt',
-            'Soci del G.I.O. al XXII Convegno Italiano di Ornitologia di Lecce',
-          )
-        "
-        loading="lazy"
-      />
+      <picture>
+        <source
+          v-if="m('comms_image')"
+          media="(max-width: 768px)"
+          :srcset="m('comms_image')"
+        />
+        <img
+          :src="
+            c('comms_image', '/images/chi-siamo/direttivo/XXII-cio-lecce.webp')
+          "
+          :alt="
+            c(
+              'comms_image_alt',
+              'Soci del G.I.O. al XXII Convegno Italiano di Ornitologia di Lecce',
+            )
+          "
+          loading="lazy"
+        />
+      </picture>
     </div>
     <br /><br />
     <h3>{{ c("donations_title", "donazioni") }}</h3>

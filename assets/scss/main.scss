@@ -42,3 +42,17 @@
     height: 90px;
   }
 }
+
+// Immagini di sfondo con la versione per telefono (vedi composables/bgStyle.ts):
+// fino a 768px si usa --bg-mobile al posto dell'immagine del computer
+@media (max-width: 768px) {
+  [style*="--bg-mobile"] {
+    background-image: var(--bg-mobile) !important;
+  }
+}
+
+// <picture> con la versione per telefono delle immagini: non conta nel
+// layout, così l'<img> dentro si comporta come se fosse da sola
+picture {
+  display: contents;
+}

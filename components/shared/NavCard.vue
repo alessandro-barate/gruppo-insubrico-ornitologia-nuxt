@@ -6,6 +6,8 @@ defineProps<{
   title: string;
   excerpt?: string;
   image?: string;
+  /** Versione per telefono dell'immagine (dal backend), facoltativa */
+  imageMobile?: string;
 }>();
 </script>
 
@@ -13,7 +15,7 @@ defineProps<{
   <NuxtLink
     :to="to"
     class="nav-card"
-    :style="image ? { backgroundImage: `url(${image})` } : undefined"
+    :style="bgStyle(image, imageMobile)"
   >
     <div class="nav-card__body">
       <h2>{{ title }}</h2>

@@ -20,7 +20,7 @@ useHead({
 // Testi e immagini modificabili dal pannello (Testi delle pagine → Home).
 // Il secondo argomento di c() / inline() è il testo originale del sito,
 // usato finché il campo nel pannello è vuoto.
-const { c, inline, bg } = await usePageContent("home");
+const { c, m, inline, bg } = await usePageContent("home");
 
 // Immagini della copertina a rotazione
 const heroDefaults = [
@@ -57,9 +57,11 @@ const bgVars = (desktop, mobile) => ({
   "--bg-mobile": `url(${mobile || desktop})`,
 });
 
-// Versione mobile della foto i, se è ancora quella predefinita
-const mobileFor = (image, i) =>
-  image === heroDefaults[i] ? heroMobileDefaults[i] : null;
+// Versione per telefono della foto i: per le foto predefinite quella di
+// heroMobileDefaults; per quelle caricate dal pannello la versione per
+// telefono del backend (ritaglio dedicato o copia leggera) del campo `key`
+const mobileFor = (image, i, key = `hero_${i + 1}`) =>
+  image === heroDefaults[i] ? heroMobileDefaults[i] : m(key) || null;
 const heroImages = computed(() =>
   heroDefaults.map((img, i) => c(`hero_${i + 1}`, img)),
 );
@@ -120,7 +122,11 @@ const sliderItems = computed(() =>
     const n = i + 1;
     return {
       image: c(`card_${n}_image`, heroImages.value[i]),
-      imageMobile: mobileFor(c(`card_${n}_image`, heroImages.value[i]), i),
+      imageMobile: mobileFor(
+        c(`card_${n}_image`, heroImages.value[i]),
+        i,
+        c(`card_${n}_image`) ? `card_${n}_image` : `hero_${n}`,
+      ),
       title: c(`card_${n}_title`, d.title),
       description: inline(`card_${n}_description`, d.description),
       text: c(`card_${n}_text`, d.text),

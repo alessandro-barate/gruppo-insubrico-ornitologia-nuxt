@@ -242,7 +242,14 @@ useSeoMeta({
 
           <h1>{{ pageTitle }}</h1>
           <div v-if="node.header_image" class="main-image">
-            <img :src="node.header_image" :alt="node.title" loading="lazy" />
+            <picture>
+              <source
+                v-if="node.header_image_mobile"
+                media="(max-width: 768px)"
+                :srcset="node.header_image_mobile"
+              />
+              <img :src="node.header_image" :alt="node.title" loading="lazy" />
+            </picture>
           </div>
           <div
             v-if="node.intro_text && !gridBeforeIntro"
@@ -261,6 +268,7 @@ useSeoMeta({
             :title="card.title"
             :excerpt="card.intro_excerpt"
             :image="card.image_path"
+            :image-mobile="card.image_path_mobile"
           />
         </div>
 
@@ -269,12 +277,19 @@ useSeoMeta({
           <div ref="listTop">
             <!-- Dettaglio (es. singolo Quaderno): immagine + testo + prezzo + PDF -->
             <article v-if="node.type === 'detail'" class="detail">
-              <img
-                v-if="node.image_path"
-                :src="node.image_path"
-                :alt="node.title"
-                class="detail__cover"
-              />
+              <picture>
+                <source
+                  v-if="node.image_path_mobile"
+                  media="(max-width: 768px)"
+                  :srcset="node.image_path_mobile"
+                />
+                <img
+                  v-if="node.image_path"
+                  :src="node.image_path"
+                  :alt="node.title"
+                  class="detail__cover"
+                />
+              </picture>
               <!-- Pagine interne "a libro aperto", gestite dal pannello -->
               <PubblicazioniBookSpreads
                 v-if="node.inner_pages?.length"

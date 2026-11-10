@@ -11,6 +11,7 @@ export interface CardItem {
   title: string;
   body: string;
   image_path?: string;
+  image_path_mobile?: string;
 }
 
 export interface PdfItem {
@@ -43,7 +44,9 @@ interface BaseNode {
   second_intro_text?: string;
   intro_excerpt?: string;
   header_image?: string;
+  header_image_mobile?: string;
   image_path?: string;
+  image_path_mobile?: string;
   // Voci per pagina della lista del nodo (default 4). Es. 10 per la
   // bibliografia di Altre Pubblicazioni.
   items_per_page?: number;
@@ -83,6 +86,7 @@ export interface GroupNode extends BaseNode {
 export interface QuadernoPage {
   id: number;
   image_path: string;
+  image_path_mobile?: string;
   alt?: string;
 }
 
@@ -109,6 +113,7 @@ export interface PubCardData {
   title: string;
   intro_excerpt?: string;
   image_path?: string;
+  image_path_mobile?: string;
   type: SubsectionType;
 }
 

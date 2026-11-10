@@ -47,6 +47,7 @@ useHead({
               :title="sub.title"
               :excerpt="sub.intro_excerpt"
               :image="sub.image_path"
+              :image-mobile="sub.image_path_mobile"
             />
           </div>
         </section>

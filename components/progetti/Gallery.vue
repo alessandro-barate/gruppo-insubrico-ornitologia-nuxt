@@ -56,7 +56,14 @@ onBeforeUnmount(() => {
       :aria-label="`Ingrandisci: ${img.alt}`"
       @click="open(i)"
     >
-      <img :src="img.src" :alt="img.alt" loading="lazy" />
+      <picture>
+        <source
+          v-if="img.src_mobile"
+          media="(max-width: 768px)"
+          :srcset="img.src_mobile"
+        />
+        <img :src="img.src" :alt="img.alt" loading="lazy" />
+      </picture>
       <span v-if="img.caption" class="gallery__caption">{{ img.caption }}</span>
     </button>
 

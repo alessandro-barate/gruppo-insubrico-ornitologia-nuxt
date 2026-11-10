@@ -26,6 +26,7 @@ export interface SubsectionItem {
   year?: string;
   body?: string;
   image_path?: string;
+  image_path_mobile?: string;
   // Facoltativo: nessun link, uno o più (aggiunti dagli admin dal pannello)
   links?: ItemLink[];
 }
@@ -38,6 +39,7 @@ export interface Subsection {
   intro_text: string;
   intro_excerpt?: string;
   image_path?: string;
+  image_path_mobile?: string;
   items: SubsectionItem[];
 }
 

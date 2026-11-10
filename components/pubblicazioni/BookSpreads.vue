@@ -86,11 +86,18 @@ onBeforeUnmount(() => {
         :aria-label="`Ingrandisci ${altFor(page, s * 2 + i)}`"
         @click="open(s * 2 + i)"
       >
-        <img
-          :src="page.image_path"
-          :alt="altFor(page, s * 2 + i)"
-          loading="lazy"
-        />
+        <picture>
+          <source
+            v-if="page.image_path_mobile"
+            media="(max-width: 768px)"
+            :srcset="page.image_path_mobile"
+          />
+          <img
+            :src="page.image_path"
+            :alt="altFor(page, s * 2 + i)"
+            loading="lazy"
+          />
+        </picture>
       </button>
     </div>
 

@@ -61,6 +61,7 @@ export function blocksFor(project: Project, part: ProjectPart): ContentBlock[] {
 // Pagina /progetti: testo introduttivo + galleria
 export interface GalleryImage {
   src: string;
+  src_mobile?: string;
   alt: string;
   caption?: string;
 }
@@ -106,6 +107,7 @@ export interface Project {
   slug: string; // usato per l'URL quando la sezione è navigabile
   title: string;
   image_path?: string;
+  image_path_mobile?: string;
   intro?: string;
   blocks?: ContentBlock[];
   order?: number;
@@ -117,6 +119,7 @@ export interface ProjectSection {
   intro_text?: string;
   intro_excerpt?: string;
   image_path?: string;
+  image_path_mobile?: string;
   has_projects: boolean;
   // true = le card progetto sono bottoni verso una sotto-pagina (3 livelli).
   // false/assente = i progetti si mostrano inline nella lista (2 livelli).
@@ -129,6 +132,7 @@ export interface NavCardData {
   title: string;
   intro_excerpt?: string;
   image_path?: string;
+  image_path_mobile?: string;
 }
 
 // ─── DATI ────────────────────────────────────────────────

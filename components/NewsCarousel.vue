@@ -19,10 +19,10 @@ const { data: newsData } = await useApiData("news-carousel", "/news", {
 
 // Nessuna news pubblicata: la stessa immagine con scritta della pagina
 // News (pannello → Testi delle pagine → News), al posto del carosello.
-const { c } = await usePageContent("news");
-const emptyStyle = computed(() => ({
-  backgroundImage: `url(${c("empty_image", defaultEmptyImage)})`,
-}));
+const { c, m } = await usePageContent("news");
+const emptyStyle = computed(() =>
+  bgStyle(c("empty_image", defaultEmptyImage), m("empty_image")),
+);
 
 // State
 const slides = computed(() =>
@@ -182,12 +182,19 @@ const goTo = (index) => {
         >
           <div class="news-carousel__card">
             <div class="news-carousel__image-wrapper">
-              <img
-                :src="slide.image"
-                :alt="slide.title"
-                class="news-carousel__image"
-                loading="lazy"
-              />
+              <picture>
+                <source
+                  v-if="slide.image_mobile"
+                  media="(max-width: 768px)"
+                  :srcset="slide.image_mobile"
+                />
+                <img
+                  :src="slide.image"
+                  :alt="slide.title"
+                  class="news-carousel__image"
+                  loading="lazy"
+                />
+              </picture>
               <div class="news-carousel__overlay"></div>
             </div>
 
@@ -227,12 +234,19 @@ const goTo = (index) => {
         >
           <div class="news-carousel__card">
             <div class="news-carousel__image-wrapper">
-              <img
-                :src="slide.image"
-                :alt="slide.title"
-                class="news-carousel__image"
-                loading="lazy"
-              />
+              <picture>
+                <source
+                  v-if="slide.image_mobile"
+                  media="(max-width: 768px)"
+                  :srcset="slide.image_mobile"
+                />
+                <img
+                  :src="slide.image"
+                  :alt="slide.title"
+                  class="news-carousel__image"
+                  loading="lazy"
+                />
+              </picture>
               <div class="news-carousel__overlay"></div>
             </div>
 

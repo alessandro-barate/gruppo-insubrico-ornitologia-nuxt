@@ -11,12 +11,19 @@ defineProps({
   <article class="news-card">
     <!-- Immagine di sfondo -->
     <div class="news-card__image-wrapper">
-      <img
-        :src="news.image"
-        :alt="news.title"
-        class="news-card__image"
-        loading="lazy"
-      />
+      <picture>
+        <source
+          v-if="news.image_mobile"
+          media="(max-width: 768px)"
+          :srcset="news.image_mobile"
+        />
+        <img
+          :src="news.image"
+          :alt="news.title"
+          class="news-card__image"
+          loading="lazy"
+        />
+      </picture>
       <div class="news-card__overlay"></div>
     </div>
 

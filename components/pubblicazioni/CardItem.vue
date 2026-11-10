@@ -9,7 +9,14 @@ defineProps<{
 <template>
   <article class="card-item">
     <div v-if="item.image_path" class="card-item__media">
-      <img :src="item.image_path" :alt="item.title" loading="lazy" />
+      <picture>
+        <source
+          v-if="item.image_path_mobile"
+          media="(max-width: 768px)"
+          :srcset="item.image_path_mobile"
+        />
+        <img :src="item.image_path" :alt="item.title" loading="lazy" />
+      </picture>
     </div>
     <div class="card-item__content">
       <h3>{{ item.title }}</h3>

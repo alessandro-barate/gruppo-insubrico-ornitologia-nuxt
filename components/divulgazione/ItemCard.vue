@@ -64,7 +64,14 @@ onBeforeUnmount(() => {
         :aria-label="`Ingrandisci la locandina: ${item.title}`"
         @click="zoomImage"
       >
-        <img :src="item.image_path" :alt="item.title" loading="lazy" />
+        <picture>
+          <source
+            v-if="item.image_path_mobile"
+            media="(max-width: 768px)"
+            :srcset="item.image_path_mobile"
+          />
+          <img :src="item.image_path" :alt="item.title" loading="lazy" />
+        </picture>
       </button>
     </div>
 

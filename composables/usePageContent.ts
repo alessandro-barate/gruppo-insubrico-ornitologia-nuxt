@@ -6,6 +6,7 @@
  *   const { c, inline, bg } = await usePageContent('news')
  *   c('title', 'News')              // testo dal pannello, oppure il default
  *   c('hero_image', defaultImg)     // URL immagine dal pannello, oppure l'asset locale
+ *   m('hero_image')                 // la stessa immagine in versione per telefono
  *   inline('intro', '<strong>…')    // testo formattato da mettere DENTRO un <p>
  *   bg('hero_image')                // :style con l'immagine di sfondo, solo se
  *                                   // caricata dal pannello (altrimenti resta il CSS)
@@ -27,6 +28,15 @@ export async function usePageContent(page: string) {
 
   const c = (key: string, fallback = ''): string =>
     data.value?.[key] || fallback
+
+  /**
+   * Versione per telefono di un'immagine del pannello: quella caricata
+   * apposta (ritaglio diverso) o la copia leggera creata dal backend.
+   * Vuota se il campo del pannello è vuoto: vale il `fallback` (di solito
+   * nessuno, e su telefono si usa la stessa immagine del computer).
+   */
+  const m = (key: string, fallback = ''): string =>
+    (data.value?.[key] ? data.value?.[`${key}_mobile`] : '') || fallback
 
   /**
    * Per i campi formattati mostrati dentro un elemento <p> già stilizzato.
@@ -53,8 +63,8 @@ export async function usePageContent(page: string) {
   const bg = (key: string, layers = '') => {
     const url = data.value?.[key]
     if (!url) return undefined
-    return { backgroundImage: [layers, `url("${url}")`].filter(Boolean).join(', ') }
+    return bgStyle(url, m(key), layers)
   }
 
-  return { c, inline, bg, data }
+  return { c, m, inline, bg, data }
 }

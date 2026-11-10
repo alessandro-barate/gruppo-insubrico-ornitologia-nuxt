@@ -205,6 +205,7 @@ useSeoMeta({
             :title="card.title"
             :excerpt="card.intro_excerpt"
             :image="card.image_path"
+            :image-mobile="card.image_path_mobile"
           />
         </div>
       </template>

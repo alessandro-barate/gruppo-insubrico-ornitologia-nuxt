@@ -16,7 +16,7 @@ useHead({
 // Testi e immagini modificabili dal pannello (Testi delle pagine → Chi siamo).
 // I testi qui sotto sono gli originali, usati finché il campo è vuoto.
 import teamDefault from "/images/chi-siamo/direttivo/gruppo-gio-2023.webp";
-const { c, inline, bg } = await usePageContent("chi-siamo");
+const { c, m, inline, bg } = await usePageContent("chi-siamo");
 
 // Foto facoltative sopra e sotto i paragrafi 2 e 3 della storia, tra le
 // linee grigie (pannello: "Storia · paragrafo N · foto sopra/sotto").
@@ -30,6 +30,7 @@ const HISTORY_IMAGE_DEFAULTS: Record<string, string> = {
 };
 const historyImage = (key: string) => c(key, HISTORY_IMAGE_DEFAULTS[key] ?? "");
 const historyAlt = (key: string) => c(`${key}_alt`, "");
+const historyMobile = (key: string) => m(key);
 
 const DEFAULTS = {
   history_1:
@@ -199,44 +200,72 @@ onMounted(() => {
 
             <!-- Second paragraph, con foto facoltative sopra e sotto -->
             <div class="second-paragraph-container history-block d-flex">
-              <img
-                v-if="historyImage('history_2_image_top')"
-                class="history-image history-image--top"
-                :src="historyImage('history_2_image_top')"
-                :alt="historyAlt('history_2_image_top')"
-              />
+              <picture>
+                <source
+                  v-if="historyMobile('history_2_image_top')"
+                  media="(max-width: 768px)"
+                  :srcset="historyMobile('history_2_image_top')"
+                />
+                <img
+                  v-if="historyImage('history_2_image_top')"
+                  class="history-image history-image--top"
+                  :src="historyImage('history_2_image_top')"
+                  :alt="historyAlt('history_2_image_top')"
+                />
+              </picture>
               <p
                 class="second-paragraph"
                 v-html="inline('history_2', DEFAULTS.history_2)"
               ></p>
-              <img
-                v-if="historyImage('history_2_image_bottom')"
-                class="history-image history-image--bottom"
-                :src="historyImage('history_2_image_bottom')"
-                :alt="historyAlt('history_2_image_bottom')"
-              />
+              <picture>
+                <source
+                  v-if="historyMobile('history_2_image_bottom')"
+                  media="(max-width: 768px)"
+                  :srcset="historyMobile('history_2_image_bottom')"
+                />
+                <img
+                  v-if="historyImage('history_2_image_bottom')"
+                  class="history-image history-image--bottom"
+                  :src="historyImage('history_2_image_bottom')"
+                  :alt="historyAlt('history_2_image_bottom')"
+                />
+              </picture>
             </div>
 
             <hr class="break-line" />
 
             <!-- Third paragraph, con foto facoltative sopra e sotto -->
             <div class="second-paragraph-container history-block d-flex">
-              <img
-                v-if="historyImage('history_3_image_top')"
-                class="history-image history-image--top"
-                :src="historyImage('history_3_image_top')"
-                :alt="historyAlt('history_3_image_top')"
-              />
+              <picture>
+                <source
+                  v-if="historyMobile('history_3_image_top')"
+                  media="(max-width: 768px)"
+                  :srcset="historyMobile('history_3_image_top')"
+                />
+                <img
+                  v-if="historyImage('history_3_image_top')"
+                  class="history-image history-image--top"
+                  :src="historyImage('history_3_image_top')"
+                  :alt="historyAlt('history_3_image_top')"
+                />
+              </picture>
               <p
                 class="second-paragraph"
                 v-html="inline('history_3', DEFAULTS.history_3)"
               ></p>
-              <img
-                v-if="historyImage('history_3_image_bottom')"
-                class="history-image history-image--bottom"
-                :src="historyImage('history_3_image_bottom')"
-                :alt="historyAlt('history_3_image_bottom')"
-              />
+              <picture>
+                <source
+                  v-if="historyMobile('history_3_image_bottom')"
+                  media="(max-width: 768px)"
+                  :srcset="historyMobile('history_3_image_bottom')"
+                />
+                <img
+                  v-if="historyImage('history_3_image_bottom')"
+                  class="history-image history-image--bottom"
+                  :src="historyImage('history_3_image_bottom')"
+                  :alt="historyAlt('history_3_image_bottom')"
+                />
+              </picture>
             </div>
 
             <hr class="break-line" />
@@ -252,10 +281,17 @@ onMounted(() => {
         <!-- Team image section -->
         <section class="team-container">
           <div class="team-image">
-            <img
-              :src="c('team_image', teamDefault)"
-              :alt="c('team_image_alt', 'Foto di gruppo del G.I.O. nel 2023.')"
-            />
+            <picture>
+              <source
+                v-if="m('team_image')"
+                media="(max-width: 768px)"
+                :srcset="m('team_image')"
+              />
+              <img
+                :src="c('team_image', teamDefault)"
+                :alt="c('team_image_alt', 'Foto di gruppo del G.I.O. nel 2023.')"
+              />
+            </picture>
           </div>
         </section>
 
@@ -387,11 +423,13 @@ ul,
   border-radius: 0.5rem;
 }
 // Un'immagine fuori da un paragrafo segue la colonna del testo (70%)
-.fourth-block > :deep(img) {
+.fourth-block > :deep(img),
+.fourth-block > :deep(picture > img) {
   width: 70%;
 }
 // Il paragrafo che contiene solo la foto non aggiunge altro spazio
-.fourth-block :deep(p:has(> img:only-child)) {
+.fourth-block :deep(p:has(> img:only-child)),
+.fourth-block :deep(p:has(> picture:only-child)) {
   margin-top: 0;
   margin-bottom: 0;
 }
