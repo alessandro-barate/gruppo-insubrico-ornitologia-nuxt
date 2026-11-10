@@ -44,9 +44,9 @@ const heroDefaultsTestSlide = [
 // Valgono solo finché la foto non viene sostituita dal pannello.
 const heroMobileDefaults = [
   null,
-  null,
+  "/images/home/slider/nibbio-2-mobile.webp",
   "/images/home/slider/nibbio-3-mobile.webp",
-  null,
+  "/images/home/slider/nibbio-4-mobile.webp",
 ];
 
 // Stile con la foto desktop e quella mobile: la sceglie il CSS
