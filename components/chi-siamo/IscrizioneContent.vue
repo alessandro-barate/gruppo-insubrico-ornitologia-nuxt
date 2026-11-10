@@ -10,12 +10,18 @@ const { c, inline } = await usePageContent("chi-siamo");
 const router = useRouter();
 
 const DEFAULTS = {
-  join_intro: "Associarsi al <strong>Gruppo Insubrico di Ornitologia</strong> significa sentirsi parte attiva di un gruppo di amici realmente appassionati di avifauna, sotto i variegati aspetti che spaziano dal <strong>birdwatching all&rsquo;ornitologia</strong> vera e propria.<br />Punto centrale e irrinunciabile dello spirito dell&rsquo;associazione &egrave; quello di <strong>promuovere la conoscenza e la conservazione dell&rsquo;avifauna e degli habitat naturali</strong>, che rientrano negli aspetti pi&ugrave; generali del rispetto della vita che ci circonda e del miglioramento della qualit&agrave; dell&rsquo;ambiente in cui viviamo. <br />Se siete curiosi e avete voglia di scoprire, studiare, condividere, dedicarvi ai <strong>monitoraggi e censimenti</strong>, e anche alla <strong>didattica</strong> dell&rsquo;ornitologia, il G.I.O. &egrave; l&rsquo;associazione che fa per voi. ",
-  annual_text: "Chiunque condivida gli scopi della nostra associazione e abbia un po&rsquo; di tempo libero da dedicare a questa particolare forma di &ldquo;volontariato di ricerca&rdquo;, o voglia comunque sostenere il G.I.O., pu&ograve; iscriversi pagando una <strong>quota annuale</strong>. La quota di iscrizione comprende <strong>l&rsquo;assicurazione &ldquo;responsabilit&agrave; civile&rdquo;</strong> obbligatoria per le onlus. All&rsquo;iscrizione il G.I.O. rilascia una <strong>tessera socio</strong>, con il &ldquo;bollino&rdquo; di validit&agrave; dell&rsquo;anno in corso, a cui si aggiungeranno i successivi bollini annuali adesivi. ",
-  meetings_text: "Ci riuniamo il <strong>secondo luned&igrave; di ogni mese</strong> presso la <strong>Biblioteca Comunale del Comune di Gazzada Schianno (VA)</strong> per condividere aggiornamenti sui progetti in corso,&nbsp; idee e nuove iniziative con un ordine del giorno, che viene mandato dal Presidente per mail ai soci, che possono proporre ulteriori argomenti o apportare modifiche.&nbsp; Le <strong>assemblee ufficiali</strong> (come l&rsquo;assemblea annuale) si svolgono invece presso la nostra sede al <strong>Civico Museo Insubrico di Storia Naturale a Clivio (VA)</strong>. <br /><br />Le riunioni mensili sono <strong>incontri informali</strong> in cui ci si confronta anche su osservazioni ornitologiche, viaggi naturalistici, commenti e visione di pubblicazioni e fotografie ecc. ",
-  comms_text: "I soci sono compresi nella <strong>mailing-list</strong> del G.I.O. e possono entrare a far parte del <strong>gruppo WhatsApp dei soci</strong>, attraverso cui si viene informati dell&rsquo;intera attivit&agrave; del gruppo. Alcuni argomenti, di solito quelli pi&ugrave; formali e amministrativi, vengono trattati dal Consiglio Direttivo, che ne informa quindi il resto dei soci in occasione delle riunioni mensili. Abbiamo anche un Tesoriere e un Vice-tesoriere che si occupano delle questioni finanziarie (entrate e uscite, rendiconto economico, rimborsi spese, acquisti vari). ",
-  donations_text: "Privati, enti e istituzioni possono contribuire al finanziamento delle nostre attivit&agrave; di ricerca, divulgazione e organizzazione di eventi specifici con una <strong>donazione al G.I.O.</strong>, godendo dei <strong>benefici fiscali di legge</strong>. <br /><br /> Per informazioni scrivere una mail alla segreteria usando il <a href=\"/form\" class=\"specific-link\">form di contatto</a>.",
-  form_text: "Vuoi unirti a noi? <a href=\"/module\" class=\"specific-link\">Clicca il link</a> e compila il modulo.",
+  join_intro:
+    "Associarsi al <strong>Gruppo Insubrico di Ornitologia</strong> significa sentirsi parte attiva di un gruppo di amici realmente appassionati di avifauna, sotto i variegati aspetti che spaziano dal <strong>birdwatching all&rsquo;ornitologia</strong> vera e propria.<br />Punto centrale e irrinunciabile dello spirito dell&rsquo;associazione &egrave; quello di <strong>promuovere la conoscenza e la conservazione dell&rsquo;avifauna e degli habitat naturali</strong>, che rientrano negli aspetti pi&ugrave; generali del rispetto della vita che ci circonda e del miglioramento della qualit&agrave; dell&rsquo;ambiente in cui viviamo. <br />Se siete curiosi e avete voglia di scoprire, studiare, condividere, dedicarvi ai <strong>monitoraggi e censimenti</strong>, e anche alla <strong>didattica</strong> dell&rsquo;ornitologia, il G.I.O. &egrave; l&rsquo;associazione che fa per voi. ",
+  annual_text:
+    "Chiunque condivida gli scopi della nostra associazione e abbia un po&rsquo; di tempo libero da dedicare a questa particolare forma di &ldquo;volontariato di ricerca&rdquo;, o voglia comunque sostenere il G.I.O., pu&ograve; iscriversi pagando una <strong>quota annuale</strong>. La quota di iscrizione comprende <strong>l&rsquo;assicurazione &ldquo;responsabilit&agrave; civile&rdquo;</strong> obbligatoria per le onlus. All&rsquo;iscrizione il G.I.O. rilascia una <strong>tessera socio</strong>, con il &ldquo;bollino&rdquo; di validit&agrave; dell&rsquo;anno in corso, a cui si aggiungeranno i successivi bollini annuali adesivi. ",
+  meetings_text:
+    "Ci riuniamo il <strong>secondo luned&igrave; di ogni mese</strong> presso la <strong>Biblioteca Comunale del Comune di Gazzada Schianno (VA)</strong> per condividere aggiornamenti sui progetti in corso,&nbsp; idee e nuove iniziative con un ordine del giorno, che viene mandato dal Presidente per mail ai soci, che possono proporre ulteriori argomenti o apportare modifiche.&nbsp; Le <strong>assemblee ufficiali</strong> (come l&rsquo;assemblea annuale) si svolgono invece presso la nostra sede al <strong>Civico Museo Insubrico di Storia Naturale a Clivio (VA)</strong>. <br /><br />Le riunioni mensili sono <strong>incontri informali</strong> in cui ci si confronta anche su osservazioni ornitologiche, viaggi naturalistici, commenti e visione di pubblicazioni e fotografie ecc. ",
+  comms_text:
+    "I soci sono compresi nella <strong>mailing-list</strong> del G.I.O. e possono entrare a far parte del <strong>gruppo WhatsApp dei soci</strong>, attraverso cui si viene informati dell&rsquo;intera attivit&agrave; del gruppo. Alcuni argomenti, di solito quelli pi&ugrave; formali e amministrativi, vengono trattati dal Consiglio Direttivo, che ne informa quindi il resto dei soci in occasione delle riunioni mensili. Abbiamo anche un Tesoriere e un Vice-tesoriere che si occupano delle questioni finanziarie (entrate e uscite, rendiconto economico, rimborsi spese, acquisti vari). ",
+  donations_text:
+    'Privati, enti e istituzioni possono contribuire al finanziamento delle nostre attivit&agrave; di ricerca, divulgazione e organizzazione di eventi specifici con una <strong>donazione al G.I.O.</strong>, godendo dei <strong>benefici fiscali di legge</strong>. <br /><br /> Per informazioni scrivere una mail alla segreteria usando il <a href="/form" class="specific-link">form di contatto</a>.',
+  form_text:
+    'Vuoi unirti a noi? <a href="/module" class="specific-link">Clicca il link</a> e compila il modulo.',
 };
 
 // Paragrafo: testo del pannello (o originale) + lo spazio che lo separa
@@ -27,7 +33,8 @@ const para = (key: keyof typeof DEFAULTS, spaced = false) =>
 function handleLinkClick(e: MouseEvent) {
   const a = (e.target as HTMLElement).closest("a");
   if (!a || a.target === "_blank") return;
-  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0)
+    return;
   const href = a.getAttribute("href");
   if (href && href.startsWith("/")) {
     e.preventDefault();
@@ -38,7 +45,9 @@ function handleLinkClick(e: MouseEvent) {
 
 <template>
   <div class="iscrizione" @click="handleLinkClick">
-    <h3>{{ c("join_title", "Diventa socio del Gruppo Insubrico di Ornitologia") }}</h3>
+    <h3>
+      {{ c("join_title", "Diventa socio del Gruppo Insubrico di Ornitologia") }}
+    </h3>
     <p v-html="para('join_intro', true)"></p>
     <div class="iscrizione__cards">
       <img
@@ -56,7 +65,7 @@ function handleLinkClick(e: MouseEvent) {
     <p v-html="para('annual_text', true)"></p>
     <div class="iscrizione__image">
       <img
-        :src="c('annual_image', '/images/chi-siamo/gruppo-1.webp')"
+        :src="c('annual_image', '/images/chi-siamo/direttivo/gruppo-1.webp')"
         :alt="
           c(
             'annual_image_alt',
@@ -71,7 +80,7 @@ function handleLinkClick(e: MouseEvent) {
     <p v-html="para('meetings_text', true)"></p>
     <div class="iscrizione__image">
       <img
-        :src="c('meetings_image', '/images/chi-siamo/gruppo-2.webp')"
+        :src="c('meetings_image', '/images/chi-siamo/direttivo/gruppo-2.webp')"
         :alt="
           c(
             'meetings_image_alt',
@@ -86,7 +95,9 @@ function handleLinkClick(e: MouseEvent) {
     <p v-html="para('comms_text', true)"></p>
     <div class="iscrizione__image">
       <img
-        :src="c('comms_image', '/images/chi-siamo/XXII-cio-lecce.webp')"
+        :src="
+          c('comms_image', '/images/chi-siamo/direttivo/XXII-cio-lecce.webp')
+        "
         :alt="
           c(
             'comms_image_alt',

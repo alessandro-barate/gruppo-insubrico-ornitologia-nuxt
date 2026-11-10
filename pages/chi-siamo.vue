@@ -15,7 +15,7 @@ useHead({
 
 // Testi e immagini modificabili dal pannello (Testi delle pagine → Chi siamo).
 // I testi qui sotto sono gli originali, usati finché il campo è vuoto.
-import teamDefault from "/images/chi-siamo/gruppo-gio-2023.webp";
+import teamDefault from "/images/chi-siamo/direttivo/gruppo-gio-2023.webp";
 const { c, inline, bg } = await usePageContent("chi-siamo");
 
 const DEFAULTS = {
@@ -26,7 +26,7 @@ const DEFAULTS = {
   history_3:
     "Scopo principale dell&rsquo;&nbsp;associazione &egrave; quello di <strong>promuovere l&rsquo;&nbsp;indagine ornitologica</strong> a livello provinciale ed insubrico, unitamente ad <strong>attivit&agrave; di divulgazione</strong> con l&rsquo;&nbsp;organizzazione di <strong>conferenze, corsi didattici e convegni</strong>. Si occupa di <strong>censimenti, monitoraggi, studi ecologici, pubblicazioni scientifiche e divulgative</strong> sull&rsquo;&nbsp;avifauna e <strong>collabora regolarmente con enti pubblici e privati e istituzioni territoriali</strong>, tra cui la Provincia di Varese, l&rsquo;&nbsp;Universit&agrave; degli Studi dell&rsquo;&nbsp;Insubria, le Comunit&agrave; Montane del Verbano e del Piambello.",
   board:
-    '<p class="last-paragraph"> Dal <strong>2025</strong> il direttivo è così composto. </p> <ul> <li>Presidente: Milo Manica</li> <li>Vice-presidenti: Daniela Casola e Fabio Saporetti</li> <li> Organo di amministrazione: Ilaria Cervellin, Silvio Cova, Nicola Larroux, Jacopo Sacchet </li> <li>Tesoriera e segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class="last-paragraph">Negli anni passati:</p> <br /> <p class="last-paragraph"><strong>2022 - 2023 -2024</strong></p> <ul> <li>Presidente: Milo Manica</li> <li> Vice-presidenti: Luca Giussani fino al febbraio 2024, Walter Guenzani </li> <li> Organo di amministrazione: Daniela Casola, Luca Giussani sostituito da Giulia Belloni nel febbraio 2024, Rosita Pigni, Fabio Saporetti </li> <li>Tesoriera e segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class="last-paragraph"><strong>2019 - 2020 -2021</strong></p> <ul> <li>Presidente: Walter Guenzani</li> <li>Vice-presidente: Milo Manica</li> <li> Organo di amministrazione: Roberto Aletti, Monica Carabella, Fabio Saporetti, Alessandra Stocchetti </li> <li>Tesoriere: Colin Douglas Parnell</li> <li>Segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class="last-paragraph"><strong>2016 - 2017 -2018</strong></p> <ul> <li>Presidente: Monica Carabella</li> <li>Vice-presidente: Fabio Saporetti</li> <li> Consiglio direttivo: Roberto Aletti, Lorenzo Colombo, Walter Guenzani, Alessandro Madella sostituito da Michele Viganò nel febbraio 2018 </li> <li> Tesoriere: Alessandro Madella sostituito da Colin Douglas Parnell </li> <li>Segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class="last-paragraph"><strong>2013 - 2014 -2015</strong></p> <ul> <li>Presidente: Monica Carabella</li> <li>Vice-presidente: Fabio Saporetti</li> <li> Consiglio direttivo: Roberto Aletti, Walter Guenzani, Alessandro Madella, Andrea Vidolini </li> <li>Tesoriere: Alessandro Madella</li> <li>Segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class="last-paragraph"><strong>2010 - 2011 -2012</strong></p> <p class="last-paragraph">Primo consiglio Direttivo:</p> <ul> <li>Presidente: Fabio Saporetti</li> <li>Vice-presidente: Monica Carabella</li> <li> Consiglio direttivo: Paolo Casali sostituito da Andrea Vidolini nel 2012, Silvio Colaone, Walter Guenzani </li> <li> Non esisteva la carica ufficiale di tesoriere e di segretario amministrativo </li> </ul>',
+    '<p class="last-paragraph"> Dal <strong>2025</strong> il direttivo è così composto. </p> <ul> <li>Presidente: Milo Manica</li> <li>Vice-presidenti: Daniela Casola e Fabio Saporetti</li> <li> Organo di amministrazione: Ilaria Cervellin, Silvio Cova, Nicola Larroux, Jacopo Sacchet </li> <li>Tesoriera e segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class="last-paragraph">Negli anni passati:</p> <br /> <p class="last-paragraph"><strong>2022 - 2023 -2024</strong></p> <ul> <li>Presidente: Milo Manica</li> <li> Vice-presidenti: Luca Giussani fino al febbraio 2024, Walter Guenzani </li> <li> Organo di amministrazione: Daniela Casola, Luca Giussani sostituito da Giulia Belloni nel febbraio 2024, Rosita Pigni, Fabio Saporetti </li> <li>Tesoriera e segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class="last-paragraph"><strong>2019 - 2020 -2021</strong></p> <ul> <li>Presidente: Walter Guenzani</li> <li>Vice-presidente: Milo Manica</li> <li> Organo di amministrazione: Roberto Aletti, Monica Carabella, Fabio Saporetti, Alessandra Stocchetti </li> <li>Tesoriere: Colin Douglas Parnell</li> <li>Segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class="last-paragraph"><strong>2016 - 2017 -2018</strong></p> <ul> <li>Presidente: Monica Carabella</li> <li>Vice-presidente: Fabio Saporetti</li> <li> Consiglio direttivo: Roberto Aletti, Lorenzo Colombo, Walter Guenzani, Alessandro Madella sostituito da Michele Viganò nel febbraio 2018 </li> <li> Tesoriere: Alessandro Madella sostituito da Colin Douglas Parnell </li> <li>Segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p><img src="/images/chi-siamo/direttivo/gruppo-2.webp" alt="Foto di esempio: un gruppo di soci del G.I.O." loading="lazy"></p> <p class="last-paragraph"><strong>2013 - 2014 -2015</strong></p> <ul> <li>Presidente: Monica Carabella</li> <li>Vice-presidente: Fabio Saporetti</li> <li> Consiglio direttivo: Roberto Aletti, Walter Guenzani, Alessandro Madella, Andrea Vidolini </li> <li>Tesoriere: Alessandro Madella</li> <li>Segretaria amministrativa: Rosita Pigni</li> </ul> <br /> <p class="last-paragraph"><strong>2010 - 2011 -2012</strong></p> <p class="last-paragraph">Primo consiglio Direttivo:</p> <ul> <li>Presidente: Fabio Saporetti</li> <li>Vice-presidente: Monica Carabella</li> <li> Consiglio direttivo: Paolo Casali sostituito da Andrea Vidolini nel 2012, Silvio Colaone, Walter Guenzani </li> <li> Non esisteva la carica ufficiale di tesoriere e di segretario amministrativo </li> </ul>',
 };
 
 // Stato
@@ -333,6 +333,25 @@ ul,
 }
 .fourth-block :deep(ul + p) {
   margin-top: 1.5rem;
+}
+// Foto inserite nel testo del direttivo (es. tra l'anno e l'elenco dei
+// nomi): larghe quanto la colonna del testo, al massimo 560px
+.fourth-block :deep(img) {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  margin: 1.5rem auto;
+  border-radius: 0.5rem;
+}
+// Un'immagine fuori da un paragrafo segue la colonna del testo (70%)
+.fourth-block > :deep(img) {
+  width: 70%;
+}
+// Il paragrafo che contiene solo la foto non aggiunge altro spazio
+.fourth-block :deep(p:has(> img:only-child)) {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .first-paragraph,
