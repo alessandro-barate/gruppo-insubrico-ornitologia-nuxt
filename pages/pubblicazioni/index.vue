@@ -44,7 +44,7 @@ useHead({
               :title="card.title"
               :excerpt="card.intro_excerpt"
               :image="card.image_path"
-            :image-mobile="card.image_path_mobile"
+              :image-mobile="card.image_path_mobile"
             />
           </div>
         </section>
@@ -70,6 +70,11 @@ useHead({
   .jumbo-bg {
     background: url(/assets/images/publications/fistioni-turchi.webp) center/
       cover no-repeat;
+
+    @media (max-width: 768px) {
+      background: url(/images/pubblicazioni/fistioni-turchi-mobile.webp) center/
+        cover no-repeat;
+    }
 
     .title {
       text-align: center;
