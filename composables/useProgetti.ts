@@ -228,7 +228,7 @@ const PROJECTS: Project[] = [
     section_slug: "ricerca-in-corso",
     slug: "home-swift-home",
     title: "Home Swift Home",
-    image_path: "/images/progetti/in-corso/rondine.webp",
+    image_path: "/images/progetti/in-corso/home-swift-home.webp",
     intro:
       "<p>Il G.I.O., tramite i propri volontari, studia i Rondoni su alcuni filoni di ricerca che possiamo elencare come segue:</p><ul class='specific-list'><li>Monitoraggio delle colonie riproduttive: per mezzo del progetto <strong>&ldquo;Sulle ali dei rondoni&rdquo;</strong> sono state censite tra il 2021 e il 2025 le colonie urbane delle tre specie presenti. La ricerca è stata estesa ad altre province lombarde grazie alla collaborazione con le sezioni LIPU di Bergamo, Como e Varese e l'associazione CROS Varenna, oltre ai gruppi locali Amici dei Rondoni Cislaghesi e Gruppo Rondoni Como</li><li>Mappatura delle strutture per uccelli (torri e pareti colombaie, passeraie e rondonaie). L'indagine al 2026 è realizzata in provincia di Varese e in collaborazione con NovaraBW e Stefano Costa nelle province di Novara, Biella e Vercelli</li><li>Studio della fenologia e del successo riproduttivo nelle colonie di Rondone comune accessibili al nido. Il monitoraggio continuativo presso i nidi, cui si aggiunge l'inanellamento a scopo scientifico affiancato da altre tipologie di indagine, permette di indagare alcuni ambiti della biologia e dell'ecologia della specie</li></ul>",
     blocks: [
