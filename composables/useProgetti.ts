@@ -393,7 +393,7 @@ const PROJECTS: Project[] = [
     section_slug: "ricerca-in-corso",
     slug: "migrazione-notturna-brabbia",
     title: "Migrazione notturna in Palude Brabbia",
-    image_path: "/images/progetti/in-corso/migrazione-notturna.webp",
+    image_path: "/images/progetti/in-corso/brabbia.webp",
     intro:
       "<h4>Attività di monitoraggio della migrazione notturna dell'avifauna tramite approccio bioacustico.</h4><br><p>A partire dal <strong>2021</strong> la <strong>Riserva Naturale Palude Brabbia</strong> ha avviato una campagna di monitoraggio acustico della migrazione notturna dell'avifauna grazie ad un dispositivo programmabile di registrazione automatica (Song Meter Mini 2AA). La ricerca, svolta sia durante il periodo migratorio pre-riproduttivo (primavera) che post-riproduttivo (autunno), si basa su un metodo standardizzato che prevede registrazioni acustiche durante le 3 ore dopo il tramonto e le 3 ore prima dell'alba, ovvero nelle fasce orarie di maggiore rilevabilità ed abbondanza del <strong>passo migratorio</strong>.<br>Le registrazioni vengono successivamente esaminate con un approccio acustico-grafico mediante <strong>analisi dei sonogrammi</strong>, attribuendo, ove possibile, i versi registrati a determinate specie, distinguendo quelli emessi da individui in evidente sorvolo (fly-overs) da quelli associati ad individui non in sorvolo.<br>Questo studio ha sinora permesso di aggiornare la <strong>lista delle specie</strong> rilevate presso la Riserva, di raccogliere dati sulle variazioni annuali fenologiche e di abbondanza numerica, nonché di aggiornare la <strong>fenologia</strong> di diverse specie ritenute in passato rare o accidentali a livello provinciale, ma in realtà di passo annuale nell'area di studio (es. Occhione, Piviere tortolino, etc.), così come una visione inedita dell'abbondanza numerica di altre specie migratrici (es. Tarabusino).</p>",
     blocks: [
@@ -415,7 +415,7 @@ const PROJECTS: Project[] = [
     section_slug: "ricerca-in-corso",
     slug: "garzaia-monvalle",
     title: "Garzaia di Monvalle",
-    image_path: "/images/progetti/garzaie.webp",
+    image_path: "/images/progetti/in-corso/garzaie.webp",
     intro:
       "<p>Dal 2016 il G.I.O. partecipa con alcuni soci  al monitoraggio di alcune garzaie provinciali, contribuendo alla raccolta dati per Garzaie d'Italia, un progetto scientifico di lungo periodo che consiste nel contare e studiare le colonie di aironi e altri uccelli acquatici in Italia per comprendere l'andamento delle popolazioni di uccelli nel tempo, capire lo stato di salute degli ecosistemi umidi e sostenere azioni di conservazione e tutela della biodiversità.</p>",
     blocks: [
