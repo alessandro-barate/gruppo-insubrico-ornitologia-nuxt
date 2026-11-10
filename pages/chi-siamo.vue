@@ -15,7 +15,7 @@ useHead({
 
 // Testi e immagini modificabili dal pannello (Testi delle pagine → Chi siamo).
 // I testi qui sotto sono gli originali, usati finché il campo è vuoto.
-import teamDefault from "/images/chi-siamo/gruppo-gio-2023.webp";
+import teamDefault from "/images/chi-siamo/direttivo/gruppo-gio-2023.webp";
 const { c, inline, bg } = await usePageContent("chi-siamo");
 
 const DEFAULTS = {
@@ -341,7 +341,7 @@ ul,
   width: 100%;
   max-width: 560px;
   height: auto;
-  margin: 1.5rem 0;
+  margin: 1.5rem auto;
   border-radius: 0.5rem;
 }
 // Un'immagine fuori da un paragrafo segue la colonna del testo (70%)
