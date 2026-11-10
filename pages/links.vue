@@ -527,7 +527,7 @@ onUnmounted(() => {
   padding-bottom: 10rem;
   background-image:
     linear-gradient(90deg, rgba(0, 119, 255, 0.85), rgba(233, 233, 233, 0.85)),
-    url(../assets/images/links-socials/social.jpg);
+    url(/images/links-socials/social.jpg);
   padding-top: 10rem;
   min-height: clamp(500px, 80vh, 875px);
   background-size: cover;
