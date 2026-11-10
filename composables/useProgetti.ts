@@ -140,8 +140,8 @@ const PROGETTI_INTRO =
 const GALLERY: GalleryImage[] = [
   { src: "/images/progetti/rondoni.webp", alt: "Rondoni in volo" },
   { src: "/images/progetti/brebbia.webp", alt: "Campi di Brebbia" },
-  { src: "/images/progetti/brabbia.webp", alt: "Palude Brabbia" },
-  { src: "/images/progetti/garzaie.webp", alt: "Garzaia" },
+  { src: "/images/progetti/in-corso/brabbia.webp", alt: "Palude Brabbia" },
+  { src: "/images/progetti/in-corso/garzaie.webp", alt: "Garzaia" },
   { src: "/images/progetti/succiacapre.webp", alt: "Succiacapre" },
   {
     src: "/images/progetti/progetti-in-corso.webp",

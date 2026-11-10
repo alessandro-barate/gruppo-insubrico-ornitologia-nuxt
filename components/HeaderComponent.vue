@@ -339,7 +339,7 @@ onUnmounted(() => {
         top: 60px;
         left: 0;
         z-index: 110;
-        background: url(~/assets/images/header-menu/cesena-desktop.webp)
+        background: url(/images/header/cesena-desktop.webp)
           no-repeat center / cover;
         opacity: 0;
         visibility: hidden;
