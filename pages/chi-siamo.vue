@@ -453,8 +453,9 @@ ul,
   transition: min-height 0.5s ease;
 
   background-image:
-    linear-gradient(90deg, #233162, #233162b6),
-    url(../assets/images/chi-siamo/aironi-bianchi.webp);
+    linear-gradient(90deg, #0000008a, #00000079),
+    // linear-gradient(90deg, #233162, #233162b6)
+    url(/images/chi-siamo/aironi-bianchi.webp);
 
   &::after {
     content: "";
