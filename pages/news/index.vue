@@ -1,5 +1,5 @@
 <script setup>
-import defaultHero from "~/assets/images/news/beccaccini.webp";
+import defaultHero from "/images/news/beccaccini.webp";
 import defaultEmptyImage from "~/assets/images/links-socials/nature.webp";
 
 useSeoMeta({
