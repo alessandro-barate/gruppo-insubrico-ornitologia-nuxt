@@ -25,7 +25,7 @@ const { c, inline, bg } = await usePageContent("chi-siamo");
 const HISTORY_IMAGE_DEFAULTS: Record<string, string> = {
   history_2_image_top: "",
   history_2_image_bottom: "",
-  history_3_image_top: "",
+  history_3_image_top: "/images/chi-siamo/outdoor.webp",
   history_3_image_bottom: "",
 };
 const historyImage = (key: string) => c(key, HISTORY_IMAGE_DEFAULTS[key] ?? "");
