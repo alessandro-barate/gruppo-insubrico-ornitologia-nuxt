@@ -216,7 +216,7 @@ footer {
 .col {
   width: 100%;
   background-size: cover;
-  background-image: url(~/assets/images/footer/footer-image.jpg);
+  background-image: url(/images/footer/footer-image.webp);
 
   .main-container {
     padding-top: 3rem;
