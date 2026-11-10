@@ -1278,7 +1278,7 @@ onUnmounted(() => {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-image: url(../assets/images/activities-section/parallax-image.webp);
+  background-image: url(/images/home/activities-section/parallax-image.webp);
 
   hr {
     height: clamp(100px, 20vw, 210px);
@@ -1380,13 +1380,13 @@ onUnmounted(() => {
       }
 
       .card-1 {
-        background-image: url(../assets/images/activities-section/grid-1.webp);
+        background-image: url(/images/home/activities-section/grid-1.webp);
       }
       .card-3 {
-        background-image: url(../assets/images/activities-section/grid-2.webp);
+        background-image: url(/images/home/activities-section/grid-2.webp);
       }
       .card-5 {
-        background-image: url(../assets/images/activities-section/grid-3.webp);
+        background-image: url(/images/home/activities-section/grid-3.webp);
       }
     }
   }
