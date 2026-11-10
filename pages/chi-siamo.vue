@@ -18,6 +18,19 @@ useHead({
 import teamDefault from "/images/chi-siamo/direttivo/gruppo-gio-2023.webp";
 const { c, inline, bg } = await usePageContent("chi-siamo");
 
+// Foto facoltative sopra e sotto i paragrafi 2 e 3 della storia, tra le
+// linee grigie (pannello: "Storia · paragrafo N · foto sopra/sotto").
+// Campo vuoto = nessuna foto. Qui si può indicare un'immagine predefinita,
+// usata finché il campo del pannello è vuoto (es. "/images/chi-siamo/...").
+const HISTORY_IMAGE_DEFAULTS: Record<string, string> = {
+  history_2_image_top: "",
+  history_2_image_bottom: "",
+  history_3_image_top: "",
+  history_3_image_bottom: "",
+};
+const historyImage = (key: string) => c(key, HISTORY_IMAGE_DEFAULTS[key] ?? "");
+const historyAlt = (key: string) => c(`${key}_alt`, "");
+
 const DEFAULTS = {
   history_1:
     "<strong>Il Gruppo Insubrico di Ornitologia (G.I.O.)</strong> si forma nel <strong>1999</strong> per iniziativa di Piero Alberti, Walter Guenzani e Fabio Saporetti presso il <strong>Civico Museo Insubrico di Storia Naturale di Induno Olona</strong>, grazie all&rsquo;&nbsp;ospitalit&agrave; offerta dal Curatore Gianluca Danini. <br /> Per volontà di 9 soci fondatori l' <strong>8 dicembre 2009</strong> l'associazione si costituisce come <strong>Onlus</strong> presso il Registro di Varese, spostandosi da Induno Olona a <strong>Clivio</strong>, nell&rsquo;&nbsp;edificio che diverr&agrave; la sede del nuovo Museo Civico di Storia Naturale di Clivio e Induno Olona.",
@@ -153,6 +166,11 @@ onMounted(() => {
     el.style.transitionDelay = `${i * 0.2}s`;
     observer.observe(el);
   });
+
+  // Le foto della storia compaiono con la stessa animazione, senza ritardo
+  document
+    .querySelectorAll<HTMLElement>(".history-image")
+    .forEach((el) => observer.observe(el));
 });
 </script>
 
@@ -179,22 +197,46 @@ onMounted(() => {
 
             <hr class="break-line" />
 
-            <!-- Second paragraph -->
-            <div class="second-paragraph-container d-flex">
+            <!-- Second paragraph, con foto facoltative sopra e sotto -->
+            <div class="second-paragraph-container history-block d-flex">
+              <img
+                v-if="historyImage('history_2_image_top')"
+                class="history-image history-image--top"
+                :src="historyImage('history_2_image_top')"
+                :alt="historyAlt('history_2_image_top')"
+              />
               <p
                 class="second-paragraph"
                 v-html="inline('history_2', DEFAULTS.history_2)"
               ></p>
+              <img
+                v-if="historyImage('history_2_image_bottom')"
+                class="history-image history-image--bottom"
+                :src="historyImage('history_2_image_bottom')"
+                :alt="historyAlt('history_2_image_bottom')"
+              />
             </div>
 
             <hr class="break-line" />
 
-            <!-- Third paragraph -->
-            <div class="second-paragraph-container d-flex">
+            <!-- Third paragraph, con foto facoltative sopra e sotto -->
+            <div class="second-paragraph-container history-block d-flex">
+              <img
+                v-if="historyImage('history_3_image_top')"
+                class="history-image history-image--top"
+                :src="historyImage('history_3_image_top')"
+                :alt="historyAlt('history_3_image_top')"
+              />
               <p
                 class="second-paragraph"
                 v-html="inline('history_3', DEFAULTS.history_3)"
               ></p>
+              <img
+                v-if="historyImage('history_3_image_bottom')"
+                class="history-image history-image--bottom"
+                :src="historyImage('history_3_image_bottom')"
+                :alt="historyAlt('history_3_image_bottom')"
+              />
             </div>
 
             <hr class="break-line" />
@@ -446,6 +488,38 @@ ul,
         width: 70%;
       }
     }
+
+    // Paragrafi 2 e 3: foto facoltative sopra e sotto il testo, in colonna,
+    // allineate al testo (stessa larghezza, stesso bordo destro)
+    .history-block {
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .history-image {
+      display: block;
+      width: 70%;
+      height: auto;
+      border-radius: 0.5rem;
+      opacity: 0;
+      transform: translateY(-50px);
+      transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+
+      &.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      &--top {
+        margin-bottom: 2rem;
+      }
+
+      &--bottom {
+        margin-top: 1rem;
+      }
+    }
   }
 }
 // END description section
@@ -680,6 +754,10 @@ ul,
           width: 95%;
           padding-left: 0;
           padding-right: 0;
+        }
+
+        .history-image {
+          width: 95%;
         }
       }
     }
