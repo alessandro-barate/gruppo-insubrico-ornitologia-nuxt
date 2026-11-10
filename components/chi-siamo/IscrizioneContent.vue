@@ -51,19 +51,12 @@ function handleLinkClick(e: MouseEvent) {
     <p v-html="para('join_intro', true)"></p>
     <div class="iscrizione__cards">
       <img
-        :src="
-          c(
-            'join_card_front',
-            '/images/chi-siamo/direttivo/tessera-fronte.webp',
-          )
-        "
+        :src="c('join_card_front', '/images/chi-siamo/tessera-fronte.webp')"
         alt="Tessera socio del G.I.O., fronte."
         loading="lazy"
       />
       <img
-        :src="
-          c('join_card_back', '/images/chi-siamo/direttivo/tessera-retro.webp')
-        "
+        :src="c('join_card_back', '/images/chi-siamo/tessera-retro.webp')"
         alt="Tessera socio del G.I.O., retro."
         loading="lazy"
       />
