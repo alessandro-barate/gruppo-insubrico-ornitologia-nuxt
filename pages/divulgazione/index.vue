@@ -29,7 +29,9 @@ useHead({
         <!-- Hero Section (specifica per questa pagina) -->
         <section class="title-section jumbo-bg" :style="bg('hero_image')">
           <div class="title uppercase">
-            <h1 id="scientific-dissemination">{{ c("title", "divulgazione") }}</h1>
+            <h1 id="scientific-dissemination">
+              {{ c("title", "divulgazione") }}
+            </h1>
           </div>
         </section>
 
@@ -74,8 +76,13 @@ useHead({
   }
 
   .jumbo-bg {
-    background: url(/assets/images/scientific-dissemination/cincia-bigia.webp)
-      center/ cover no-repeat;
+    background: url(/images/divulgazione/cincia-bigia.webp) center/ cover
+      no-repeat;
+
+    @media (max-width: 768px) {
+      background: url(/images/divulgazione/cincia-bigia-mobile.webp) center/
+        cover no-repeat;
+    }
 
     .title {
       text-align: center;
