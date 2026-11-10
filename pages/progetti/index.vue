@@ -100,8 +100,12 @@ function handleContentClick(e: MouseEvent) {
   }
 
   .jumbo-bg {
-    background: url(/assets/images/projects/piro-piro.webp) center/ cover
-      no-repeat;
+    background: url(/images/progetti/piro-piro.webp) center/ cover no-repeat;
+
+    @media (max-width: 768px) {
+      background: url(/images/progetti/piro-piro-mobile.webp) center/ cover
+        no-repeat;
+    }
 
     .title {
       text-align: center;
