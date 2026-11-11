@@ -624,10 +624,12 @@ onUnmounted(() => {
 
         <!-- Activities section -->
         <section class="activities-section">
-          <div
-            class="activities-container news-container d-flex"
-            :style="bg('activities_image')"
-          >
+          <div class="activities-container news-container d-flex">
+            <div
+              class="activities-bg"
+              aria-hidden="true"
+              :style="bg('activities_image')"
+            ></div>
             <!-- Grid section -->
             <div class="activities-box">
               <div class="activities-list d-grid uppercase">
@@ -1274,14 +1276,29 @@ onUnmounted(() => {
   align-items: center;
   flex-wrap: wrap;
   min-height: clamp(500px, 80vh, 1000px);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-image: url(/images/home/activities-section/zigolo-parallax-image.webp);
 
-  @media (max-width: 768px) {
-    background-image: url(/images/home/activities-section/zigolo-parallax-image-mobile.webp);
+  // Parallasse che funziona anche su iPhone: la foto la disegna il
+  // ::before (fisso, grande quanto lo schermo) e clip-path la ritaglia
+  // dentro la sezione. Qui l'immagine serve solo a passarla al ::before.
+  isolation: isolate; // il ::before resta sotto i contenuti
+  clip-path: inset(-1px 0 -2px 0);
+  .activities-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100lvh; // non "salta" quando la barra del browser compare/sparisce
+    z-index: -1;
+    background-image: url(/images/home/activities-section/zigolo-parallax-image.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+
+    @media (max-width: 768px) {
+      background-image: url(/images/home/activities-section/zigolo-parallax-image-mobile.webp);
+    }
   }
 
   hr {
