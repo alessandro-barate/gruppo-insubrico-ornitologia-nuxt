@@ -347,14 +347,6 @@ onUnmounted(() => {
     // background-image: url(../assets/images/links-socials/nibbio-bruno.webp);
   }
 
-  &.bg-organizzazioni {
-    // background-image: url(../assets/images/links-socials/aquila-reale.webp);
-  }
-
-  &.bg-reti {
-    //background-image: url(../assets/images/links-socials/ibis-eremita.webp);
-  }
-
   &.bg-turismo {
     margin-right: 0;
     // background-image: url(../assets/images/links-socials/nibbio-reale.webp);
