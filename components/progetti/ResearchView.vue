@@ -289,4 +289,24 @@ h1 {
     margin-top: 0.6rem;
   }
 }
+
+// Foto inserite dal pannello nel testo del progetto (descrizione e
+// blocchi): centrate, larghe quanto il testo, al massimo 700px
+.subsection__intro-text,
+.project-block {
+  :deep(img) {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+  }
+
+  // Il paragrafo che contiene solo la foto non aggiunge altro spazio
+  :deep(p:has(> img:only-child)),
+  :deep(p:has(> picture:only-child)) {
+    margin: 0;
+  }
+}
 </style>
