@@ -241,6 +241,12 @@ useSeoMeta({
           </nav>
 
           <h1>{{ pageTitle }}</h1>
+          <p
+            v-if="node.type === 'detail' && node.subtitle"
+            class="subsection__subtitle"
+          >
+            {{ node.subtitle }}
+          </p>
           <div v-if="node.header_image" class="main-image">
             <img :src="node.header_image" :alt="node.title" loading="lazy" />
           </div>
@@ -261,6 +267,7 @@ useSeoMeta({
             :title="card.title"
             :excerpt="card.intro_excerpt"
             :image="card.image_path"
+            text-at="bottom"
           />
         </div>
 
@@ -391,6 +398,14 @@ useSeoMeta({
           </nav>
         </template>
 
+        <!-- Testo o foto in fondo alla pagina, dopo l'elenco -->
+        <div
+          v-if="node.outro_text"
+          class="subsection__intro-text subsection__intro-text--after"
+          v-html="node.outro_text"
+          @click="handleContentClick"
+        />
+
         <!-- Testo descrittivo sotto le card (vedi GRID_BEFORE_INTRO) -->
         <div
           v-if="gridBeforeIntro && node.intro_text"
@@ -408,6 +423,36 @@ useSeoMeta({
 
 h1 {
   text-align: center;
+}
+
+// Sottotitolo (es. dei Quaderni): tra la dimensione del titolo e del testo
+.subsection__subtitle {
+  text-align: center;
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  line-height: 1.4;
+  color: #333;
+  max-width: 800px;
+  margin: -1rem auto 2rem;
+}
+
+// Foto inserite nei testi (anche dal pannello): centrate, larghe quanto il
+// testo (al massimo 700px); quelle verticali alte al massimo 600px
+.subsection__intro-text,
+.detail__body {
+  :deep(img) {
+    display: block;
+    width: auto;
+    max-width: min(100%, 700px);
+    max-height: 600px;
+    height: auto;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+  }
+
+  :deep(p:has(> img:only-child)),
+  :deep(p:has(> picture:only-child)) {
+    margin: 0;
+  }
 }
 
 .nav-card {

@@ -44,6 +44,7 @@ useHead({
               :title="card.title"
               :excerpt="card.intro_excerpt"
               :image="card.image_path"
+              text-at="bottom"
             />
           </div>
         </section>
@@ -71,8 +72,9 @@ useHead({
       no-repeat;
 
     @media (max-width: 768px) {
-      background: url(/images/pubblicazioni/fistioni-turchi-mobile.webp) center/
-        cover no-repeat;
+      // Spostata a sinistra, dove ci sono i fistioni più colorati e a fuoco
+      background: url(/images/pubblicazioni/fistioni-turchi-mobile.webp) 15%
+        center / cover no-repeat;
     }
 
     .title {

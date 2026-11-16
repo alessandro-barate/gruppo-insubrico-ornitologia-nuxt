@@ -293,10 +293,12 @@ h1 {
 // blocchi): centrate, larghe quanto il testo, al massimo 700px
 .subsection__intro-text,
 .project-block {
+  // Le foto verticali (es. una copertina) restano alte al massimo 600px
   :deep(img) {
     display: block;
-    width: 100%;
-    max-width: 700px;
+    width: auto;
+    max-width: min(100%, 700px);
+    max-height: 600px;
     height: auto;
     margin: 2rem auto;
     border-radius: 0.5rem;

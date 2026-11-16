@@ -41,6 +41,8 @@ interface BaseNode {
   title: string;
   intro_text?: string;
   second_intro_text?: string;
+  // Testo (anche con foto) in fondo alla pagina, dopo l'elenco
+  outro_text?: string;
   intro_excerpt?: string;
   header_image?: string;
   image_path?: string;
@@ -88,6 +90,8 @@ export interface QuadernoPage {
 
 export interface DetailNode extends BaseNode {
   type: "detail";
+  // Sottotitolo mostrato sotto il titolo (es. "25 anni di dati… (128 pagine)")
+  subtitle?: string;
   body: string; // HTML descrittivo
   pdf_url?: string;
   price?: string; // testo libero, es. "€ 18"
@@ -122,7 +126,7 @@ export interface Crumb {
 // TODO: rimuovere quando il backend è pronto.
 // La forma replica l'output atteso dalle API Resources Laravel.
 const PUBBLICAZIONI_INTRO =
-  "Le pubblicazioni scientifiche del Gruppo Insubrico di Ornitologia raccolgono oltre vent'anni di attivit&agrave; scientifica e divulgativa, documentando ricerche, monitoraggi e studi dedicati all'avifauna. In questa sezione sono disponibili i <strong><em>Quaderni del G.I.O.</em></strong>, il <strong><em>BOL - Bollettino Ornitologico Lombardo</em></strong>, gli <strong><em>Uccelli della Provincia di Varese</em></strong> che comprende la <strong><em>Lista degli uccelli</em></strong> e il <strong><em>Resoconto ornitologico della provincia di Varese</em></strong>, oltre alla bibliografia dei lavori scientifici realizzati dai soci. Un patrimonio di conoscenze messo a disposizione di ricercatori, appassionati e di tutti gli interessati all'ornitologia.";
+  "Le pubblicazioni scientifiche del Gruppo Insubrico di Ornitologia raccolgono oltre vent'anni di attivit&agrave; scientifica e divulgativa, documentando ricerche, monitoraggi e studi dedicati all'avifauna. In questa sezione sono disponibili i <strong><em>Quaderni del G.I.O.</em></strong>, gli <strong><em>Uccelli della Provincia di Varese</em></strong> che comprende la <strong><em>Lista degli uccelli</em></strong> e il <strong><em>Resoconto ornitologico della provincia di Varese</em></strong>, il <strong><em>BOL - Bollettino Ornitologico Lombardo</em></strong>, oltre alla bibliografia dei lavori scientifici realizzati dai soci. Un patrimonio di conoscenze messo a disposizione di ricercatori, appassionati e di tutti gli interessati all'ornitologia.";
 
 const MOCK_TREE: PubNode[] = [
   // Quaderni
@@ -145,7 +149,9 @@ const MOCK_TREE: PubNode[] = [
         inner_pages: [],
         price: "",
         pdf_url: "",
-        body: "<p>Ricerche, monitoraggio e conservazione delle colonie in otto province prealpine di Lombardia e Piemonte.<br><br>Il <strong>Quaderno 5 &quot;Rondoni&quot;</strong>, il quinto volume della collana &quot;Quaderni del G.I.O.&quot;, che il Gruppo Insubrico di Ornitologia sta realizzando insieme a <strong>LIPU OdV, CROS Varenna</strong> e <strong>Novara BW</strong>, è dedicato alla ricerca sulle <strong>tre specie di rondoni nidificanti</strong> nell'Italia settentrionale e alla loro ecologia urbana, Rondone comune, Rondone maggiore e Rondone pallido. Il volume raccoglierà i risultati di studi scientifici, proporrà linee guida per la conservazione delle specie e sarà arricchito da illustrazioni originali.<br><br>Scritto in italiano con riassunti in inglese, riccamente illustrato, sarà <strong>disponibile a breve</strong> per l'acquisto.<br>È possibile segnalare il proprio interesse all'acquisto tramite <a href='https://docs.google.com/forms/d/e/1FAIpQLSeJJ0iu3IVJoexE7LN3Z9vgVoCaBaQ152Otal_DTP7OGj2XBQ/viewform' class='specific-link' target='_blank'>questo link</a>.</p>",
+        subtitle:
+          "Ricerche, monitoraggio e conservazione delle colonie in otto province prealpine di Lombardia e Piemonte.",
+        body: "<p>Il <strong>Quaderno 5 &quot;Rondoni&quot;</strong>, il quinto volume della collana &quot;Quaderni del G.I.O.&quot;, che il Gruppo Insubrico di Ornitologia sta realizzando insieme a <strong>LIPU OdV, CROS Varenna</strong> e <strong>Novara BW</strong>, è dedicato alla ricerca sulle <strong>tre specie di rondoni nidificanti</strong> nell'Italia settentrionale e alla loro ecologia urbana, Rondone comune, Rondone maggiore e Rondone pallido. Il volume raccoglierà i risultati di studi scientifici, proporrà linee guida per la conservazione delle specie e sarà arricchito da illustrazioni originali.<br><br>Scritto in italiano con riassunti in inglese, riccamente illustrato, sarà <strong>disponibile a breve</strong> per l'acquisto.<br>È possibile segnalare il proprio interesse all'acquisto tramite <a href='https://docs.google.com/forms/d/e/1FAIpQLSeJJ0iu3IVJoexE7LN3Z9vgVoCaBaQ152Otal_DTP7OGj2XBQ/viewform' class='specific-link' target='_blank'>questo link</a>.</p>",
       },
       // Quaderno 4
       {
@@ -178,7 +184,9 @@ const MOCK_TREE: PubNode[] = [
         ],
         price: "€ 18",
         pdf_url: "",
-        body: "<p>Da Sud a Nord: le zone umide, le specie acquatiche, le ricerche (256 pagine).<br><br>Il <strong>quarto volume del Gruppo Insubrico di Ornitologia</strong>, intitolato &quot;UCCELLI del Lago Maggiore&quot;, rappresenta un'opera corale dedicata all'avifauna dell'intero bacino del Verbano. Superando i confini amministrativi, il progetto ha visto la collaborazione tra il G.I.O., partner svizzeri come <strong>Ficedula</strong>, la <strong>Fondazione Bolle di Magadino</strong> e la <strong>Riserva della Foce della Maggia</strong> e per la sponda piemontese è stato coinvolto l'<strong>Ente di gestione delle aree protette del Ticino e del Lago Maggiore</strong>.<br><br>Il risultato è un prestigioso trattato di divulgazione scientifica di 256 pagine, arricchito dai dati condivisi dai birdwatcher sul <strong>portale Ornitho</strong> e impreziosito da 260 fotografie, mappe e grafici dettagliati.<br><br>Il libro esplora la <strong>storia naturale del lago</strong>, analizzando le <strong>rotte migratorie</strong> tra Mediterraneo ed Europa e monitorando le specie acquatiche attraverso trentasette anni di <strong>censimenti IWC</strong>. Oltre a fornire indicazioni pratiche per il birdwatching nelle zone umide lombarde, piemontesi e ticinesi, il testo approfondisce ricerche recenti su specie iconiche come lo Smergo maggiore e la Rondine. Un tributo fondamentale alla biodiversità del Lago Maggiore, reso possibile dal lavoro appassionato di venti autori.</p>",
+        subtitle:
+          "Da Sud a Nord: le zone umide, le specie acquatiche, le ricerche (256 pagine).",
+        body: "<p>Il <strong>quarto volume del Gruppo Insubrico di Ornitologia</strong>, intitolato &quot;UCCELLI del Lago Maggiore&quot;, rappresenta un'opera corale dedicata all'avifauna dell'intero bacino del Verbano. Superando i confini amministrativi, il progetto ha visto la collaborazione tra il G.I.O., partner svizzeri come <strong>Ficedula</strong>, la <strong>Fondazione Bolle di Magadino</strong> e la <strong>Riserva della Foce della Maggia</strong> e per la sponda piemontese è stato coinvolto l'<strong>Ente di gestione delle aree protette del Ticino e del Lago Maggiore</strong>.<br><br>Il risultato è un prestigioso trattato di divulgazione scientifica di 256 pagine, arricchito dai dati condivisi dai birdwatcher sul <strong>portale</strong> <a href='https://www.ornitho.it/' class='specific-link' target='_blank'>www.ornitho.it</a> e impreziosito da 260 fotografie, mappe e grafici dettagliati.<br><br>Il libro esplora la <strong>storia naturale del lago</strong>, analizzando le <strong>rotte migratorie</strong> tra Mediterraneo ed Europa e monitorando le specie acquatiche attraverso trentasette anni di <strong>censimenti IWC</strong>. Oltre a fornire indicazioni pratiche per il birdwatching nelle zone umide lombarde, piemontesi e ticinesi, il testo approfondisce ricerche recenti su specie iconiche come lo Smergo maggiore e la Rondine. Un tributo fondamentale alla biodiversità del Lago Maggiore, reso possibile dal lavoro appassionato di venti autori.</p>",
       },
       // Quaderno 3
       {
@@ -211,7 +219,8 @@ const MOCK_TREE: PubNode[] = [
         ],
         price: "€ 15",
         pdf_url: "",
-        body: "<p>in provincia di Varese (232 pagine)<br><br>Pubblicato nel dicembre 2018, il <strong>terzo Quaderno del G.I.O.</strong> conta 232 pagine dedicate all'affascinante <strong>mondo dei picidi</strong>. Il progetto, nato inizialmente per documentare una ricerca quinquennale sul Picchio nero in provincia di Varese, si è evoluto fino a includere tutte le cinque specie presenti sul territorio provinciale. L'opera offre una <strong>prospettiva multidisciplinare</strong>: dai capitoli sulla sistematica, anatomia e fisiologia, fino all'analisi delle vocalizzazioni supportata da innovativi sonogrammi consultabili online.<br><br>Un contributo fondamentale riguarda il ruolo dei picchi come preziosi indicatori biologici, fornendo linee guida per una <strong>gestione forestale</strong> attenta alla biodiversità. Ogni specie gode di un approfondimento su <strong>biologia, ecologia e conservazione</strong>, arricchito da oltre 150 fotografie, mappe e sintesi in inglese.<br><br>Realizzato grazie alla collaborazione gratuita di numerosi soci e amici, il volume ha beneficiato del sostegno economico della <strong>Fondazione Comunitaria del Varesotto</strong>, della <strong>Comunità Montana del Piambello</strong>, della <strong>Libera Associazione La Campagna di Germignaga</strong> e della sezione del <strong>Club Alpino Italiano di Luino</strong>.</p>",
+        subtitle: "in provincia di Varese (232 pagine).",
+        body: "<p>Pubblicato nel dicembre 2018, il <strong>terzo Quaderno del G.I.O.</strong> conta 232 pagine dedicate all'affascinante <strong>mondo dei picidi</strong>. Il progetto, nato inizialmente per documentare una ricerca quinquennale sul Picchio nero in provincia di Varese, si è evoluto fino a includere tutte le cinque specie presenti sul territorio provinciale. L'opera offre una <strong>prospettiva multidisciplinare</strong>: dai capitoli sulla sistematica, anatomia e fisiologia, fino all'analisi delle vocalizzazioni supportata da innovativi sonogrammi consultabili online.<br><br>Un contributo fondamentale riguarda il ruolo dei picchi come preziosi indicatori biologici, fornendo linee guida per una <strong>gestione forestale</strong> attenta alla biodiversità. Ogni specie gode di un approfondimento su <strong>biologia, ecologia e conservazione</strong>, arricchito da oltre 150 fotografie, mappe e sintesi in inglese.<br><br>Realizzato grazie alla collaborazione gratuita di numerosi soci e amici, il volume ha beneficiato del sostegno economico della <strong>Fondazione Comunitaria del Varesotto</strong>, della <strong>Comunità Montana del Piambello</strong>, della <strong>Libera Associazione La Campagna di Germignaga</strong> e della sezione del <strong>Club Alpino Italiano di Luino</strong>.</p>",
       },
       // Quaderno 2
       {
@@ -245,7 +254,8 @@ const MOCK_TREE: PubNode[] = [
         ],
         price: "€ 8",
         pdf_url: "",
-        body: "<p>della PROVINCIA di VARESE (208 pagine).<br><br>Il <strong>Quaderno del G.I.O. n° 2/2015</strong>, intitolato &quot;Check-List degli UCCELLI della PROVINCIA di VARESE - Lista completa commentata e illustrata&quot; è stato curato da Roberto Aletti e Monica Carabella e si propone come un compendio corposo ma estremamente maneggevole, indispensabile per chiunque desideri approfondire la conoscenza del patrimonio naturale locale. Il manuale analizza dettagliatamente la distribuzione, la stagionalità e il grado di rarità delle <strong>327 specie documentate</strong> sul territorio varesino.<br><br>L'opera raccoglie informazioni originali che spaziano dai dati storici fino ai giorni nostri, con un aggiornamento scientifico al 31 dicembre 2013. In 208 pagine arricchite da oltre 100 fotografie di uccelli e habitat, il cuore del libro è rappresentato dalle <strong>schede informative</strong> per ogni singola specie.<br><br>Oltre alla lista sistematica, il ricco sommario offre <strong>approfondimenti</strong> su molteplici aspetti dell'ornitologia moderna, rendendo il volume un riferimento essenziale per la ricerca e la conservazione.</p>",
+        subtitle: "della Provincia di Varese (208 pagine).",
+        body: "<p>Il <strong>Quaderno del G.I.O. n° 2/2015</strong>, intitolato &quot;Check-List degli UCCELLI della PROVINCIA di VARESE - Lista completa commentata e illustrata&quot; è stato curato da Roberto Aletti e Monica Carabella e si propone come un compendio corposo ma estremamente maneggevole, indispensabile per chiunque desideri approfondire la conoscenza del patrimonio naturale locale. Il manuale analizza dettagliatamente la distribuzione, la stagionalità e il grado di rarità delle <strong>327 specie documentate</strong> sul territorio varesino.<br><br>L'opera raccoglie informazioni originali che spaziano dai dati storici fino ai giorni nostri, con un aggiornamento scientifico al 31 dicembre 2013. In 208 pagine arricchite da oltre 100 fotografie di uccelli e habitat, il cuore del libro è rappresentato dalle <strong>schede informative</strong> per ogni singola specie.<br><br>Oltre alla lista sistematica, il ricco sommario offre <strong>approfondimenti</strong> su molteplici aspetti dell'ornitologia moderna, rendendo il volume un riferimento essenziale per la ricerca e la conservazione.</p>",
       },
       // Quaderno 1
       {
@@ -278,7 +288,110 @@ const MOCK_TREE: PubNode[] = [
         ],
         price: "€ 5",
         pdf_url: "",
-        body: "<p>25 anni di dati in provincia di Varese (128 pagine).<br><br>Il primo <strong>Quaderno del G.I.O.</strong> è un manuale scientifico-divulgativo di 128 pagine dedicato all'avifauna acquatica della provincia di Varese, basato sui censimenti internazionali IWC effettuati tra il 1986 e il 2010.<br><br>Il volume ripercorre la storia dei rilevamenti in Europa e Italia, offrendo una panoramica degli specchi d'acqua locali. Il cuore dell'opera è l'analisi di <strong>48 specie</strong> (appartenenti a 10 famiglie, tra cui Anatidi, Ardeidi e Laridi), descritte attraverso schede dettagliate su distribuzione, conservazione e dati numerici invernali.<br><br>Grazie a grafici e fotografie, il testo documenta l'evoluzione delle popolazioni svernanti in <strong>venticinque anni</strong>, evidenziando gli effetti dei cambiamenti climatici, come l'aumento dello Smergo maggiore e dell'Airone cenerino.<br><br>Realizzato su carta riciclata, il progetto è stato sostenuto dalla <strong>Provincia di Varese</strong> e dalla <strong>LIPU</strong>, avvalendosi del contributo di numerosi fotografi naturalisti.</p>",
+        subtitle: "25 anni di dati in provincia di Varese (128 pagine).",
+        body: "<p>Il primo <strong>Quaderno del G.I.O.</strong> è un manuale scientifico-divulgativo di 128 pagine dedicato all'avifauna acquatica della provincia di Varese, basato sui censimenti internazionali IWC effettuati tra il 1986 e il 2010.<br><br>Il volume ripercorre la storia dei rilevamenti in Europa e Italia, offrendo una panoramica degli specchi d'acqua locali. Il cuore dell'opera è l'analisi di <strong>48 specie</strong> (appartenenti a 10 famiglie, tra cui Anatidi, Ardeidi e Laridi), descritte attraverso schede dettagliate su distribuzione, conservazione e dati numerici invernali.<br><br>Grazie a grafici e fotografie, il testo documenta l'evoluzione delle popolazioni svernanti in <strong>venticinque anni</strong>, evidenziando gli effetti dei cambiamenti climatici, come l'aumento dello Smergo maggiore e dell'Airone cenerino.<br><br>Realizzato su carta riciclata, il progetto è stato sostenuto dalla <strong>Provincia di Varese</strong> e dalla <strong>LIPU</strong>, avvalendosi del contributo di numerosi fotografi naturalisti.</p>",
+      },
+    ],
+  },
+  // Liste
+  {
+    slug: "uccelli-varese",
+    title: "Gli Uccelli della Provincia di Varese",
+    type: "group",
+    intro_text:
+      "<p>In questa sezione è pubblicata la <strong>Check-list provinciale</strong>, l’elenco documentato di tutte le specie osservate (aggiornato al <strong>31/12/2020</strong>), e i <strong>Resoconti ornitologici annuali</strong>, che raccolgono le osservazioni più significative di ogni anno.</p>",
+    intro_excerpt: "Liste sistematiche e racconti ornitologici.",
+    image_path: "/images/pubblicazioni/liste/voltapietre.webp",
+    children: [
+      // Lista uccelli
+      {
+        slug: "check-list-provinciale",
+        title: "Check-list Provinciale",
+        type: "pdf-list",
+        intro_text:
+          "<p>Questa pubblicazione rende disponibile un elenco documentato relativo a tutte le specie di uccelli osservati e segnalati in provincia di Varese, con <strong>aggiornamenti alla data del 31/12/2020</strong>.<br><br>Questa ricerca è stata effettuata attraverso la consultazione di numerose fonti bibliografiche, siti e piattaforme di associazioni ornitologiche e di birdwatching, con lo scopo di individuare tutte le osservazioni relative a presenza, nidificazione e svernamento, e conseguentemente assegnare i caratteri fenologici ad ogni singola specie, oltre ad alcuni altri campi o annotazioni di particolare rilevanza ornitologica.</p>",
+        // Testo/foto in fondo alla pagina, dopo l'elenco dei PDF
+        outro_text:
+          "<img src='/images/pubblicazioni/liste/lista-uccelli/canapiglia.webp' alt='Canapiglia'>",
+        intro_excerpt: "Liste sistematiche delle specie osservate.",
+        image_path:
+          "/images/pubblicazioni/liste/lista-uccelli/picchio-muraiolo.webp",
+        items: [
+          {
+            id: 39,
+            year: 2020,
+            title:
+              "Check-list degli uccelli della provincia di Varese (aggiornata al 31/12/2020)",
+            pdf_url: "/documents/pubblicazioni/liste/check-list-provinciale.pdf",
+          },
+        ],
+      },
+      // Resoconti ornitologici
+      {
+        slug: "resoconti-ornitologici",
+        title: "Resoconti ornitologici",
+        type: "pdf-list",
+        intro_text:
+          "<p>In questi Resoconti sono presenti le osservazioni ornitologiche provinciali di ogni anno, dal 2017 ad oggi, con le segnalazioni delle specie che hanno particolare rilevanza per rarità, presenza non usuale in riferimento al periodo o alla località dove è stata effettuata l'osservazione, interessante numero di individui osservati, particolarità relative alla nidificazione e allo svernamento.<br><br>Le segnalazioni sono raccolte con il contributo di numerosi osservatori e anche attraverso alcune ricerche effettuate dal Gruppo Insubrico di Ornitologia, e per la quasi totalità fanno riferimento ai dati inseriti nel portale <a href='https://www.ornitho.it/' class='specific-link' target='_blank'>www.ornitho.it</a>. I dati presenti nei vari Resoconti sono poi utilizzati per mantenere aggiornata la &ldquo;Lista degli uccelli della provincia di Varese&rdquo;.</p>",
+        intro_excerpt: "Resoconti annuali di osservazione, dal 2017 ad oggi.",
+        image_path:
+          "/images/pubblicazioni/liste/resoconti/smergo-maggiore.webp",
+        items: [
+          {
+            id: 40,
+            year: 2017,
+            title: "Resoconto Ornitologico 2017",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2017.pdf",
+          },
+          {
+            id: 41,
+            year: 2018,
+            title: "Resoconto Ornitologico 2018",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2018.pdf",
+          },
+          {
+            id: 42,
+            year: 2019,
+            title: "Resoconto Ornitologico 2019",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2019.pdf",
+          },
+          {
+            id: 43,
+            year: 2020,
+            title: "Resoconto Ornitologico 2020",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2020.pdf",
+          },
+          {
+            id: 44,
+            year: 2021,
+            title: "Resoconto Ornitologico 2021",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2021.pdf",
+          },
+          {
+            id: 45,
+            year: 2022,
+            title: "Resoconto Ornitologico 2022",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2022.pdf",
+          },
+          {
+            id: 46,
+            year: 2023,
+            title: "Resoconto Ornitologico 2023",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2023.pdf",
+          },
+          {
+            id: 47,
+            year: 2024,
+            title: "Resoconto Ornitologico 2024",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2024.pdf",
+          },
+          {
+            id: 48,
+            year: 2025,
+            title: "Resoconto Ornitologico 2025",
+            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2025.pdf",
+          },
+        ],
       },
     ],
   },
@@ -289,7 +402,7 @@ const MOCK_TREE: PubNode[] = [
     type: "pdf-list",
     group_by_year: true,
     intro_text:
-      "<p>Questa pubblicazione, esclusivamente online, nasce dall'incontro avvenuto nel settembre 2018 tra un numeroso gruppo di ornitologi e naturalisti lombardi, attivi da molti anni sul campo sia come volontari sia come professionisti.<br><br>Durante la riunione di settembre, organizzata presso il Museo Caffi di Bergamo grazie alla disponibilità del Direttore, dott. Marco Valle, sono state gettate le basi di questo progetto. L'idea è nata da una semplice considerazione: la necessità di disporre di un “bollettino” di facile consultazione, accessibile online a tutti gli interessati, capace di raccogliere contributi di carattere faunistico riferiti principalmente alla Lombardia, ma con uno sguardo esteso anche all'Italia settentrionale.<br>Il Bollettino si è proposto di accogliere quei lavori che difficilmente trovano spazio nelle riviste nazionali, generalmente orientate verso progetti di più ampio respiro.<br><br>Considerata l'enorme quantità di dati condivisi su piattaforme come Ornitho.it, è emersa con evidenza l'esigenza di elaborare e diffondere sintesi riguardanti aspetti quali la fenologia, la distribuzione geografica e la selezione dell'habitat delle specie, oltre alla necessità di aggiornare costantemente le conoscenze sull'avifauna legata alle aree protette: riserve naturali, parchi regionali, PLIS e, in particolare, la Rete Natura 2000.<br><br>Un elemento fondamentale di questa iniziativa è stato il tentativo di riunire, attorno a un progetto comune, i numerosi gruppi - per lo più amatoriali - attivi nelle diverse province lombarde, finora privi di un coordinamento diretto e di una rappresentanza condivisa. Su proposta di Pierandrea Brichetti, già durante l'incontro del settembre 2018 è stato costituito un primo coordinamento tra gruppi, composto da sei realtà provinciali. Tale struttura è stata aperta a tutti coloro che desideravano aderire, contribuendo attivamente al progetto. Ogni gruppo è stato rappresentato all'interno del Bollettino da un referente, incaricato di raccogliere materiale da pubblicare e di proporre eventuali attività di censimento o monitoraggio su scala regionale o pluriprovinciale.<br><br>Il Bollettino Ornitologico Lombardo è stato pubblicato sulla piattaforma Ornitho.it grazie al supporto di Roberto Lardelli e del Gruppo di Conduzione. Questa collaborazione ha consentito di ampliare la diffusione dei contenuti anche oltre il contesto regionale.<br>L'obiettivo principale della pubblicazione è stato contribuire all'ampliamento delle conoscenze in un periodo caratterizzato da profondi cambiamenti e crescenti minacce agli ecosistemi.<br><br>I contributi sono stati inviati esclusivamente in formato elettronico via e-mail alla redazione, che ne ha valutato la pubblicazione secondo l'ordine cronologico di ricezione. Sono stati presi in considerazione diversi tipi di lavori, tra cui: articoli scientifici, brevi note, report di monitoraggi e censimenti, presentazioni di tesi, reportage fotografici, notizie, revisioni, recensioni librarie, resoconti di campagne di inanellamento, checklist locali, proposte di studio e altri contributi, purché redatti in lingua italiana.</p>",
+      "<p>Questa pubblicazione, esclusivamente online, nasce dall'incontro avvenuto nel settembre 2018 tra un numeroso gruppo di ornitologi e naturalisti lombardi, attivi da molti anni sul campo sia come volontari sia come professionisti.<br><br>Durante la riunione di settembre, organizzata presso il Museo Caffi di Bergamo grazie alla disponibilità del Direttore, dott. Marco Valle, sono state gettate le basi di questo progetto. L'idea è nata da una semplice considerazione: la necessità di disporre di un “bollettino” di facile consultazione, accessibile online a tutti gli interessati, capace di raccogliere contributi di carattere faunistico riferiti principalmente alla Lombardia, ma con uno sguardo esteso anche all'Italia settentrionale.<br>Il Bollettino si è proposto di accogliere quei lavori che difficilmente trovano spazio nelle riviste nazionali, generalmente orientate verso progetti di più ampio respiro.<br><br>Considerata l'enorme quantità di dati condivisi su piattaforme come <a href='https://www.ornitho.it/' class='specific-link' target='_blank'>www.ornitho.it</a>, è emersa con evidenza l'esigenza di elaborare e diffondere sintesi riguardanti aspetti quali la fenologia, la distribuzione geografica e la selezione dell'habitat delle specie, oltre alla necessità di aggiornare costantemente le conoscenze sull'avifauna legata alle aree protette: riserve naturali, parchi regionali, PLIS e, in particolare, la Rete Natura 2000.<br><br>Un elemento fondamentale di questa iniziativa è stato il tentativo di riunire, attorno a un progetto comune, i numerosi gruppi - per lo più amatoriali - attivi nelle diverse province lombarde, finora privi di un coordinamento diretto e di una rappresentanza condivisa. Su proposta di Pierandrea Brichetti, già durante l'incontro del settembre 2018 è stato costituito un primo coordinamento tra gruppi, composto da sei realtà provinciali. Tale struttura è stata aperta a tutti coloro che desideravano aderire, contribuendo attivamente al progetto. Ogni gruppo è stato rappresentato all'interno del Bollettino da un referente, incaricato di raccogliere materiale da pubblicare e di proporre eventuali attività di censimento o monitoraggio su scala regionale o pluriprovinciale.<br><br>Il Bollettino Ornitologico Lombardo è stato pubblicato sulla piattaforma <a href='https://www.ornitho.it/' class='specific-link' target='_blank'>www.ornitho.it</a> grazie al supporto di Roberto Lardelli e del Gruppo di Conduzione. Questa collaborazione ha consentito di ampliare la diffusione dei contenuti anche oltre il contesto regionale.<br>L'obiettivo principale della pubblicazione è stato contribuire all'ampliamento delle conoscenze in un periodo caratterizzato da profondi cambiamenti e crescenti minacce agli ecosistemi.<br><br>I contributi sono stati inviati esclusivamente in formato elettronico via e-mail alla redazione, che ne ha valutato la pubblicazione secondo l'ordine cronologico di ricezione. Sono stati presi in considerazione diversi tipi di lavori, tra cui: articoli scientifici, brevi note, report di monitoraggi e censimenti, presentazioni di tesi, reportage fotografici, notizie, revisioni, recensioni librarie, resoconti di campagne di inanellamento, checklist locali, proposte di studio e altri contributi, purché redatti in lingua italiana.</p>",
     intro_excerpt: "Il bollettino periodico delle osservazioni.",
     header_image: "/images/pubblicazioni/bol/bol.webp",
     image_path: "/images/pubblicazioni/bol/frosone.webp",
@@ -727,97 +840,6 @@ const MOCK_TREE: PubNode[] = [
         id: 267,
         text: "Zanchin E., 2026. Demographic changes in three Common Swift colonies in the Lombardy region, Italy. Presentation 8th International Swift Conference. Co. Mayo Ireland 27-29 maggio 2026.",
         pdf_url: "/documents/progetti/swift/2026-demographic-change.pdf",
-      },
-    ],
-  },
-  // Liste
-  {
-    slug: "uccelli-varese",
-    title: "Gli Uccelli della Provincia di Varese",
-    type: "group",
-    intro_text:
-      "<p>In questa sezione è pubblicata la <strong>Check-list provinciale</strong>, l’elenco documentato di tutte le specie osservate (aggiornato al <strong>31/12/2020</strong>), e i <strong>Resoconti ornitologici annuali</strong>, che raccolgono le osservazioni più significative di ogni anno.</p>",
-    intro_excerpt: "Liste sistematiche e racconti ornitologici.",
-    image_path: "/images/pubblicazioni/liste/voltapietre.webp",
-    children: [
-      // Lista uccelli
-      {
-        slug: "check-list-provinciale",
-        title: "Check-list Provinciale",
-        type: "pdf-list",
-        intro_text:
-          "<p>Questa pubblicazione rende disponibile un elenco documentato relativo a tutte le specie di uccelli osservati e segnalati in provincia di Varese, con <strong>aggiornamenti alla data del 31/12/2020</strong>.<br><br>Questa ricerca è stata effettuata attraverso la consultazione di numerose fonti bibliografiche, siti e piattaforme di associazioni ornitologiche e di birdwatching, con lo scopo di individuare tutte le osservazioni relative a presenza, nidificazione e svernamento, e conseguentemente assegnare i caratteri fenologici ad ogni singola specie, oltre ad alcuni altri campi o annotazioni di particolare rilevanza ornitologica.</p>",
-        intro_excerpt: "Liste sistematiche delle specie osservate.",
-        image_path:
-          "/images/pubblicazioni/liste/lista-uccelli/picchio-muraiolo.webp",
-        items: [],
-      },
-      // Resoconti ornitologici
-      {
-        slug: "resoconti-ornitologici",
-        title: "Resoconti ornitologici",
-        type: "pdf-list",
-        intro_text:
-          "<p>In questi Resoconti sono presenti le osservazioni ornitologiche provinciali di ogni anno, dal 2017 ad oggi, con le segnalazioni delle specie che hanno particolare rilevanza per rarità, presenza non usuale in riferimento al periodo o alla località dove è stata effettuata l'osservazione, interessante numero di individui osservati, particolarità relative alla nidificazione e allo svernamento.<br><br>Le segnalazioni sono raccolte con il contributo di numerosi osservatori e anche attraverso alcune ricerche effettuate dal Gruppo Insubrico di Ornitologia, e per la quasi totalità fanno riferimento ai dati inseriti nel portale <a href='https://www.ornitho.it/' class='specific-link'>Ornitho</a>. I dati presenti nei vari Resoconti sono poi utilizzati per mantenere aggiornata la &ldquo;Lista degli uccelli della provincia di Varese&rdquo;.</p>",
-        intro_excerpt: "Resoconti annuali di osservazione, dal 2017 ad oggi.",
-        image_path:
-          "/images/pubblicazioni/liste/resoconti/smergo-maggiore.webp",
-        items: [
-          {
-            id: 40,
-            year: 2017,
-            title: "Resoconto Ornitologico 2017",
-            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2017.pdf",
-          },
-          {
-            id: 41,
-            year: 2018,
-            title: "Resoconto Ornitologico 2018",
-            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2018.pdf",
-          },
-          {
-            id: 42,
-            year: 2019,
-            title: "Resoconto Ornitologico 2019",
-            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2019.pdf",
-          },
-          {
-            id: 43,
-            year: 2020,
-            title: "Resoconto Ornitologico 2020",
-            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2020.pdf",
-          },
-          {
-            id: 44,
-            year: 2021,
-            title: "Resoconto Ornitologico 2021",
-            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2021.pdf",
-          },
-          {
-            id: 45,
-            year: 2022,
-            title: "Resoconto Ornitologico 2022",
-            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2022.pdf",
-          },
-          {
-            id: 46,
-            year: 2023,
-            title: "Resoconto Ornitologico 2023",
-            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2023.pdf",
-          },
-          {
-            id: 47,
-            year: 2024,
-            title: "Resoconto Ornitologico 2024",
-            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2024.pdf",
-          },
-          {
-            id: 48,
-            year: 2025,
-            title: "Resoconto Ornitologico 2025",
-            pdf_url: "/documents/pubblicazioni/resoconti/resoconto-2025.pdf",
-          },
-        ],
       },
     ],
   },

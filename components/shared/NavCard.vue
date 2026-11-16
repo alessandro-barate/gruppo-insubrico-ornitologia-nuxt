@@ -1,18 +1,24 @@
 <script setup lang="ts">
 // Card di navigazione condivisa da Divulgazione, Pubblicazioni e Progetti.
 // Riceve il link GIÀ COSTRUITO (`to`) più i campi da mostrare.
-defineProps<{
-  to: string;
-  title: string;
-  excerpt?: string;
-  image?: string;
-}>();
+// textAt="bottom": titolo in basso, con l'ombra solo sotto, così la foto
+// resta libera (usato in Pubblicazioni). Di default il titolo è al centro.
+withDefaults(
+  defineProps<{
+    to: string;
+    title: string;
+    excerpt?: string;
+    image?: string;
+    textAt?: "center" | "bottom";
+  }>(),
+  { textAt: "center" },
+);
 </script>
 
 <template>
   <NuxtLink
     :to="to"
-    class="nav-card"
+    :class="['nav-card', `nav-card--${textAt}`]"
     :style="image ? { backgroundImage: `url(${image})` } : undefined"
   >
     <div class="nav-card__body">
@@ -70,6 +76,33 @@ defineProps<{
     rgba(0, 0, 0, 0.5) 60%,
     rgba(0, 0, 0, 0.3) 100%
   );
+}
+
+/* Titolo in basso: la foto resta libera, l'ombra c'è solo sotto il testo */
+.nav-card--bottom {
+  justify-content: flex-end;
+}
+
+.nav-card--bottom::before {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.35) 25%,
+    rgba(0, 0, 0, 0) 45%
+  );
+}
+
+.nav-card--bottom:hover::before {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.45) 30%,
+    rgba(0, 0, 0, 0.05) 55%
+  );
+}
+
+.nav-card--bottom .nav-card__body {
+  padding: 1rem 1.25rem 1.25rem;
 }
 
 .nav-card__body {
