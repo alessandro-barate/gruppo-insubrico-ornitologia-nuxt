@@ -42,6 +42,8 @@ interface BaseNode {
   title: string;
   intro_text?: string;
   second_intro_text?: string;
+  // Testo (anche con foto) in fondo alla pagina, dopo l'elenco
+  outro_text?: string;
   intro_excerpt?: string;
   header_image?: string;
   header_image_mobile?: string;
@@ -92,6 +94,8 @@ export interface QuadernoPage {
 
 export interface DetailNode extends BaseNode {
   type: "detail";
+  // Sottotitolo mostrato sotto il titolo (es. "25 anni di dati… (128 pagine)")
+  subtitle?: string;
   body: string; // HTML descrittivo
   pdf_url?: string;
   price?: string; // testo libero, es. "€ 18"
