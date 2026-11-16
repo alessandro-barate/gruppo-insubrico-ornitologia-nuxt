@@ -71,7 +71,7 @@ onUnmounted(() => {
               <!-- Copyright container -->
               <div class="copyright-container">
                 <p>Gruppo Insubrico di Ornitologia</p>
-                <p>&copy; 2014</p>
+                <p>&copy; 2026</p>
               </div>
 
               <!-- Footer details columns -->
