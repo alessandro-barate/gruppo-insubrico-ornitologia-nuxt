@@ -207,7 +207,7 @@ const MOCK_SUBSECTIONS: Record<string, Subsection> = {
         id: 4,
         title: "Incontri Natura a Casciago",
         year: "2016",
-        body: "<>Quattro serate a tu per tu con esperti e ricercatori, tra progetti, film e libri.</p>",
+        body: "Quattro serate a tu per tu con esperti e ricercatori, tra progetti, film e libri.</p>",
         image_path:
           "/images/divulgazione/eventi/2016/08-04-13-20-27-05-2016.webp",
         links: [],
