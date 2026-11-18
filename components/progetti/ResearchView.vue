@@ -60,6 +60,15 @@ const isStacked = computed(() =>
   STACKED_SECTIONS.includes(section.value?.slug ?? ""),
 );
 
+// Sezioni in cui il titolo delle card sta in basso, così la foto resta
+// libera (come nelle Pubblicazioni). Nelle altre resta al centro.
+const TEXT_BOTTOM_SECTIONS = ["atlanti"];
+const cardTextAt = computed(() =>
+  TEXT_BOTTOM_SECTIONS.includes(section.value?.slug ?? "")
+    ? "bottom"
+    : "center",
+);
+
 // Caso "project"
 const project = computed(() =>
   data.value?.kind === "project" ? data.value.project : null,
@@ -206,6 +215,7 @@ useSeoMeta({
             :excerpt="card.intro_excerpt"
             :image="card.image_path"
             :image-mobile="card.image_path_mobile"
+            :text-at="cardTextAt"
           />
         </div>
       </template>
