@@ -137,7 +137,7 @@ const MOCK_TREE: PubNode[] = [
     intro_text:
       "<p>I Quaderni del G.I.O. sono pubblicazioni scientifiche curate dai soci del Gruppo, nate con l'obiettivo di raccogliere e divulgare i risultati delle ricerche ornitologiche condotte sul territorio.<br>Si tratta di volumi cartacei che si possono ricevere tramite una donazione minima al G.I.O. OdV (gli importi sono comprensivi di eventuali spese di spedizione): le copie possono anche ritirate personalmente.<br><br>Per tutte le informazioni, le richieste per ricevere delle copie e le modalità di pagamento contattateci tramite il nostro <a href='/form' class='specific-link' target='_blank'>form di contatto</a>.</p><br><ul class='specific-list'><li><strong>Quaderno 4/2022</strong> <em>Gli Uccelli del Lago Maggiore</em>: <strong>&euro; 18</strong> cadauno</li></ul><p>Sempre disponibili anche gli altri Quaderni del G.I.O.:</p><ul class='specific-list'><li><strong>Quaderno 3/2018</strong> <em>Gli Uccelli del Lago Maggiore</em>: <strong>&euro; 15</strong> cadauno</li><li><strong>Quaderno 2/2015</strong> <em>Gli Uccelli del Lago Maggiore</em>: <strong>&euro; 8</strong> cadauno</li><li><strong>Quaderno 1/2012</strong> <em>Gli Uccelli del Lago Maggiore</em>: <strong>&euro; 5</strong> cadauno</li></ul><p><strong>Donazione minima per serie:</strong></p><ul class='specific-list'><li>Intera collana - Quaderni 1/2/3/4: <strong>&euro; 35</strong></li><li>Quaderni 1/2/4, oppure 1/3/4, oppure 2/3/4: <strong>&euro; 30</strong></li><li>Quaderni 1/2/3: <strong>&euro; 25</strong></li></ul><p><strong>Dati per bonifici:</strong><br>Gruppo Insubrico di Ornitologia<br>IBAN: IT13A0569650240000020568X10<br>Causale: NOME e COGNOME, donazione/Quaderno (specificare quale/quali) n° X copie</p></p>",
     intro_excerpt: "Studi monografici e approfondimenti tematici.",
-    image_path: "/images/pubblicazioni/quaderni/martin-pescatore.webp",
+    image_path: "/images/pubblicazioni/quaderni/quaderni.webp",
     children: [
       // Quderno 5
       {
@@ -301,7 +301,7 @@ const MOCK_TREE: PubNode[] = [
     intro_text:
       "<p>In questa sezione è pubblicata la <strong>Check-list provinciale</strong>, l’elenco documentato di tutte le specie osservate (aggiornato al <strong>31/12/2020</strong>), e i <strong>Resoconti ornitologici annuali</strong>, che raccolgono le osservazioni più significative di ogni anno.</p>",
     intro_excerpt: "Liste sistematiche e racconti ornitologici.",
-    image_path: "/images/pubblicazioni/liste/voltapietre.webp",
+    image_path: "/images/pubblicazioni/liste/uccelli.webp",
     children: [
       // Lista uccelli
       {

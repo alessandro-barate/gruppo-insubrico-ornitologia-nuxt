@@ -421,7 +421,7 @@ ul,
   .title-section {
     position: relative;
     width: 100%;
-    height: 700px;
+    height: 960px;
     overflow: hidden;
     margin-bottom: 3rem;
 
