@@ -11,10 +11,11 @@ const props = defineProps({
 });
 
 // Le ultime news dal backend (pannello → Contenuti → News), dalla più
-// recente. Ogni card porta alla pagina della news (pulsante "+").
+// recente: solo quelle con «Mostra in Home» acceso e non oltre la data
+// «In Home fino al» (home: 1). Ogni card porta alla pagina della news.
 const CAROUSEL_SIZE = 10;
 const { data: newsData } = await useApiData("news-carousel", "/news", {
-  query: { perPage: CAROUSEL_SIZE },
+  query: { perPage: CAROUSEL_SIZE, home: 1 },
 });
 
 // Nessuna news pubblicata: la stessa immagine con scritta della pagina
