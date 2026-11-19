@@ -62,7 +62,8 @@ const isStacked = computed(() =>
 
 // Sezioni in cui il titolo delle card sta in basso, così la foto resta
 // libera (come nelle Pubblicazioni). Nelle altre resta al centro.
-const TEXT_BOTTOM_SECTIONS = ["atlanti"];
+// (nessuna per ora: gli Atlanti sono tornati al centro)
+const TEXT_BOTTOM_SECTIONS: string[] = [];
 const cardTextAt = computed(() =>
   TEXT_BOTTOM_SECTIONS.includes(section.value?.slug ?? "")
     ? "bottom"
