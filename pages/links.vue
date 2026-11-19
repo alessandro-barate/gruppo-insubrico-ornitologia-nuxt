@@ -247,7 +247,7 @@ onUnmounted(() => {
                     alt="Link alla pagina Facebook del G.I.O."
                   />
                 </a>
-                <h3>Aggiungigi su Facebook</h3>
+                <h3>Aggiungici su Facebook</h3>
               </div>
 
               <hr class="space" />
