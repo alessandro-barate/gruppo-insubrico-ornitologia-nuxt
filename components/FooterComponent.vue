@@ -1,6 +1,28 @@
 <script setup>
-// Immagine di sfondo modificabile dal pannello (Testi delle pagine → Tutto il sito)
-const { bg } = await usePageContent("sito");
+// Immagine di sfondo e testi della finestra Trasparenza modificabili dal
+// pannello (Testi delle pagine → Tutto il sito)
+const { bg, c } = await usePageContent("sito");
+
+// ─── Trasparenza sui contributi pubblici (Legge 124/2017) ───────
+// Titolo e testo: pannello → Testi delle pagine → Tutto il sito.
+// Documenti per anno: pannello → Trasparenza contributi. Si leggono solo
+// quando la finestra viene aperta (non servono al resto della pagina).
+const TRANSPARENCY_TEXT =
+  "<p>Entro il 30 giugno di ogni anno, l'associazione è tenuta a pubblicare sul proprio sito l'elenco dei vantaggi economici (sovvenzioni, contributi, incarichi retribuiti) ricevuti da pubbliche amministrazioni se l'importo totale annuo è pari o superiore a <strong>10.000 euro</strong>.</p>";
+
+const contributions = ref([]);
+let contributionsLoaded = false;
+
+const loadContributions = async () => {
+  if (contributionsLoaded) return;
+  try {
+    contributions.value = (await apiFetch("/trasparenza")) ?? [];
+    contributionsLoaded = true;
+  } catch {
+    // Backend non raggiungibile: la finestra mostra solo il testo
+    contributions.value = [];
+  }
+};
 
 const showPrivacy = ref(false);
 const showZoomedCard = ref(false);
@@ -9,6 +31,7 @@ const showNewsletter = ref(false);
 // Modal controls
 const openZoomedCard = () => {
   showZoomedCard.value = true;
+  loadContributions();
 };
 
 const closeZoomedCard = () => {
@@ -147,14 +170,27 @@ onUnmounted(() => {
             <span>&times;</span>
           </button>
           <div class="card-content">
-            <h2>Obbligo Legge 124/2017</h2>
-            <p>
-              Entro il 30 giugno di ogni anno, l'associazione è tenuta a
-              pubblicare sul proprio sito l'elenco dei vantaggi economici
-              (sovvenzioni, contributi, incarichi retribuiti) ricevuti da
-              pubbliche amministrazioni se l'importo totale annuo è pari o
-              superiore a <strong>10.000 euro</strong>.
-            </p>
+            <h2>{{ c("transparency_title", "Obbligo Legge 124/2017") }}</h2>
+            <div
+              class="transparency-text"
+              v-html="c('transparency_text', TRANSPARENCY_TEXT)"
+            ></div>
+
+            <!-- Documenti per anno (solo se ce n'è almeno uno) -->
+            <template v-if="contributions.length">
+              <h3 class="transparency-title">Documenti pubblicati</h3>
+              <ul class="transparency-list">
+                <li v-for="item in contributions" :key="item.year">
+                  <a :href="item.file_url" target="_blank" rel="noopener">
+                    <span class="transparency-list__year">{{ item.year }}</span>
+                    <span class="transparency-list__note">
+                      {{ item.note || "Contributi pubblici ricevuti" }}
+                    </span>
+                    <span class="transparency-list__file">PDF</span>
+                  </a>
+                </li>
+              </ul>
+            </template>
           </div>
         </div>
       </div>
@@ -457,11 +493,74 @@ footer {
         text-align: center;
       }
 
-      p {
+      p,
+      .transparency-text :deep(p) {
         margin-bottom: 1rem;
         line-height: 1.6;
         font-size: 1rem;
         color: #ddd;
+      }
+
+      // Trasparenza: elenco dei documenti per anno
+      .transparency-title {
+        margin: 2rem 0 1rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: bisque;
+      }
+
+      .transparency-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: left;
+
+        li {
+          width: 100%;
+        }
+
+        a {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 0.75rem 1rem;
+          border-radius: 0.5rem;
+          background: rgba(255, 255, 255, 0.08);
+          color: #fff;
+          text-decoration: none;
+          transition: background 0.3s ease;
+
+          &:hover,
+          &:focus-visible {
+            background: rgba(255, 255, 255, 0.16);
+          }
+        }
+
+        &__year {
+          font-weight: 600;
+          color: bisque;
+          min-width: 3rem;
+        }
+
+        &__note {
+          flex: 1;
+          color: #ddd;
+        }
+
+        &__file {
+          font-size: 0.8rem;
+          font-weight: 600;
+          letter-spacing: 0.05em;
+          padding: 0.2rem 0.5rem;
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          border-radius: 0.25rem;
+        }
       }
     }
   }
@@ -508,8 +607,14 @@ footer {
           font-size: 1.5rem;
         }
 
-        p {
+        p,
+        .transparency-text :deep(p) {
           font-size: 0.95rem;
+        }
+
+        .transparency-list a {
+          gap: 0.75rem;
+          padding: 0.6rem 0.75rem;
         }
       }
     }
