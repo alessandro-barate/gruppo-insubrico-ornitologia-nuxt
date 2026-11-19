@@ -50,6 +50,7 @@ useHead({
               :excerpt="sub.intro_excerpt"
               :image="sub.image_path"
               :image-mobile="sub.image_path_mobile"
+              :text-at="sub.card_text_position || 'center'"
             />
           </div>
         </section>

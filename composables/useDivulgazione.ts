@@ -40,6 +40,8 @@ export interface Subsection {
   intro_excerpt?: string;
   image_path?: string;
   image_path_mobile?: string;
+  // Posizione del titolo sulla card, scelta nel pannello
+  card_text_position?: "center" | "bottom";
   items: SubsectionItem[];
 }
 

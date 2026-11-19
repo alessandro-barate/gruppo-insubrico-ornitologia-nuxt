@@ -72,7 +72,8 @@ function handleContentClick(e: MouseEvent) {
               :title="card.title"
               :excerpt="card.intro_excerpt"
               :image="card.image_path"
-            :image-mobile="card.image_path_mobile"
+              :image-mobile="card.image_path_mobile"
+              :text-at="card.card_text_position || 'center'"
             />
           </div>
 

@@ -275,7 +275,7 @@ useSeoMeta({
             :excerpt="card.intro_excerpt"
             :image="card.image_path"
             :image-mobile="card.image_path_mobile"
-            text-at="bottom"
+            :text-at="card.card_text_position || 'bottom'"
           />
         </div>
 
