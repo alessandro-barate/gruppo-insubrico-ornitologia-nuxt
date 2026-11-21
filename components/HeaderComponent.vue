@@ -339,8 +339,8 @@ onUnmounted(() => {
         top: 60px;
         left: 0;
         z-index: 110;
-        background: url(/images/header/cesena-desktop.webp)
-          no-repeat center / cover;
+        background: url(/images/header/cesena-desktop.webp) no-repeat center /
+          cover;
         opacity: 0;
         visibility: hidden;
         transition:
@@ -354,7 +354,7 @@ onUnmounted(() => {
           left: 0;
           width: 100%;
           height: 100%;
-          background-color: rgba(0, 0, 0, 0.75);
+          background-color: rgba(0, 0, 0, 0.6);
           z-index: -1;
         }
 
@@ -615,7 +615,6 @@ onUnmounted(() => {
             }
           }
         }
-
       }
     }
   }
