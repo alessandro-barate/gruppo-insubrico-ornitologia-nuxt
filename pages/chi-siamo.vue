@@ -544,7 +544,7 @@ ul,
 
 // Subscribe section
 .subscribe-section {
-  min-height: 105vh;
+  min-height: 115vh;
   margin-top: 3rem;
   position: relative;
   padding-top: 17rem;
