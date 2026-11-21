@@ -139,11 +139,11 @@ const PROGETTI_INTRO =
 
 const GALLERY: GalleryImage[] = [
   {
-    src: "/images/progetti/in-corso/home-sweeft-home.webp",
+    src: "/images/progetti/in-corso/home-swift-home.webp",
     alt: "Rondoni in volo",
   },
   {
-    src: "/images/progetti/in-codo/campi-brebbia.webp",
+    src: "/images/progetti/in-corso/campi-brebbia.webp",
     alt: "Campi di Brebbia",
   },
   { src: "/images/progetti/in-corso/brabbia.webp", alt: "Palude Brabbia" },
