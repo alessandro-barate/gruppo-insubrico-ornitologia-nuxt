@@ -94,6 +94,12 @@ onUnmounted(() => {
               <!-- Copyright container -->
               <div class="copyright-container">
                 <p>Gruppo Insubrico di Ornitologia</p>
+                <p class="address">
+                  c/o Civico Museo Insubrico di Storia Naturale
+                </p>
+                <p class="address">
+                  Via Alessandro Manzoni 21 - 21050 Clivio (VA)
+                </p>
                 <p>&copy; 2014</p>
               </div>
 
@@ -287,6 +293,11 @@ footer {
         padding-top: 3rem;
         padding-left: 2.5rem;
         border-top: 1px solid black;
+
+        .address {
+          font-size: 0.85rem;
+          padding-top: 0.5rem;
+        }
 
         & p:last-child {
           font-size: 2rem;
